@@ -14,13 +14,12 @@ namespace View
     public partial class FWorld : Form
     {
         private ITeam shepards;
-        private ITeam wolfs;
 
         private IViewableWorld world;
 
         private SimulationParameters simulationParameters;
 
-        public FWorld(SimulationParameters simulationParameters, ITeam shepards, ITeam wolfs)
+        public FWorld(SimulationParameters simulationParameters, ITeam shepards)
         {
             this.simulationParameters = simulationParameters;
 
@@ -29,14 +28,12 @@ namespace View
             this.shepards = shepards;
             shepards.SetPositions(simulationParameters.PositionsOfShepards);
 
-            this.wolfs = wolfs;
-
             var sheep = SheepProvider.GetSheep(
                 simulationParameters.PositionsOfSheep,
                 simulationParameters.SheepType,
                 simulationParameters.SeedForRandomSheepForBest);
 
-            world = new ViewableWorld(shepards, sheep, wolfs);            
+            world = new ViewableWorld(shepards, sheep);            
         }
 
         private void FMain_Load(object sender, EventArgs e)
@@ -84,14 +81,12 @@ namespace View
             shepards.ClearPath();
             shepards.SetPositions(simulationParameters.PositionsOfShepards);
 
-            wolfs.ClearPath();
-
             var sheep = SheepProvider.GetSheep(
                 simulationParameters.PositionsOfSheep,
                 simulationParameters.SheepType,
                 simulationParameters.SeedForRandomSheepForBest);
 
-            world = new ViewableWorld(shepards, sheep, wolfs);            
+            world = new ViewableWorld(shepards, sheep);            
 
             world.Start(simulationParameters.TurnsOfHerding);
         }

@@ -11,7 +11,6 @@ namespace World
     {
         public ITeam Shepards { get; private set; }
         public IList<ISheep> Sheep { get; private set; }
-        public ITeam Wolfs { get; private set; }
 
         protected bool recordSheepPositionsFlag;
         public IList<IList<Position>> SheepPositionsRecord { get; protected set; }
@@ -19,12 +18,10 @@ namespace World
         public SimulationWorld(
             ITeam shepards,
             IList<ISheep> sheep,
-            ITeam wolfs,
             bool recordSheepPositions = false)
         {
             this.Shepards = shepards;
             this.Sheep = sheep;
-            this.Wolfs = wolfs;
 
             this.recordSheepPositionsFlag = recordSheepPositions;
 
@@ -61,13 +58,6 @@ namespace World
                 s.Decide(input);
             }
 
-            foreach (var w in Wolfs.Members)
-            {
-                var input = ShepardExtractor.ExtractFeatures(this, w);
-
-                w.Decide(input);
-            }
-
             foreach (var s in Shepards.Members)
             {
                 ShepardExtractor.InterpretOutput(s, this, s.DecideOutput);
@@ -80,13 +70,6 @@ namespace World
                 SheepExtractor.InterpretOutput(s, this, s.DecideOutput);
 
                 s.Path.Add(new Position(s.Position));
-            }
-
-            foreach (var w in Wolfs.Members)
-            {
-                ShepardExtractor.InterpretOutput(w, this, w.DecideOutput);
-
-                w.Path.Add(new Position(w.Position));
             }
         }
     }

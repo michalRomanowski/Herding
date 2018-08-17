@@ -49,7 +49,7 @@ namespace View
             try
             {
                 DBManagement.SaveSimulationParameters(saveName, fSim.SimulationParameters.Compress());
-                DBManagement.SavePopulation($"{saveName}", fSim.Populations.Shepards.Compress());
+                DBManagement.SavePopulation($"{saveName}", fSim.Shepards.Compress());
             }
             catch(Exception ex)
             {

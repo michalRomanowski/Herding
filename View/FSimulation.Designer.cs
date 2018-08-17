@@ -80,7 +80,6 @@
             this.numericUpDownNumberOfShepardsHiddenLayers = new System.Windows.Forms.NumericUpDown();
             this.label9 = new System.Windows.Forms.Label();
             this.label3 = new System.Windows.Forms.Label();
-            this.numericUpDownWolfsHiddenLayerSize = new System.Windows.Forms.NumericUpDown();
             this.labelSheepSight = new System.Windows.Forms.Label();
             this.label1 = new System.Windows.Forms.Label();
             this.numericUpDownShepardShepardSight = new System.Windows.Forms.NumericUpDown();
@@ -93,6 +92,7 @@
             this.panelPopulation = new System.Windows.Forms.Panel();
             this.label11 = new System.Windows.Forms.Label();
             this.panelMenu = new System.Windows.Forms.Panel();
+            this.numericUpDownHiddenLayerSize = new System.Windows.Forms.NumericUpDown();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDownOptimizationSteps)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDownNumberOfTurnsOfHerding)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDownNumberOfParticipants)).BeginInit();
@@ -108,7 +108,6 @@
             this.panelInfo.SuspendLayout();
             this.panelShepards.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDownNumberOfShepardsHiddenLayers)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.numericUpDownWolfsHiddenLayerSize)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDownShepardShepardSight)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDownShepardSheepSight)).BeginInit();
             this.panelSheep.SuspendLayout();
@@ -116,6 +115,7 @@
             this.panelOptimization.SuspendLayout();
             this.panelPopulation.SuspendLayout();
             this.panelMenu.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.numericUpDownHiddenLayerSize)).BeginInit();
             this.SuspendLayout();
             // 
             // numericUpDownOptimizationSteps
@@ -649,6 +649,7 @@
             // panelShepards
             // 
             this.panelShepards.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.panelShepards.Controls.Add(this.numericUpDownHiddenLayerSize);
             this.panelShepards.Controls.Add(this.label14);
             this.panelShepards.Controls.Add(this.labelShepardSight);
             this.panelShepards.Controls.Add(this.checkBoxNotIdenticalAgents);
@@ -657,7 +658,6 @@
             this.panelShepards.Controls.Add(this.dataGridViewShepards);
             this.panelShepards.Controls.Add(this.label9);
             this.panelShepards.Controls.Add(this.label3);
-            this.panelShepards.Controls.Add(this.numericUpDownWolfsHiddenLayerSize);
             this.panelShepards.Controls.Add(this.labelSheepSight);
             this.panelShepards.Controls.Add(this.label1);
             this.panelShepards.Controls.Add(this.numericUpDownShepardShepardSight);
@@ -733,23 +733,6 @@
             this.label3.Size = new System.Drawing.Size(78, 13);
             this.label3.TabIndex = 73;
             this.label3.Text = "Hidden Layers:";
-            // 
-            // numericUpDownWolfsHiddenLayerSize
-            // 
-            this.numericUpDownWolfsHiddenLayerSize.Location = new System.Drawing.Point(357, 90);
-            this.numericUpDownWolfsHiddenLayerSize.Minimum = new decimal(new int[] {
-            1,
-            0,
-            0,
-            0});
-            this.numericUpDownWolfsHiddenLayerSize.Name = "numericUpDownWolfsHiddenLayerSize";
-            this.numericUpDownWolfsHiddenLayerSize.Size = new System.Drawing.Size(45, 20);
-            this.numericUpDownWolfsHiddenLayerSize.TabIndex = 76;
-            this.numericUpDownWolfsHiddenLayerSize.Value = new decimal(new int[] {
-            12,
-            0,
-            0,
-            0});
             // 
             // labelSheepSight
             // 
@@ -898,6 +881,28 @@
             this.panelMenu.Size = new System.Drawing.Size(440, 33);
             this.panelMenu.TabIndex = 87;
             // 
+            // numericUpDownHiddenLayerSize
+            // 
+            this.numericUpDownHiddenLayerSize.Location = new System.Drawing.Point(357, 89);
+            this.numericUpDownHiddenLayerSize.Maximum = new decimal(new int[] {
+            10000,
+            0,
+            0,
+            0});
+            this.numericUpDownHiddenLayerSize.Minimum = new decimal(new int[] {
+            1,
+            0,
+            0,
+            0});
+            this.numericUpDownHiddenLayerSize.Name = "numericUpDownHiddenLayerSize";
+            this.numericUpDownHiddenLayerSize.Size = new System.Drawing.Size(45, 20);
+            this.numericUpDownHiddenLayerSize.TabIndex = 81;
+            this.numericUpDownHiddenLayerSize.Value = new decimal(new int[] {
+            8,
+            0,
+            0,
+            0});
+            // 
             // FSimulation
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -934,7 +939,6 @@
             this.panelShepards.ResumeLayout(false);
             this.panelShepards.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDownNumberOfShepardsHiddenLayers)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.numericUpDownWolfsHiddenLayerSize)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDownShepardShepardSight)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDownShepardSheepSight)).EndInit();
             this.panelSheep.ResumeLayout(false);
@@ -946,6 +950,7 @@
             this.panelPopulation.ResumeLayout(false);
             this.panelPopulation.PerformLayout();
             this.panelMenu.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.numericUpDownHiddenLayerSize)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -1008,7 +1013,6 @@
         private System.Windows.Forms.NumericUpDown numericUpDownNumberOfShepardsHiddenLayers;
         private System.Windows.Forms.Label label9;
         private System.Windows.Forms.Label label3;
-        private System.Windows.Forms.NumericUpDown numericUpDownWolfsHiddenLayerSize;
         private System.Windows.Forms.Label labelSheepSight;
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.NumericUpDown numericUpDownShepardShepardSight;
@@ -1018,5 +1022,6 @@
         private System.Windows.Forms.Panel panelPopulation;
         private System.Windows.Forms.Label label11;
         private System.Windows.Forms.Panel panelMenu;
+        private System.Windows.Forms.NumericUpDown numericUpDownHiddenLayerSize;
     }
 }

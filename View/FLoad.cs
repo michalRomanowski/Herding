@@ -49,10 +49,7 @@ namespace View
 
                 fSim.SimulationParameters = SimulationParameters.Decompress(DBManagement.LoadSimulationsParameters(selectedName));
 
-                fSim.Populations = new Populations(fSim.SimulationParameters)
-                {
-                    Shepards = new Population(fSim.SimulationParameters, DBManagement.LoadPopulation(selectedName))
-                };
+                fSim.Shepards = new Population(fSim.SimulationParameters, DBManagement.LoadPopulation(selectedName));
             }
             catch (Exception ex)
             {

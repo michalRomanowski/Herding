@@ -32,7 +32,6 @@ namespace Simulation
                             0,
                             simulationParameters.NumberOfSeenShepards,
                             simulationParameters.NumberOfSeenSheep,
-                            simulationParameters.NumberOfSeenWolfs,
                             simulationParameters.NumberOfHiddenLayers,
                             simulationParameters.NumberOfNeuronsInHiddenLayer));
 
@@ -78,7 +77,7 @@ namespace Simulation
             foreach(var team in Units)
                 team.AdjustInputLayerSize(numberOfSeenShepards, numberOfSeenSheep);
         }
-
+        
         public void AdjustHiddenLayersSize(int newSize)
         {
             foreach (var team in Units)

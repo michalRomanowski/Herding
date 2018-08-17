@@ -15,7 +15,6 @@ namespace Simulation
             SimulationParameters simulationParameters,
             List<Position> positionsOfShepards, 
             List<Position> positionsOfSheep,
-            List<Position> positionsOfWolfs,
             ESheepType sheepType, 
             int seed)
         {
@@ -24,7 +23,7 @@ namespace Simulation
             team.ClearPath();
             team.SetPositions(positionsOfShepards);
 
-            var world = new SimulationWorld(team, sheep, new IdenticalTeam());
+            var world = new SimulationWorld(team, sheep);
 
             world.Work(simulationParameters.TurnsOfHerding);
 
@@ -36,12 +35,11 @@ namespace Simulation
             SimulationParameters simulationParameters,
             List<List<Position>> positionsOfShepardsSet,
             List<List<Position>> positionsOfSheepSet,
-            List<List<Position>> positionsOfWolfsSet,
             ESheepType sheepType,
             int seed)
         {
-            if(positionsOfShepardsSet.Count != positionsOfSheepSet.Count || positionsOfShepardsSet.Count != positionsOfWolfsSet.Count)
-                throw new ArgumentException("positionsOfShepardsSet.Count != positionsOfSheepSet.Count || positionsOfShepardsSet.Count != positionsOfWolfsSet.Count");
+            if(positionsOfShepardsSet.Count != positionsOfSheepSet.Count)
+                throw new ArgumentException("positionsOfShepardsSet.Count != positionsOfSheepSet.Count");
 
             float fitness = 0.0f;
 
@@ -52,7 +50,6 @@ namespace Simulation
                     simulationParameters,
                     positionsOfShepardsSet[i],
                     positionsOfSheepSet[i],
-                    positionsOfWolfsSet[i],
                     sheepType,
                     seed);
             }

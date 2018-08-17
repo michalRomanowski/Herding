@@ -30,7 +30,6 @@ namespace Simulation
                         simulationParameters,
                         simulationParameters.PositionsOfShepards,
                         simulationParameters.PositionsOfSheep,
-                        simulationParameters.PositionsOfWolfs,
                         simulationParameters.SheepType,
                         seed);
                 }
@@ -41,7 +40,6 @@ namespace Simulation
                         simulationParameters,
                         simulationParameters.RandomSetsForBest.PositionsOfShepardsSet,
                         simulationParameters.RandomSetsForBest.PositionsOfSheepSet,
-                        simulationParameters.RandomSetsForBest.PositionsOfWolfsSet,
                         simulationParameters.SheepType,
                         seed);
                 }

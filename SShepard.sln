@@ -3,8 +3,6 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 15
 VisualStudioVersion = 15.0.27428.2037
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ShepardUnitTestProject", "ShepardUnitTestProject\ShepardUnitTestProject.csproj", "{0C462CE1-B70D-4C46-BB30-E4BEA5A1B53C}"
-EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Team", "Team\Team.csproj", "{BF919043-20A4-4388-A33E-22BE06BC2D46}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DBManager", "DBManager\DBManager.csproj", "{8976C2FE-03B2-49AB-AC1E-DBF27C7661F0}"
@@ -25,6 +23,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "World", "World\World.csproj
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Timer", "Timer\Timer.csproj", "{98BBF95A-2E7D-4A8D-8734-DB8517DFDC46}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EFDatabase", "EFDatabase\EFDatabase.csproj", "{41EB4CBC-A1FB-408D-8038-21A3BEC2D8AB}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -35,16 +35,6 @@ Global
 		Release|x86 = Release|x86
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
-		{0C462CE1-B70D-4C46-BB30-E4BEA5A1B53C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{0C462CE1-B70D-4C46-BB30-E4BEA5A1B53C}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{0C462CE1-B70D-4C46-BB30-E4BEA5A1B53C}.Debug|Mixed Platforms.ActiveCfg = Debug|Any CPU
-		{0C462CE1-B70D-4C46-BB30-E4BEA5A1B53C}.Debug|Mixed Platforms.Build.0 = Debug|Any CPU
-		{0C462CE1-B70D-4C46-BB30-E4BEA5A1B53C}.Debug|x86.ActiveCfg = Debug|Any CPU
-		{0C462CE1-B70D-4C46-BB30-E4BEA5A1B53C}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{0C462CE1-B70D-4C46-BB30-E4BEA5A1B53C}.Release|Any CPU.Build.0 = Release|Any CPU
-		{0C462CE1-B70D-4C46-BB30-E4BEA5A1B53C}.Release|Mixed Platforms.ActiveCfg = Release|Any CPU
-		{0C462CE1-B70D-4C46-BB30-E4BEA5A1B53C}.Release|Mixed Platforms.Build.0 = Release|Any CPU
-		{0C462CE1-B70D-4C46-BB30-E4BEA5A1B53C}.Release|x86.ActiveCfg = Release|Any CPU
 		{BF919043-20A4-4388-A33E-22BE06BC2D46}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{BF919043-20A4-4388-A33E-22BE06BC2D46}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{BF919043-20A4-4388-A33E-22BE06BC2D46}.Debug|Mixed Platforms.ActiveCfg = Debug|Any CPU
@@ -163,6 +153,18 @@ Global
 		{98BBF95A-2E7D-4A8D-8734-DB8517DFDC46}.Release|Mixed Platforms.Build.0 = Release|Any CPU
 		{98BBF95A-2E7D-4A8D-8734-DB8517DFDC46}.Release|x86.ActiveCfg = Release|Any CPU
 		{98BBF95A-2E7D-4A8D-8734-DB8517DFDC46}.Release|x86.Build.0 = Release|Any CPU
+		{41EB4CBC-A1FB-408D-8038-21A3BEC2D8AB}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{41EB4CBC-A1FB-408D-8038-21A3BEC2D8AB}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{41EB4CBC-A1FB-408D-8038-21A3BEC2D8AB}.Debug|Mixed Platforms.ActiveCfg = Debug|Any CPU
+		{41EB4CBC-A1FB-408D-8038-21A3BEC2D8AB}.Debug|Mixed Platforms.Build.0 = Debug|Any CPU
+		{41EB4CBC-A1FB-408D-8038-21A3BEC2D8AB}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{41EB4CBC-A1FB-408D-8038-21A3BEC2D8AB}.Debug|x86.Build.0 = Debug|Any CPU
+		{41EB4CBC-A1FB-408D-8038-21A3BEC2D8AB}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{41EB4CBC-A1FB-408D-8038-21A3BEC2D8AB}.Release|Any CPU.Build.0 = Release|Any CPU
+		{41EB4CBC-A1FB-408D-8038-21A3BEC2D8AB}.Release|Mixed Platforms.ActiveCfg = Release|Any CPU
+		{41EB4CBC-A1FB-408D-8038-21A3BEC2D8AB}.Release|Mixed Platforms.Build.0 = Release|Any CPU
+		{41EB4CBC-A1FB-408D-8038-21A3BEC2D8AB}.Release|x86.ActiveCfg = Release|Any CPU
+		{41EB4CBC-A1FB-408D-8038-21A3BEC2D8AB}.Release|x86.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

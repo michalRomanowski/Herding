@@ -15,11 +15,11 @@ namespace View
     public partial class FSimulation : Form
     {
         public SimulationParameters SimulationParameters = new SimulationParameters();
-        public Populations Populations;
+        public Population Shepards;
 
         private List<Form> children = new List<Form>();
 
-        public Optimizer optimizer = new Optimizer();
+        public Lazy<Optimization> optimizer;
 
         private Thread optimizationThread;
 
@@ -81,6 +81,8 @@ namespace View
 
         public FSimulation()
         {
+            optimizer = new Lazy<Optimization>(() => new Optimization(SimulationParameters, Shepards));
+
             InitializeComponent();
 
             comboBoxShepardsFitnessCryteria.DataSource = Enum.GetValues(typeof(EFitnessType));
@@ -104,7 +106,7 @@ namespace View
             SimulationParameters.AbsoluteMutationFactor = (float)numericUpDownAbsoluteMutationFactor.Value;
             SimulationParameters.NumberOfChildren = (int)numericUpDownNumberOfChildren.Value;
             SimulationParameters.NumberOfHiddenLayers = (int)numericUpDownNumberOfShepardsHiddenLayers.Value;
-            SimulationParameters.NumberOfNeuronsInHiddenLayer = (int)numericUpDownWolfsHiddenLayerSize.Value;
+            SimulationParameters.NumberOfNeuronsInHiddenLayer = (int)numericUpDownHiddenLayerSize.Value;
             SimulationParameters.NumberOfParticipants = (int)numericUpDownNumberOfParticipants.Value;
             SimulationParameters.NumberOfSeenShepards = (int)numericUpDownShepardShepardSight.Value;
             SimulationParameters.NumberOfSeenSheep = (int)numericUpDownShepardSheepSight.Value;
@@ -124,7 +126,7 @@ namespace View
             numericUpDownAbsoluteMutationFactor.Value = (decimal)SimulationParameters.AbsoluteMutationFactor;
             numericUpDownNumberOfChildren.Value = SimulationParameters.NumberOfChildren;
             numericUpDownNumberOfShepardsHiddenLayers.Value = SimulationParameters.NumberOfHiddenLayers;
-            numericUpDownWolfsHiddenLayerSize.Value = SimulationParameters.NumberOfNeuronsInHiddenLayer;
+            numericUpDownHiddenLayerSize.Value = SimulationParameters.NumberOfNeuronsInHiddenLayer;
             numericUpDownNumberOfParticipants.Value = SimulationParameters.NumberOfParticipants;
             numericUpDownNumberOfTurnsOfHerding.Value = SimulationParameters.TurnsOfHerding;
             numericUpDownPopulationSize.Value = SimulationParameters.PopulationSize;
@@ -133,7 +135,7 @@ namespace View
 
             comboBoxPopulation.Items.Clear();
 
-            for (int i = 0; i < Populations.Shepards.Units.Count(); i++)
+            for (int i = 0; i < Shepards.Units.Count(); i++)
             {
                 comboBoxPopulation.Items.Add(i.ToString());
             }
@@ -158,13 +160,8 @@ namespace View
             numericUpDownShepardSheepSight.Maximum = SimulationParameters.NumberOfSeenSheep > 0 ? SimulationParameters.NumberOfSeenSheep : 0;
             numericUpDownShepardSheepSight.Value = SimulationParameters.NumberOfSeenSheep;
 
-            buttonShowHerdingOfBestTeam.Enabled = Populations != null && Populations.Shepards != null && Populations.Shepards.Best != null;
-            buttonCountFitness.Enabled = Populations != null && Populations.Shepards != null;
-        }
-
-        private void Optimize()
-        {
-            optimizer.Optimize(SimulationParameters, Populations);
+            buttonShowHerdingOfBestTeam.Enabled = Shepards != null && Shepards.Best != null;
+            buttonCountFitness.Enabled = Shepards != null;
         }
 
         private void UpdateProgressBar()
@@ -175,12 +172,12 @@ namespace View
 
             if (progress > 0)
             {
-                if (Populations.Shepards.Best != null)
+                if (Shepards.Best != null)
                 {
-                    labelBestFitness2.Text = Populations.Shepards.Best.Fitness.ToString();
+                    labelBestFitness2.Text = Shepards.Best.Fitness.ToString();
                 }
 
-                labelStep.Text = optimizer.StepCount.ToString();
+                labelStep.Text = optimizer.Value.StepCount.ToString();
             }
 
 
@@ -241,11 +238,10 @@ namespace View
                     (int)numericUpDownNumberOfRandomSetsForBest.Value,
                     SimulationParameters.NumberOfShepards,
                     SimulationParameters.NumberOfSheep,
-                    SimulationParameters.NumberOfWolfs,
                     DateTime.Now.Millisecond);
             }
 
-            if (Populations == null || Populations.Shepards == null || Populations.Shepards.Units == null || Populations.Shepards.Units.Count == 0)
+            if (Shepards == null || Shepards.Units == null || Shepards.Units.Count == 0)
             {
                 MessageBox.Show("Random Population created.");
                 CreateRandomPopulation();
@@ -253,8 +249,10 @@ namespace View
                 SimulationParameters.SeedForRandomSheepForBest = DateTime.Now.Millisecond;
             }
             else
-                Populations.Shepards.AdjustInputLayerSize(
-                    SimulationParameters.NumberOfSeenShepards, SimulationParameters.NumberOfSeenSheep);
+            {
+                Shepards.AdjustInputLayerSize(SimulationParameters.NumberOfSeenShepards, SimulationParameters.NumberOfSeenSheep);
+                Shepards.AdjustHiddenLayersSize(SimulationParameters.NumberOfNeuronsInHiddenLayer);
+            }
 
             foreach (Form f in children)
             {
@@ -262,17 +260,17 @@ namespace View
                 f.Dispose();
             }
 
-            Populations.Shepards.AdjustTeamSize(SimulationParameters.NumberOfShepards);
+            Shepards.AdjustTeamSize(SimulationParameters.NumberOfShepards);
             
             timer.Start();
 
-            optimizationThread = new Thread(new ThreadStart(Optimize));
+            optimizationThread = new Thread(new ThreadStart(optimizer.Value.Optimize));
             optimizationThread.Start();
         }
 
         private void buttonSave_Click(object sender, EventArgs e)
         {
-            if (Populations.Shepards.Units == null)
+            if (Shepards.Units == null)
                 return;
 
             Enabled = false;
@@ -296,8 +294,7 @@ namespace View
         {
             GetSimulationParameters();
             
-            Populations = new Populations(SimulationParameters);
-            Populations.Shepards = new Population(SimulationParameters);
+            Shepards = new Population(SimulationParameters);
 
             SetControls();
         }
@@ -308,9 +305,9 @@ namespace View
                 return;
 
             GetSimulationParameters();
-            Populations.Shepards.AdjustTeamSize(SimulationParameters.NumberOfShepards);
+            Shepards.AdjustTeamSize(SimulationParameters.NumberOfShepards);
 
-            children.Add(new FWorld(SimulationParameters, Populations.Shepards.Units[comboBoxPopulation.SelectedIndex], Populations.Wolfs.Best));
+            children.Add(new FWorld(SimulationParameters, Shepards.Units[comboBoxPopulation.SelectedIndex]));
             children.Last().Show();
         }
 
@@ -350,7 +347,6 @@ namespace View
 
         public void BlockControlsAfterPopulationCreation()
         {
-            numericUpDownWolfsHiddenLayerSize.Enabled = false;
             numericUpDownNumberOfShepardsHiddenLayers.Enabled = false;
             numericUpDownPopulationSize.Enabled = false;
         }
@@ -375,9 +371,9 @@ namespace View
 
         private void buttonStop_Click(object sender, EventArgs e)
         {
-            lock (optimizer.StopLocker)
+            lock (optimizer.Value.StopLocker)
             {
-                optimizer.Stop = true;
+                optimizer.Value.Stop = true;
             }
 
             optimizationThread.Join();
@@ -395,12 +391,12 @@ namespace View
 
             BlockControls();
 
-            Populations.Shepards.CountAverageFitness(SimulationParameters);
+            Shepards.CountAverageFitness(SimulationParameters);
 
-            new BestTeamManager().UpdateBestTeam(SimulationParameters, Populations.Shepards, Populations.Shepards.Units);
+            new BestTeamManager().UpdateBestTeam(SimulationParameters, Shepards, Shepards.Units);
 
-            labelAverage.Text = "Average Fitness: " + Populations.Shepards.AverageFitness.ToString();
-            labelBestFitness.Text = "Best Fitness: " + Populations.Shepards.Best.Fitness.ToString();
+            labelAverage.Text = "Average Fitness: " + Shepards.AverageFitness.ToString();
+            labelBestFitness.Text = "Best Fitness: " + Shepards.Best.Fitness.ToString();
 
             state = State.Idle;
 
@@ -434,7 +430,7 @@ namespace View
 
         private void buttonCountFitness_Click(object sender, EventArgs e)
         {
-            foreach (ITeam t in Populations.Shepards.Units)
+            foreach (ITeam t in Shepards.Units)
             {
                 t.ResetFitness();
             }
@@ -460,9 +456,9 @@ namespace View
         {
             GetSimulationParameters();
 
-            Populations.Shepards.AdjustTeamSize(SimulationParameters.NumberOfShepards);
+            Shepards.AdjustTeamSize(SimulationParameters.NumberOfShepards);
 
-            children.Add(new FWorld(SimulationParameters, Populations.Shepards.Best, Populations.Wolfs.Best));
+            children.Add(new FWorld(SimulationParameters, Shepards.Best));
             children.Last().Show();
         }
 

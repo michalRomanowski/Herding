@@ -29,8 +29,7 @@ namespace World
 
         public ViewableWorld(
         ITeam shepards,
-        IList<ISheep> sheep,
-        ITeam wolfs) : base(shepards, sheep, wolfs)
+        IList<ISheep> sheep) : base(shepards, sheep)
         {
             foreach (var agent in Shepards.Members)
             {
@@ -90,11 +89,6 @@ namespace World
             foreach (var s in Sheep)
             {
                 s.StepBack();
-            }
-
-            foreach (var w in Wolfs.Members)
-            {
-                w.StepBack();
             }
         }
 

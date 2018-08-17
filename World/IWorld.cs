@@ -10,7 +10,6 @@ namespace World
     {
         ITeam Shepards { get; }
         IList<ISheep> Sheep { get; }
-        ITeam Wolfs { get; }
 
         IList<IList<Position>> SheepPositionsRecord { get; }
 

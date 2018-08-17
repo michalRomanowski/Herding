@@ -47,8 +47,6 @@
     <Compile Include="FitnessCounters\AverageFitnessCounter.cs" />
     <Compile Include="FitnessCounters\BestTeamManager.cs" />
     <Compile Include="FitnessCounters\ClassicFitnessCounter.cs" />
-    <Compile Include="FitnessCounters\WolfFitnessCounte.cs" />
-    <Compile Include="Populations.cs" />
     <Compile Include="RandomSetsList.cs" />
     <Compile Include="FitnessCounters\FitnessCounterProvider.cs" />
     <Compile Include="FitnessCounters\SumFitnessCounter.cs" />
@@ -56,7 +54,7 @@
     <Compile Include="FitnessCounters\IFitnessCounter.cs" />
     <Compile Include="SelectionResults.cs" />
     <Compile Include="Population.cs" />
-    <Compile Include="Optimizer.cs" />
+    <Compile Include="Optimization.cs" />
     <Compile Include="SimulationParameters.cs" />
     <Compile Include="TeamProvider.cs" />
     <Compile Include="Tournament.cs" />

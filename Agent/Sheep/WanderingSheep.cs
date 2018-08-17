@@ -8,7 +8,7 @@ namespace Agent
         private Random r;
 
         private const float RANDOM_ROTATION_SPEED = 0.15f;
-        private const float RANDOM_MOVEMENT_SPEED = 0.15f;
+        private const float RANDOM_MOVEMENT_SPEED = 0.25f;
 
         private float randomMoveAngle
         {

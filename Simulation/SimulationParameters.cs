@@ -72,14 +72,6 @@ namespace Simulation
             }
         }
 
-        public int NumberOfWolfs
-        {
-            get
-            {
-                return PositionsOfWolfs.Count;
-            }
-        }
-
         public ESheepType SheepType;
 
         public bool RandomNeuralNets;
@@ -88,13 +80,9 @@ namespace Simulation
 
         public List<Position> PositionsOfSheep = new List<Position>();
 
-        public List<Position> PositionsOfWolfs = new List<Position>();
-
         public int NumberOfSeenShepards;
 
         public int NumberOfSeenSheep;
-
-        public int NumberOfSeenWolfs;
 
         public int NumberOfHiddenLayers;
 
@@ -140,7 +128,6 @@ namespace Simulation
             this.NumberOfRandomSets = 0;
             this.NumberOfSeenSheep = 2;
             this.NumberOfSeenShepards = 1;
-            this.NumberOfSeenWolfs = 0;
             this.OptimizationSteps = 100;
             this.PopulationSize = 50;
             this.PositionsOfSheep = new List<Position> {
@@ -149,7 +136,6 @@ namespace Simulation
             this.PositionsOfShepards = new List<Position> {
                 new Position(150, 200),
                 new Position(250, 200)};
-            this.PositionsOfWolfs = new List<Position>();
             this.Progress = float.MinValue;
             this.RandomNeuralNets = false;
             this.RandomPositions = false;

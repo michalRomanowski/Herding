@@ -3,10 +3,11 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Data.Entity;
 
-namespace World
+namespace EFDatabase
 {
-    //public static class WolfExtractor : ShepardExtractor
-    //{
-    //}
+    public class EFDatabaseContext : DbContext
+    {
+    }
 }

@@ -19,7 +19,6 @@ namespace Agent
 
         public int NumberOfSeenShepards { get; private set; }
         public int NumberOfSeenSheep { get; private set; }
-        public int NumberOfSeenWolfs { get; private set; }
 
         public INeuralNet Brain { get; private set; }
 
@@ -43,7 +42,6 @@ namespace Agent
         {
             NumberOfSeenShepards = numberOfSeenShepards;
             NumberOfSeenSheep = numberOfSeenSheep;
-            NumberOfSeenWolfs = 0;
         }
 
         public Shepard(
@@ -51,7 +49,6 @@ namespace Agent
             float y,
             int numberOfSeenShepards,
             int numberOfSeenSheep,
-            int numberOfSeenWolfs,
             int numberOfHiddenLayers,
             int sizeOfHiddenLayer)
             : this(
@@ -69,7 +66,6 @@ namespace Agent
         {
             this.NumberOfSeenShepards = Convert.ToInt32(compressed.ReadLine());
             this.NumberOfSeenSheep = Convert.ToInt32(compressed.ReadLine());
-            this.NumberOfSeenWolfs = Convert.ToInt32(compressed.ReadLine());
 
             this.Brain = NeuralNetsProvider.DecompressMultiLayerNeuralNet(compressed);
         }
@@ -143,7 +139,6 @@ namespace Agent
 
             sb.Append($"{NumberOfSeenShepards.ToString()}\n");
             sb.Append($"{NumberOfSeenSheep.ToString()}\n");
-            sb.Append($"{NumberOfSeenWolfs.ToString()}\n");
 
             sb.Append(Brain.Compress());
 

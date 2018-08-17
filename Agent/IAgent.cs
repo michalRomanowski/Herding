@@ -24,7 +24,6 @@ namespace Agent
     {
         int NumberOfSeenShepards { get; }
         int NumberOfSeenSheep { get; }
-        int NumberOfSeenWolfs { get; }
 
         INeuralNet Brain { get; }
         

@@ -3,7 +3,6 @@ using Auxiliary;
 using System;
 using System.IO;
 using System.Runtime.CompilerServices;
-using System.Text;
 
 [assembly: InternalsVisibleTo("ShepardUnitTestProject")]
 
@@ -264,10 +263,10 @@ namespace NeuralNet
 
         public void AdjustInputLayerSize(int newSize)
         {
-            if (wagesBetweenInputAndFirstHiddenLayer.GetLength(0) == newSize)
-                return;
-
             var numberOfNeuronsToAdd = newSize - wagesBetweenInputAndFirstHiddenLayer.GetLength(0);
+
+            if (numberOfNeuronsToAdd == 0)
+                return;
 
             var newArray = new float[wagesBetweenInputAndFirstHiddenLayer.GetLength(0) + numberOfNeuronsToAdd, wagesBetweenInputAndFirstHiddenLayer.GetLength(1)];
             Array.Copy(wagesBetweenInputAndFirstHiddenLayer, newArray, wagesBetweenInputAndFirstHiddenLayer.GetLength(0));

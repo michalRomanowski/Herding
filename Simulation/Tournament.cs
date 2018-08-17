@@ -15,7 +15,6 @@ namespace Simulation
 
         private readonly List<List<Position>> positionsOfShepardsSet;
         private readonly List<List<Position>> positionsOfSheepSet;
-        private readonly List<List<Position>> positionsOfWolfsSet;
         
         private IFitnessCounter fitnessCounter;
 
@@ -40,20 +39,18 @@ namespace Simulation
             }
         }
 
-        public Tournament(SimulationParameters simulationParameters, Population population, List<Position> positionsOfShepards, List<Position> positionsOfSheep, List<Position> positionsOfWolfs)
+        public Tournament(SimulationParameters simulationParameters, Population population, List<Position> positionsOfShepards, List<Position> positionsOfSheep)
             : this(simulationParameters, population)
         {
             this.positionsOfShepardsSet = new List<List<Position>> { positionsOfShepards };
             this.positionsOfSheepSet = new List<List<Position>> { positionsOfSheep };
-            this.positionsOfWolfsSet = new List<List<Position>> { positionsOfWolfs };
         }
 
-        public Tournament(SimulationParameters simulationParameters, Population population, List<List<Position>> positionsOfShepardsSet, List<List<Position>> positionsOfSheepSet, List<List<Position>> positionsOfWolfsSet)
+        public Tournament(SimulationParameters simulationParameters, Population population, List<List<Position>> positionsOfShepardsSet, List<List<Position>> positionsOfSheepSet)
             : this(simulationParameters, population)
         {
             this.positionsOfShepardsSet = positionsOfShepardsSet;
             this.positionsOfSheepSet = positionsOfSheepSet;
-            this.positionsOfWolfsSet = positionsOfWolfsSet;
         }
 
         public void Attend()
@@ -67,8 +64,7 @@ namespace Simulation
                     participants[i],
                     simulationParameters,
                     positionsOfShepardsSet, 
-                    positionsOfSheepSet, 
-                    positionsOfWolfsSet,
+                    positionsOfSheepSet,
                     simulationParameters.SheepType, 
                     seed);
             
