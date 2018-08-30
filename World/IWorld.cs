@@ -2,13 +2,13 @@
 using Auxiliary;
 using System.Collections.Generic;
 using System.Drawing;
-using Team;
+using Teams;
 
 namespace World
 {
     public interface IWorld
     {
-        ITeam Shepards { get; }
+        Team Shepards { get; }
         IList<ISheep> Sheep { get; }
 
         IList<IList<Position>> SheepPositionsRecord { get; }

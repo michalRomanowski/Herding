@@ -7,8 +7,8 @@
     <ProjectGuid>{C6E09BBA-2A95-4B06-98EC-02B3259698F1}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>PAuxiliary</RootNamespace>
-    <AssemblyName>PAuxiliary</AssemblyName>
+    <RootNamespace>Auxiliary</RootNamespace>
+    <AssemblyName>Auxiliary</AssemblyName>
     <TargetFrameworkVersion>v4.6.1</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <TargetFrameworkProfile />
@@ -44,6 +44,7 @@
   <ItemGroup>
     <Compile Include="CenterOfGravityCalculator.cs" />
     <Compile Include="CMath.cs" />
+    <Compile Include="Compressor.cs" />
     <Compile Include="Logger.cs" />
     <Compile Include="Normalizator.cs" />
     <Compile Include="Position.cs" />

@@ -1,27 +1,22 @@
-﻿using Team;
+﻿using Teams;
 
-namespace Simulation
+namespace Simulations
 {
-    interface IAverageFitnessCounter
+    public interface IAverageFitnessCounter
     {
         float CountAverageFitness(SimulationParameters simulationParameters, Population population, int seed = 0);
     }
 
-    class AverageFitnessCounter : IAverageFitnessCounter
+    public class AverageFitnessCounter : IAverageFitnessCounter
     {
-        private IFitnessCounter fitnessCounter;
-
-        public AverageFitnessCounter(SimulationParameters simulationParameters)
-        {
-            fitnessCounter = FitnessCounterProvider.GetFitnessCounter(simulationParameters);
-        }
-
         public float CountAverageFitness(SimulationParameters simulationParameters, Population population, int seed = 0)
         {
             float sumOfFitnesses = 0.0f;
             float fitness = 0.0f;
 
-            foreach (ITeam team in population.Units)
+            var fitnessCounter = FitnessCounterProvider.GetFitnessCounter(simulationParameters);
+
+            foreach (Team team in population.Units)
             {
                 if (simulationParameters.RandomPositions == false)
                 {

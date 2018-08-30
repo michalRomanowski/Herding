@@ -1,9 +1,6 @@
-﻿using Simulation;
-using System;
-using System.IO;
-using System.Linq;
+﻿using System;
 using System.Windows.Forms;
-using DBManager;
+using EFDatabase;
 
 namespace View
 {
@@ -21,23 +18,22 @@ namespace View
 
         private void FLoad_Load(object sender, EventArgs e)
         {
-            listBoxSimulations.Items.Clear();
+            ListBoxSimulations.Items.Clear();
 
-            foreach (string dir in DBManagement.LoadSimulationsNames())
+            try
             {
-                string[] splittedDir = dir.Split('\\');
-                listBoxSimulations.Items.Add(splittedDir.Last());
+                foreach (var name in new EFDatabaseManager().LoadOptimizationsNames())
+                        ListBoxSimulations.Items.Add(name);
+            }
+            catch(Exception ex)
+            {
+                MessageBox.Show(ex.ToString());
             }
         }
 
-        private void FLoad_FormClosed(object sender, FormClosedEventArgs e)
+        private void ButtonLoad_Click(object sender, EventArgs e)
         {
-            fSim.Enabled = true;
-        }
-
-        private void buttonLoad_Click(object sender, EventArgs e)
-        {
-            if(listBoxSimulations.SelectedIndex == -1)
+            if(ListBoxSimulations.SelectedIndex == -1)
             {
                 Close();
                 Dispose();
@@ -45,15 +41,13 @@ namespace View
 
             try
             {
-                var selectedName = listBoxSimulations.SelectedItem.ToString();
+                var selectedName = ListBoxSimulations.SelectedItem.ToString();
 
-                fSim.SimulationParameters = SimulationParameters.Decompress(DBManagement.LoadSimulationsParameters(selectedName));
-
-                fSim.Shepards = new Population(fSim.SimulationParameters, DBManagement.LoadPopulation(selectedName));
+                OptimizationInstance.Optimization = new EFDatabaseManager().LoadOptimization(selectedName);
             }
             catch (Exception ex)
             {
-                MessageBox.Show(ex.Message);
+                MessageBox.Show(ex.ToString());
             }
 
             fSim.SetControls();
@@ -61,6 +55,11 @@ namespace View
 
             Close();
             Dispose();
+        }
+
+        private void FLoad_FormClosed(object sender, FormClosedEventArgs e)
+        {
+            fSim.Enabled = true;
         }
     }
 }

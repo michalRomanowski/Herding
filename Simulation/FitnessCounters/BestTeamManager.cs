@@ -1,14 +1,14 @@
 ﻿using Auxiliary;
 using System.Collections.Generic;
-using Team;
+using Teams;
 
-namespace Simulation
+namespace Simulations
 {
     public class BestTeamManager
     {
         public BestTeamManager(){}
 
-        public void UpdateBestTeam(SimulationParameters simulationParameters, Population population, IList<ITeam> newTeams)
+        public void UpdateBestTeam(SimulationParameters simulationParameters, Population population, IList<Team> newTeams)
         {
             IFitnessCounter fitnessCounter = FitnessCounterProvider.GetFitnessCounter(simulationParameters);
 
@@ -38,7 +38,7 @@ namespace Simulation
 
             lock (population.BestLocker)
             {
-                foreach (ITeam team in newTeams)
+                foreach (Team team in newTeams)
                 {
                     if (simulationParameters.RandomPositions == false)
                     {
@@ -65,7 +65,7 @@ namespace Simulation
 
                     if (population.Best == null || team.Fitness < population.Best.Fitness)
                     {
-                        population.Best = team;
+                        population.Best = team.Clone();
                     }
                 }
             }

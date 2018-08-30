@@ -3,17 +3,17 @@ using Auxiliary;
 using System;
 using System.Collections.Generic;
 using World;
-using Team;
+using Teams;
 
-namespace Simulation
+namespace Simulations
 {
     internal class SumFitnessCounter : IFitnessCounter
     {
         public float CountFitness(
-            ITeam shepards,
+            Team shepards,
             SimulationParameters simulationParameters,
-            List<Position> positionsOfShepards,
-            List<Position> positionsOfSheep,
+            IList<Position> positionsOfShepards,
+            IList<Position> positionsOfSheep,
             ESheepType sheepType,
             int seed = 0)
         {
@@ -30,10 +30,10 @@ namespace Simulation
         }
 
         public float CountFitness(
-            ITeam shepardsTeam,
+            Team shepardsTeam,
             SimulationParameters simulationParameters,
-            List<List<Position>> positionsOfShepardsSet,
-            List<List<Position>> positionsOfSheepSet,
+            IList<IList<Position>> positionsOfShepardsSet,
+            IList<IList<Position>> positionsOfSheepSet,
             ESheepType sheepType,
             int seed = 0)
         {

@@ -47,7 +47,13 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Class1.cs" />
+    <Compile Include="EFDatabaseContext.cs" />
+    <Compile Include="EFDatabaseManager.cs" />
+    <Compile Include="Migrations\201808302045579_InitialMigration.cs" />
+    <Compile Include="Migrations\201808302045579_InitialMigration.Designer.cs">
+      <DependentUpon>201808302045579_InitialMigration.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -55,18 +61,23 @@
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\NeuralNet\NeuralNet.csproj">
-      <Project>{3f315dfa-e462-486d-90e8-bbbfc049eac4}</Project>
-      <Name>NeuralNet</Name>
+    <ProjectReference Include="..\Agent\Agent.csproj">
+      <Project>{e093e9e9-6081-4ea9-978a-bb3eb7b45a0f}</Project>
+      <Name>Agent</Name>
     </ProjectReference>
-    <ProjectReference Include="..\Simulation\Simulation.csproj">
+    <ProjectReference Include="..\Simulation\Simulations.csproj">
       <Project>{cb4c0de7-23e9-4a3b-884f-f4071df4df30}</Project>
-      <Name>Simulation</Name>
+      <Name>Simulations</Name>
     </ProjectReference>
-    <ProjectReference Include="..\Team\Team.csproj">
+    <ProjectReference Include="..\Team\Teams.csproj">
       <Project>{bf919043-20a4-4388-a33e-22be06bc2d46}</Project>
-      <Name>Team</Name>
+      <Name>Teams</Name>
     </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Migrations\201808302045579_InitialMigration.resx">
+      <DependentUpon>201808302045579_InitialMigration.cs</DependentUpon>
+    </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

@@ -4,10 +4,24 @@ using System.Linq;
 
 namespace Auxiliary
 {
-    public class Position
+    public class Position : ICompress<Position>
     {
+        private const char SEPARATOR = ';';
+        
         public float X { get; set; }
         public float Y { get; set; }
+
+        public class DistanceFromOOComparer : IComparer<Position>
+        {
+            public int Compare(Position a, Position b)
+            {
+                if (a.X * a.X + a.Y * a.Y > b.X * b.X + b.Y * b.Y)
+                {
+                    return 1;
+                }
+                else return -1;
+            }
+        }
 
         public Position()
         { }
@@ -24,13 +38,20 @@ namespace Auxiliary
             this.Y = value.Y;
         }
 
+        public Position(string value)
+        {
+            var splitted = value.Split(SEPARATOR);
+
+            X = Convert.ToInt32(splitted[0]);
+            Y = Convert.ToInt32(splitted[1]);
+        }
+
         public static float SquaredDistance(Position A, Position B)
         {
             float dx = A.X - B.X;
             float dy = A.Y - B.Y;
             return dx * dx + dy * dy;
         }
-
 
         public static float Length(Position A)
         {
@@ -78,18 +99,6 @@ namespace Auxiliary
             return movedCentre.Select(p => new Position(p.X * cos - p.Y * sin, p.X * sin + p.Y * cos)).ToList();
         }
 
-        public class DistanceFromOOComparer : IComparer<Position>
-        {
-            public int Compare(Position a, Position b)
-            {
-                if (a.X * a.X + a.Y * a.Y > b.X * b.X + b.Y * b.Y)
-                {
-                    return 1;
-                }
-                else return -1;
-            }
-        }
-
         public static float SumOfDistancesFromCentreOfGravity(IList<Position> positions)
         {
             var centerOfGravity =
@@ -103,6 +112,21 @@ namespace Auxiliary
             }
 
             return sumOfDistances;
+        }
+
+        public override string ToString()
+        {
+            return $"{X.ToString()}{SEPARATOR}{Y.ToString()}";
+        }
+
+        public Position FromString(string compressed)
+        {
+            var splitted = compressed.Split(SEPARATOR);
+
+            X = Convert.ToInt32(splitted[0]);
+            Y = Convert.ToInt32(splitted[1]);
+
+            return this;
         }
     }
 }

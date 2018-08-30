@@ -1,4 +1,4 @@
-﻿namespace Simulation
+﻿namespace Simulations
 {
     public enum EFitnessType
     {

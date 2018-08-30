@@ -1,7 +1,7 @@
 ﻿using Auxiliary;
 using System;
 
-namespace NeuralNet
+namespace NeuralNets
 {
     static class CrossoverHelper
     {

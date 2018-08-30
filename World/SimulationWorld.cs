@@ -2,21 +2,21 @@
 using Auxiliary;
 using System.Collections.Generic;
 using System.Linq;
-using Team;
+using Teams;
 using World;
 
 namespace World
 {
     public class SimulationWorld : IWorld
     {
-        public ITeam Shepards { get; private set; }
+        public Team Shepards { get; private set; }
         public IList<ISheep> Sheep { get; private set; }
 
         protected bool recordSheepPositionsFlag;
         public IList<IList<Position>> SheepPositionsRecord { get; protected set; }
         
         public SimulationWorld(
-            ITeam shepards,
+            Team shepards,
             IList<ISheep> sheep,
             bool recordSheepPositions = false)
         {

@@ -11,15 +11,17 @@ namespace Auxiliary
             return ((float)CRandom.r.NextDouble() * (max - min) + min);
         }
 
-        public static void Randmize(ref float[] valuesToRandomize)
+        public static float[] Randmize(float[] valuesToRandomize)
         {
             for (int i = 0; i < valuesToRandomize.Length; i++)
             {
                 valuesToRandomize[i] = CRandom.NextFloat(-1.0f, 1.0f);
             }
+
+            return valuesToRandomize;
         }
 
-        public static void Randmize(ref float[,] valuesToRandomize)
+        public static float[,] Randmize(float[,] valuesToRandomize)
         {
             for (int i = 0; i < valuesToRandomize.GetLength(0); i++)
             {
@@ -28,6 +30,8 @@ namespace Auxiliary
                     valuesToRandomize[i, j] = CRandom.NextFloat(-1.0f, 1.0f);
                 }
             }
+
+            return valuesToRandomize;
         }
     }
 }

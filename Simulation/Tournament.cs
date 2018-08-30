@@ -2,20 +2,20 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using Team;
+using Teams;
 
-namespace Simulation
+namespace Simulations
 {
     class Tournament
     {
-        public ITeam Winner { get; private set; }
-        public ITeam Looser { get; private set; }
+        public Team Winner { get; private set; }
+        public Team Looser { get; private set; }
 
-        private List<ITeam> participants = new List<ITeam>();
+        private List<Team> participants = new List<Team>();
 
-        private readonly List<List<Position>> positionsOfShepardsSet;
-        private readonly List<List<Position>> positionsOfSheepSet;
-        
+        private readonly IList<IList<Position>> positionsOfShepardsSet;
+        private readonly IList<IList<Position>> positionsOfSheepSet;
+
         private IFitnessCounter fitnessCounter;
 
         private readonly SimulationParameters simulationParameters;
@@ -39,14 +39,14 @@ namespace Simulation
             }
         }
 
-        public Tournament(SimulationParameters simulationParameters, Population population, List<Position> positionsOfShepards, List<Position> positionsOfSheep)
+        public Tournament(SimulationParameters simulationParameters, Population population, IList<Position> positionsOfShepards, IList<Position> positionsOfSheep)
             : this(simulationParameters, population)
         {
-            this.positionsOfShepardsSet = new List<List<Position>> { positionsOfShepards };
-            this.positionsOfSheepSet = new List<List<Position>> { positionsOfSheep };
+            this.positionsOfShepardsSet = new List<IList<Position>> { positionsOfShepards };
+            this.positionsOfSheepSet = new List<IList<Position>> { positionsOfSheep };
         }
 
-        public Tournament(SimulationParameters simulationParameters, Population population, List<List<Position>> positionsOfShepardsSet, List<List<Position>> positionsOfSheepSet)
+        public Tournament(SimulationParameters simulationParameters, Population population, IList<IList<Position>> positionsOfShepardsSet, IList<IList<Position>> positionsOfSheepSet)
             : this(simulationParameters, population)
         {
             this.positionsOfShepardsSet = positionsOfShepardsSet;
@@ -100,7 +100,7 @@ namespace Simulation
 
         public void ReturnParticipants()
         {
-            foreach (ITeam team in participants)
+            foreach (Team team in participants)
             {
                 if (team != Looser)
                 {

@@ -3,23 +3,13 @@ using System.Linq;
 using Agent;
 using System.IO;
 
-namespace Team
+namespace Teams
 {
     public class NotIdenticalTeam : Team
     {
         public NotIdenticalTeam() : base(){}
 
-        public NotIdenticalTeam(string compressed) : base()
-        {
-            var sr = new StringReader(compressed);
-
-            while(sr.Peek() > 0)
-            {
-                Members.Add(new Shepard(sr));
-            }
-        }
-
-        public override ITeam Clone()
+        public override Team Clone()
         {
             var clone = new NotIdenticalTeam();
 
@@ -45,7 +35,7 @@ namespace Team
             }
         }
 
-        public override ITeam[] Crossover(ITeam partner)
+        public override Team[] Crossover(Team partner)
         {
             var children = new NotIdenticalTeam[2] { new NotIdenticalTeam(), new NotIdenticalTeam() };
             

@@ -1,25 +1,24 @@
 ﻿using System.Collections.Generic;
-using System.Linq;
-using System.IO;
+using System.ComponentModel.DataAnnotations.Schema;
 using Agent;
 using Auxiliary;
-using System.Text;
-using System;
 
-namespace Team
+namespace Teams
 {
-    public abstract class Team : ITeam
+    public abstract class Team
     {
-        public IList<IThinkingAgent> Members { get; private set; }
+        public int Id { get; set; }
+
+        public List<ThinkingAgent> Members { get; set; }
 
         public float Fitness { get; set; }
         
         public Team()
         {
-            Members = new List<IThinkingAgent>();
+            Members = new List<ThinkingAgent>();
         }
         
-        public abstract ITeam Clone();
+        public abstract Team Clone();
 
         public abstract void AdjustSize(int newSize);
 
@@ -28,7 +27,7 @@ namespace Team
             Fitness = float.MaxValue;
         }
 
-        public abstract ITeam[] Crossover(ITeam partner);
+        public abstract Team[] Crossover(Team partner);
 
         public abstract void Mutate(float mutationPower, float absoluteMutationFactor);
 
@@ -62,18 +61,6 @@ namespace Team
             {
                 a.Path.Clear();
             }
-        }
-
-        public string Compress()
-        {
-            StringBuilder compressed = new StringBuilder();
-
-            foreach (var m in Members)
-            {
-                compressed.Append(m.Compress());
-            }
-
-            return compressed.ToString();
         }
     }
 }

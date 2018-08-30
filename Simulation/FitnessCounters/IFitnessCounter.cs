@@ -1,25 +1,25 @@
 ﻿using Agent;
 using Auxiliary;
 using System.Collections.Generic;
-using Team;
+using Teams;
 
-namespace Simulation
+namespace Simulations
 {
     public interface IFitnessCounter
     {
         float CountFitness(
-            ITeam team,
+            Team team,
             SimulationParameters simulationParameters,
-            List<Position> positionsOfShepards,
-            List<Position> positionsOfSheep,
+            IList<Position> positionsOfShepards,
+            IList<Position> positionsOfSheep,
             ESheepType sheepType,
             int seed);
 
         float CountFitness(
-            ITeam team,
+            Team team,
             SimulationParameters simulationParameters,
-            List<List<Position>> positionsOfShepardsSet,
-            List<List<Position>> positionsOfSheepSet,
+            IList<IList<Position>> positionsOfShepardsSet,
+            IList<IList<Position>> positionsOfSheepSet,
             ESheepType sheepType,
             int seed);
     }

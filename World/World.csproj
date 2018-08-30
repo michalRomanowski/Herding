@@ -55,17 +55,17 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\Agent\Agent.csproj">
+      <Project>{e093e9e9-6081-4ea9-978a-bb3eb7b45a0f}</Project>
+      <Name>Agent</Name>
+    </ProjectReference>
     <ProjectReference Include="..\Auxiliary\Auxiliary.csproj">
       <Project>{c6e09bba-2a95-4b06-98ec-02b3259698f1}</Project>
       <Name>Auxiliary</Name>
     </ProjectReference>
-    <ProjectReference Include="..\Agent\Agent.csproj">
-      <Project>{E093E9E9-6081-4EA9-978A-BB3EB7B45A0F}</Project>
-      <Name>Agent</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\Team\Team.csproj">
+    <ProjectReference Include="..\Team\Teams.csproj">
       <Project>{bf919043-20a4-4388-a33e-22be06bc2d46}</Project>
-      <Name>Team</Name>
+      <Name>Teams</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

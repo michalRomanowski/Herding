@@ -8,8 +8,8 @@
     <ProjectGuid>{E093E9E9-6081-4EA9-978A-BB3EB7B45A0F}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>PAgent</RootNamespace>
-    <AssemblyName>PAgent</AssemblyName>
+    <RootNamespace>Agent</RootNamespace>
+    <AssemblyName>Agent</AssemblyName>
     <TargetFrameworkVersion>v4.6.1</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <TargetFrameworkProfile />
@@ -34,7 +34,14 @@
     <Prefer32Bit>false</Prefer32Bit>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="EntityFramework, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
+      <HintPath>..\packages\EntityFramework.6.2.0\lib\net45\EntityFramework.dll</HintPath>
+    </Reference>
+    <Reference Include="EntityFramework.SqlServer, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
+      <HintPath>..\packages\EntityFramework.6.2.0\lib\net45\EntityFramework.SqlServer.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
+    <Reference Include="System.ComponentModel.DataAnnotations" />
     <Reference Include="System.Core" />
     <Reference Include="System.Drawing" />
     <Reference Include="System.Xml.Linq" />
@@ -53,16 +60,21 @@
     <Compile Include="Sheep\ESheepType.cs" />
     <Compile Include="Sheep\ISheep.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="ThinkingAgent.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Auxiliary\Auxiliary.csproj">
       <Project>{c6e09bba-2a95-4b06-98ec-02b3259698f1}</Project>
       <Name>Auxiliary</Name>
     </ProjectReference>
-    <ProjectReference Include="..\NeuralNet\NeuralNet.csproj">
+    <ProjectReference Include="..\NeuralNet\NeuralNets.csproj">
       <Project>{3f315dfa-e462-486d-90e8-bbbfc049eac4}</Project>
-      <Name>NeuralNet</Name>
+      <Name>NeuralNets</Name>
     </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="App.config" />
+    <None Include="packages.config" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace Simulation
+namespace Simulations
 {
     public static class FitnessCounterProvider
     {

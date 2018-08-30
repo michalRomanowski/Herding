@@ -7,7 +7,7 @@ namespace World
 {
     public static class PathesSaver
     {
-        public static void SavePathes(string path, IList<IThinkingAgent> shepards, IList<ISheep> sheep)
+        public static void SavePathes(string path, IList<ThinkingAgent> shepards, IList<ISheep> sheep)
         {
             Directory.CreateDirectory(path);
 

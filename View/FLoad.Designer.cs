@@ -28,20 +28,20 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.listBoxSimulations = new System.Windows.Forms.ListBox();
+            this.ListBoxSimulations = new System.Windows.Forms.ListBox();
             this.label1 = new System.Windows.Forms.Label();
-            this.buttonLoad = new System.Windows.Forms.Button();
+            this.ButtonLoad = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
-            // listBoxSimulations
+            // ListBoxSimulations
             // 
-            this.listBoxSimulations.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
-            this.listBoxSimulations.FormattingEnabled = true;
-            this.listBoxSimulations.ItemHeight = 16;
-            this.listBoxSimulations.Location = new System.Drawing.Point(12, 29);
-            this.listBoxSimulations.Name = "listBoxSimulations";
-            this.listBoxSimulations.Size = new System.Drawing.Size(291, 340);
-            this.listBoxSimulations.TabIndex = 0;
+            this.ListBoxSimulations.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
+            this.ListBoxSimulations.FormattingEnabled = true;
+            this.ListBoxSimulations.ItemHeight = 16;
+            this.ListBoxSimulations.Location = new System.Drawing.Point(12, 29);
+            this.ListBoxSimulations.Name = "ListBoxSimulations";
+            this.ListBoxSimulations.Size = new System.Drawing.Size(291, 340);
+            this.ListBoxSimulations.TabIndex = 0;
             // 
             // label1
             // 
@@ -53,24 +53,24 @@
             this.label1.TabIndex = 1;
             this.label1.Text = "Saved Simulations:";
             // 
-            // buttonLoad
+            // ButtonLoad
             // 
-            this.buttonLoad.Location = new System.Drawing.Point(228, 375);
-            this.buttonLoad.Name = "buttonLoad";
-            this.buttonLoad.Size = new System.Drawing.Size(75, 23);
-            this.buttonLoad.TabIndex = 2;
-            this.buttonLoad.Text = "Load";
-            this.buttonLoad.UseVisualStyleBackColor = true;
-            this.buttonLoad.Click += new System.EventHandler(this.buttonLoad_Click);
+            this.ButtonLoad.Location = new System.Drawing.Point(228, 375);
+            this.ButtonLoad.Name = "ButtonLoad";
+            this.ButtonLoad.Size = new System.Drawing.Size(75, 23);
+            this.ButtonLoad.TabIndex = 2;
+            this.ButtonLoad.Text = "Load";
+            this.ButtonLoad.UseVisualStyleBackColor = true;
+            this.ButtonLoad.Click += new System.EventHandler(this.ButtonLoad_Click);
             // 
             // FLoad
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(317, 403);
-            this.Controls.Add(this.buttonLoad);
+            this.Controls.Add(this.ButtonLoad);
             this.Controls.Add(this.label1);
-            this.Controls.Add(this.listBoxSimulations);
+            this.Controls.Add(this.ListBoxSimulations);
             this.Name = "FLoad";
             this.Text = "Load Simulation";
             this.FormClosed += new System.Windows.Forms.FormClosedEventHandler(this.FLoad_FormClosed);
@@ -82,8 +82,8 @@
 
         #endregion
 
-        private System.Windows.Forms.ListBox listBoxSimulations;
+        private System.Windows.Forms.ListBox ListBoxSimulations;
         private System.Windows.Forms.Label label1;
-        private System.Windows.Forms.Button buttonLoad;
+        private System.Windows.Forms.Button ButtonLoad;
     }
 }

@@ -1,11 +1,11 @@
 ﻿using System.Collections.Generic;
-using Team;
+using Teams;
 
-namespace Simulation
+namespace Simulations
 {
     public class SelectionResults
     {
-        public IList<ITeam> parents = new List<ITeam>();
-        public IList<ITeam> toDie = new List<ITeam>();
+        public IList<Team> parents = new List<Team>();
+        public IList<Team> toDie = new List<Team>();
     }
 }

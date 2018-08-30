@@ -1,25 +1,25 @@
 ﻿using Agent;
 using Auxiliary;
-using Simulation;
+using Simulations;
 using System;
 using System.IO;
 using System.Threading;
 using System.Windows.Forms;
 using World;
 using System.Linq;
-using Team;
+using Teams;
 
 namespace View
 {
     public partial class FWorld : Form
     {
-        private ITeam shepards;
+        private Team shepards;
 
         private IViewableWorld world;
 
         private SimulationParameters simulationParameters;
 
-        public FWorld(SimulationParameters simulationParameters, ITeam shepards)
+        public FWorld(SimulationParameters simulationParameters, Team shepards)
         {
             this.simulationParameters = simulationParameters;
 
@@ -46,35 +46,35 @@ namespace View
         {
         }
 
-        private void buttonPause_Click(object sender, EventArgs e)
+        private void ButtonPause_Click(object sender, EventArgs e)
         {
             world.Pause();
 
-            buttonStepBack.Enabled = true;
-            buttonStepForward.Enabled = true;
+            ButtonStepBack.Enabled = true;
+            ButtonStepForward.Enabled = true;
 
-            buttonResume.Enabled = true;
-            buttonPause.Enabled = false;
+            ButtonResume.Enabled = true;
+            ButtonPause.Enabled = false;
         }
 
-        private void buttonResume_Click(object sender, EventArgs e)
+        private void ButtonResume_Click(object sender, EventArgs e)
         {
             world.Resume();
 
-            buttonStepBack.Enabled = false;
-            buttonStepForward.Enabled = false;
+            ButtonStepBack.Enabled = false;
+            ButtonStepForward.Enabled = false;
 
-            buttonResume.Enabled = false;
-            buttonPause.Enabled = true;
+            ButtonResume.Enabled = false;
+            ButtonPause.Enabled = true;
         }
 
-        private void buttonStart_Click(object sender, EventArgs e)
+        private void ButtonStart_Click(object sender, EventArgs e)
         {
-            buttonPause.Enabled = true;
-            buttonResume.Enabled = false;
+            ButtonPause.Enabled = true;
+            ButtonResume.Enabled = false;
 
-            buttonStepBack.Enabled = false;
-            buttonStepForward.Enabled = false;
+            ButtonStepBack.Enabled = false;
+            ButtonStepForward.Enabled = false;
 
             world.Stop();
 
@@ -102,21 +102,21 @@ namespace View
 
         private void FWorld_Paint(object sender, PaintEventArgs e)
         {
-            world.Draw(e.Graphics, 10, 10, checkBoxShepardSight.Checked, checkBoxSheepSight.Checked, checkBoxCentreOfGravity.Checked, checkBoxShepardsPath.Checked, checkBoxSheepPath.Checked);
+            world.Draw(e.Graphics, 10, 10, CheckBoxShepardSight.Checked, CheckBoxSheepSight.Checked, CheckBoxCentreOfGravity.Checked, CheckBoxShepardsPath.Checked, CheckBoxSheepPath.Checked);
             
             labelFitness.Text = "Fitness:\n" + 
                 CenterOfGravityCalculator.SumOfDistancesFromCenterOfGravity(
                     world.Sheep.Select(s => s.Position).ToList());
 
-            labelEra.Text = "Era: " + world.Step;
+            labelEra.Text = "Step: " + world.Step;
         }
 
-        private void buttonStepForward_Click(object sender, EventArgs e)
+        private void ButtonStepForward_Click(object sender, EventArgs e)
         {
             world.StepForward();
         }
 
-        private void buttonStepBack_Click(object sender, EventArgs e)
+        private void ButtonStepBack_Click(object sender, EventArgs e)
         {
             world.StepBack();
         }
@@ -126,11 +126,11 @@ namespace View
             world.Stop();
         }
 
-        private void buttonSavePositions_Click(object sender, EventArgs e)
+        private void ButtonSavePositions_Click(object sender, EventArgs e)
         {
-            if (saveFileDialog.ShowDialog() == System.Windows.Forms.DialogResult.OK)
+            if (SaveFileDialog.ShowDialog() == System.Windows.Forms.DialogResult.OK)
             {
-                string path = saveFileDialog.FileName;
+                string path = SaveFileDialog.FileName;
 
                 Directory.CreateDirectory(path);
 

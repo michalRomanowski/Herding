@@ -1,15 +1,6 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
-using System.Linq;
-using System.Text;
 using System.Windows.Forms;
-using System.IO;
-using Simulation;
-using System.Security.AccessControl;
-using DBManager;
+using EFDatabase;
 
 namespace View
 {
@@ -25,15 +16,15 @@ namespace View
             this.MdiParent = fSim.MdiParent;
         }
 
-        private void buttonSave_Click(object sender, EventArgs e)
+        private void ButtonSave_Click(object sender, EventArgs e)
         {
-            if (textBoxNazwa.Text == "")
+            if (TextBoxNazwa.Text == "")
             {
-                MessageBox.Show("Wprowadź nazwę.");
+                MessageBox.Show("Insert name.");
                 return;
             }
 
-            Save(textBoxNazwa.Text);
+            Save(TextBoxNazwa.Text);
 
             Close();
             Dispose();
@@ -46,14 +37,15 @@ namespace View
 
         private void Save(string saveName)
         {
+            OptimizationInstance.Optimization.Name = saveName;
+
             try
             {
-                DBManagement.SaveSimulationParameters(saveName, fSim.SimulationParameters.Compress());
-                DBManagement.SavePopulation($"{saveName}", fSim.Shepards.Compress());
+                new EFDatabaseManager().SaveOptimization(OptimizationInstance.Optimization);
             }
             catch(Exception ex)
             {
-                MessageBox.Show($"{ex.Message}\n\nMake sure that name is valid for table name for SQLite.");
+                MessageBox.Show(ex.ToString());
             }
         }
     }

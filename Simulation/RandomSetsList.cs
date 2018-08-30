@@ -2,21 +2,37 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.ComponentModel.DataAnnotations.Schema;
 
-namespace Simulation
+namespace Simulations
 {
-    [Serializable]
     public class RandomSetsList
     {
-        public List<List<Position>> PositionsOfShepardsSet { get; private set; }
-        public List<List<Position>> PositionsOfSheepSet { get; private set; }
+        public int Id { get; set; }
+        
+        public string CompressedPositionsOfShepardsSet
+        {
+            get { return Compressor.Compress(PositionsOfShepardsSet); }
+            set { PositionsOfShepardsSet = Compressor.DecompressJaggedList<Position>(value); }
+        }
+
+        public string CompressedPositionsOfSheepSet
+        {
+            get { return Compressor.Compress(PositionsOfSheepSet); }
+            set { PositionsOfSheepSet = Compressor.DecompressJaggedList<Position>(value); }
+        }
+
+        [NotMapped]
+        public IList<IList<Position>> PositionsOfShepardsSet { get; private set; }
+        [NotMapped]
+        public IList<IList<Position>> PositionsOfSheepSet { get; private set; }
         
         public int Count { get { return PositionsOfShepardsSet.Count; } }
 
         public RandomSetsList()
         {
-            PositionsOfShepardsSet = new  List<List<Position>>();
-            PositionsOfSheepSet = new List<List<Position>>();
+            PositionsOfShepardsSet = new  List<IList<Position>>();
+            PositionsOfSheepSet = new List<IList<Position>>();
         }
 
         public RandomSetsList(int numberOfRandomSets, int numberOfShepards, int numberOfSheep, int randomSeed)
@@ -27,9 +43,9 @@ namespace Simulation
             PositionsOfSheepSet = GenerateRandomPositions(numberOfRandomSets, numberOfSheep, r);
         }
 
-        private List<List<Position>> GenerateRandomPositions(int numberOfPositionsSets, int numberOfPositions, Random r)
+        private IList<IList<Position>> GenerateRandomPositions(int numberOfPositionsSets, int numberOfPositions, Random r)
         {
-            var randomPositions = new List<List<Position>>();
+            var randomPositions = new List<IList<Position>>();
 
             for (int i = 0; i < numberOfPositionsSets; i++)
             {

@@ -3,25 +3,46 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading;
-using Team;
+using Teams;
+using System.ComponentModel.DataAnnotations.Schema;
 
-namespace Simulation
+namespace Simulations
 {
     public class Optimization
     {
+        public int Id { get; set; }
+
+        public string Name { get; set; }
+
+        [NotMapped]
         public bool Stop;
+        [NotMapped]
         public readonly object StopLocker = new object();
 
+        [NotMapped]
         public int StepCount { get; private set; }
-
-        public SimulationParameters Parameters { get; private set; }
-        public Population Shepards { get; private set; }
+        
+        public SimulationParameters Parameters { get; set; }
+        public Population Shepards { get; set; }
 
         private const int AUTOSAVE_PERIOD = 100000;
         private const bool AUTOSAVE_ACTIVE = true;
 
         private readonly BestTeamManager bestTeamManager = new BestTeamManager();
         private readonly Random r = new Random();
+
+        private Tournament[] tournaments = new Tournament[2];
+
+        public Optimization()
+        {
+            Parameters = new SimulationParameters();
+        }
+
+        public Optimization(SimulationParameters parameters)
+        {
+            Parameters = parameters;
+            Shepards = new Population(parameters);
+        }
 
         public Optimization(SimulationParameters parameters, Population shepards)
         {
@@ -41,7 +62,7 @@ namespace Simulation
             if (Shepards.Best != null)
             {
                 Shepards.Best.Fitness = float.MaxValue;
-                bestTeamManager.UpdateBestTeam(Parameters, Shepards, new List<ITeam>() { Shepards.Best });
+                bestTeamManager.UpdateBestTeam(Parameters, Shepards, new List<Team>() { Shepards.Best });
             }
 
             Parameters.BestResultAtStep = new List<float>();
@@ -84,14 +105,12 @@ namespace Simulation
 
         private SelectionResults Selection()
         {
-            List<Tournament> tournaments = InitTournaments();
-
             List<Thread> tournamentThreads = new List<Thread>();
-
-            StartTournaments(tournaments, tournamentThreads);
+            
+            StartTournaments(tournamentThreads);
             WaitForTournamentsToEnd(tournamentThreads);
 
-            SelectionResults ret = GetTournamentResults(tournaments);
+            SelectionResults ret = GetTournamentResults();
 
             foreach (Tournament t in tournaments)
                 t.ReturnParticipants();
@@ -99,9 +118,9 @@ namespace Simulation
             return ret;
         }
 
-        private IList<ITeam> Crossover(IList<ITeam> parents)
+        private IList<Team> Crossover(IList<Team> parents)
         {
-            List<ITeam> children = new List<ITeam>();
+            List<Team> children = new List<Team>();
 
             for (int i = 0; i < parents.Count; i += 2)
                 children.AddRange(parents[i].Crossover(parents[i + 1]));
@@ -109,78 +128,69 @@ namespace Simulation
             return children;
         }
 
-        private void Mutation(IList<ITeam> teamsToMutate)
+        private void Mutation(IList<Team> teamsToMutate)
         {
-            foreach (ITeam team in teamsToMutate)
+            foreach (Team team in teamsToMutate)
                 team.Mutate(Parameters.MutationPower, Parameters.AbsoluteMutationFactor);
         }
 
         #region Tournaments
 
-        private List<Tournament> InitTournaments()
+        private void StartTournaments(List<Thread> tournamentThreads)
         {
-            if (Parameters.RandomPositions)
-                return InitTournamentsWithRandomPositions();
-            else
-                return InitTournamentsWithDefinedPositions();
-        }
-
-        private List<Tournament> InitTournamentsWithRandomPositions()
-        {
-            List<Tournament> ret = new List<Tournament>();
-
-            for (int i = 0; i < 2; i++)
-            {
-                var randomSets = new RandomSetsList();
-
-                randomSets = new RandomSetsList(
-                    Parameters.NumberOfRandomSets, 
-                    Parameters.PositionsOfShepards.Count, 
-                    Parameters.PositionsOfSheep.Count,
-                    CRandom.r.Next());
-
-                ret.Add(new Tournament(
-                    Parameters,
-                    Shepards,
-                    randomSets.PositionsOfShepardsSet, 
-                    randomSets.PositionsOfSheepSet));
-            }
-
-            return ret;
-        }
-
-        private List<Tournament> InitTournamentsWithDefinedPositions()
-        {
-            List<Tournament> ret = new List<Tournament>();
-
-            for (int i = 0; i < 2; i++)
-            {
-                ret.Add(new Tournament(
-                    Parameters,
-                    Shepards,
-                    Parameters.PositionsOfShepards, 
-                    Parameters.PositionsOfSheep));
-            }
-
-            return ret;
-        }
-        
-        private void StartTournaments(List<Tournament> tournaments, List<Thread> tournamentThreads)
-        {
-            foreach (Tournament t in tournaments)
+            InitTournaments();
+            
+            foreach(var t in tournaments)
             {
                 tournamentThreads.Add(new Thread(t.Attend));
                 tournamentThreads.Last().Start();
             }
         }
+        
+        private void InitTournaments()
+        {
+            if (Parameters.RandomPositions) InitTournamentsWithRandomPositions();
+            else InitTournamentsWithDefinedPositions();
+        }
 
+        private void InitTournamentsWithRandomPositions()
+        {
+            for (int i = 0; i < 2; i++)
+            {
+                var randomSets = new RandomSetsList();
+
+                randomSets = new RandomSetsList(
+                    Parameters.NumberOfRandomSets,
+                    Parameters.PositionsOfShepards.Count,
+                    Parameters.PositionsOfSheep.Count,
+                    CRandom.r.Next());
+
+                tournaments[i] = new Tournament(
+                    Parameters,
+                    Shepards,
+                    randomSets.PositionsOfShepardsSet,
+                    randomSets.PositionsOfSheepSet);
+            }
+        }
+
+        private void InitTournamentsWithDefinedPositions()
+        {
+            for (int i = 0; i < 2; i++)
+            {
+                tournaments[i] = new Tournament(
+                    Parameters,
+                    Shepards,
+                    Parameters.PositionsOfShepards,
+                    Parameters.PositionsOfSheep);
+            }
+        }
         private void WaitForTournamentsToEnd(List<Thread> tournamentThreads)
         {
             foreach (Thread thread in tournamentThreads)
                 thread.Join();
         }
 
-        private SelectionResults GetTournamentResults(List<Tournament> tournaments)
+        private SelectionResults GetTournamentResults()
         {
             var ret = new SelectionResults();
 

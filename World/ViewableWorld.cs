@@ -5,8 +5,7 @@ using System.Collections.Generic;
 using System.Drawing;
 using System.Linq;
 using System.Threading;
-using Team;
-using World;
+using Teams;
 
 namespace World
 {
@@ -28,7 +27,7 @@ namespace World
         public int Step { get; private set; }
 
         public ViewableWorld(
-        ITeam shepards,
+        Team shepards,
         IList<ISheep> sheep) : base(shepards, sheep)
         {
             foreach (var agent in Shepards.Members)

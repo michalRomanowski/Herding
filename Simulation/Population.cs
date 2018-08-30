@@ -2,26 +2,30 @@
 using Auxiliary;
 using System.Collections.Generic;
 using System.Linq;
-using Team;
+using Teams;
+using System.ComponentModel.DataAnnotations.Schema;
 
-namespace Simulation
+namespace Simulations
 {
     public class Population
     {
-        public List<ITeam> Units = new List<ITeam>();
+        public int Id { get; set; }
 
+        public List<Team> Units { get; set; }
+
+        public Team Best { get; set; }
+
+        [NotMapped]
         public readonly object BestLocker = new object();
 
-        public ITeam Best;
-        public float AverageFitness;
-
+        [NotMapped]
         private IAverageFitnessCounter averageFitnessCounter;
+
+        public Population() { }
 
         public Population(SimulationParameters simulationParameters)
         {
-            averageFitnessCounter = new AverageFitnessCounter(simulationParameters);
-
-            Units = new List<ITeam>();
+            Units = new List<Team>();
 
             for (int i = 0; i < simulationParameters.PopulationSize; i++)
             {
@@ -38,26 +42,13 @@ namespace Simulation
                 Units.Last().AdjustSize(simulationParameters.NumberOfShepards);
             }
 
-            Best = Units[0];
-        }
-
-        public Population(SimulationParameters simulationParameters, IEnumerable<string> compressed) : this(simulationParameters)
-        {
-            Best = TeamProvider.GetTeam(simulationParameters, compressed.First());
-
-            Units = compressed.Skip(1).Select(x => TeamProvider.GetTeam(simulationParameters, x)).ToList();
+            Best = Units[0].Clone();
         }
 
         public void SetPositions(IList<Position> positions)
         {
-            foreach(ITeam t in Units)
+            foreach(Team t in Units)
                 t.SetPositions(positions);
-        }
-
-        public void CountAverageFitness(SimulationParameters simulationParameters)
-        {
-            AverageFitness = averageFitnessCounter.CountAverageFitness(simulationParameters, this, simulationParameters.SeedForRandomSheepForBest);
-            Logger.AddLine("Average fitness: " + AverageFitness);
         }
 
         public void RemoveRandom()
@@ -68,7 +59,7 @@ namespace Simulation
 
         public void AdjustTeamSize(int numberOfMembers)
         {
-            foreach (ITeam t in Units)
+            foreach (Team t in Units)
                 t.AdjustSize(numberOfMembers);
         }
 
@@ -82,18 +73,6 @@ namespace Simulation
         {
             foreach (var team in Units)
                 team.AdjustHiddenLayersSize(newSize);
-        }
-
-        public IEnumerable<string> Compress()
-        {
-            List<string> compressed = new List<string>()
-            {
-                Best.Compress()
-            };
-
-            compressed.AddRange(Units.Select(x => x.Compress()));
-
-            return compressed;
         }
     }
 }

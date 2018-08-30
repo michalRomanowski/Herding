@@ -28,83 +28,83 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.buttonStart = new System.Windows.Forms.Button();
-            this.buttonResume = new System.Windows.Forms.Button();
-            this.buttonPause = new System.Windows.Forms.Button();
-            this.checkBoxCentreOfGravity = new System.Windows.Forms.CheckBox();
-            this.checkBoxSheepSight = new System.Windows.Forms.CheckBox();
-            this.checkBoxShepardSight = new System.Windows.Forms.CheckBox();
+            this.ButtonStart = new System.Windows.Forms.Button();
+            this.ButtonResume = new System.Windows.Forms.Button();
+            this.ButtonPause = new System.Windows.Forms.Button();
+            this.CheckBoxCentreOfGravity = new System.Windows.Forms.CheckBox();
+            this.CheckBoxSheepSight = new System.Windows.Forms.CheckBox();
+            this.CheckBoxShepardSight = new System.Windows.Forms.CheckBox();
             this.labelFitness = new System.Windows.Forms.Label();
-            this.buttonStepForward = new System.Windows.Forms.Button();
-            this.buttonStepBack = new System.Windows.Forms.Button();
-            this.checkBoxShepardsPath = new System.Windows.Forms.CheckBox();
-            this.checkBoxSheepPath = new System.Windows.Forms.CheckBox();
-            this.buttonSavePositions = new System.Windows.Forms.Button();
-            this.saveFileDialog = new System.Windows.Forms.SaveFileDialog();
+            this.ButtonStepForward = new System.Windows.Forms.Button();
+            this.ButtonStepBack = new System.Windows.Forms.Button();
+            this.CheckBoxShepardsPath = new System.Windows.Forms.CheckBox();
+            this.CheckBoxSheepPath = new System.Windows.Forms.CheckBox();
+            this.ButtonSavePositions = new System.Windows.Forms.Button();
+            this.SaveFileDialog = new System.Windows.Forms.SaveFileDialog();
             this.labelEra = new System.Windows.Forms.Label();
             this.SuspendLayout();
             // 
-            // buttonStart
+            // ButtonStart
             // 
-            this.buttonStart.Location = new System.Drawing.Point(682, 151);
-            this.buttonStart.Name = "buttonStart";
-            this.buttonStart.Size = new System.Drawing.Size(75, 23);
-            this.buttonStart.TabIndex = 1;
-            this.buttonStart.Text = "Start";
-            this.buttonStart.UseVisualStyleBackColor = true;
-            this.buttonStart.Click += new System.EventHandler(this.buttonStart_Click);
+            this.ButtonStart.Location = new System.Drawing.Point(682, 151);
+            this.ButtonStart.Name = "ButtonStart";
+            this.ButtonStart.Size = new System.Drawing.Size(75, 23);
+            this.ButtonStart.TabIndex = 1;
+            this.ButtonStart.Text = "Start";
+            this.ButtonStart.UseVisualStyleBackColor = true;
+            this.ButtonStart.Click += new System.EventHandler(this.ButtonStart_Click);
             // 
-            // buttonResume
+            // ButtonResume
             // 
-            this.buttonResume.Enabled = false;
-            this.buttonResume.Location = new System.Drawing.Point(844, 151);
-            this.buttonResume.Name = "buttonResume";
-            this.buttonResume.Size = new System.Drawing.Size(75, 23);
-            this.buttonResume.TabIndex = 2;
-            this.buttonResume.Text = "Resume";
-            this.buttonResume.UseVisualStyleBackColor = true;
-            this.buttonResume.Click += new System.EventHandler(this.buttonResume_Click);
+            this.ButtonResume.Enabled = false;
+            this.ButtonResume.Location = new System.Drawing.Point(844, 151);
+            this.ButtonResume.Name = "ButtonResume";
+            this.ButtonResume.Size = new System.Drawing.Size(75, 23);
+            this.ButtonResume.TabIndex = 2;
+            this.ButtonResume.Text = "Resume";
+            this.ButtonResume.UseVisualStyleBackColor = true;
+            this.ButtonResume.Click += new System.EventHandler(this.ButtonResume_Click);
             // 
-            // buttonPause
+            // ButtonPause
             // 
-            this.buttonPause.Enabled = false;
-            this.buttonPause.Location = new System.Drawing.Point(763, 151);
-            this.buttonPause.Name = "buttonPause";
-            this.buttonPause.Size = new System.Drawing.Size(75, 23);
-            this.buttonPause.TabIndex = 3;
-            this.buttonPause.Text = "Pause";
-            this.buttonPause.UseVisualStyleBackColor = true;
-            this.buttonPause.Click += new System.EventHandler(this.buttonPause_Click);
+            this.ButtonPause.Enabled = false;
+            this.ButtonPause.Location = new System.Drawing.Point(763, 151);
+            this.ButtonPause.Name = "ButtonPause";
+            this.ButtonPause.Size = new System.Drawing.Size(75, 23);
+            this.ButtonPause.TabIndex = 3;
+            this.ButtonPause.Text = "Pause";
+            this.ButtonPause.UseVisualStyleBackColor = true;
+            this.ButtonPause.Click += new System.EventHandler(this.ButtonPause_Click);
             // 
-            // checkBoxCentreOfGravity
+            // CheckBoxCentreOfGravity
             // 
-            this.checkBoxCentreOfGravity.AutoSize = true;
-            this.checkBoxCentreOfGravity.Location = new System.Drawing.Point(682, 12);
-            this.checkBoxCentreOfGravity.Name = "checkBoxCentreOfGravity";
-            this.checkBoxCentreOfGravity.Size = new System.Drawing.Size(103, 17);
-            this.checkBoxCentreOfGravity.TabIndex = 5;
-            this.checkBoxCentreOfGravity.Text = "Centre of Sheep";
-            this.checkBoxCentreOfGravity.UseVisualStyleBackColor = true;
+            this.CheckBoxCentreOfGravity.AutoSize = true;
+            this.CheckBoxCentreOfGravity.Location = new System.Drawing.Point(682, 12);
+            this.CheckBoxCentreOfGravity.Name = "CheckBoxCentreOfGravity";
+            this.CheckBoxCentreOfGravity.Size = new System.Drawing.Size(103, 17);
+            this.CheckBoxCentreOfGravity.TabIndex = 5;
+            this.CheckBoxCentreOfGravity.Text = "Centre of Sheep";
+            this.CheckBoxCentreOfGravity.UseVisualStyleBackColor = true;
             // 
-            // checkBoxSheepSight
+            // CheckBoxSheepSight
             // 
-            this.checkBoxSheepSight.AutoSize = true;
-            this.checkBoxSheepSight.Location = new System.Drawing.Point(682, 35);
-            this.checkBoxSheepSight.Name = "checkBoxSheepSight";
-            this.checkBoxSheepSight.Size = new System.Drawing.Size(112, 17);
-            this.checkBoxSheepSight.TabIndex = 6;
-            this.checkBoxSheepSight.Text = "Sheep sight range";
-            this.checkBoxSheepSight.UseVisualStyleBackColor = true;
+            this.CheckBoxSheepSight.AutoSize = true;
+            this.CheckBoxSheepSight.Location = new System.Drawing.Point(682, 35);
+            this.CheckBoxSheepSight.Name = "CheckBoxSheepSight";
+            this.CheckBoxSheepSight.Size = new System.Drawing.Size(112, 17);
+            this.CheckBoxSheepSight.TabIndex = 6;
+            this.CheckBoxSheepSight.Text = "Sheep sight range";
+            this.CheckBoxSheepSight.UseVisualStyleBackColor = true;
             // 
-            // checkBoxShepardSight
+            // CheckBoxShepardSight
             // 
-            this.checkBoxShepardSight.AutoSize = true;
-            this.checkBoxShepardSight.Location = new System.Drawing.Point(682, 58);
-            this.checkBoxShepardSight.Name = "checkBoxShepardSight";
-            this.checkBoxShepardSight.Size = new System.Drawing.Size(96, 17);
-            this.checkBoxShepardSight.TabIndex = 7;
-            this.checkBoxShepardSight.Text = "Shepards sight";
-            this.checkBoxShepardSight.UseVisualStyleBackColor = true;
+            this.CheckBoxShepardSight.AutoSize = true;
+            this.CheckBoxShepardSight.Location = new System.Drawing.Point(682, 58);
+            this.CheckBoxShepardSight.Name = "CheckBoxShepardSight";
+            this.CheckBoxShepardSight.Size = new System.Drawing.Size(96, 17);
+            this.CheckBoxShepardSight.TabIndex = 7;
+            this.CheckBoxShepardSight.Text = "Shepards sight";
+            this.CheckBoxShepardSight.UseVisualStyleBackColor = true;
             // 
             // labelFitness
             // 
@@ -116,57 +116,57 @@
             this.labelFitness.TabIndex = 8;
             this.labelFitness.Text = "Fitness:";
             // 
-            // buttonStepForward
+            // ButtonStepForward
             // 
-            this.buttonStepForward.Enabled = false;
-            this.buttonStepForward.Location = new System.Drawing.Point(682, 180);
-            this.buttonStepForward.Name = "buttonStepForward";
-            this.buttonStepForward.Size = new System.Drawing.Size(115, 23);
-            this.buttonStepForward.TabIndex = 9;
-            this.buttonStepForward.Text = "Step Forward";
-            this.buttonStepForward.UseVisualStyleBackColor = true;
-            this.buttonStepForward.Click += new System.EventHandler(this.buttonStepForward_Click);
+            this.ButtonStepForward.Enabled = false;
+            this.ButtonStepForward.Location = new System.Drawing.Point(682, 180);
+            this.ButtonStepForward.Name = "ButtonStepForward";
+            this.ButtonStepForward.Size = new System.Drawing.Size(115, 23);
+            this.ButtonStepForward.TabIndex = 9;
+            this.ButtonStepForward.Text = "Step Forward";
+            this.ButtonStepForward.UseVisualStyleBackColor = true;
+            this.ButtonStepForward.Click += new System.EventHandler(this.ButtonStepForward_Click);
             // 
-            // buttonStepBack
+            // ButtonStepBack
             // 
-            this.buttonStepBack.Enabled = false;
-            this.buttonStepBack.Location = new System.Drawing.Point(804, 180);
-            this.buttonStepBack.Name = "buttonStepBack";
-            this.buttonStepBack.Size = new System.Drawing.Size(115, 23);
-            this.buttonStepBack.TabIndex = 10;
-            this.buttonStepBack.Text = "Step Back";
-            this.buttonStepBack.UseVisualStyleBackColor = true;
-            this.buttonStepBack.Click += new System.EventHandler(this.buttonStepBack_Click);
+            this.ButtonStepBack.Enabled = false;
+            this.ButtonStepBack.Location = new System.Drawing.Point(804, 180);
+            this.ButtonStepBack.Name = "ButtonStepBack";
+            this.ButtonStepBack.Size = new System.Drawing.Size(115, 23);
+            this.ButtonStepBack.TabIndex = 10;
+            this.ButtonStepBack.Text = "Step Back";
+            this.ButtonStepBack.UseVisualStyleBackColor = true;
+            this.ButtonStepBack.Click += new System.EventHandler(this.ButtonStepBack_Click);
             // 
-            // checkBoxShepardsPath
+            // CheckBoxShepardsPath
             // 
-            this.checkBoxShepardsPath.AutoSize = true;
-            this.checkBoxShepardsPath.Location = new System.Drawing.Point(682, 104);
-            this.checkBoxShepardsPath.Name = "checkBoxShepardsPath";
-            this.checkBoxShepardsPath.Size = new System.Drawing.Size(95, 17);
-            this.checkBoxShepardsPath.TabIndex = 11;
-            this.checkBoxShepardsPath.Text = "Shepards path";
-            this.checkBoxShepardsPath.UseVisualStyleBackColor = true;
+            this.CheckBoxShepardsPath.AutoSize = true;
+            this.CheckBoxShepardsPath.Location = new System.Drawing.Point(682, 104);
+            this.CheckBoxShepardsPath.Name = "CheckBoxShepardsPath";
+            this.CheckBoxShepardsPath.Size = new System.Drawing.Size(95, 17);
+            this.CheckBoxShepardsPath.TabIndex = 11;
+            this.CheckBoxShepardsPath.Text = "Shepards path";
+            this.CheckBoxShepardsPath.UseVisualStyleBackColor = true;
             // 
-            // checkBoxSheepPath
+            // CheckBoxSheepPath
             // 
-            this.checkBoxSheepPath.AutoSize = true;
-            this.checkBoxSheepPath.Location = new System.Drawing.Point(682, 81);
-            this.checkBoxSheepPath.Name = "checkBoxSheepPath";
-            this.checkBoxSheepPath.Size = new System.Drawing.Size(81, 17);
-            this.checkBoxSheepPath.TabIndex = 12;
-            this.checkBoxSheepPath.Text = "Sheep path";
-            this.checkBoxSheepPath.UseVisualStyleBackColor = true;
+            this.CheckBoxSheepPath.AutoSize = true;
+            this.CheckBoxSheepPath.Location = new System.Drawing.Point(682, 81);
+            this.CheckBoxSheepPath.Name = "CheckBoxSheepPath";
+            this.CheckBoxSheepPath.Size = new System.Drawing.Size(81, 17);
+            this.CheckBoxSheepPath.TabIndex = 12;
+            this.CheckBoxSheepPath.Text = "Sheep path";
+            this.CheckBoxSheepPath.UseVisualStyleBackColor = true;
             // 
-            // buttonSavePositions
+            // ButtonSavePositions
             // 
-            this.buttonSavePositions.Location = new System.Drawing.Point(682, 224);
-            this.buttonSavePositions.Name = "buttonSavePositions";
-            this.buttonSavePositions.Size = new System.Drawing.Size(115, 23);
-            this.buttonSavePositions.TabIndex = 13;
-            this.buttonSavePositions.Text = "Save Positions";
-            this.buttonSavePositions.UseVisualStyleBackColor = true;
-            this.buttonSavePositions.Click += new System.EventHandler(this.buttonSavePositions_Click);
+            this.ButtonSavePositions.Location = new System.Drawing.Point(682, 224);
+            this.ButtonSavePositions.Name = "ButtonSavePositions";
+            this.ButtonSavePositions.Size = new System.Drawing.Size(115, 23);
+            this.ButtonSavePositions.TabIndex = 13;
+            this.ButtonSavePositions.Text = "Save Positions";
+            this.ButtonSavePositions.UseVisualStyleBackColor = true;
+            this.ButtonSavePositions.Click += new System.EventHandler(this.ButtonSavePositions_Click);
             // 
             // labelEra
             // 
@@ -175,7 +175,7 @@
             this.labelEra.Name = "labelEra";
             this.labelEra.Size = new System.Drawing.Size(29, 13);
             this.labelEra.TabIndex = 14;
-            this.labelEra.Text = "Era: ";
+            this.labelEra.Text = "Step: ";
             // 
             // FWorld
             // 
@@ -183,18 +183,18 @@
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1008, 612);
             this.Controls.Add(this.labelEra);
-            this.Controls.Add(this.buttonSavePositions);
-            this.Controls.Add(this.checkBoxSheepPath);
-            this.Controls.Add(this.checkBoxShepardsPath);
-            this.Controls.Add(this.buttonStepBack);
-            this.Controls.Add(this.buttonStepForward);
+            this.Controls.Add(this.ButtonSavePositions);
+            this.Controls.Add(this.CheckBoxSheepPath);
+            this.Controls.Add(this.CheckBoxShepardsPath);
+            this.Controls.Add(this.ButtonStepBack);
+            this.Controls.Add(this.ButtonStepForward);
             this.Controls.Add(this.labelFitness);
-            this.Controls.Add(this.checkBoxShepardSight);
-            this.Controls.Add(this.checkBoxSheepSight);
-            this.Controls.Add(this.checkBoxCentreOfGravity);
-            this.Controls.Add(this.buttonPause);
-            this.Controls.Add(this.buttonResume);
-            this.Controls.Add(this.buttonStart);
+            this.Controls.Add(this.CheckBoxShepardSight);
+            this.Controls.Add(this.CheckBoxSheepSight);
+            this.Controls.Add(this.CheckBoxCentreOfGravity);
+            this.Controls.Add(this.ButtonPause);
+            this.Controls.Add(this.ButtonResume);
+            this.Controls.Add(this.ButtonStart);
             this.DoubleBuffered = true;
             this.Name = "FWorld";
             this.Text = "Simulation";
@@ -208,19 +208,19 @@
 
         #endregion
 
-        private System.Windows.Forms.Button buttonStart;
-        private System.Windows.Forms.Button buttonResume;
-        private System.Windows.Forms.Button buttonPause;
-        private System.Windows.Forms.CheckBox checkBoxCentreOfGravity;
-        private System.Windows.Forms.CheckBox checkBoxSheepSight;
-        private System.Windows.Forms.CheckBox checkBoxShepardSight;
+        private System.Windows.Forms.Button ButtonStart;
+        private System.Windows.Forms.Button ButtonResume;
+        private System.Windows.Forms.Button ButtonPause;
+        private System.Windows.Forms.CheckBox CheckBoxCentreOfGravity;
+        private System.Windows.Forms.CheckBox CheckBoxSheepSight;
+        private System.Windows.Forms.CheckBox CheckBoxShepardSight;
         private System.Windows.Forms.Label labelFitness;
-        private System.Windows.Forms.Button buttonStepForward;
-        private System.Windows.Forms.Button buttonStepBack;
-        private System.Windows.Forms.CheckBox checkBoxShepardsPath;
-        private System.Windows.Forms.CheckBox checkBoxSheepPath;
-        private System.Windows.Forms.Button buttonSavePositions;
-        private System.Windows.Forms.SaveFileDialog saveFileDialog;
+        private System.Windows.Forms.Button ButtonStepForward;
+        private System.Windows.Forms.Button ButtonStepBack;
+        private System.Windows.Forms.CheckBox CheckBoxShepardsPath;
+        private System.Windows.Forms.CheckBox CheckBoxSheepPath;
+        private System.Windows.Forms.Button ButtonSavePositions;
+        private System.Windows.Forms.SaveFileDialog SaveFileDialog;
         private System.Windows.Forms.Label labelEra;
     }
 }

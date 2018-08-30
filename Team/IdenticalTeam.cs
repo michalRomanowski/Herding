@@ -2,23 +2,13 @@
 using Agent;
 using System.IO;
 
-namespace Team
+namespace Teams
 {
     public class IdenticalTeam : Team
     {
         public IdenticalTeam() : base() { }
 
-        public IdenticalTeam(int membersInTeam, string compressed) : base()
-        {
-            var sr = new StringReader(compressed);
-
-            Members.Add(new Shepard(sr));
-
-            for(int i = 1; i < membersInTeam; i++)
-                Members.Add(Members.First().Clone());
-        }
-
-        public override ITeam Clone()
+        public override Team Clone()
         {
             var clone = new IdenticalTeam();
 
@@ -43,11 +33,11 @@ namespace Team
             }
         }
 
-        public override ITeam[] Crossover(ITeam partner)
+        public override Team[] Crossover(Team partner)
         {
-            ITeam[] children = new ITeam[2] { new IdenticalTeam(), new IdenticalTeam() };
+            Team[] children = new Team[2] { new IdenticalTeam(), new IdenticalTeam() };
 
-            var childrenAgents = Members[0].Crossover(partner.Members[0]).Select(x => x as IThinkingAgent).ToArray();
+            var childrenAgents = Members[0].Crossover(partner.Members[0]).Select(x => x as ThinkingAgent).ToArray();
 
             children[0].Members.Add(childrenAgents[0]);
             children[1].Members.Add(childrenAgents[1]);

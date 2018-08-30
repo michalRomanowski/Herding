@@ -4,12 +4,16 @@ using System;
 using System.Collections.Generic;
 using System.Xml.Serialization;
 using System.IO;
+using System.ComponentModel.DataAnnotations.Schema;
 
-namespace Simulation
+namespace Simulations
 {
     [Serializable]
     public class SimulationParameters
     {
+        public int Id { get; set; }
+
+        [NotMapped]
         public float Progress
         {
             get
@@ -19,7 +23,7 @@ namespace Simulation
                     return _progress;
                 }
             }
-            set 
+            set
             {
                 lock (progressLocker)
                 {
@@ -39,23 +43,24 @@ namespace Simulation
         }
 
         [NonSerialized]
+        [NotMapped]
         private float _progress;
 
         [NonSerialized]
+        [NotMapped]
         private object progressLocker = new object();
-        
-        public int OptimizationSteps;
 
-        public int TurnsOfHerding;
+        public int OptimizationSteps { get; set; }
 
-        public int NumberOfParticipants;
+        public int TurnsOfHerding { get; set; }
 
-        public float MutationPower;
+        public int NumberOfParticipants { get; set; }
 
-        public float AbsoluteMutationFactor;
+        public float MutationPower { get; set; }
 
-        public int NumberOfChildren;
+        public float AbsoluteMutationFactor { get; set; }
 
+        [NotMapped]
         public int NumberOfShepards
         {
             get
@@ -64,6 +69,7 @@ namespace Simulation
             }
         }
 
+        [NotMapped]
         public int NumberOfSheep
         {
             get
@@ -72,36 +78,61 @@ namespace Simulation
             }
         }
 
-        public ESheepType SheepType;
+        public ESheepType SheepType { get; set; }
+        
+        public string CompressedPositionsOfShepards
+        {
+            get
+            {
+                return Compressor.Compress(PositionsOfShepards);
+            }
+            set
+            {
+                PositionsOfShepards = Compressor.DecompressList<Position>(value);
+            }
+        }
 
-        public bool RandomNeuralNets;
+        public string CompressedPositionsOfSheep
+        {
+            get
+            {
+                return Compressor.Compress(PositionsOfSheep);
+            }
+            set
+            {
+                PositionsOfSheep = Compressor.DecompressList<Position>(value);
+            }
+        }
 
-        public List<Position> PositionsOfShepards = new List<Position>();
+        [NotMapped]
+        public IList<Position> PositionsOfShepards { get; set; }
 
-        public List<Position> PositionsOfSheep = new List<Position>();
+        [NotMapped]
+        public IList<Position> PositionsOfSheep { get; set; }
 
-        public int NumberOfSeenShepards;
+        public int NumberOfSeenShepards { get; set; }
 
-        public int NumberOfSeenSheep;
+        public int NumberOfSeenSheep { get; set; }
 
-        public int NumberOfHiddenLayers;
+        public int NumberOfHiddenLayers { get; set; }
 
-        public int NumberOfNeuronsInHiddenLayer;
+        public int NumberOfNeuronsInHiddenLayer { get; set; }
 
-        public int PopulationSize;
+        public int PopulationSize { get; set; }
 
-        public bool RandomPositions;
+        public bool RandomPositions { get; set; }
 
-        public int NumberOfRandomSets;
+        public int NumberOfRandomSets { get; set; }
 
-        public int SeedForRandomSheepForBest;
+        public int SeedForRandomSheepForBest { get; set; }
+        
+        public RandomSetsList RandomSetsForBest { get; set; }
 
-        public RandomSetsList RandomSetsForBest = new RandomSetsList();
+        public List<float> BestResultAtStep { get; set; }
 
-        public List<float> BestResultAtStep;
+        public EFitnessType FitnessType { get; set; }
 
-        public EFitnessType FitnessType;
-
+        [NotMapped]
         public IFitnessCounter FitnessCounter
         {
             get { return FitnessCounterProvider.GetFitnessCounter(this); }
@@ -109,56 +140,12 @@ namespace Simulation
 
         public bool NotIdenticalAgents;
 
-        public SimulationParameters() { }
-
-        public SimulationParameters(bool initWithDefaultValues)
+        public SimulationParameters()
         {
-            if (!initWithDefaultValues)
-                return;
+            PositionsOfShepards = new List<Position>();
+            PositionsOfSheep = new List<Position>();
 
-            this.AbsoluteMutationFactor = 0.05f;
-            this.BestResultAtStep = new List<float>();
-            this.FitnessType = EFitnessType.Final;
-            this.MutationPower = 1.0f;
-            this.NotIdenticalAgents = false;
-            this.NumberOfChildren = 2;
-            this.NumberOfHiddenLayers = 1;
-            this.NumberOfNeuronsInHiddenLayer = 10;
-            this.NumberOfParticipants = 10;
-            this.NumberOfRandomSets = 0;
-            this.NumberOfSeenSheep = 2;
-            this.NumberOfSeenShepards = 1;
-            this.OptimizationSteps = 100;
-            this.PopulationSize = 50;
-            this.PositionsOfSheep = new List<Position> {
-                new Position(0, 200),
-                new Position(400, 200)};
-            this.PositionsOfShepards = new List<Position> {
-                new Position(150, 200),
-                new Position(250, 200)};
-            this.Progress = float.MinValue;
-            this.RandomNeuralNets = false;
-            this.RandomPositions = false;
-            this.SeedForRandomSheepForBest = 0;
-            this.RandomSetsForBest = new RandomSetsList();
-            this.SheepType = ESheepType.Passive;
-            this.TurnsOfHerding = 300;
-        }
-
-        public static SimulationParameters Decompress(string compressed)
-        {
-            return new XmlSerializer(typeof(SimulationParameters)).Deserialize(new StringReader(compressed)) as SimulationParameters;
-        }
-
-        public string Compress()
-        {
-            XmlSerializer xmlSerializer = new XmlSerializer(this.GetType());
-
-            using (StringWriter textWriter = new StringWriter())
-            {
-                xmlSerializer.Serialize(textWriter, this);
-                return textWriter.ToString();
-            }
+            RandomSetsForBest = new RandomSetsList();
         }
     }
 }

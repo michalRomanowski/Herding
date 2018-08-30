@@ -28,62 +28,59 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.numericUpDownOptimizationSteps = new System.Windows.Forms.NumericUpDown();
+            this.NumericUpDownOptimizationSteps = new System.Windows.Forms.NumericUpDown();
             this.label7 = new System.Windows.Forms.Label();
-            this.numericUpDownNumberOfTurnsOfHerding = new System.Windows.Forms.NumericUpDown();
+            this.NumericUpDownNumberOfTurnsOfHerding = new System.Windows.Forms.NumericUpDown();
             this.label6 = new System.Windows.Forms.Label();
-            this.numericUpDownNumberOfParticipants = new System.Windows.Forms.NumericUpDown();
+            this.NumericUpDownNumberOfParticipants = new System.Windows.Forms.NumericUpDown();
             this.label2 = new System.Windows.Forms.Label();
-            this.checkBoxNotIdenticalAgents = new System.Windows.Forms.CheckBox();
-            this.dataGridViewSheep = new System.Windows.Forms.DataGridView();
-            this.dataGridViewShepards = new System.Windows.Forms.DataGridView();
-            this.numericUpDownNumberOfRandomSetsForBest = new System.Windows.Forms.NumericUpDown();
+            this.CheckBoxNotIdenticalAgents = new System.Windows.Forms.CheckBox();
+            this.DataGridViewSheep = new System.Windows.Forms.DataGridView();
+            this.DataGridViewShepards = new System.Windows.Forms.DataGridView();
+            this.NumericUpDownNumberOfrandomSetsForBest = new System.Windows.Forms.NumericUpDown();
             this.label17 = new System.Windows.Forms.Label();
-            this.checkBoxRandomSheep = new System.Windows.Forms.CheckBox();
-            this.buttonRandomPositions = new System.Windows.Forms.Button();
+            this.CheckBoxRandomSheep = new System.Windows.Forms.CheckBox();
+            this.ButtonRandomPositions = new System.Windows.Forms.Button();
             this.label5 = new System.Windows.Forms.Label();
-            this.numericUpDownNumberOfrandomSets = new System.Windows.Forms.NumericUpDown();
-            this.checkBoxRandomPositions = new System.Windows.Forms.CheckBox();
-            this.numericUpDownPopulationSize = new System.Windows.Forms.NumericUpDown();
+            this.NumericUpDownNumberOfrandomSets = new System.Windows.Forms.NumericUpDown();
+            this.CheckBoxRandomPositions = new System.Windows.Forms.CheckBox();
+            this.NumericUpDownPopulationSize = new System.Windows.Forms.NumericUpDown();
             this.label8 = new System.Windows.Forms.Label();
-            this.numericUpDownMutationPower = new System.Windows.Forms.NumericUpDown();
-            this.label12 = new System.Windows.Forms.Label();
-            this.numericUpDownNumberOfChildren = new System.Windows.Forms.NumericUpDown();
+            this.NumericUpDownMutationPower = new System.Windows.Forms.NumericUpDown();
             this.label18 = new System.Windows.Forms.Label();
             this.label16 = new System.Windows.Forms.Label();
-            this.numericUpDownAbsoluteMutationFactor = new System.Windows.Forms.NumericUpDown();
-            this.buttonShowHerdingOfBestTeam = new System.Windows.Forms.Button();
-            this.buttonCountFitness = new System.Windows.Forms.Button();
+            this.NumericUpDownAbsoluteMutationFactor = new System.Windows.Forms.NumericUpDown();
+            this.ButtonShowHerdingOfBestTeam = new System.Windows.Forms.Button();
+            this.ButtonCountFitness = new System.Windows.Forms.Button();
             this.labelBestFitness = new System.Windows.Forms.Label();
             this.label19 = new System.Windows.Forms.Label();
             this.labelAverage = new System.Windows.Forms.Label();
-            this.buttonShowHerding = new System.Windows.Forms.Button();
-            this.comboBoxPopulation = new System.Windows.Forms.ComboBox();
-            this.buttonStart = new System.Windows.Forms.Button();
-            this.buttonSave = new System.Windows.Forms.Button();
-            this.buttonLoad = new System.Windows.Forms.Button();
-            this.statusStrip = new System.Windows.Forms.StatusStrip();
+            this.ButtonShowHerding = new System.Windows.Forms.Button();
+            this.ComboBoxPopulation = new System.Windows.Forms.ComboBox();
+            this.ButtonStart = new System.Windows.Forms.Button();
+            this.ButtonSave = new System.Windows.Forms.Button();
+            this.ButtonLoad = new System.Windows.Forms.Button();
+            this.StatusStrip = new System.Windows.Forms.StatusStrip();
             this.labelStatus = new System.Windows.Forms.ToolStripStatusLabel();
-            this.progressBarSimulation = new System.Windows.Forms.ToolStripProgressBar();
-            this.buttonStop = new System.Windows.Forms.Button();
-            this.panelInfo = new System.Windows.Forms.Panel();
+            this.ProgressBarSimulation = new System.Windows.Forms.ToolStripProgressBar();
+            this.ButtonStop = new System.Windows.Forms.Button();
+            this.PanelInfo = new System.Windows.Forms.Panel();
             this.labelStep = new System.Windows.Forms.Label();
             this.label21 = new System.Windows.Forms.Label();
             this.labelBestFitness2 = new System.Windows.Forms.Label();
             this.label23 = new System.Windows.Forms.Label();
-            this.openXmlFileDialog = new System.Windows.Forms.OpenFileDialog();
-            this.saveXmlFileDialog = new System.Windows.Forms.SaveFileDialog();
             this.panelShepards = new System.Windows.Forms.Panel();
+            this.NumericUpDownHiddenLayerSize = new System.Windows.Forms.NumericUpDown();
             this.label14 = new System.Windows.Forms.Label();
             this.labelShepardSight = new System.Windows.Forms.Label();
-            this.comboBoxShepardsFitnessCryteria = new System.Windows.Forms.ComboBox();
-            this.numericUpDownNumberOfShepardsHiddenLayers = new System.Windows.Forms.NumericUpDown();
+            this.ComboBoxShepardsFitnessCryteria = new System.Windows.Forms.ComboBox();
+            this.NumericUpDownNumberOfShepardsHiddenLayers = new System.Windows.Forms.NumericUpDown();
             this.label9 = new System.Windows.Forms.Label();
             this.label3 = new System.Windows.Forms.Label();
             this.labelSheepSight = new System.Windows.Forms.Label();
             this.label1 = new System.Windows.Forms.Label();
-            this.numericUpDownShepardShepardSight = new System.Windows.Forms.NumericUpDown();
-            this.numericUpDownShepardSheepSight = new System.Windows.Forms.NumericUpDown();
+            this.NumericUpDownShepardShepardSight = new System.Windows.Forms.NumericUpDown();
+            this.NumericUpDownShepardSheepSight = new System.Windows.Forms.NumericUpDown();
             this.panelSheep = new System.Windows.Forms.Panel();
             this.label4 = new System.Windows.Forms.Label();
             this.panelRandomPositions = new System.Windows.Forms.Panel();
@@ -92,49 +89,47 @@
             this.panelPopulation = new System.Windows.Forms.Panel();
             this.label11 = new System.Windows.Forms.Label();
             this.panelMenu = new System.Windows.Forms.Panel();
-            this.numericUpDownHiddenLayerSize = new System.Windows.Forms.NumericUpDown();
-            ((System.ComponentModel.ISupportInitialize)(this.numericUpDownOptimizationSteps)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.numericUpDownNumberOfTurnsOfHerding)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.numericUpDownNumberOfParticipants)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.dataGridViewSheep)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.dataGridViewShepards)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.numericUpDownNumberOfRandomSetsForBest)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.numericUpDownNumberOfrandomSets)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.numericUpDownPopulationSize)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.numericUpDownMutationPower)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.numericUpDownNumberOfChildren)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.numericUpDownAbsoluteMutationFactor)).BeginInit();
-            this.statusStrip.SuspendLayout();
-            this.panelInfo.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.NumericUpDownOptimizationSteps)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.NumericUpDownNumberOfTurnsOfHerding)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.NumericUpDownNumberOfParticipants)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.DataGridViewSheep)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.DataGridViewShepards)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.NumericUpDownNumberOfrandomSetsForBest)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.NumericUpDownNumberOfrandomSets)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.NumericUpDownPopulationSize)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.NumericUpDownMutationPower)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.NumericUpDownAbsoluteMutationFactor)).BeginInit();
+            this.StatusStrip.SuspendLayout();
+            this.PanelInfo.SuspendLayout();
             this.panelShepards.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.numericUpDownNumberOfShepardsHiddenLayers)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.numericUpDownShepardShepardSight)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.numericUpDownShepardSheepSight)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.NumericUpDownHiddenLayerSize)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.NumericUpDownNumberOfShepardsHiddenLayers)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.NumericUpDownShepardShepardSight)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.NumericUpDownShepardSheepSight)).BeginInit();
             this.panelSheep.SuspendLayout();
             this.panelRandomPositions.SuspendLayout();
             this.panelOptimization.SuspendLayout();
             this.panelPopulation.SuspendLayout();
             this.panelMenu.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.numericUpDownHiddenLayerSize)).BeginInit();
             this.SuspendLayout();
             // 
-            // numericUpDownOptimizationSteps
+            // NumericUpDownOptimizationSteps
             // 
-            this.numericUpDownOptimizationSteps.Location = new System.Drawing.Point(97, 151);
-            this.numericUpDownOptimizationSteps.Maximum = new decimal(new int[] {
+            this.NumericUpDownOptimizationSteps.Location = new System.Drawing.Point(97, 125);
+            this.NumericUpDownOptimizationSteps.Maximum = new decimal(new int[] {
             -559939585,
             902409669,
             54,
             0});
-            this.numericUpDownOptimizationSteps.Minimum = new decimal(new int[] {
+            this.NumericUpDownOptimizationSteps.Minimum = new decimal(new int[] {
             1,
             0,
             0,
             0});
-            this.numericUpDownOptimizationSteps.Name = "numericUpDownOptimizationSteps";
-            this.numericUpDownOptimizationSteps.Size = new System.Drawing.Size(71, 20);
-            this.numericUpDownOptimizationSteps.TabIndex = 11;
-            this.numericUpDownOptimizationSteps.Value = new decimal(new int[] {
+            this.NumericUpDownOptimizationSteps.Name = "NumericUpDownOptimizationSteps";
+            this.NumericUpDownOptimizationSteps.Size = new System.Drawing.Size(71, 20);
+            this.NumericUpDownOptimizationSteps.TabIndex = 11;
+            this.NumericUpDownOptimizationSteps.Value = new decimal(new int[] {
             1000,
             0,
             0,
@@ -143,29 +138,29 @@
             // label7
             // 
             this.label7.AutoSize = true;
-            this.label7.Location = new System.Drawing.Point(8, 153);
+            this.label7.Location = new System.Drawing.Point(8, 127);
             this.label7.Name = "label7";
             this.label7.Size = new System.Drawing.Size(83, 13);
             this.label7.TabIndex = 10;
             this.label7.Text = "Number of Eras:";
             // 
-            // numericUpDownNumberOfTurnsOfHerding
+            // NumericUpDownNumberOfTurnsOfHerding
             // 
-            this.numericUpDownNumberOfTurnsOfHerding.Location = new System.Drawing.Point(103, 23);
-            this.numericUpDownNumberOfTurnsOfHerding.Maximum = new decimal(new int[] {
+            this.NumericUpDownNumberOfTurnsOfHerding.Location = new System.Drawing.Point(103, 23);
+            this.NumericUpDownNumberOfTurnsOfHerding.Maximum = new decimal(new int[] {
             10000,
             0,
             0,
             0});
-            this.numericUpDownNumberOfTurnsOfHerding.Minimum = new decimal(new int[] {
+            this.NumericUpDownNumberOfTurnsOfHerding.Minimum = new decimal(new int[] {
             1,
             0,
             0,
             0});
-            this.numericUpDownNumberOfTurnsOfHerding.Name = "numericUpDownNumberOfTurnsOfHerding";
-            this.numericUpDownNumberOfTurnsOfHerding.Size = new System.Drawing.Size(45, 20);
-            this.numericUpDownNumberOfTurnsOfHerding.TabIndex = 9;
-            this.numericUpDownNumberOfTurnsOfHerding.Value = new decimal(new int[] {
+            this.NumericUpDownNumberOfTurnsOfHerding.Name = "NumericUpDownNumberOfTurnsOfHerding";
+            this.NumericUpDownNumberOfTurnsOfHerding.Size = new System.Drawing.Size(45, 20);
+            this.NumericUpDownNumberOfTurnsOfHerding.TabIndex = 9;
+            this.NumericUpDownNumberOfTurnsOfHerding.Value = new decimal(new int[] {
             400,
             0,
             0,
@@ -181,23 +176,23 @@
             this.label6.TabIndex = 8;
             this.label6.Text = "Herding steps:";
             // 
-            // numericUpDownNumberOfParticipants
+            // NumericUpDownNumberOfParticipants
             // 
-            this.numericUpDownNumberOfParticipants.Location = new System.Drawing.Point(150, 125);
-            this.numericUpDownNumberOfParticipants.Maximum = new decimal(new int[] {
+            this.NumericUpDownNumberOfParticipants.Location = new System.Drawing.Point(150, 99);
+            this.NumericUpDownNumberOfParticipants.Maximum = new decimal(new int[] {
             1000,
             0,
             0,
             0});
-            this.numericUpDownNumberOfParticipants.Minimum = new decimal(new int[] {
+            this.NumericUpDownNumberOfParticipants.Minimum = new decimal(new int[] {
             1,
             0,
             0,
             0});
-            this.numericUpDownNumberOfParticipants.Name = "numericUpDownNumberOfParticipants";
-            this.numericUpDownNumberOfParticipants.Size = new System.Drawing.Size(45, 20);
-            this.numericUpDownNumberOfParticipants.TabIndex = 7;
-            this.numericUpDownNumberOfParticipants.Value = new decimal(new int[] {
+            this.NumericUpDownNumberOfParticipants.Name = "NumericUpDownNumberOfParticipants";
+            this.NumericUpDownNumberOfParticipants.Size = new System.Drawing.Size(45, 20);
+            this.NumericUpDownNumberOfParticipants.TabIndex = 7;
+            this.NumericUpDownNumberOfParticipants.Value = new decimal(new int[] {
             10,
             0,
             0,
@@ -206,50 +201,56 @@
             // label2
             // 
             this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(8, 129);
+            this.label2.Location = new System.Drawing.Point(8, 101);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(136, 13);
             this.label2.TabIndex = 6;
             this.label2.Text = "Participants in Tournament:";
             // 
-            // checkBoxNotIdenticalAgents
+            // CheckBoxNotIdenticalAgents
             // 
-            this.checkBoxNotIdenticalAgents.AutoSize = true;
-            this.checkBoxNotIdenticalAgents.Location = new System.Drawing.Point(258, 142);
-            this.checkBoxNotIdenticalAgents.Name = "checkBoxNotIdenticalAgents";
-            this.checkBoxNotIdenticalAgents.Size = new System.Drawing.Size(137, 17);
-            this.checkBoxNotIdenticalAgents.TabIndex = 61;
-            this.checkBoxNotIdenticalAgents.Text = "Non-Identical Shepards";
-            this.checkBoxNotIdenticalAgents.UseVisualStyleBackColor = true;
+            this.CheckBoxNotIdenticalAgents.AutoSize = true;
+            this.CheckBoxNotIdenticalAgents.Location = new System.Drawing.Point(255, 142);
+            this.CheckBoxNotIdenticalAgents.Name = "CheckBoxNotIdenticalAgents";
+            this.CheckBoxNotIdenticalAgents.Size = new System.Drawing.Size(137, 17);
+            this.CheckBoxNotIdenticalAgents.TabIndex = 61;
+            this.CheckBoxNotIdenticalAgents.Text = "Non-Identical Shepards";
+            this.CheckBoxNotIdenticalAgents.UseVisualStyleBackColor = true;
             // 
-            // dataGridViewSheep
+            // DataGridViewSheep
             // 
-            this.dataGridViewSheep.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.dataGridViewSheep.Location = new System.Drawing.Point(3, 16);
-            this.dataGridViewSheep.Name = "dataGridViewSheep";
-            this.dataGridViewSheep.Size = new System.Drawing.Size(243, 150);
-            this.dataGridViewSheep.TabIndex = 56;
-            this.dataGridViewSheep.RowsAdded += new System.Windows.Forms.DataGridViewRowsAddedEventHandler(this.dataGridViewSheep_RowsAdded);
-            this.dataGridViewSheep.RowsRemoved += new System.Windows.Forms.DataGridViewRowsRemovedEventHandler(this.dataGridViewSheep_RowsRemoved);
+            this.DataGridViewSheep.AllowUserToDeleteRows = false;
+            this.DataGridViewSheep.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.DataGridViewSheep.Location = new System.Drawing.Point(3, 16);
+            this.DataGridViewSheep.Name = "DataGridViewSheep";
+            this.DataGridViewSheep.Size = new System.Drawing.Size(243, 150);
+            this.DataGridViewSheep.TabIndex = 56;
+            this.DataGridViewSheep.RowsAdded += new System.Windows.Forms.DataGridViewRowsAddedEventHandler(this.DataGridViewSheep_RowsAdded);
+            this.DataGridViewSheep.RowsRemoved += new System.Windows.Forms.DataGridViewRowsRemovedEventHandler(this.DataGridViewSheep_RowsRemoved);
             // 
-            // dataGridViewShepards
+            // DataGridViewShepards
             // 
-            this.dataGridViewShepards.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.dataGridViewShepards.Location = new System.Drawing.Point(6, 16);
-            this.dataGridViewShepards.Name = "dataGridViewShepards";
-            this.dataGridViewShepards.Size = new System.Drawing.Size(243, 150);
-            this.dataGridViewShepards.TabIndex = 55;
-            this.dataGridViewShepards.RowsAdded += new System.Windows.Forms.DataGridViewRowsAddedEventHandler(this.dataGridViewShepards_RowsAdded);
-            this.dataGridViewShepards.RowsRemoved += new System.Windows.Forms.DataGridViewRowsRemovedEventHandler(this.dataGridViewShepards_RowsRemoved);
+            this.DataGridViewShepards.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.DataGridViewShepards.Location = new System.Drawing.Point(6, 16);
+            this.DataGridViewShepards.Name = "DataGridViewShepards";
+            this.DataGridViewShepards.Size = new System.Drawing.Size(243, 150);
+            this.DataGridViewShepards.TabIndex = 55;
+            this.DataGridViewShepards.RowsAdded += new System.Windows.Forms.DataGridViewRowsAddedEventHandler(this.DataGridViewShepards_RowsAdded);
+            this.DataGridViewShepards.RowsRemoved += new System.Windows.Forms.DataGridViewRowsRemovedEventHandler(this.DataGridViewShepards_RowsRemoved);
             // 
-            // numericUpDownNumberOfRandomSetsForBest
+            // NumericUpDownNumberOfrandomSetsForBest
             // 
-            this.numericUpDownNumberOfRandomSetsForBest.Enabled = false;
-            this.numericUpDownNumberOfRandomSetsForBest.Location = new System.Drawing.Point(122, 52);
-            this.numericUpDownNumberOfRandomSetsForBest.Name = "numericUpDownNumberOfRandomSetsForBest";
-            this.numericUpDownNumberOfRandomSetsForBest.Size = new System.Drawing.Size(45, 20);
-            this.numericUpDownNumberOfRandomSetsForBest.TabIndex = 54;
-            this.numericUpDownNumberOfRandomSetsForBest.Value = new decimal(new int[] {
+            this.NumericUpDownNumberOfrandomSetsForBest.Enabled = false;
+            this.NumericUpDownNumberOfrandomSetsForBest.Location = new System.Drawing.Point(122, 52);
+            this.NumericUpDownNumberOfrandomSetsForBest.Minimum = new decimal(new int[] {
+            1,
+            0,
+            0,
+            0});
+            this.NumericUpDownNumberOfrandomSetsForBest.Name = "NumericUpDownNumberOfrandomSetsForBest";
+            this.NumericUpDownNumberOfrandomSetsForBest.Size = new System.Drawing.Size(45, 20);
+            this.NumericUpDownNumberOfrandomSetsForBest.TabIndex = 54;
+            this.NumericUpDownNumberOfrandomSetsForBest.Value = new decimal(new int[] {
             5,
             0,
             0,
@@ -264,25 +265,25 @@
             this.label17.TabIndex = 53;
             this.label17.Text = "Random Sets for Best:";
             // 
-            // checkBoxRandomSheep
+            // CheckBoxRandomSheep
             // 
-            this.checkBoxRandomSheep.AutoSize = true;
-            this.checkBoxRandomSheep.Location = new System.Drawing.Point(252, 17);
-            this.checkBoxRandomSheep.Name = "checkBoxRandomSheep";
-            this.checkBoxRandomSheep.Size = new System.Drawing.Size(112, 17);
-            this.checkBoxRandomSheep.TabIndex = 51;
-            this.checkBoxRandomSheep.Text = "Wandering Sheep";
-            this.checkBoxRandomSheep.UseVisualStyleBackColor = true;
+            this.CheckBoxRandomSheep.AutoSize = true;
+            this.CheckBoxRandomSheep.Location = new System.Drawing.Point(255, 16);
+            this.CheckBoxRandomSheep.Name = "CheckBoxRandomSheep";
+            this.CheckBoxRandomSheep.Size = new System.Drawing.Size(112, 17);
+            this.CheckBoxRandomSheep.TabIndex = 51;
+            this.CheckBoxRandomSheep.Text = "Wandering Sheep";
+            this.CheckBoxRandomSheep.UseVisualStyleBackColor = true;
             // 
-            // buttonRandomPositions
+            // ButtonRandomPositions
             // 
-            this.buttonRandomPositions.Location = new System.Drawing.Point(293, 378);
-            this.buttonRandomPositions.Name = "buttonRandomPositions";
-            this.buttonRandomPositions.Size = new System.Drawing.Size(118, 45);
-            this.buttonRandomPositions.TabIndex = 50;
-            this.buttonRandomPositions.Text = "Randomize Positions";
-            this.buttonRandomPositions.UseVisualStyleBackColor = true;
-            this.buttonRandomPositions.Click += new System.EventHandler(this.buttonRandomPositions_Click);
+            this.ButtonRandomPositions.Location = new System.Drawing.Point(293, 378);
+            this.ButtonRandomPositions.Name = "ButtonRandomPositions";
+            this.ButtonRandomPositions.Size = new System.Drawing.Size(118, 45);
+            this.ButtonRandomPositions.TabIndex = 50;
+            this.ButtonRandomPositions.Text = "Randomize Positions";
+            this.ButtonRandomPositions.UseVisualStyleBackColor = true;
+            this.ButtonRandomPositions.Click += new System.EventHandler(this.ButtonRandomPositions_Click);
             // 
             // label5
             // 
@@ -293,53 +294,53 @@
             this.label5.TabIndex = 44;
             this.label5.Text = "Random sets:";
             // 
-            // numericUpDownNumberOfrandomSets
+            // NumericUpDownNumberOfrandomSets
             // 
-            this.numericUpDownNumberOfrandomSets.Enabled = false;
-            this.numericUpDownNumberOfrandomSets.Location = new System.Drawing.Point(81, 26);
-            this.numericUpDownNumberOfrandomSets.Minimum = new decimal(new int[] {
+            this.NumericUpDownNumberOfrandomSets.Enabled = false;
+            this.NumericUpDownNumberOfrandomSets.Location = new System.Drawing.Point(81, 26);
+            this.NumericUpDownNumberOfrandomSets.Minimum = new decimal(new int[] {
             1,
             0,
             0,
             0});
-            this.numericUpDownNumberOfrandomSets.Name = "numericUpDownNumberOfrandomSets";
-            this.numericUpDownNumberOfrandomSets.Size = new System.Drawing.Size(45, 20);
-            this.numericUpDownNumberOfrandomSets.TabIndex = 45;
-            this.numericUpDownNumberOfrandomSets.Value = new decimal(new int[] {
+            this.NumericUpDownNumberOfrandomSets.Name = "NumericUpDownNumberOfrandomSets";
+            this.NumericUpDownNumberOfrandomSets.Size = new System.Drawing.Size(45, 20);
+            this.NumericUpDownNumberOfrandomSets.TabIndex = 45;
+            this.NumericUpDownNumberOfrandomSets.Value = new decimal(new int[] {
             5,
             0,
             0,
             0});
             // 
-            // checkBoxRandomPositions
+            // CheckBoxRandomPositions
             // 
-            this.checkBoxRandomPositions.AutoSize = true;
-            this.checkBoxRandomPositions.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
-            this.checkBoxRandomPositions.Location = new System.Drawing.Point(3, 3);
-            this.checkBoxRandomPositions.Name = "checkBoxRandomPositions";
-            this.checkBoxRandomPositions.Size = new System.Drawing.Size(127, 17);
-            this.checkBoxRandomPositions.TabIndex = 43;
-            this.checkBoxRandomPositions.Text = "Random Positions";
-            this.checkBoxRandomPositions.UseVisualStyleBackColor = true;
-            this.checkBoxRandomPositions.CheckedChanged += new System.EventHandler(this.checkBoxRandomPositions_CheckedChanged);
+            this.CheckBoxRandomPositions.AutoSize = true;
+            this.CheckBoxRandomPositions.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
+            this.CheckBoxRandomPositions.Location = new System.Drawing.Point(3, 3);
+            this.CheckBoxRandomPositions.Name = "CheckBoxRandomPositions";
+            this.CheckBoxRandomPositions.Size = new System.Drawing.Size(127, 17);
+            this.CheckBoxRandomPositions.TabIndex = 43;
+            this.CheckBoxRandomPositions.Text = "Random Positions";
+            this.CheckBoxRandomPositions.UseVisualStyleBackColor = true;
+            this.CheckBoxRandomPositions.CheckedChanged += new System.EventHandler(this.CheckBoxRandomPositions_CheckedChanged);
             // 
-            // numericUpDownPopulationSize
+            // NumericUpDownPopulationSize
             // 
-            this.numericUpDownPopulationSize.Location = new System.Drawing.Point(92, 28);
-            this.numericUpDownPopulationSize.Maximum = new decimal(new int[] {
+            this.NumericUpDownPopulationSize.Location = new System.Drawing.Point(92, 28);
+            this.NumericUpDownPopulationSize.Maximum = new decimal(new int[] {
             1000,
             0,
             0,
             0});
-            this.numericUpDownPopulationSize.Minimum = new decimal(new int[] {
+            this.NumericUpDownPopulationSize.Minimum = new decimal(new int[] {
             1,
             0,
             0,
             0});
-            this.numericUpDownPopulationSize.Name = "numericUpDownPopulationSize";
-            this.numericUpDownPopulationSize.Size = new System.Drawing.Size(71, 20);
-            this.numericUpDownPopulationSize.TabIndex = 68;
-            this.numericUpDownPopulationSize.Value = new decimal(new int[] {
+            this.NumericUpDownPopulationSize.Name = "NumericUpDownPopulationSize";
+            this.NumericUpDownPopulationSize.Size = new System.Drawing.Size(71, 20);
+            this.NumericUpDownPopulationSize.TabIndex = 68;
+            this.NumericUpDownPopulationSize.Value = new decimal(new int[] {
             50,
             0,
             0,
@@ -354,65 +355,28 @@
             this.label8.TabIndex = 67;
             this.label8.Text = "Population Size:";
             // 
-            // numericUpDownMutationPower
+            // NumericUpDownMutationPower
             // 
-            this.numericUpDownMutationPower.DecimalPlaces = 3;
-            this.numericUpDownMutationPower.Increment = new decimal(new int[] {
+            this.NumericUpDownMutationPower.DecimalPlaces = 3;
+            this.NumericUpDownMutationPower.Increment = new decimal(new int[] {
             1,
             0,
             0,
             196608});
-            this.numericUpDownMutationPower.Location = new System.Drawing.Point(105, 47);
-            this.numericUpDownMutationPower.Maximum = new decimal(new int[] {
+            this.NumericUpDownMutationPower.Location = new System.Drawing.Point(105, 47);
+            this.NumericUpDownMutationPower.Maximum = new decimal(new int[] {
             1,
             0,
             0,
             0});
-            this.numericUpDownMutationPower.Name = "numericUpDownMutationPower";
-            this.numericUpDownMutationPower.Size = new System.Drawing.Size(48, 20);
-            this.numericUpDownMutationPower.TabIndex = 9;
-            this.numericUpDownMutationPower.Value = new decimal(new int[] {
+            this.NumericUpDownMutationPower.Name = "NumericUpDownMutationPower";
+            this.NumericUpDownMutationPower.Size = new System.Drawing.Size(48, 20);
+            this.NumericUpDownMutationPower.TabIndex = 9;
+            this.NumericUpDownMutationPower.Value = new decimal(new int[] {
             5,
             0,
             0,
             131072});
-            // 
-            // label12
-            // 
-            this.label12.AutoSize = true;
-            this.label12.Location = new System.Drawing.Point(8, 101);
-            this.label12.Name = "label12";
-            this.label12.Size = new System.Drawing.Size(133, 13);
-            this.label12.TabIndex = 4;
-            this.label12.Text = "Tournaments on each Era:";
-            // 
-            // numericUpDownNumberOfChildren
-            // 
-            this.numericUpDownNumberOfChildren.Increment = new decimal(new int[] {
-            2,
-            0,
-            0,
-            0});
-            this.numericUpDownNumberOfChildren.Location = new System.Drawing.Point(147, 99);
-            this.numericUpDownNumberOfChildren.Maximum = new decimal(new int[] {
-            1000,
-            0,
-            0,
-            0});
-            this.numericUpDownNumberOfChildren.Minimum = new decimal(new int[] {
-            2,
-            0,
-            0,
-            0});
-            this.numericUpDownNumberOfChildren.Name = "numericUpDownNumberOfChildren";
-            this.numericUpDownNumberOfChildren.Size = new System.Drawing.Size(45, 20);
-            this.numericUpDownNumberOfChildren.TabIndex = 5;
-            this.numericUpDownNumberOfChildren.Value = new decimal(new int[] {
-            2,
-            0,
-            0,
-            0});
-            this.numericUpDownNumberOfChildren.ValueChanged += new System.EventHandler(this.numericUpDownNumberOfChildren_ValueChanged);
             // 
             // label18
             // 
@@ -432,50 +396,50 @@
             this.label16.TabIndex = 4;
             this.label16.Text = "Mutation Strength:";
             // 
-            // numericUpDownAbsoluteMutationFactor
+            // NumericUpDownAbsoluteMutationFactor
             // 
-            this.numericUpDownAbsoluteMutationFactor.DecimalPlaces = 3;
-            this.numericUpDownAbsoluteMutationFactor.Increment = new decimal(new int[] {
+            this.NumericUpDownAbsoluteMutationFactor.DecimalPlaces = 3;
+            this.NumericUpDownAbsoluteMutationFactor.Increment = new decimal(new int[] {
             1,
             0,
             0,
             196608});
-            this.numericUpDownAbsoluteMutationFactor.Location = new System.Drawing.Point(108, 73);
-            this.numericUpDownAbsoluteMutationFactor.Maximum = new decimal(new int[] {
+            this.NumericUpDownAbsoluteMutationFactor.Location = new System.Drawing.Point(108, 73);
+            this.NumericUpDownAbsoluteMutationFactor.Maximum = new decimal(new int[] {
             1,
             0,
             0,
             0});
-            this.numericUpDownAbsoluteMutationFactor.Name = "numericUpDownAbsoluteMutationFactor";
-            this.numericUpDownAbsoluteMutationFactor.Size = new System.Drawing.Size(52, 20);
-            this.numericUpDownAbsoluteMutationFactor.TabIndex = 5;
-            this.numericUpDownAbsoluteMutationFactor.Value = new decimal(new int[] {
+            this.NumericUpDownAbsoluteMutationFactor.Name = "NumericUpDownAbsoluteMutationFactor";
+            this.NumericUpDownAbsoluteMutationFactor.Size = new System.Drawing.Size(52, 20);
+            this.NumericUpDownAbsoluteMutationFactor.TabIndex = 5;
+            this.NumericUpDownAbsoluteMutationFactor.Value = new decimal(new int[] {
             1,
             0,
             0,
             0});
             // 
-            // buttonShowHerdingOfBestTeam
+            // ButtonShowHerdingOfBestTeam
             // 
-            this.buttonShowHerdingOfBestTeam.Enabled = false;
-            this.buttonShowHerdingOfBestTeam.Location = new System.Drawing.Point(169, 80);
-            this.buttonShowHerdingOfBestTeam.Name = "buttonShowHerdingOfBestTeam";
-            this.buttonShowHerdingOfBestTeam.Size = new System.Drawing.Size(98, 23);
-            this.buttonShowHerdingOfBestTeam.TabIndex = 66;
-            this.buttonShowHerdingOfBestTeam.Text = "Show Best Team";
-            this.buttonShowHerdingOfBestTeam.UseVisualStyleBackColor = true;
-            this.buttonShowHerdingOfBestTeam.Click += new System.EventHandler(this.buttonShowHerdingOfBestTeam_Click);
+            this.ButtonShowHerdingOfBestTeam.Enabled = false;
+            this.ButtonShowHerdingOfBestTeam.Location = new System.Drawing.Point(169, 80);
+            this.ButtonShowHerdingOfBestTeam.Name = "ButtonShowHerdingOfBestTeam";
+            this.ButtonShowHerdingOfBestTeam.Size = new System.Drawing.Size(98, 23);
+            this.ButtonShowHerdingOfBestTeam.TabIndex = 66;
+            this.ButtonShowHerdingOfBestTeam.Text = "Show Best Team";
+            this.ButtonShowHerdingOfBestTeam.UseVisualStyleBackColor = true;
+            this.ButtonShowHerdingOfBestTeam.Click += new System.EventHandler(this.ButtonShowHerdingOfBestTeam_Click);
             // 
-            // buttonCountFitness
+            // ButtonCountFitness
             // 
-            this.buttonCountFitness.Enabled = false;
-            this.buttonCountFitness.Location = new System.Drawing.Point(169, 109);
-            this.buttonCountFitness.Name = "buttonCountFitness";
-            this.buttonCountFitness.Size = new System.Drawing.Size(98, 23);
-            this.buttonCountFitness.TabIndex = 65;
-            this.buttonCountFitness.Text = "Caclulate";
-            this.buttonCountFitness.UseVisualStyleBackColor = true;
-            this.buttonCountFitness.Click += new System.EventHandler(this.buttonCountFitness_Click);
+            this.ButtonCountFitness.Enabled = false;
+            this.ButtonCountFitness.Location = new System.Drawing.Point(169, 109);
+            this.ButtonCountFitness.Name = "ButtonCountFitness";
+            this.ButtonCountFitness.Size = new System.Drawing.Size(98, 23);
+            this.ButtonCountFitness.TabIndex = 65;
+            this.ButtonCountFitness.Text = "Caclulate";
+            this.ButtonCountFitness.UseVisualStyleBackColor = true;
+            this.ButtonCountFitness.Click += new System.EventHandler(this.ButtonCountFitness_Click);
             // 
             // labelBestFitness
             // 
@@ -504,66 +468,66 @@
             this.labelAverage.TabIndex = 62;
             this.labelAverage.Text = "Average Fitness:";
             // 
-            // buttonShowHerding
+            // ButtonShowHerding
             // 
-            this.buttonShowHerding.Enabled = false;
-            this.buttonShowHerding.Location = new System.Drawing.Point(169, 52);
-            this.buttonShowHerding.Name = "buttonShowHerding";
-            this.buttonShowHerding.Size = new System.Drawing.Size(98, 23);
-            this.buttonShowHerding.TabIndex = 59;
-            this.buttonShowHerding.Text = "Show";
-            this.buttonShowHerding.UseVisualStyleBackColor = true;
-            this.buttonShowHerding.Click += new System.EventHandler(this.buttonShowHerding_Click);
+            this.ButtonShowHerding.Enabled = false;
+            this.ButtonShowHerding.Location = new System.Drawing.Point(169, 52);
+            this.ButtonShowHerding.Name = "ButtonShowHerding";
+            this.ButtonShowHerding.Size = new System.Drawing.Size(98, 23);
+            this.ButtonShowHerding.TabIndex = 59;
+            this.ButtonShowHerding.Text = "Show";
+            this.ButtonShowHerding.UseVisualStyleBackColor = true;
+            this.ButtonShowHerding.Click += new System.EventHandler(this.ButtonShowHerding_Click);
             // 
-            // comboBoxPopulation
+            // ComboBoxPopulation
             // 
-            this.comboBoxPopulation.FormattingEnabled = true;
-            this.comboBoxPopulation.Location = new System.Drawing.Point(51, 54);
-            this.comboBoxPopulation.Name = "comboBoxPopulation";
-            this.comboBoxPopulation.Size = new System.Drawing.Size(112, 21);
-            this.comboBoxPopulation.TabIndex = 54;
-            this.comboBoxPopulation.SelectedIndexChanged += new System.EventHandler(this.comboBoxPopulation_SelectedIndexChanged);
+            this.ComboBoxPopulation.FormattingEnabled = true;
+            this.ComboBoxPopulation.Location = new System.Drawing.Point(51, 54);
+            this.ComboBoxPopulation.Name = "ComboBoxPopulation";
+            this.ComboBoxPopulation.Size = new System.Drawing.Size(112, 21);
+            this.ComboBoxPopulation.TabIndex = 54;
+            this.ComboBoxPopulation.SelectedIndexChanged += new System.EventHandler(this.ComboBoxPopulation_SelectedIndexChanged);
             // 
-            // buttonStart
+            // ButtonStart
             // 
-            this.buttonStart.Location = new System.Drawing.Point(3, 4);
-            this.buttonStart.Name = "buttonStart";
-            this.buttonStart.Size = new System.Drawing.Size(103, 25);
-            this.buttonStart.TabIndex = 49;
-            this.buttonStart.Text = "Start";
-            this.buttonStart.UseVisualStyleBackColor = true;
-            this.buttonStart.Click += new System.EventHandler(this.buttonStart_Click);
+            this.ButtonStart.Location = new System.Drawing.Point(3, 4);
+            this.ButtonStart.Name = "ButtonStart";
+            this.ButtonStart.Size = new System.Drawing.Size(103, 25);
+            this.ButtonStart.TabIndex = 49;
+            this.ButtonStart.Text = "Start";
+            this.ButtonStart.UseVisualStyleBackColor = true;
+            this.ButtonStart.Click += new System.EventHandler(this.ButtonStart_Click);
             // 
-            // buttonSave
+            // ButtonSave
             // 
-            this.buttonSave.Location = new System.Drawing.Point(330, 3);
-            this.buttonSave.Name = "buttonSave";
-            this.buttonSave.Size = new System.Drawing.Size(103, 25);
-            this.buttonSave.TabIndex = 51;
-            this.buttonSave.Text = "Save";
-            this.buttonSave.UseVisualStyleBackColor = true;
-            this.buttonSave.Click += new System.EventHandler(this.buttonSave_Click);
+            this.ButtonSave.Location = new System.Drawing.Point(330, 3);
+            this.ButtonSave.Name = "ButtonSave";
+            this.ButtonSave.Size = new System.Drawing.Size(103, 25);
+            this.ButtonSave.TabIndex = 51;
+            this.ButtonSave.Text = "Save";
+            this.ButtonSave.UseVisualStyleBackColor = true;
+            this.ButtonSave.Click += new System.EventHandler(this.ButtonSave_Click);
             // 
-            // buttonLoad
+            // ButtonLoad
             // 
-            this.buttonLoad.Location = new System.Drawing.Point(221, 4);
-            this.buttonLoad.Name = "buttonLoad";
-            this.buttonLoad.Size = new System.Drawing.Size(103, 25);
-            this.buttonLoad.TabIndex = 52;
-            this.buttonLoad.Text = "Load";
-            this.buttonLoad.UseVisualStyleBackColor = true;
-            this.buttonLoad.Click += new System.EventHandler(this.buttonLoad_Click);
+            this.ButtonLoad.Location = new System.Drawing.Point(221, 4);
+            this.ButtonLoad.Name = "ButtonLoad";
+            this.ButtonLoad.Size = new System.Drawing.Size(103, 25);
+            this.ButtonLoad.TabIndex = 52;
+            this.ButtonLoad.Text = "Load";
+            this.ButtonLoad.UseVisualStyleBackColor = true;
+            this.ButtonLoad.Click += new System.EventHandler(this.ButtonLoad_Click);
             // 
-            // statusStrip
+            // StatusStrip
             // 
-            this.statusStrip.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.StatusStrip.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.labelStatus,
-            this.progressBarSimulation});
-            this.statusStrip.Location = new System.Drawing.Point(0, 473);
-            this.statusStrip.Name = "statusStrip";
-            this.statusStrip.Size = new System.Drawing.Size(784, 22);
-            this.statusStrip.TabIndex = 65;
-            this.statusStrip.Text = "statusStrip";
+            this.ProgressBarSimulation});
+            this.StatusStrip.Location = new System.Drawing.Point(0, 473);
+            this.StatusStrip.Name = "StatusStrip";
+            this.StatusStrip.Size = new System.Drawing.Size(784, 22);
+            this.StatusStrip.TabIndex = 65;
+            this.StatusStrip.Text = "StatusStrip";
             // 
             // labelStatus
             // 
@@ -573,32 +537,32 @@
             this.labelStatus.Text = "Bezczynność";
             this.labelStatus.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             // 
-            // progressBarSimulation
+            // ProgressBarSimulation
             // 
-            this.progressBarSimulation.Name = "progressBarSimulation";
-            this.progressBarSimulation.Size = new System.Drawing.Size(600, 16);
+            this.ProgressBarSimulation.Name = "ProgressBarSimulation";
+            this.ProgressBarSimulation.Size = new System.Drawing.Size(600, 16);
             // 
-            // buttonStop
+            // ButtonStop
             // 
-            this.buttonStop.Location = new System.Drawing.Point(112, 4);
-            this.buttonStop.Name = "buttonStop";
-            this.buttonStop.Size = new System.Drawing.Size(103, 25);
-            this.buttonStop.TabIndex = 66;
-            this.buttonStop.Text = "Stop";
-            this.buttonStop.UseVisualStyleBackColor = true;
-            this.buttonStop.Click += new System.EventHandler(this.buttonStop_Click);
+            this.ButtonStop.Location = new System.Drawing.Point(112, 4);
+            this.ButtonStop.Name = "ButtonStop";
+            this.ButtonStop.Size = new System.Drawing.Size(103, 25);
+            this.ButtonStop.TabIndex = 66;
+            this.ButtonStop.Text = "Stop";
+            this.ButtonStop.UseVisualStyleBackColor = true;
+            this.ButtonStop.Click += new System.EventHandler(this.ButtonStop_Click);
             // 
-            // panelInfo
+            // PanelInfo
             // 
-            this.panelInfo.BackColor = System.Drawing.Color.DeepSkyBlue;
-            this.panelInfo.Controls.Add(this.labelStep);
-            this.panelInfo.Controls.Add(this.label21);
-            this.panelInfo.Controls.Add(this.labelBestFitness2);
-            this.panelInfo.Controls.Add(this.label23);
-            this.panelInfo.Location = new System.Drawing.Point(669, 392);
-            this.panelInfo.Name = "panelInfo";
-            this.panelInfo.Size = new System.Drawing.Size(103, 74);
-            this.panelInfo.TabIndex = 68;
+            this.PanelInfo.BackColor = System.Drawing.Color.DeepSkyBlue;
+            this.PanelInfo.Controls.Add(this.labelStep);
+            this.PanelInfo.Controls.Add(this.label21);
+            this.PanelInfo.Controls.Add(this.labelBestFitness2);
+            this.PanelInfo.Controls.Add(this.label23);
+            this.PanelInfo.Location = new System.Drawing.Point(669, 392);
+            this.PanelInfo.Name = "PanelInfo";
+            this.PanelInfo.Size = new System.Drawing.Size(103, 74);
+            this.PanelInfo.TabIndex = 68;
             // 
             // labelStep
             // 
@@ -638,34 +602,48 @@
             this.label23.TabIndex = 2;
             this.label23.Text = "Era:";
             // 
-            // openXmlFileDialog
-            // 
-            this.openXmlFileDialog.Filter = "Xml Files|*.xml";
-            // 
-            // saveXmlFileDialog
-            // 
-            this.saveXmlFileDialog.Filter = "Xml Files|*.xml";
-            // 
             // panelShepards
             // 
             this.panelShepards.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.panelShepards.Controls.Add(this.numericUpDownHiddenLayerSize);
+            this.panelShepards.Controls.Add(this.NumericUpDownHiddenLayerSize);
             this.panelShepards.Controls.Add(this.label14);
             this.panelShepards.Controls.Add(this.labelShepardSight);
-            this.panelShepards.Controls.Add(this.checkBoxNotIdenticalAgents);
-            this.panelShepards.Controls.Add(this.comboBoxShepardsFitnessCryteria);
-            this.panelShepards.Controls.Add(this.numericUpDownNumberOfShepardsHiddenLayers);
-            this.panelShepards.Controls.Add(this.dataGridViewShepards);
+            this.panelShepards.Controls.Add(this.CheckBoxNotIdenticalAgents);
+            this.panelShepards.Controls.Add(this.ComboBoxShepardsFitnessCryteria);
+            this.panelShepards.Controls.Add(this.NumericUpDownNumberOfShepardsHiddenLayers);
+            this.panelShepards.Controls.Add(this.DataGridViewShepards);
             this.panelShepards.Controls.Add(this.label9);
             this.panelShepards.Controls.Add(this.label3);
             this.panelShepards.Controls.Add(this.labelSheepSight);
             this.panelShepards.Controls.Add(this.label1);
-            this.panelShepards.Controls.Add(this.numericUpDownShepardShepardSight);
-            this.panelShepards.Controls.Add(this.numericUpDownShepardSheepSight);
+            this.panelShepards.Controls.Add(this.NumericUpDownShepardShepardSight);
+            this.panelShepards.Controls.Add(this.NumericUpDownShepardSheepSight);
             this.panelShepards.Location = new System.Drawing.Point(293, 12);
             this.panelShepards.Name = "panelShepards";
             this.panelShepards.Size = new System.Drawing.Size(479, 177);
             this.panelShepards.TabIndex = 82;
+            // 
+            // NumericUpDownHiddenLayerSize
+            // 
+            this.NumericUpDownHiddenLayerSize.Location = new System.Drawing.Point(357, 89);
+            this.NumericUpDownHiddenLayerSize.Maximum = new decimal(new int[] {
+            10000,
+            0,
+            0,
+            0});
+            this.NumericUpDownHiddenLayerSize.Minimum = new decimal(new int[] {
+            1,
+            0,
+            0,
+            0});
+            this.NumericUpDownHiddenLayerSize.Name = "NumericUpDownHiddenLayerSize";
+            this.NumericUpDownHiddenLayerSize.Size = new System.Drawing.Size(45, 20);
+            this.NumericUpDownHiddenLayerSize.TabIndex = 81;
+            this.NumericUpDownHiddenLayerSize.Value = new decimal(new int[] {
+            8,
+            0,
+            0,
+            0});
             // 
             // label14
             // 
@@ -686,31 +664,31 @@
             this.labelShepardSight.TabIndex = 70;
             this.labelShepardSight.Text = "Seen Shepards:";
             // 
-            // comboBoxShepardsFitnessCryteria
+            // ComboBoxShepardsFitnessCryteria
             // 
-            this.comboBoxShepardsFitnessCryteria.FormattingEnabled = true;
-            this.comboBoxShepardsFitnessCryteria.Location = new System.Drawing.Point(349, 115);
-            this.comboBoxShepardsFitnessCryteria.Name = "comboBoxShepardsFitnessCryteria";
-            this.comboBoxShepardsFitnessCryteria.Size = new System.Drawing.Size(120, 21);
-            this.comboBoxShepardsFitnessCryteria.TabIndex = 80;
+            this.ComboBoxShepardsFitnessCryteria.FormattingEnabled = true;
+            this.ComboBoxShepardsFitnessCryteria.Location = new System.Drawing.Point(349, 115);
+            this.ComboBoxShepardsFitnessCryteria.Name = "ComboBoxShepardsFitnessCryteria";
+            this.ComboBoxShepardsFitnessCryteria.Size = new System.Drawing.Size(120, 21);
+            this.ComboBoxShepardsFitnessCryteria.TabIndex = 80;
             // 
-            // numericUpDownNumberOfShepardsHiddenLayers
+            // NumericUpDownNumberOfShepardsHiddenLayers
             // 
-            this.numericUpDownNumberOfShepardsHiddenLayers.Location = new System.Drawing.Point(339, 64);
-            this.numericUpDownNumberOfShepardsHiddenLayers.Maximum = new decimal(new int[] {
+            this.NumericUpDownNumberOfShepardsHiddenLayers.Location = new System.Drawing.Point(339, 64);
+            this.NumericUpDownNumberOfShepardsHiddenLayers.Maximum = new decimal(new int[] {
             3,
             0,
             0,
             0});
-            this.numericUpDownNumberOfShepardsHiddenLayers.Minimum = new decimal(new int[] {
+            this.NumericUpDownNumberOfShepardsHiddenLayers.Minimum = new decimal(new int[] {
             1,
             0,
             0,
             0});
-            this.numericUpDownNumberOfShepardsHiddenLayers.Name = "numericUpDownNumberOfShepardsHiddenLayers";
-            this.numericUpDownNumberOfShepardsHiddenLayers.Size = new System.Drawing.Size(45, 20);
-            this.numericUpDownNumberOfShepardsHiddenLayers.TabIndex = 75;
-            this.numericUpDownNumberOfShepardsHiddenLayers.Value = new decimal(new int[] {
+            this.NumericUpDownNumberOfShepardsHiddenLayers.Name = "NumericUpDownNumberOfShepardsHiddenLayers";
+            this.NumericUpDownNumberOfShepardsHiddenLayers.Size = new System.Drawing.Size(45, 20);
+            this.NumericUpDownNumberOfShepardsHiddenLayers.TabIndex = 75;
+            this.NumericUpDownNumberOfShepardsHiddenLayers.Value = new decimal(new int[] {
             1,
             0,
             0,
@@ -752,36 +730,36 @@
             this.label1.TabIndex = 74;
             this.label1.Text = "Hidden Layer Size:";
             // 
-            // numericUpDownShepardShepardSight
+            // NumericUpDownShepardShepardSight
             // 
-            this.numericUpDownShepardShepardSight.Location = new System.Drawing.Point(344, 14);
-            this.numericUpDownShepardShepardSight.Maximum = new decimal(new int[] {
+            this.NumericUpDownShepardShepardSight.Location = new System.Drawing.Point(344, 14);
+            this.NumericUpDownShepardShepardSight.Maximum = new decimal(new int[] {
             1000,
             0,
             0,
             0});
-            this.numericUpDownShepardShepardSight.Name = "numericUpDownShepardShepardSight";
-            this.numericUpDownShepardShepardSight.Size = new System.Drawing.Size(45, 20);
-            this.numericUpDownShepardShepardSight.TabIndex = 72;
+            this.NumericUpDownShepardShepardSight.Name = "NumericUpDownShepardShepardSight";
+            this.NumericUpDownShepardShepardSight.Size = new System.Drawing.Size(45, 20);
+            this.NumericUpDownShepardShepardSight.TabIndex = 72;
             // 
-            // numericUpDownShepardSheepSight
+            // NumericUpDownShepardSheepSight
             // 
-            this.numericUpDownShepardSheepSight.Location = new System.Drawing.Point(330, 40);
-            this.numericUpDownShepardSheepSight.Maximum = new decimal(new int[] {
+            this.NumericUpDownShepardSheepSight.Location = new System.Drawing.Point(330, 40);
+            this.NumericUpDownShepardSheepSight.Maximum = new decimal(new int[] {
             1000,
             0,
             0,
             0});
-            this.numericUpDownShepardSheepSight.Name = "numericUpDownShepardSheepSight";
-            this.numericUpDownShepardSheepSight.Size = new System.Drawing.Size(45, 20);
-            this.numericUpDownShepardSheepSight.TabIndex = 71;
+            this.NumericUpDownShepardSheepSight.Name = "NumericUpDownShepardSheepSight";
+            this.NumericUpDownShepardSheepSight.Size = new System.Drawing.Size(45, 20);
+            this.NumericUpDownShepardSheepSight.TabIndex = 71;
             // 
             // panelSheep
             // 
             this.panelSheep.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.panelSheep.Controls.Add(this.label4);
-            this.panelSheep.Controls.Add(this.dataGridViewSheep);
-            this.panelSheep.Controls.Add(this.checkBoxRandomSheep);
+            this.panelSheep.Controls.Add(this.DataGridViewSheep);
+            this.panelSheep.Controls.Add(this.CheckBoxRandomSheep);
             this.panelSheep.Location = new System.Drawing.Point(293, 195);
             this.panelSheep.Name = "panelSheep";
             this.panelSheep.Size = new System.Drawing.Size(479, 177);
@@ -800,11 +778,11 @@
             // panelRandomPositions
             // 
             this.panelRandomPositions.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.panelRandomPositions.Controls.Add(this.checkBoxRandomPositions);
+            this.panelRandomPositions.Controls.Add(this.CheckBoxRandomPositions);
             this.panelRandomPositions.Controls.Add(this.label17);
-            this.panelRandomPositions.Controls.Add(this.numericUpDownNumberOfrandomSets);
+            this.panelRandomPositions.Controls.Add(this.NumericUpDownNumberOfrandomSets);
             this.panelRandomPositions.Controls.Add(this.label5);
-            this.panelRandomPositions.Controls.Add(this.numericUpDownNumberOfRandomSetsForBest);
+            this.panelRandomPositions.Controls.Add(this.NumericUpDownNumberOfrandomSetsForBest);
             this.panelRandomPositions.Location = new System.Drawing.Point(12, 200);
             this.panelRandomPositions.Name = "panelRandomPositions";
             this.panelRandomPositions.Size = new System.Drawing.Size(275, 84);
@@ -814,17 +792,15 @@
             // 
             this.panelOptimization.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.panelOptimization.Controls.Add(this.label10);
-            this.panelOptimization.Controls.Add(this.numericUpDownAbsoluteMutationFactor);
+            this.panelOptimization.Controls.Add(this.NumericUpDownAbsoluteMutationFactor);
             this.panelOptimization.Controls.Add(this.label6);
             this.panelOptimization.Controls.Add(this.label16);
             this.panelOptimization.Controls.Add(this.label18);
-            this.panelOptimization.Controls.Add(this.numericUpDownNumberOfChildren);
-            this.panelOptimization.Controls.Add(this.numericUpDownNumberOfTurnsOfHerding);
+            this.panelOptimization.Controls.Add(this.NumericUpDownNumberOfTurnsOfHerding);
             this.panelOptimization.Controls.Add(this.label7);
-            this.panelOptimization.Controls.Add(this.numericUpDownOptimizationSteps);
-            this.panelOptimization.Controls.Add(this.numericUpDownNumberOfParticipants);
-            this.panelOptimization.Controls.Add(this.label12);
-            this.panelOptimization.Controls.Add(this.numericUpDownMutationPower);
+            this.panelOptimization.Controls.Add(this.NumericUpDownOptimizationSteps);
+            this.panelOptimization.Controls.Add(this.NumericUpDownNumberOfParticipants);
+            this.panelOptimization.Controls.Add(this.NumericUpDownMutationPower);
             this.panelOptimization.Controls.Add(this.label2);
             this.panelOptimization.Location = new System.Drawing.Point(12, 12);
             this.panelOptimization.Name = "panelOptimization";
@@ -846,12 +822,12 @@
             this.panelPopulation.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.panelPopulation.Controls.Add(this.label11);
             this.panelPopulation.Controls.Add(this.label8);
-            this.panelPopulation.Controls.Add(this.numericUpDownPopulationSize);
+            this.panelPopulation.Controls.Add(this.NumericUpDownPopulationSize);
             this.panelPopulation.Controls.Add(this.label19);
-            this.panelPopulation.Controls.Add(this.buttonShowHerdingOfBestTeam);
-            this.panelPopulation.Controls.Add(this.comboBoxPopulation);
-            this.panelPopulation.Controls.Add(this.buttonCountFitness);
-            this.panelPopulation.Controls.Add(this.buttonShowHerding);
+            this.panelPopulation.Controls.Add(this.ButtonShowHerdingOfBestTeam);
+            this.panelPopulation.Controls.Add(this.ComboBoxPopulation);
+            this.panelPopulation.Controls.Add(this.ButtonCountFitness);
+            this.panelPopulation.Controls.Add(this.ButtonShowHerding);
             this.panelPopulation.Controls.Add(this.labelAverage);
             this.panelPopulation.Controls.Add(this.labelBestFitness);
             this.panelPopulation.Location = new System.Drawing.Point(12, 290);
@@ -872,36 +848,14 @@
             // panelMenu
             // 
             this.panelMenu.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.panelMenu.Controls.Add(this.buttonStart);
-            this.panelMenu.Controls.Add(this.buttonStop);
-            this.panelMenu.Controls.Add(this.buttonLoad);
-            this.panelMenu.Controls.Add(this.buttonSave);
+            this.panelMenu.Controls.Add(this.ButtonStart);
+            this.panelMenu.Controls.Add(this.ButtonStop);
+            this.panelMenu.Controls.Add(this.ButtonLoad);
+            this.panelMenu.Controls.Add(this.ButtonSave);
             this.panelMenu.Location = new System.Drawing.Point(12, 436);
             this.panelMenu.Name = "panelMenu";
             this.panelMenu.Size = new System.Drawing.Size(440, 33);
             this.panelMenu.TabIndex = 87;
-            // 
-            // numericUpDownHiddenLayerSize
-            // 
-            this.numericUpDownHiddenLayerSize.Location = new System.Drawing.Point(357, 89);
-            this.numericUpDownHiddenLayerSize.Maximum = new decimal(new int[] {
-            10000,
-            0,
-            0,
-            0});
-            this.numericUpDownHiddenLayerSize.Minimum = new decimal(new int[] {
-            1,
-            0,
-            0,
-            0});
-            this.numericUpDownHiddenLayerSize.Name = "numericUpDownHiddenLayerSize";
-            this.numericUpDownHiddenLayerSize.Size = new System.Drawing.Size(45, 20);
-            this.numericUpDownHiddenLayerSize.TabIndex = 81;
-            this.numericUpDownHiddenLayerSize.Value = new decimal(new int[] {
-            8,
-            0,
-            0,
-            0});
             // 
             // FSimulation
             // 
@@ -913,34 +867,34 @@
             this.Controls.Add(this.panelPopulation);
             this.Controls.Add(this.panelOptimization);
             this.Controls.Add(this.panelRandomPositions);
-            this.Controls.Add(this.panelInfo);
-            this.Controls.Add(this.buttonRandomPositions);
+            this.Controls.Add(this.PanelInfo);
+            this.Controls.Add(this.ButtonRandomPositions);
             this.Controls.Add(this.panelSheep);
             this.Controls.Add(this.panelShepards);
-            this.Controls.Add(this.statusStrip);
+            this.Controls.Add(this.StatusStrip);
             this.Name = "FSimulation";
             this.Text = "Herding Optimization";
             this.FormClosed += new System.Windows.Forms.FormClosedEventHandler(this.FSimulation_FormClosed);
-            ((System.ComponentModel.ISupportInitialize)(this.numericUpDownOptimizationSteps)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.numericUpDownNumberOfTurnsOfHerding)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.numericUpDownNumberOfParticipants)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.dataGridViewSheep)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.dataGridViewShepards)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.numericUpDownNumberOfRandomSetsForBest)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.numericUpDownNumberOfrandomSets)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.numericUpDownPopulationSize)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.numericUpDownMutationPower)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.numericUpDownNumberOfChildren)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.numericUpDownAbsoluteMutationFactor)).EndInit();
-            this.statusStrip.ResumeLayout(false);
-            this.statusStrip.PerformLayout();
-            this.panelInfo.ResumeLayout(false);
-            this.panelInfo.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.NumericUpDownOptimizationSteps)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.NumericUpDownNumberOfTurnsOfHerding)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.NumericUpDownNumberOfParticipants)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.DataGridViewSheep)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.DataGridViewShepards)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.NumericUpDownNumberOfrandomSetsForBest)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.NumericUpDownNumberOfrandomSets)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.NumericUpDownPopulationSize)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.NumericUpDownMutationPower)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.NumericUpDownAbsoluteMutationFactor)).EndInit();
+            this.StatusStrip.ResumeLayout(false);
+            this.StatusStrip.PerformLayout();
+            this.PanelInfo.ResumeLayout(false);
+            this.PanelInfo.PerformLayout();
             this.panelShepards.ResumeLayout(false);
             this.panelShepards.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.numericUpDownNumberOfShepardsHiddenLayers)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.numericUpDownShepardShepardSight)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.numericUpDownShepardSheepSight)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.NumericUpDownHiddenLayerSize)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.NumericUpDownNumberOfShepardsHiddenLayers)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.NumericUpDownShepardShepardSight)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.NumericUpDownShepardSheepSight)).EndInit();
             this.panelSheep.ResumeLayout(false);
             this.panelSheep.PerformLayout();
             this.panelRandomPositions.ResumeLayout(false);
@@ -950,7 +904,6 @@
             this.panelPopulation.ResumeLayout(false);
             this.panelPopulation.PerformLayout();
             this.panelMenu.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize)(this.numericUpDownHiddenLayerSize)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -958,70 +911,66 @@
 
         #endregion
 
-        private System.Windows.Forms.NumericUpDown numericUpDownNumberOfParticipants;
+        private System.Windows.Forms.NumericUpDown NumericUpDownNumberOfParticipants;
         private System.Windows.Forms.Label label2;
-        private System.Windows.Forms.NumericUpDown numericUpDownNumberOfTurnsOfHerding;
+        private System.Windows.Forms.NumericUpDown NumericUpDownNumberOfTurnsOfHerding;
         private System.Windows.Forms.Label label6;
-        private System.Windows.Forms.NumericUpDown numericUpDownOptimizationSteps;
+        private System.Windows.Forms.NumericUpDown NumericUpDownOptimizationSteps;
         private System.Windows.Forms.Label label7;
-        private System.Windows.Forms.NumericUpDown numericUpDownMutationPower;
+        private System.Windows.Forms.NumericUpDown NumericUpDownMutationPower;
         private System.Windows.Forms.Label label18;
         private System.Windows.Forms.Label label16;
-        private System.Windows.Forms.NumericUpDown numericUpDownAbsoluteMutationFactor;
-        private System.Windows.Forms.Button buttonStart;
-        private System.Windows.Forms.Button buttonSave;
-        private System.Windows.Forms.Button buttonLoad;
-        private System.Windows.Forms.ComboBox comboBoxPopulation;
+        private System.Windows.Forms.NumericUpDown NumericUpDownAbsoluteMutationFactor;
+        private System.Windows.Forms.Button ButtonStart;
+        private System.Windows.Forms.Button ButtonSave;
+        private System.Windows.Forms.Button ButtonLoad;
+        private System.Windows.Forms.ComboBox ComboBoxPopulation;
         private System.Windows.Forms.Label label19;
-        private System.Windows.Forms.Button buttonShowHerding;
+        private System.Windows.Forms.Button ButtonShowHerding;
         private System.Windows.Forms.Label labelAverage;
-        private System.Windows.Forms.StatusStrip statusStrip;
+        private System.Windows.Forms.StatusStrip StatusStrip;
         private System.Windows.Forms.ToolStripStatusLabel labelStatus;
-        private System.Windows.Forms.ToolStripProgressBar progressBarSimulation;
-        private System.Windows.Forms.Button buttonStop;
+        private System.Windows.Forms.ToolStripProgressBar ProgressBarSimulation;
+        private System.Windows.Forms.Button ButtonStop;
         private System.Windows.Forms.Label label8;
         private System.Windows.Forms.Label labelBestFitness;
-        private System.Windows.Forms.NumericUpDown numericUpDownPopulationSize;
-        private System.Windows.Forms.CheckBox checkBoxRandomPositions;
+        private System.Windows.Forms.NumericUpDown NumericUpDownPopulationSize;
+        private System.Windows.Forms.CheckBox CheckBoxRandomPositions;
         private System.Windows.Forms.Label label5;
-        private System.Windows.Forms.NumericUpDown numericUpDownNumberOfrandomSets;
-        private System.Windows.Forms.Button buttonRandomPositions;
-        private System.Windows.Forms.Button buttonCountFitness;
-        private System.Windows.Forms.Panel panelInfo;
+        private System.Windows.Forms.NumericUpDown NumericUpDownNumberOfrandomSets;
+        private System.Windows.Forms.Button ButtonRandomPositions;
+        private System.Windows.Forms.Button ButtonCountFitness;
+        private System.Windows.Forms.Panel PanelInfo;
         private System.Windows.Forms.Label labelStep;
         private System.Windows.Forms.Label label21;
         private System.Windows.Forms.Label labelBestFitness2;
         private System.Windows.Forms.Label label23;
-        private System.Windows.Forms.CheckBox checkBoxRandomSheep;
-        private System.Windows.Forms.NumericUpDown numericUpDownNumberOfRandomSetsForBest;
+        private System.Windows.Forms.CheckBox CheckBoxRandomSheep;
+        private System.Windows.Forms.NumericUpDown NumericUpDownNumberOfrandomSetsForBest;
         private System.Windows.Forms.Label label17;
-        private System.Windows.Forms.DataGridView dataGridViewSheep;
-        private System.Windows.Forms.DataGridView dataGridViewShepards;
-        private System.Windows.Forms.Button buttonShowHerdingOfBestTeam;
-        private System.Windows.Forms.OpenFileDialog openXmlFileDialog;
-        private System.Windows.Forms.SaveFileDialog saveXmlFileDialog;
-        private System.Windows.Forms.CheckBox checkBoxNotIdenticalAgents;
-        private System.Windows.Forms.Label label12;
-        private System.Windows.Forms.NumericUpDown numericUpDownNumberOfChildren;
+        private System.Windows.Forms.DataGridView DataGridViewSheep;
+        private System.Windows.Forms.DataGridView DataGridViewShepards;
+        private System.Windows.Forms.Button ButtonShowHerdingOfBestTeam;
+        private System.Windows.Forms.CheckBox CheckBoxNotIdenticalAgents;
         private System.Windows.Forms.Panel panelRandomPositions;
         private System.Windows.Forms.Panel panelSheep;
         private System.Windows.Forms.Label label4;
         private System.Windows.Forms.Panel panelShepards;
         private System.Windows.Forms.Label label14;
         private System.Windows.Forms.Label labelShepardSight;
-        private System.Windows.Forms.ComboBox comboBoxShepardsFitnessCryteria;
-        private System.Windows.Forms.NumericUpDown numericUpDownNumberOfShepardsHiddenLayers;
+        private System.Windows.Forms.ComboBox ComboBoxShepardsFitnessCryteria;
+        private System.Windows.Forms.NumericUpDown NumericUpDownNumberOfShepardsHiddenLayers;
         private System.Windows.Forms.Label label9;
         private System.Windows.Forms.Label label3;
         private System.Windows.Forms.Label labelSheepSight;
         private System.Windows.Forms.Label label1;
-        private System.Windows.Forms.NumericUpDown numericUpDownShepardShepardSight;
-        private System.Windows.Forms.NumericUpDown numericUpDownShepardSheepSight;
+        private System.Windows.Forms.NumericUpDown NumericUpDownShepardShepardSight;
+        private System.Windows.Forms.NumericUpDown NumericUpDownShepardSheepSight;
         private System.Windows.Forms.Panel panelOptimization;
         private System.Windows.Forms.Label label10;
         private System.Windows.Forms.Panel panelPopulation;
         private System.Windows.Forms.Label label11;
         private System.Windows.Forms.Panel panelMenu;
-        private System.Windows.Forms.NumericUpDown numericUpDownHiddenLayerSize;
+        private System.Windows.Forms.NumericUpDown NumericUpDownHiddenLayerSize;
     }
 }

@@ -8,8 +8,8 @@
     <ProjectGuid>{3C6E1D3B-7381-4DD1-8C77-54BDDE6BF2E3}</ProjectGuid>
     <OutputType>WinExe</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>PView</RootNamespace>
-    <AssemblyName>MRSim</AssemblyName>
+    <RootNamespace>View</RootNamespace>
+    <AssemblyName>HerdingSim</AssemblyName>
     <TargetFrameworkVersion>v4.6.1</TargetFrameworkVersion>
     <TargetFrameworkProfile>
     </TargetFrameworkProfile>
@@ -118,6 +118,7 @@
     <Compile Include="FWorld.Designer.cs">
       <DependentUpon>FWorld.cs</DependentUpon>
     </Compile>
+    <Compile Include="OptimizationInstance.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <EmbeddedResource Include="FLoad.resx">
@@ -159,36 +160,6 @@
     <None Include="PView_TemporaryKey.pfx" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\Auxiliary\Auxiliary.csproj">
-      <Project>{c6e09bba-2a95-4b06-98ec-02b3259698f1}</Project>
-      <Name>Auxiliary</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\DBManager\DBManager.csproj">
-      <Project>{8976c2fe-03b2-49ab-ac1e-dbf27c7661f0}</Project>
-      <Name>DBManager</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\Agent\Agent.csproj">
-      <Project>{E093E9E9-6081-4EA9-978A-BB3EB7B45A0F}</Project>
-      <Name>Agent</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\Simulation\Simulation.csproj">
-      <Project>{CB4C0DE7-23E9-4A3B-884F-F4071DF4DF30}</Project>
-      <Name>Simulation</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\Team\Team.csproj">
-      <Project>{bf919043-20a4-4388-a33e-22be06bc2d46}</Project>
-      <Name>Team</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\Timer\Timer.csproj">
-      <Project>{98bbf95a-2e7d-4a8d-8734-db8517dfdc46}</Project>
-      <Name>Timer</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\World\World.csproj">
-      <Project>{7f08752f-ac86-42b2-97ae-2c85e078f02b}</Project>
-      <Name>World</Name>
-    </ProjectReference>
-  </ItemGroup>
-  <ItemGroup>
     <BootstrapperPackage Include=".NETFramework,Version=v4.0,Profile=Client">
       <Visible>False</Visible>
       <ProductName>Microsoft .NET Framework 4 Client Profile %28x86 and x64%29</ProductName>
@@ -209,6 +180,36 @@
       <ProductName>Windows Installer 3.1</ProductName>
       <Install>true</Install>
     </BootstrapperPackage>
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\Agent\Agent.csproj">
+      <Project>{e093e9e9-6081-4ea9-978a-bb3eb7b45a0f}</Project>
+      <Name>Agent</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Auxiliary\Auxiliary.csproj">
+      <Project>{c6e09bba-2a95-4b06-98ec-02b3259698f1}</Project>
+      <Name>Auxiliary</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\EFDatabase\EFDatabase.csproj">
+      <Project>{41eb4cbc-a1fb-408d-8038-21a3bec2d8ab}</Project>
+      <Name>EFDatabase</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Simulation\Simulations.csproj">
+      <Project>{cb4c0de7-23e9-4a3b-884f-f4071df4df30}</Project>
+      <Name>Simulations</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Team\Teams.csproj">
+      <Project>{bf919043-20a4-4388-a33e-22be06bc2d46}</Project>
+      <Name>Teams</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Timer\Timer.csproj">
+      <Project>{98bbf95a-2e7d-4a8d-8734-db8517dfdc46}</Project>
+      <Name>Timer</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\World\World.csproj">
+      <Project>{7f08752f-ac86-42b2-97ae-2c85e078f02b}</Project>
+      <Name>World</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

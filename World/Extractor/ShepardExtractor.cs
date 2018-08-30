@@ -10,7 +10,7 @@ namespace World
     {
         private const float SPEED = 2.0f;
 
-        public static float[] ExtractFeatures(IWorld world, IThinkingAgent agent)
+        public static float[] ExtractFeatures(IWorld world, ThinkingAgent agent)
         {
             var centerOfGravity =
                 CenterOfGravityCalculator.CenterOfGravity(world.Sheep.Select(x => x.Position).ToList());
@@ -40,7 +40,7 @@ namespace World
             return features;
         }
 
-        public static void InterpretOutput(IThinkingAgent agent, IWorld world, float[] output)
+        public static void InterpretOutput(ThinkingAgent agent, IWorld world, float[] output)
         {
             if (output.Count() != 2)
                 throw new ArgumentException("Net output must be of size == 2.");
