@@ -27,15 +27,8 @@ namespace EFDatabase
                     .Include(x => x.Shepards.Best)
                     .Include(x => x.Shepards.Best.Members)
                     .Include(x => x.Shepards.Units)
+                    .Include(x => x.Shepards.Units.Select(y => y.Members))
                     .First();
-
-                foreach (var u in optimization.Shepards.Units)
-                {
-                    u.Members = context.Teams
-                        .Where(x => x.Id == u.Id)
-                        .Select(x => x.Members)
-                        .First();
-                }
 
                 return optimization;
             }
