@@ -13,7 +13,7 @@ namespace EFDatabase
         public virtual DbSet<Team> Teams { get; set; }
         public virtual DbSet<ThinkingAgent> ThinkingAgents{ get; set; }
         public virtual DbSet<RandomSetsList> RandomSetsLists { get; set; }
-
-        public EFDatabaseContext() : base(@"data source=.\SQLEXPRESS; initial catalog=SeepHerdingDB; integrated security=SSPI") { }
+        
+        public EFDatabaseContext() : base("DefaultConnection") { }
     }
 }
