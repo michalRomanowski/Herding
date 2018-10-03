@@ -13,7 +13,7 @@ namespace World
         public static float[] ExtractFeatures(IWorld world, ThinkingAgent agent)
         {
             var centerOfGravity =
-                CenterOfGravityCalculator.CenterOfGravity(world.Sheep.Select(x => x.Position).ToList());
+                Position.CentreOfGravity(world.Sheep.Select(x => x.Position));
             
             var closestAgents = Finder.FindClosestAgents(world.Shepards.Members.Cast<IMovingAgent>().ToList(), agent, agent.NumberOfSeenShepards);
             var closestSheep = Finder.FindClosestAgents(world.Sheep.Cast<IMovingAgent>().ToList(), agent, agent.NumberOfSeenSheep);
@@ -46,7 +46,7 @@ namespace World
                 throw new ArgumentException("Net output must be of size == 2.");
 
             var centerOfGravity =
-                CenterOfGravityCalculator.CenterOfGravity(world.Sheep.Select(x => x.Position).ToList());
+                Position.CentreOfGravity(world.Sheep.Select(x => x.Position));
 
             float dX = centerOfGravity.X - agent.Position.X;
             float dY = centerOfGravity.Y - agent.Position.Y;

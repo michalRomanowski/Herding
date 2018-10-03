@@ -99,16 +99,37 @@ namespace Auxiliary
             return movedCentre.Select(p => new Position(p.X * cos - p.Y * sin, p.X * sin + p.Y * cos)).ToList();
         }
 
-        public static float SumOfDistancesFromCentreOfGravity(IList<Position> positions)
+        public static Position CentreOfGravity(IEnumerable<Position> positions)
+        {
+            if (!positions.Any())
+                throw new ArgumentException();
+
+            Position centerOfGravity = new Position(0, 0);
+            int count = 0;
+
+            foreach (var p in positions)
+            {
+                centerOfGravity.X += p.X;
+                centerOfGravity.Y += p.Y;
+                count++;
+            }
+
+            centerOfGravity.X /= count;
+            centerOfGravity.Y /= count;
+
+            return centerOfGravity;
+        }
+
+        public static float SumOfDistancesFromCentreOfGravity(IEnumerable<Position> positions)
         {
             var centerOfGravity =
-                CenterOfGravityCalculator.CenterOfGravity(positions);
+                CentreOfGravity(positions);
 
             float sumOfDistances = 0.0f;
 
             foreach (var p in positions)
             {
-                sumOfDistances += Position.Distance(centerOfGravity, p);
+                sumOfDistances += Distance(centerOfGravity, p);
             }
 
             return sumOfDistances;

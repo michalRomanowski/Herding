@@ -63,7 +63,7 @@ namespace Simulations
 
             foreach (var positionsOfSheepAtTime in sheepPositionsRecord)
             {
-                fitness += CenterOfGravityCalculator.SumOfDistancesFromCenterOfGravity(positionsOfSheepAtTime);
+                fitness += Position.SumOfDistancesFromCentreOfGravity(positionsOfSheepAtTime);
             }
 
             return fitness;

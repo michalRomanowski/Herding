@@ -179,7 +179,7 @@ namespace World
 
             if (showCenterOfGravityOfSheep)
             {
-                Position centre = CenterOfGravityCalculator.CenterOfGravity(Sheep.Select(x => x.Position).ToList());
+                Position centre = Position.CentreOfGravity(Sheep.Select(x => x.Position));
                 gfx.FillEllipse(new SolidBrush(Color.White), new Rectangle(offsetX + (int)centre.X - 2, offsetY + (int)centre.Y - 2, 4, 4));
             }
         }

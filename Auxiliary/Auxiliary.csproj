@@ -42,7 +42,6 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="CenterOfGravityCalculator.cs" />
     <Compile Include="CMath.cs" />
     <Compile Include="Compressor.cs" />
     <Compile Include="Logger.cs" />
