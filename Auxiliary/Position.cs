@@ -63,21 +63,6 @@ namespace Auxiliary
             return (float)Math.Sqrt(Position.SquaredDistance(A, B));
         }
 
-        public static IList<Position> GenerateRandomPositionsList(int length, float min, float max)
-        {
-            var randomPositionsList = new List<Position>();
-
-            for (int i = 0; i < length; i++ )
-            {
-                randomPositionsList.Add(
-                    new Position(
-                        CRandom.NextFloat(min, max),
-                        CRandom.NextFloat(min, max)));
-            }
-
-            return randomPositionsList;
-        }
-
         public static List<Position> PositionsInRelativeCoordinationSystem(Position newO, Position anyPointOnPositiveSideOfNewOY, IEnumerable<Position> positionsInOldCoordinationSystem)
         {
             var movedCentre = positionsInOldCoordinationSystem.Select(p => new Position(p.X - newO.X, p.Y - newO.Y)).ToList<Position>();
@@ -99,7 +84,29 @@ namespace Auxiliary
             return movedCentre.Select(p => new Position(p.X * cos - p.Y * sin, p.X * sin + p.Y * cos)).ToList();
         }
 
-        public static Position CentreOfGravity(IEnumerable<Position> positions)
+        #region ICompress
+
+        public override string ToString()
+        {
+            return $"{X.ToString()}{SEPARATOR}{Y.ToString()}";
+        }
+
+        public Position FromString(string compressed)
+        {
+            var splitted = compressed.Split(SEPARATOR);
+
+            X = Convert.ToInt32(splitted[0]);
+            Y = Convert.ToInt32(splitted[1]);
+
+            return this;
+        }
+
+        #endregion
+    }
+
+    public static class PositionEnumerableExtensions
+    {
+        public static Position CentreOfGravity(this IEnumerable<Position> positions)
         {
             if (!positions.Any())
                 throw new ArgumentException();
@@ -120,34 +127,19 @@ namespace Auxiliary
             return centerOfGravity;
         }
 
-        public static float SumOfDistancesFromCentreOfGravity(IEnumerable<Position> positions)
+        public static float SumOfDistancesFromCentreOfGravity(this IEnumerable<Position> positions)
         {
             var centerOfGravity =
-                CentreOfGravity(positions);
+                positions.CentreOfGravity();
 
             float sumOfDistances = 0.0f;
 
             foreach (var p in positions)
             {
-                sumOfDistances += Distance(centerOfGravity, p);
+                sumOfDistances += Position.Distance(centerOfGravity, p);
             }
 
             return sumOfDistances;
-        }
-
-        public override string ToString()
-        {
-            return $"{X.ToString()}{SEPARATOR}{Y.ToString()}";
-        }
-
-        public Position FromString(string compressed)
-        {
-            var splitted = compressed.Split(SEPARATOR);
-
-            X = Convert.ToInt32(splitted[0]);
-            Y = Convert.ToInt32(splitted[1]);
-
-            return this;
         }
     }
 }
