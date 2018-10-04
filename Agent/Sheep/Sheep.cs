@@ -45,14 +45,14 @@ namespace Agent
 
                 float speed = SIGHT_RANGE - distance;
 
-                CMath.ToVectorLengthOne(ref dX, ref dY);
-                
-                DecideOutput[0] -= dX * speed;
-                DecideOutput[1] -= dY * speed;
+                var normalized = CMath.NormalizeToOne(dX, dY);
+
+                DecideOutput[0] -= normalized[0] * speed;
+                DecideOutput[1] -= normalized[1] * speed;
             }
 
             if (DecideOutput[0] != 0 || DecideOutput[1] != 0)
-                CMath.ToVectorLengthOne(ref DecideOutput[0], ref DecideOutput[1]);
+                DecideOutput = CMath.NormalizeToOne(DecideOutput);
 
             return DecideOutput;
         }

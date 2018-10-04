@@ -39,10 +39,10 @@ namespace Agent
             float randomX = (float)Math.Cos(randomMoveAngle);
             float randomY = (float)Math.Sin(randomMoveAngle);
 
-            CMath.ToVectorLengthOne(ref randomX, ref randomY);
+            var vectorLengthOne = CMath.NormalizeToOne(randomX, randomY);
             
-            DecideOutput[0] += randomX * RANDOM_MOVEMENT_SPEED;
-            DecideOutput[1] += randomY * RANDOM_MOVEMENT_SPEED;
+            DecideOutput[0] += vectorLengthOne[0] * RANDOM_MOVEMENT_SPEED;
+            DecideOutput[1] += vectorLengthOne[1] * RANDOM_MOVEMENT_SPEED;
 
             return DecideOutput;
         }

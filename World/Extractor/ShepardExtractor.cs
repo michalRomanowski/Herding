@@ -65,7 +65,11 @@ namespace World
             float mY = output[0] * sin + output[1] * cos;
 
             if (mX * mX + mY * mY > 1)
-                CMath.ToVectorLengthOne(ref mX, ref mY);
+            {
+                var normalized = CMath.NormalizeToOne(mX, mY);
+                mX = normalized[0];
+                mY = normalized[1];
+            }
 
             agent.Position.X += mX * SPEED;
             agent.Position.Y += mY * SPEED;
