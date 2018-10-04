@@ -46,42 +46,30 @@ namespace Auxiliary
             Y = Convert.ToInt32(splitted[1]);
         }
 
-        public static float SquaredDistance(Position A, Position B)
+        public static Position operator+(Position a, Position b)
         {
-            float dx = A.X - B.X;
-            float dy = A.Y - B.Y;
+            return new Position(
+                a.X + b.X,
+                a.Y + b.Y);
+        }
+
+        public static Position operator-(Position a, Position b)
+        {
+            return new Position(
+                a.X - b.X,
+                a.Y - b.Y);
+        }
+
+        public static float SquaredDistance(Position a, Position b)
+        {
+            float dx = a.X - b.X;
+            float dy = a.Y - b.Y;
             return dx * dx + dy * dy;
         }
 
-        public static float Length(Position A)
+        public static float Distance(Position a, Position b)
         {
-            return A.X * A.X + A.Y * A.Y;
-        }
-
-        public static float Distance(Position A, Position B)
-        {
-            return (float)Math.Sqrt(Position.SquaredDistance(A, B));
-        }
-
-        public static List<Position> PositionsInRelativeCoordinationSystem(Position newO, Position anyPointOnPositiveSideOfNewOY, IEnumerable<Position> positionsInOldCoordinationSystem)
-        {
-            var movedCenter = positionsInOldCoordinationSystem.Select(p => new Position(p.X - newO.X, p.Y - newO.Y)).ToList<Position>();
-
-            anyPointOnPositiveSideOfNewOY = new Position(
-                anyPointOnPositiveSideOfNewOY.X - newO.X, anyPointOnPositiveSideOfNewOY.Y - newO.Y);
-            
-            float d = (float)Math.Sqrt(anyPointOnPositiveSideOfNewOY.X * anyPointOnPositiveSideOfNewOY.X + anyPointOnPositiveSideOfNewOY.Y * anyPointOnPositiveSideOfNewOY.Y);
-
-            float sin = anyPointOnPositiveSideOfNewOY.X / d;
-            float cos = anyPointOnPositiveSideOfNewOY.Y / d;
-
-            if (float.IsNaN(sin))
-                sin = 0.0f;
-
-            if (float.IsNaN(cos))
-                cos = 1.0f;
-
-            return movedCenter.Select(p => new Position(p.X * cos - p.Y * sin, p.X * sin + p.Y * cos)).ToList();
+            return (float)Math.Sqrt(SquaredDistance(a, b));
         }
 
         #region ICompress
@@ -104,7 +92,7 @@ namespace Auxiliary
         #endregion
     }
 
-    public static class PositionEnumerableExtensions
+    public static class PositionCollectionsExtensions
     {
         public static Position Center(this IEnumerable<Position> positions)
         {
@@ -122,6 +110,26 @@ namespace Auxiliary
                 positions.Center();
 
             return positions.Sum(x => Position.Distance(center, x));
+        }
+
+        public static List<Position> PositionsInRelativeCoordinationSystem(this IEnumerable<Position> positionsInOldCoordinationSystem, Position newO, Position anyPointOnPositiveSideOfNewOY)
+        {
+            var movedCenter = positionsInOldCoordinationSystem.Select(p => p - newO);
+
+            anyPointOnPositiveSideOfNewOY -= newO;
+
+            float d = Position.Distance(new Position(0, 0), anyPointOnPositiveSideOfNewOY);
+
+            float sin = anyPointOnPositiveSideOfNewOY.X / d;
+            float cos = anyPointOnPositiveSideOfNewOY.Y / d;
+
+            if (float.IsNaN(sin))
+                sin = 0.0f;
+
+            if (float.IsNaN(cos))
+                cos = 1.0f;
+
+            return movedCenter.Select(p => new Position(p.X * cos - p.Y * sin, p.X * sin + p.Y * cos)).ToList();
         }
     }
 }

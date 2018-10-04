@@ -18,8 +18,8 @@ namespace World
             var closestAgents = Finder.FindClosestAgents(world.Shepards.Members.Cast<IMovingAgent>().ToList(), agent, agent.NumberOfSeenShepards);
             var closestSheep = Finder.FindClosestAgents(world.Sheep.Cast<IMovingAgent>().ToList(), agent, agent.NumberOfSeenSheep);
 
-            var closestAgentsInRelativeCoordinationSystem = Position.PositionsInRelativeCoordinationSystem(agent.Position, centerOfGravity, closestAgents.Select(x => x.Position));
-            var closestSheepInRelativeCoordinationSystem = Position.PositionsInRelativeCoordinationSystem(agent.Position, centerOfGravity, closestSheep.Select(x => x.Position));
+            var closestAgentsInRelativeCoordinationSystem = closestAgents.Select(x => x.Position).PositionsInRelativeCoordinationSystem(agent.Position, centerOfGravity);
+            var closestSheepInRelativeCoordinationSystem = closestSheep.Select(x => x.Position).PositionsInRelativeCoordinationSystem(agent.Position, centerOfGravity);
 
             closestAgentsInRelativeCoordinationSystem.AddRange(closestSheepInRelativeCoordinationSystem);
 
