@@ -31,7 +31,7 @@
             this.ButtonStart = new System.Windows.Forms.Button();
             this.ButtonResume = new System.Windows.Forms.Button();
             this.ButtonPause = new System.Windows.Forms.Button();
-            this.CheckBoxCentreOfGravity = new System.Windows.Forms.CheckBox();
+            this.CheckBoxCenterOfGravity = new System.Windows.Forms.CheckBox();
             this.CheckBoxSheepSight = new System.Windows.Forms.CheckBox();
             this.CheckBoxShepardSight = new System.Windows.Forms.CheckBox();
             this.labelFitness = new System.Windows.Forms.Label();
@@ -76,15 +76,15 @@
             this.ButtonPause.UseVisualStyleBackColor = true;
             this.ButtonPause.Click += new System.EventHandler(this.ButtonPause_Click);
             // 
-            // CheckBoxCentreOfGravity
+            // CheckBoxCenterOfGravity
             // 
-            this.CheckBoxCentreOfGravity.AutoSize = true;
-            this.CheckBoxCentreOfGravity.Location = new System.Drawing.Point(682, 12);
-            this.CheckBoxCentreOfGravity.Name = "CheckBoxCentreOfGravity";
-            this.CheckBoxCentreOfGravity.Size = new System.Drawing.Size(103, 17);
-            this.CheckBoxCentreOfGravity.TabIndex = 5;
-            this.CheckBoxCentreOfGravity.Text = "Centre of Sheep";
-            this.CheckBoxCentreOfGravity.UseVisualStyleBackColor = true;
+            this.CheckBoxCenterOfGravity.AutoSize = true;
+            this.CheckBoxCenterOfGravity.Location = new System.Drawing.Point(682, 12);
+            this.CheckBoxCenterOfGravity.Name = "CheckBoxCenterOfGravity";
+            this.CheckBoxCenterOfGravity.Size = new System.Drawing.Size(103, 17);
+            this.CheckBoxCenterOfGravity.TabIndex = 5;
+            this.CheckBoxCenterOfGravity.Text = "Center of Sheep";
+            this.CheckBoxCenterOfGravity.UseVisualStyleBackColor = true;
             // 
             // CheckBoxSheepSight
             // 
@@ -191,7 +191,7 @@
             this.Controls.Add(this.labelFitness);
             this.Controls.Add(this.CheckBoxShepardSight);
             this.Controls.Add(this.CheckBoxSheepSight);
-            this.Controls.Add(this.CheckBoxCentreOfGravity);
+            this.Controls.Add(this.CheckBoxCenterOfGravity);
             this.Controls.Add(this.ButtonPause);
             this.Controls.Add(this.ButtonResume);
             this.Controls.Add(this.ButtonStart);
@@ -211,7 +211,7 @@
         private System.Windows.Forms.Button ButtonStart;
         private System.Windows.Forms.Button ButtonResume;
         private System.Windows.Forms.Button ButtonPause;
-        private System.Windows.Forms.CheckBox CheckBoxCentreOfGravity;
+        private System.Windows.Forms.CheckBox CheckBoxCenterOfGravity;
         private System.Windows.Forms.CheckBox CheckBoxSheepSight;
         private System.Windows.Forms.CheckBox CheckBoxShepardSight;
         private System.Windows.Forms.Label labelFitness;

@@ -8,21 +8,21 @@ namespace World
 {
     public static class Finder
     {
-        public static IEnumerable<IMovingAgent> FindAgentsAtRange(IList<IMovingAgent> agents, Position centre, float range)
+        public static IEnumerable<IMovingAgent> FindAgentsAtRange(IList<IMovingAgent> agents, Position center, float range)
         {
             float squaredRange = range * range;
 
-            return agents.Where(x => Position.SquaredDistance(centre, x.Position) <= squaredRange);
+            return agents.Where(x => Position.SquaredDistance(center, x.Position) <= squaredRange);
         }
 
-        public static IEnumerable<IMovingAgent> FindClosestAgents(IList<IMovingAgent> agents, IMovingAgent centre, int numberOfObjectsToFind)
+        public static IEnumerable<IMovingAgent> FindClosestAgents(IList<IMovingAgent> agents, IMovingAgent center, int numberOfObjectsToFind)
         {
             var distanceComparer = new MovingAgentAndDistanceComparer();
 
             var closestObjects =
                 agents
-                    .Where(x => x != centre)
-                    .Select(x => new MovingAgentAndDistance(x, Position.SquaredDistance(centre.Position, x.Position)))
+                    .Where(x => x != center)
+                    .Select(x => new MovingAgentAndDistance(x, Position.SquaredDistance(center.Position, x.Position)))
                     .ToList();
 
             closestObjects.Sort(distanceComparer);

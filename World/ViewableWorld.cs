@@ -178,8 +178,8 @@ namespace World
 
             if (showCenterOfGravityOfSheep)
             {
-                Position centre = Sheep.Select(x => x.Position).CentreOfGravity();
-                gfx.FillEllipse(new SolidBrush(Color.White), new Rectangle(offsetX + (int)centre.X - 2, offsetY + (int)centre.Y - 2, 4, 4));
+                Position center = Sheep.Select(x => x.Position).Center();
+                gfx.FillEllipse(new SolidBrush(Color.White), new Rectangle(offsetX + (int)center.X - 2, offsetY + (int)center.Y - 2, 4, 4));
             }
         }
     }

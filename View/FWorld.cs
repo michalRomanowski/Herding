@@ -102,11 +102,10 @@ namespace View
 
         private void FWorld_Paint(object sender, PaintEventArgs e)
         {
-            world.Draw(e.Graphics, 10, 10, CheckBoxShepardSight.Checked, CheckBoxSheepSight.Checked, CheckBoxCentreOfGravity.Checked, CheckBoxShepardsPath.Checked, CheckBoxSheepPath.Checked);
+            world.Draw(e.Graphics, 10, 10, CheckBoxShepardSight.Checked, CheckBoxSheepSight.Checked, CheckBoxCenterOfGravity.Checked, CheckBoxShepardsPath.Checked, CheckBoxSheepPath.Checked);
             
             labelFitness.Text = "Fitness:\n" + 
-                CenterOfGravityCalculator.SumOfDistancesFromCenterOfGravity(
-                    world.Sheep.Select(s => s.Position).ToList());
+                    world.Sheep.Select(s => s.Position).SumOfDistancesFromCenter();
 
             labelEra.Text = "Step: " + world.Step;
         }

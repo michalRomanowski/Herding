@@ -27,7 +27,7 @@ namespace Simulations
 
             world.Work(simulationParameters.TurnsOfHerding);
 
-            return world.Sheep.Select(x => x.Position).SumOfDistancesFromCentreOfGravity();
+            return world.Sheep.Select(x => x.Position).SumOfDistancesFromCenter();
         }
 
         public float CountFitness(
