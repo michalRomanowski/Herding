@@ -5,7 +5,7 @@ namespace Auxiliary
 {
     public static class Logger
     {
-        public static string LOG_PATH = Path.Combine(Directory.GetCurrentDirectory(), "log.txt");
+        public static string LogPath = Path.Combine(Directory.GetCurrentDirectory(), "log.txt");
 
         private static object locker = new object();
 
@@ -13,27 +13,27 @@ namespace Auxiliary
 
         public static void Clear()
         {
-            if(!File.Exists(LOG_PATH))
-                File.Create(LOG_PATH);
+            if(!File.Exists(LogPath))
+                File.Create(LogPath);
 
             if (logFile != null)
                 logFile.Close();
 
-            logFile = new StreamWriter(LOG_PATH, false);
+            logFile = new StreamWriter(LogPath, false);
         }
 
         public static void CopyToDir(string dirPath)
         {
             if (logFile == null)
-                logFile = new StreamWriter(LOG_PATH, true);
+                logFile = new StreamWriter(LogPath, true);
 
-            File.Copy(LOG_PATH, Path.Combine(dirPath, "log.txt"));
+            File.Copy(LogPath, Path.Combine(dirPath, "log.txt"));
         }
 
         public static void AddLine(string line)
         {
             if(logFile == null)
-                logFile = new StreamWriter(LOG_PATH, true);
+                logFile = new StreamWriter(LogPath, true);
 
             lock (locker)
             {
