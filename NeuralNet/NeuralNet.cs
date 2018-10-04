@@ -105,22 +105,21 @@ namespace NeuralNets
 
         public void Randomize()
         {
-            WagesBetweenInputAndFirstHiddenLayer = CRandom.Randmize(WagesBetweenInputAndFirstHiddenLayer);
-
-
+            WagesBetweenInputAndFirstHiddenLayer.Randmize();
+            
             for(int i = 0; i < WagesBetweenHiddenLayers.Length; i++)
             {
-                WagesBetweenHiddenLayers[i] = CRandom.Randmize(WagesBetweenHiddenLayers[i]);
+                WagesBetweenHiddenLayers[i].Randmize();
             }
 
             for (int i = 0; i < BiasesInHiddenLayers.Length; i++)
             {
-                BiasesInHiddenLayers[i] = CRandom.Randmize(BiasesInHiddenLayers[i]);
+                BiasesInHiddenLayers[i].Randmize();
             }
 
-            WagesBetweenLastHiddenAndOutputLayer = CRandom.Randmize(WagesBetweenLastHiddenAndOutputLayer);
+            WagesBetweenLastHiddenAndOutputLayer.Randmize();
 
-            BiasesInOutputLayer = CRandom.Randmize(BiasesInOutputLayer);
+            BiasesInOutputLayer.Randmize();
         }
 
         public float[] Think(float[] input)
