@@ -43,7 +43,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Crossover.cs" />
+    <Compile Include="CrossoverHelper.cs" />
     <Compile Include="NeuralNet.cs" />
     <Compile Include="NeuralNetsProvider.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
