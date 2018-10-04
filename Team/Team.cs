@@ -5,7 +5,7 @@ using Auxiliary;
 
 namespace Teams
 {
-    public abstract class Team
+    public abstract class Team : ICloneable<Team>
     {
         public int Id { get; set; }
 
@@ -18,7 +18,7 @@ namespace Teams
             Members = new List<ThinkingAgent>();
         }
         
-        public abstract Team Clone();
+        public abstract Team GetClone();
 
         public abstract void AdjustSize(int newSize);
 

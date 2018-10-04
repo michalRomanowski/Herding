@@ -9,13 +9,13 @@ namespace Teams
     {
         public NotIdenticalTeam() : base(){}
 
-        public override Team Clone()
+        public override Team GetClone()
         {
             var clone = new NotIdenticalTeam();
 
             foreach (var a in Members)
             {
-                clone.Members.Add(a.Clone());
+                clone.Members.Add(a.GetClone());
             }
 
             return clone;
@@ -30,7 +30,7 @@ namespace Teams
 
             while (Members.Count < newSize)
             {
-                Members.Add(Members.First().Clone());
+                Members.Add(Members.First().GetClone());
                 Members.Last().Mutate(1.0f, 1.0f);
             }
         }
@@ -43,8 +43,8 @@ namespace Teams
             {
                 var childrenAgents = Members[i].Crossover(partner.Members[i]);
 
-                children[0].Members.Add(childrenAgents[0].Clone());
-                children[1].Members.Add(childrenAgents[1].Clone());
+                children[0].Members.Add(childrenAgents[0].GetClone());
+                children[1].Members.Add(childrenAgents[1].GetClone());
             }
 
             return children;

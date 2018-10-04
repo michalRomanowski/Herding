@@ -42,7 +42,7 @@ namespace Simulations
                 Units.Last().AdjustSize(simulationParameters.NumberOfShepards);
             }
 
-            Best = Units[0].Clone();
+            Best = Units[0].GetClone();
         }
 
         public void SetPositions(IList<Position> positions)

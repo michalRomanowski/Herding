@@ -6,7 +6,7 @@ using Auxiliary;
 
 namespace Agent
 {
-    public abstract class ThinkingAgent : IMovingAgent
+    public abstract class ThinkingAgent : IMovingAgent, ICloneable<ThinkingAgent>
     {
         public int Id { get; set; }
 
@@ -34,7 +34,7 @@ namespace Agent
         [NotMapped]
         public Position Position { get; set; }
         
-        public abstract ThinkingAgent Clone();
+        public abstract ThinkingAgent GetClone();
         public abstract ThinkingAgent[] Crossover(ThinkingAgent partner);
         public abstract void Mutate(float mutationChance, float absoluteMutationFactor);
         public abstract float[] Decide(float[] input);

@@ -1,6 +1,4 @@
-﻿using System.IO;
-
-namespace NeuralNets
+﻿namespace NeuralNets
 {
     public static class NeuralNetsProvider
     {

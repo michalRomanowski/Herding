@@ -8,13 +8,13 @@ namespace Teams
     {
         public IdenticalTeam() : base() { }
 
-        public override Team Clone()
+        public override Team GetClone()
         {
             var clone = new IdenticalTeam();
 
             foreach (var a in Members)
             {
-                clone.Members.Add(a.Clone());
+                clone.Members.Add(a.GetClone());
             }
 
             return clone;
@@ -29,7 +29,7 @@ namespace Teams
 
             while (Members.Count < newSize)
             {
-                Members.Add(Members.First().Clone());
+                Members.Add(Members.First().GetClone());
             }
         }
 
@@ -44,8 +44,8 @@ namespace Teams
 
             for (int i = 1; i < Members.Count; i++)
             {
-                children[0].Members.Add(childrenAgents[0].Clone());
-                children[1].Members.Add(childrenAgents[1].Clone());
+                children[0].Members.Add(childrenAgents[0].GetClone());
+                children[1].Members.Add(childrenAgents[1].GetClone());
             }
 
             return children;
@@ -56,7 +56,7 @@ namespace Teams
             Members[0].Mutate(mutationPower, absoluteMutationFactor);
 
             for (int i = 1; i < Members.Count; i++)
-                Members[i] = Members[0].Clone();
+                Members[i] = Members[0].GetClone();
         }
     }
 }

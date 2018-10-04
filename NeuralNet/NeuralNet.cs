@@ -5,7 +5,7 @@ using System.IO;
 
 namespace NeuralNets
 {
-    public class NeuralNet : ICompress<NeuralNet>
+    public class NeuralNet : ICompress<NeuralNet>, ICloneable<NeuralNet>
     {
         private float[,] WagesBetweenInputAndFirstHiddenLayer { get; set; }
         private float[][,] WagesBetweenHiddenLayers { get; set; }
@@ -27,14 +27,10 @@ namespace NeuralNets
             this.BiasesInHiddenLayers = new float[numberOfHiddenLayers][];
 
             for (int i = 0; i < this.WagesBetweenHiddenLayers.Length; i++ )
-            {
                 this.WagesBetweenHiddenLayers[i] = new float[hiddenLayerSize, hiddenLayerSize];
-            }
 
             for (int i = 0; i < this.BiasesInHiddenLayers.Length; i++)
-            {
                 this.BiasesInHiddenLayers[i] = new float[hiddenLayerSize];
-            }
 
             this.WagesBetweenLastHiddenAndOutputLayer = new float[hiddenLayerSize, outputLayerSize];
             this.BiasesInOutputLayer = new float[outputLayerSize];
@@ -42,65 +38,17 @@ namespace NeuralNets
             this.activationFunction = ActivationFunctionProvider.GetActivationFunction(activationFunctionType);
         }
 
-        public NeuralNet(NeuralNet pattern)
+        public NeuralNet GetClone()
         {
-            // Copy input layer wages.
-            this.WagesBetweenInputAndFirstHiddenLayer = 
-                new float
-                    [pattern.WagesBetweenInputAndFirstHiddenLayer.GetLength(0),
-                    pattern.WagesBetweenInputAndFirstHiddenLayer.GetLength(1)];
-
-            Array.Copy(
-                pattern.WagesBetweenInputAndFirstHiddenLayer,
-                this.WagesBetweenInputAndFirstHiddenLayer,
-                pattern.WagesBetweenInputAndFirstHiddenLayer.GetLength(0) * pattern.WagesBetweenInputAndFirstHiddenLayer.GetLength(1));
-
-            //Copy hidden layers wages and biases.
-            this.WagesBetweenHiddenLayers = new float[pattern.WagesBetweenHiddenLayers.GetLength(0)][,];
-            
-            for (int i = 0; i < this.WagesBetweenHiddenLayers.Length; i++)
+            return new NeuralNet
             {
-                this.WagesBetweenHiddenLayers[i] = 
-                    new float[pattern.WagesBetweenHiddenLayers[i].GetLength(0), pattern.WagesBetweenHiddenLayers[i].GetLength(1)];
-
-                Array.Copy(
-                pattern.WagesBetweenHiddenLayers[i],
-                this.WagesBetweenHiddenLayers[i],
-                pattern.WagesBetweenHiddenLayers[i].GetLength(0) * pattern.WagesBetweenHiddenLayers[i].GetLength(1));
-            }
-
-            this.BiasesInHiddenLayers = new float[pattern.BiasesInHiddenLayers.Length][];
-
-            for(int i = 0; i < this.BiasesInHiddenLayers.Length; i++)
-            {
-                this.BiasesInHiddenLayers[i] = new float[pattern.BiasesInHiddenLayers[i].Length];
-
-                Array.Copy(
-                    pattern.BiasesInHiddenLayers[i],
-                    this.BiasesInHiddenLayers[i],
-                    pattern.BiasesInHiddenLayers[i].Length);
-            }
-
-            // Copy output layer wages and biases.
-            this.WagesBetweenLastHiddenAndOutputLayer =
-                new float
-                    [pattern.WagesBetweenLastHiddenAndOutputLayer.GetLength(0),
-                    pattern.WagesBetweenLastHiddenAndOutputLayer.GetLength(1)];
-
-            Array.Copy(
-                pattern.WagesBetweenLastHiddenAndOutputLayer,
-                this.WagesBetweenLastHiddenAndOutputLayer,
-                pattern.WagesBetweenLastHiddenAndOutputLayer.GetLength(0) * pattern.WagesBetweenLastHiddenAndOutputLayer.GetLength(1));
-
-            this.BiasesInOutputLayer = new float[pattern.BiasesInOutputLayer.Length];
-
-            Array.Copy(
-                pattern.BiasesInOutputLayer,
-                this.BiasesInOutputLayer,
-                pattern.BiasesInOutputLayer.Length);
-
-            // Copy activation function
-            this.activationFunction = pattern.activationFunction;
+                WagesBetweenInputAndFirstHiddenLayer = WagesBetweenInputAndFirstHiddenLayer.GetClone(),
+                WagesBetweenHiddenLayers = WagesBetweenHiddenLayers.GetClone(),
+                BiasesInHiddenLayers = BiasesInHiddenLayers.GetClone(),
+                WagesBetweenLastHiddenAndOutputLayer = WagesBetweenLastHiddenAndOutputLayer.GetClone(),
+                BiasesInOutputLayer = BiasesInOutputLayer.GetClone(),
+                activationFunction = activationFunction
+            };
         }
 
         public void Randomize()
@@ -108,14 +56,10 @@ namespace NeuralNets
             WagesBetweenInputAndFirstHiddenLayer.Randmize();
             
             for(int i = 0; i < WagesBetweenHiddenLayers.Length; i++)
-            {
                 WagesBetweenHiddenLayers[i].Randmize();
-            }
 
             for (int i = 0; i < BiasesInHiddenLayers.Length; i++)
-            {
                 BiasesInHiddenLayers[i].Randmize();
-            }
 
             WagesBetweenLastHiddenAndOutputLayer.Randmize();
 
@@ -127,9 +71,7 @@ namespace NeuralNets
             float[] impulses = ThinkBetweenTwoLayers(input, WagesBetweenInputAndFirstHiddenLayer, BiasesInHiddenLayers[0]);
 
             for(int i = 0; i < WagesBetweenHiddenLayers.GetLength(0); i++)
-            {
                 impulses = ThinkBetweenTwoLayers(impulses, WagesBetweenHiddenLayers[i], BiasesInHiddenLayers[i+1]);
-            }
 
             return ThinkBetweenTwoLayers(impulses, WagesBetweenLastHiddenAndOutputLayer, BiasesInOutputLayer);
         }
@@ -139,20 +81,14 @@ namespace NeuralNets
             float[] output = new float[wages.GetLength(1)];
 
             if(output.Length != biases.Length)
-            {
-                throw new ApplicationException("Biases size must be equal to output size.");
-            }
-
-            float net;
+                throw new ArgumentException();
 
             for (int i = 0; i < output.Length; i++)
             {
-                net = biases[i];
+                float net = biases[i];
 
                 for (int j = 0; j < wages.GetLength(0); j++)
-                {
                     net += input[j] * wages[j, i];
-                }
 
                 output[i] = activationFunction.Impuls(net);
             }
@@ -162,87 +98,47 @@ namespace NeuralNets
 
         public void Mutate(float chanceOfMutation, float maxAddeValue = 1.0f)
         {
-            WagesBetweenInputAndFirstHiddenLayer = Mutate(WagesBetweenInputAndFirstHiddenLayer, chanceOfMutation, maxAddeValue);
+            WagesBetweenInputAndFirstHiddenLayer.Mutate(chanceOfMutation, maxAddeValue);
 
-            for (int i = 0; i < WagesBetweenHiddenLayers.Length; i++ )
-            {
-                WagesBetweenHiddenLayers[i] = Mutate(WagesBetweenHiddenLayers[i], chanceOfMutation, maxAddeValue);
-            }
+            foreach (var wages in WagesBetweenHiddenLayers)
+                wages.Mutate(chanceOfMutation, maxAddeValue);
 
-            for (int i = 0; i < BiasesInHiddenLayers.Length; i++)
-            {
-                BiasesInHiddenLayers[i] = Mutate(BiasesInHiddenLayers[i], chanceOfMutation, maxAddeValue);
-            }
+            foreach (var biases in BiasesInHiddenLayers)
+                biases.Mutate(chanceOfMutation, maxAddeValue);
+            
+            WagesBetweenLastHiddenAndOutputLayer.Mutate(chanceOfMutation, maxAddeValue);
 
-            WagesBetweenLastHiddenAndOutputLayer = Mutate(WagesBetweenLastHiddenAndOutputLayer, chanceOfMutation, maxAddeValue);
-
-            BiasesInOutputLayer = Mutate(BiasesInOutputLayer, chanceOfMutation, maxAddeValue);
-        }
-
-        private float[,] Mutate(float[,] valuesToMutate, float chanceOfMutation, float maxAddeValue = 1.0f)
-        {
-            for (int i = 0; i < valuesToMutate.GetLength(0); i++)
-            {
-                for (int j = 0; j < valuesToMutate.GetLength(1); j++)
-                {
-                    if (CRandom.NextFloat() < chanceOfMutation)
-                    {
-                        valuesToMutate[i, j] += CRandom.NextFloat(-maxAddeValue, maxAddeValue);
-                    }
-                }
-            }
-
-            return valuesToMutate;
-        }
-
-        private float[] Mutate(float[] valuesToMutate, float chanceOfMutation, float maxAddeValue = 1.0f)
-        {
-            for (int i = 0; i < valuesToMutate.GetLength(0); i++)
-            {
-                if (CRandom.NextFloat() < chanceOfMutation)
-                {
-                    valuesToMutate[i] += CRandom.NextFloat(-maxAddeValue, maxAddeValue);
-                }
-            }
-
-            return valuesToMutate;
+            BiasesInOutputLayer.Mutate(chanceOfMutation, maxAddeValue);
         }
 
         public NeuralNet Crossover(NeuralNet other)
         {
-            if (other is NeuralNet == false)
-            {
-                throw new ApplicationException("'other' should be of type COneLayerNeuralNet to be able to crossover with COneLayerNeuralNet.");
-            }
-
             var child = new NeuralNet(
                 WagesBetweenInputAndFirstHiddenLayer.GetLength(0),
                 WagesBetweenLastHiddenAndOutputLayer.GetLength(1),
                 WagesBetweenInputAndFirstHiddenLayer.GetLength(1),
                 WagesBetweenHiddenLayers.Length + 1);
 
-            var castedOther = other as NeuralNet;
-
             child.WagesBetweenInputAndFirstHiddenLayer =
-                CrossoverHelper.Crossover(WagesBetweenInputAndFirstHiddenLayer, castedOther.WagesBetweenInputAndFirstHiddenLayer);
+                CrossoverHelper.Crossover(WagesBetweenInputAndFirstHiddenLayer, other.WagesBetweenInputAndFirstHiddenLayer);
 
             for (int i = 0; i < WagesBetweenHiddenLayers.Length; i++)
             {
                 child.WagesBetweenHiddenLayers[i] =
-                    CrossoverHelper.Crossover(WagesBetweenHiddenLayers[i], castedOther.WagesBetweenHiddenLayers[i]);
+                    CrossoverHelper.Crossover(WagesBetweenHiddenLayers[i], other.WagesBetweenHiddenLayers[i]);
             }
 
             for (int i = 0; i < BiasesInHiddenLayers.Length; i++)
             {
                 child.BiasesInHiddenLayers[i] =
-                    CrossoverHelper.Crossover(BiasesInHiddenLayers[i], castedOther.BiasesInHiddenLayers[i]);
+                    CrossoverHelper.Crossover(BiasesInHiddenLayers[i], other.BiasesInHiddenLayers[i]);
             }
 
             child.WagesBetweenLastHiddenAndOutputLayer =
-                CrossoverHelper.Crossover(WagesBetweenLastHiddenAndOutputLayer, castedOther.WagesBetweenLastHiddenAndOutputLayer);
+                CrossoverHelper.Crossover(WagesBetweenLastHiddenAndOutputLayer, other.WagesBetweenLastHiddenAndOutputLayer);
 
             child.BiasesInOutputLayer =
-                CrossoverHelper.Crossover(BiasesInOutputLayer, castedOther.BiasesInOutputLayer);
+                CrossoverHelper.Crossover(BiasesInOutputLayer, other.BiasesInOutputLayer);
 
             return child;
         }
@@ -263,6 +159,8 @@ namespace NeuralNets
         {
             throw new NotImplementedException();
         }
+
+        #region ICompress
 
         public override string ToString()
         {
@@ -305,5 +203,7 @@ namespace NeuralNets
 
             return this;
         }
+
+        #endregion
     }
 }

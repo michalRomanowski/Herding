@@ -42,14 +42,14 @@ namespace Agent
             Brain = NeuralNetsProvider.GetRandomMultiLayerNeuralNet((numberOfSeenShepards + numberOfSeenSheep) * 2 + 2, NEURAL_NET_OUTPUT_LAYER_SIZE, sizeOfHiddenLayer, numberOfHiddenLayers);
         }
 
-        public override ThinkingAgent Clone()
+        public override ThinkingAgent GetClone()
         {
             var clone = new Shepard()
             {
-                Brain = new NeuralNet(Brain),
-                NumberOfSeenShepards = this.NumberOfSeenShepards,
-                NumberOfSeenSheep = this.NumberOfSeenSheep,
-                Position = new Position(this.Position)
+                Brain = Brain.GetClone(),
+                NumberOfSeenShepards = NumberOfSeenShepards,
+                NumberOfSeenSheep = NumberOfSeenSheep,
+                Position = new Position(Position)
             };
 
             return clone;

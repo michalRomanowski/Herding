@@ -65,7 +65,7 @@ namespace Simulations
 
                     if (population.Best == null || team.Fitness < population.Best.Fitness)
                     {
-                        population.Best = team.Clone();
+                        population.Best = team.GetClone();
                     }
                 }
             }

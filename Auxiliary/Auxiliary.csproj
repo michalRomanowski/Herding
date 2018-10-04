@@ -45,6 +45,7 @@
   <ItemGroup>
     <Compile Include="CMath.cs" />
     <Compile Include="Compressor.cs" />
+    <Compile Include="ICloneable.cs" />
     <Compile Include="Logger.cs" />
     <Compile Include="Position.cs" />
     <Compile Include="CRandom.cs" />
