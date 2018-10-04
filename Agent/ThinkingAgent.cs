@@ -18,12 +18,11 @@ namespace Agent
             get { return Brain.ToString(); }
             set
             {
-                Brain = new NeuralNet();
-                Brain.FromString(value);
+                Brain = NeuralNetsProvider.GetMultiLayerNeuralNet(value);
             }
         }
         
-        protected NeuralNet Brain { get; set; }
+        protected INeuralNet Brain { get; set; }
 
         [NotMapped]
         public float[] DecideOutput { get; protected set; }

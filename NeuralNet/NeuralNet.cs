@@ -5,7 +5,7 @@ using System.IO;
 
 namespace NeuralNets
 {
-    public class NeuralNet : ICompress<NeuralNet>, ICloneable<NeuralNet>
+    class NeuralNet : INeuralNet, IRandomize
     {
         private float[,] WagesBetweenInputAndFirstHiddenLayer { get; set; }
         private float[][,] WagesBetweenHiddenLayers { get; set; }
@@ -38,7 +38,7 @@ namespace NeuralNets
             this.activationFunction = ActivationFunctionProvider.GetActivationFunction(activationFunctionType);
         }
 
-        public NeuralNet GetClone()
+        public INeuralNet GetClone()
         {
             return new NeuralNet
             {
@@ -111,8 +111,13 @@ namespace NeuralNets
             BiasesInOutputLayer.Mutate(chanceOfMutation, maxAddeValue);
         }
 
-        public NeuralNet Crossover(NeuralNet other)
+        public INeuralNet Crossover(INeuralNet other)
         {
+            if (other is NeuralNet == false)
+                throw new ArgumentException();
+
+            var parsedOther = other as NeuralNet;
+
             var child = new NeuralNet(
                 WagesBetweenInputAndFirstHiddenLayer.GetLength(0),
                 WagesBetweenLastHiddenAndOutputLayer.GetLength(1),
@@ -120,25 +125,25 @@ namespace NeuralNets
                 WagesBetweenHiddenLayers.Length + 1);
 
             child.WagesBetweenInputAndFirstHiddenLayer =
-                CrossoverHelper.Crossover(WagesBetweenInputAndFirstHiddenLayer, other.WagesBetweenInputAndFirstHiddenLayer);
+                CrossoverHelper.Crossover(WagesBetweenInputAndFirstHiddenLayer, parsedOther.WagesBetweenInputAndFirstHiddenLayer);
 
             for (int i = 0; i < WagesBetweenHiddenLayers.Length; i++)
             {
                 child.WagesBetweenHiddenLayers[i] =
-                    CrossoverHelper.Crossover(WagesBetweenHiddenLayers[i], other.WagesBetweenHiddenLayers[i]);
+                    CrossoverHelper.Crossover(WagesBetweenHiddenLayers[i], parsedOther.WagesBetweenHiddenLayers[i]);
             }
 
             for (int i = 0; i < BiasesInHiddenLayers.Length; i++)
             {
                 child.BiasesInHiddenLayers[i] =
-                    CrossoverHelper.Crossover(BiasesInHiddenLayers[i], other.BiasesInHiddenLayers[i]);
+                    CrossoverHelper.Crossover(BiasesInHiddenLayers[i], parsedOther.BiasesInHiddenLayers[i]);
             }
 
             child.WagesBetweenLastHiddenAndOutputLayer =
-                CrossoverHelper.Crossover(WagesBetweenLastHiddenAndOutputLayer, other.WagesBetweenLastHiddenAndOutputLayer);
+                CrossoverHelper.Crossover(WagesBetweenLastHiddenAndOutputLayer, parsedOther.WagesBetweenLastHiddenAndOutputLayer);
 
             child.BiasesInOutputLayer =
-                CrossoverHelper.Crossover(BiasesInOutputLayer, other.BiasesInOutputLayer);
+                CrossoverHelper.Crossover(BiasesInOutputLayer, parsedOther.BiasesInOutputLayer);
 
             return child;
         }
@@ -182,7 +187,7 @@ namespace NeuralNets
             return sw.ToString();
         }
 
-        public NeuralNet FromString(string compressed)
+        public INeuralNet FromString(string compressed)
         {
             using (var sr = new StringReader(compressed))
             {
