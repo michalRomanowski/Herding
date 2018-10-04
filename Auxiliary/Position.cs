@@ -7,7 +7,12 @@ namespace Auxiliary
     public class Position : ICompress<Position>
     {
         private const char SEPARATOR = ';';
-        
+
+        public static Position OO
+        {
+            get { return new Position(0, 0); }
+        }
+
         public float X { get; set; }
         public float Y { get; set; }
 
@@ -15,16 +20,11 @@ namespace Auxiliary
         {
             public int Compare(Position a, Position b)
             {
-                if (a.X * a.X + a.Y * a.Y > b.X * b.X + b.Y * b.Y)
-                {
-                    return 1;
-                }
-                else return -1;
+                return SquaredDistance(OO, a) > SquaredDistance(OO, b) ? 1 : -1;
             }
         }
 
-        public Position()
-        { }
+        public Position(){}
 
         public Position(float x, float y)
         {
@@ -118,7 +118,7 @@ namespace Auxiliary
 
             anyPointOnPositiveSideOfNewOY -= newO;
 
-            float d = Position.Distance(new Position(0, 0), anyPointOnPositiveSideOfNewOY);
+            float d = Position.Distance(Position.OO, anyPointOnPositiveSideOfNewOY);
 
             float sin = anyPointOnPositiveSideOfNewOY.X / d;
             float cos = anyPointOnPositiveSideOfNewOY.Y / d;
