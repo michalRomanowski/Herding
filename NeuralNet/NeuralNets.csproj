@@ -48,7 +48,7 @@
     <Compile Include="INeuralNet.cs" />
     <Compile Include="Mutation.cs" />
     <Compile Include="NeuralNet.cs" />
-    <Compile Include="NeuralNetsProvider.cs" />
+    <Compile Include="NeuralNetsFactory.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

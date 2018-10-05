@@ -9,18 +9,18 @@ namespace World
 {
     public class SimulationWorld : IWorld
     {
-        public Team Shepards { get; private set; }
-        public IList<ISheep> Sheep { get; private set; }
+        public Team Shepherds { get; private set; }
+        public IList<IMovingAgent> Sheep { get; private set; }
 
         protected bool recordSheepPositionsFlag;
         public IList<IList<Position>> SheepPositionsRecord { get; protected set; }
         
         public SimulationWorld(
-            Team shepards,
-            IList<ISheep> sheep,
+            Team shepherds,
+            IList<IMovingAgent> sheep,
             bool recordSheepPositions = false)
         {
-            this.Shepards = shepards;
+            this.Shepherds = shepherds;
             this.Sheep = sheep;
 
             this.recordSheepPositionsFlag = recordSheepPositions;
@@ -44,9 +44,9 @@ namespace World
 
         protected void Turn()
         {
-            foreach (var s in Shepards.Members)
+            foreach (var s in Shepherds.Members)
             {
-                var input = ShepardExtractor.ExtractFeatures(this, s);
+                var input = ShepherdExtractor.ExtractFeatures(this, s);
 
                 s.Decide(input);
             }
@@ -58,9 +58,9 @@ namespace World
                 s.Decide(input);
             }
 
-            foreach (var s in Shepards.Members)
+            foreach (var s in Shepherds.Members)
             {
-                ShepardExtractor.InterpretOutput(s, this, s.DecideOutput);
+                ShepherdExtractor.InterpretOutput(s, this, s.DecideOutput);
 
                 s.Path.Add(new Position(s.Position));
             }

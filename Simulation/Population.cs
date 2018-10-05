@@ -31,15 +31,14 @@ namespace Simulations
             {
                 Units.Add(TeamProvider.GetTeam(simulationParameters));
 
-                Units.Last().Members.Add(new Shepard(
-                            0,
-                            0,
-                            simulationParameters.NumberOfSeenShepards,
-                            simulationParameters.NumberOfSeenSheep,
-                            simulationParameters.NumberOfHiddenLayers,
-                            simulationParameters.NumberOfNeuronsInHiddenLayer));
+                Units.Last().Members.Add(
+                    AgentFactory.GetShepherd(
+                        simulationParameters.NumberOfSeenShepherds,
+                        simulationParameters.NumberOfSeenSheep,
+                        simulationParameters.NumberOfHiddenLayers,
+                        simulationParameters.NumberOfNeuronsInHiddenLayer));
 
-                Units.Last().AdjustSize(simulationParameters.NumberOfShepards);
+                Units.Last().AdjustSize(simulationParameters.NumberOfShepherds);
             }
 
             Best = Units[0].GetClone();
@@ -63,10 +62,10 @@ namespace Simulations
                 t.AdjustSize(numberOfMembers);
         }
 
-        public void AdjustInputLayerSize(int numberOfSeenShepards, int numberOfSeenSheep)
+        public void AdjustInputLayerSize(int numberOfSeenShepherds, int numberOfSeenSheep)
         { 
             foreach(var team in Units)
-                team.AdjustInputLayerSize(numberOfSeenShepards, numberOfSeenSheep);
+                team.AdjustInputLayerSize(numberOfSeenShepherds, numberOfSeenSheep);
         }
         
         public void AdjustHiddenLayersSize(int newSize)

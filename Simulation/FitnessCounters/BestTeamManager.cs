@@ -19,7 +19,7 @@ namespace Simulations
                     population.Best.Fitness = fitnessCounter.CountFitness(
                         population.Best,
                         simulationParameters,
-                        simulationParameters.PositionsOfShepards,
+                        simulationParameters.PositionsOfShepherds,
                         simulationParameters.PositionsOfSheep,
                         simulationParameters.SheepType,
                         simulationParameters.SeedForRandomSheepForBest);
@@ -29,7 +29,7 @@ namespace Simulations
                     population.Best.Fitness = fitnessCounter.CountFitness(
                         population.Best,
                         simulationParameters,
-                        simulationParameters.RandomSetsForBest.PositionsOfShepardsSet,
+                        simulationParameters.RandomSetsForBest.PositionsOfShepherdsSet,
                         simulationParameters.RandomSetsForBest.PositionsOfSheepSet,
                         simulationParameters.SheepType,
                         simulationParameters.SeedForRandomSheepForBest);
@@ -45,7 +45,7 @@ namespace Simulations
                         team.Fitness = fitnessCounter.CountFitness(
                             team,
                             simulationParameters,
-                            simulationParameters.PositionsOfShepards,
+                            simulationParameters.PositionsOfShepherds,
                             simulationParameters.PositionsOfSheep,
                             simulationParameters.SheepType,
                             simulationParameters.SeedForRandomSheepForBest);
@@ -55,7 +55,7 @@ namespace Simulations
                         team.Fitness = fitnessCounter.CountFitness(
                             team,
                             simulationParameters,
-                            simulationParameters.RandomSetsForBest.PositionsOfShepardsSet,
+                            simulationParameters.RandomSetsForBest.PositionsOfShepherdsSet,
                             simulationParameters.RandomSetsForBest.PositionsOfSheepSet,
                             simulationParameters.SheepType,
                             simulationParameters.SeedForRandomSheepForBest);

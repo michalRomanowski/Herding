@@ -1,5 +1,4 @@
-﻿
-namespace ActivationFunctions
+﻿namespace ActivationFunctions
 {
     public interface IActivationFunction
     {

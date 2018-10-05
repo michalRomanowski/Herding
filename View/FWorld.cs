@@ -13,37 +13,32 @@ namespace View
 {
     public partial class FWorld : Form
     {
-        private Team shepards;
+        private Team shepherds;
 
         private IViewableWorld world;
 
-        private SimulationParameters simulationParameters;
+        protected SimulationParameters simulationParameters;
 
-        public FWorld(SimulationParameters simulationParameters, Team shepards)
+        public FWorld(SimulationParameters simulationParameters, Team shepherds)
         {
             this.simulationParameters = simulationParameters;
 
             InitializeComponent();
 
-            this.shepards = shepards;
-            shepards.SetPositions(simulationParameters.PositionsOfShepards);
+            this.shepherds = shepherds;
+            shepherds.SetPositions(simulationParameters.PositionsOfShepherds);
 
-            var sheep = SheepProvider.GetSheep(
+            var sheep = AgentFactory.GetSheep(
                 simulationParameters.PositionsOfSheep,
                 simulationParameters.SheepType,
                 simulationParameters.SeedForRandomSheepForBest);
 
-            world = new ViewableWorld(shepards, sheep);            
+            world = new ViewableWorld(shepherds, sheep, simulationParameters.NumberOfSeenSheep, simulationParameters.NumberOfSeenShepherds);            
         }
 
         private void FMain_Load(object sender, EventArgs e)
         {
             new Thread(Repainting).Start();
-        }
-
-
-        private void brainToolStripMenuItem_Click(object sender, EventArgs e)
-        {
         }
 
         private void ButtonPause_Click(object sender, EventArgs e)
@@ -78,15 +73,15 @@ namespace View
 
             world.Stop();
 
-            shepards.ClearPath();
-            shepards.SetPositions(simulationParameters.PositionsOfShepards);
+            shepherds.ClearPath();
+            shepherds.SetPositions(simulationParameters.PositionsOfShepherds);
 
-            var sheep = SheepProvider.GetSheep(
+            var sheep = AgentFactory.GetSheep(
                 simulationParameters.PositionsOfSheep,
                 simulationParameters.SheepType,
                 simulationParameters.SeedForRandomSheepForBest);
 
-            world = new ViewableWorld(shepards, sheep);            
+            world = new ViewableWorld(shepherds, sheep, simulationParameters.NumberOfSeenSheep, simulationParameters.NumberOfSeenShepherds);            
 
             world.Start(simulationParameters.TurnsOfHerding);
         }
@@ -102,7 +97,16 @@ namespace View
 
         private void FWorld_Paint(object sender, PaintEventArgs e)
         {
-            world.Draw(e.Graphics, 10, 10, CheckBoxShepardSight.Checked, CheckBoxSheepSight.Checked, CheckBoxCenterOfGravity.Checked, CheckBoxShepardsPath.Checked, CheckBoxSheepPath.Checked);
+            var drawingFlags = new DrawingFlags()
+            {
+                DrawSheepSight = CheckBoxSheepSight.Checked,
+                DrawShepherdsSight = CheckBoxShepherdSight.Checked,
+                DrawSheepPath = CheckBoxSheepPath.Checked,
+                DrawShepherdsPath = CheckBoxShepherdsPath.Checked,
+                DrawCenterOfSheep = CheckBoxCenterOfGravity.Checked
+            };
+
+            world.Draw(e.Graphics, 10, 10, drawingFlags);
             
             labelFitness.Text = "Fitness:\n" + 
                     world.Sheep.Select(s => s.Position).SumOfDistancesFromCenter();

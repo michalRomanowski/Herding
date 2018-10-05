@@ -42,7 +42,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="ActivationFunctionProvider.cs" />
+    <Compile Include="ActivationFunctionFactory.cs" />
     <Compile Include="Step.cs" />
     <Compile Include="Sum.cs" />
     <Compile Include="Tanh.cs" />

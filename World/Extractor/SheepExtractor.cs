@@ -7,14 +7,14 @@ namespace World
     {
         private const float SPEED = 1.0f;
 
-        public static float[] ExtractFeatures(IWorld world, ISheep sheep)
+        public static float[] ExtractFeatures(IWorld world, IMovingAgent sheep)
         {
-            var features = new float[world.Shepards.Members.Count * 2];
+            var features = new float[world.Shepherds.Members.Count * 2];
 
-            for(int i = 0; i < world.Shepards.Members.Count; i++)
+            for(int i = 0; i < world.Shepherds.Members.Count; i++)
             {
-                features[2 * i] = world.Shepards.Members[i].Position.X - sheep.Position.X;
-                features[2 * i + 1] = world.Shepards.Members[i].Position.Y - sheep.Position.Y;
+                features[2 * i] = world.Shepherds.Members[i].Position.X - sheep.Position.X;
+                features[2 * i + 1] = world.Shepherds.Members[i].Position.Y - sheep.Position.Y;
             }
 
             return features;
@@ -27,7 +27,7 @@ namespace World
         /// <param name="world"></param>
         /// <param name="output"></param>
         /// <returns></returns>
-        public static void InterpretOutput(ISheep sheep, IWorld world, float[] output)
+        public static void InterpretOutput(IMovingAgent sheep, IWorld world, float[] output)
         {
             if (output.Length != 2)
                 throw new ArgumentException();

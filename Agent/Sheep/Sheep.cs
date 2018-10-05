@@ -6,7 +6,7 @@ using System.Linq;
 
 namespace Agent
 {
-    abstract class Sheep : ISheep
+    abstract class Sheep : IMovingAgent
     {
         private const float SIGHT_RANGE = 50.0f;
 
@@ -65,24 +65,6 @@ namespace Agent
             Position.Y = Path.Last().Y;
 
             Path.RemoveAt(Path.Count - 1);
-        }
-
-        public void DrawPath(Graphics gfx, int offsetX, int offsetY)
-        {
-            for (int i = 1; i < Path.Count; i++)
-            {
-                gfx.DrawLine(new Pen(Color.DodgerBlue), new Point(offsetX + (int)Path[i - 1].X, offsetY + (int)Path[i - 1].Y), new Point(offsetX + (int)Path[i].X, offsetY + (int)Path[i].Y));
-            }
-        }
-
-        public void DrawSight(Graphics gfx, int offsetX, int offsetY)
-        {
-            gfx.FillEllipse(new SolidBrush(Color.DarkBlue), new Rectangle(offsetX + (int)Position.X - (int)SIGHT_RANGE, offsetY + (int)Position.Y - (int)SIGHT_RANGE, (int)SIGHT_RANGE * 2, (int)SIGHT_RANGE * 2));
-        }
-
-        public void Draw(Graphics gfx, int offsetX, int offsetY)
-        {
-            gfx.FillEllipse(new SolidBrush(Color.Blue), new Rectangle((int)Position.X - 4 + offsetX, (int)Position.Y - 4 + offsetY, 8, 8));
         }
     }
 }

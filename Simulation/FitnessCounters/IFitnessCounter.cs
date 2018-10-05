@@ -10,7 +10,7 @@ namespace Simulations
         float CountFitness(
             Team team,
             SimulationParameters simulationParameters,
-            IList<Position> positionsOfShepards,
+            IList<Position> positionsOfShepherds,
             IList<Position> positionsOfSheep,
             ESheepType sheepType,
             int seed);
@@ -18,7 +18,7 @@ namespace Simulations
         float CountFitness(
             Team team,
             SimulationParameters simulationParameters,
-            IList<IList<Position>> positionsOfShepardsSet,
+            IList<IList<Position>> positionsOfShepherdsSet,
             IList<IList<Position>> positionsOfSheepSet,
             ESheepType sheepType,
             int seed);

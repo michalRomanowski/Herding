@@ -8,28 +8,28 @@ namespace World
 {
     public static class Finder
     {
-        public static IEnumerable<IMovingAgent> FindAgentsAtRange(IList<IMovingAgent> agents, Position center, float range)
+        public static IEnumerable<IHasPosition> FindAgentsAtRange(IEnumerable<IHasPosition> agents, Position center, float range)
         {
             float squaredRange = range * range;
 
             return agents.Where(x => Position.SquaredDistance(center, x.Position) <= squaredRange);
         }
 
-        public static IEnumerable<IMovingAgent> FindClosestAgents(IList<IMovingAgent> agents, IMovingAgent center, int numberOfObjectsToFind)
+        public static IEnumerable<IHasPosition> FindClosestAgents(IEnumerable<IHasPosition> agents, IHasPosition center, int numberOfObjectsToFind)
         {
-            var distanceComparer = new MovingAgentAndDistanceComparer();
+            var distanceComparer = new AgentAndDistanceComparer();
 
             var closestObjects =
                 agents
                     .Where(x => x != center)
-                    .Select(x => new MovingAgentAndDistance(x, Position.SquaredDistance(center.Position, x.Position)))
+                    .Select(x => new AgentAndDistance(x, Position.SquaredDistance(center.Position, x.Position)))
                     .ToList();
 
             closestObjects.Sort(distanceComparer);
 
-            var timesToCopyFirstAgent = numberOfObjectsToFind - closestObjects.Count;
+            var timesToCopyFirstAgent = numberOfObjectsToFind - closestObjects.Count();
 
-            List<IMovingAgent> closestAgents = new List<IMovingAgent>();
+            List<IHasPosition> closestAgents = new List<IHasPosition>();
 
             for (int i = 0; i < timesToCopyFirstAgent; i++)
             {
@@ -43,21 +43,21 @@ namespace World
     }
 }
 
-public class MovingAgentAndDistance
+public class AgentAndDistance
 {
-    public IMovingAgent movingAgent;
+    public IHasPosition movingAgent;
     public float squaredDistance;
 
-    public MovingAgentAndDistance(IMovingAgent movingAgent, float squaredDistance)
+    public AgentAndDistance(IHasPosition movingAgent, float squaredDistance)
     {
         this.movingAgent = movingAgent;
         this.squaredDistance = squaredDistance;
     }
 }
 
-public class MovingAgentAndDistanceComparer : IComparer<MovingAgentAndDistance>
+public class AgentAndDistanceComparer : IComparer<AgentAndDistance>
 {
-    public int Compare(MovingAgentAndDistance a, MovingAgentAndDistance b)
+    public int Compare(AgentAndDistance a,AgentAndDistance b)
     {
         if (a.squaredDistance > b.squaredDistance) return 1;
         else if (a.squaredDistance < b.squaredDistance) return -1;

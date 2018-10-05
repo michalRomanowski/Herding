@@ -10,10 +10,10 @@ namespace Simulations
     {
         public int Id { get; set; }
         
-        public string CompressedPositionsOfShepardsSet
+        public string CompressedPositionsOfShepherdsSet
         {
-            get { return Compressor.Compress(PositionsOfShepardsSet); }
-            set { PositionsOfShepardsSet = Compressor.DecompressJaggedList<Position>(value); }
+            get { return Compressor.Compress(PositionsOfShepherdsSet); }
+            set { PositionsOfShepherdsSet = Compressor.DecompressJaggedList<Position>(value); }
         }
 
         public string CompressedPositionsOfSheepSet
@@ -23,23 +23,23 @@ namespace Simulations
         }
 
         [NotMapped]
-        public IList<IList<Position>> PositionsOfShepardsSet { get; private set; }
+        public IList<IList<Position>> PositionsOfShepherdsSet { get; private set; }
         [NotMapped]
         public IList<IList<Position>> PositionsOfSheepSet { get; private set; }
         
-        public int Count { get { return PositionsOfShepardsSet.Count; } }
+        public int Count { get { return PositionsOfShepherdsSet.Count; } }
 
         public RandomSetsList()
         {
-            PositionsOfShepardsSet = new  List<IList<Position>>();
+            PositionsOfShepherdsSet = new  List<IList<Position>>();
             PositionsOfSheepSet = new List<IList<Position>>();
         }
 
-        public RandomSetsList(int numberOfRandomSets, int numberOfShepards, int numberOfSheep, int randomSeed)
+        public RandomSetsList(int numberOfRandomSets, int numberOfShepherds, int numberOfSheep, int randomSeed)
         {
             Random r = new Random(randomSeed);
 
-            PositionsOfShepardsSet = GenerateRandomPositions(numberOfRandomSets, numberOfShepards, r);
+            PositionsOfShepherdsSet = GenerateRandomPositions(numberOfRandomSets, numberOfShepherds, r);
             PositionsOfSheepSet = GenerateRandomPositions(numberOfRandomSets, numberOfSheep, r);
         }
 

@@ -23,7 +23,7 @@ namespace Simulations
         public int StepCount { get; private set; }
         
         public SimulationParameters Parameters { get; set; }
-        public Population Shepards { get; set; }
+        public Population Shepherds { get; set; }
 
         private const int AUTOSAVE_PERIOD = 100000;
         private const bool AUTOSAVE_ACTIVE = true;
@@ -41,13 +41,13 @@ namespace Simulations
         public Optimization(SimulationParameters parameters)
         {
             Parameters = parameters;
-            Shepards = new Population(parameters);
+            Shepherds = new Population(parameters);
         }
 
-        public Optimization(SimulationParameters parameters, Population shepards)
+        public Optimization(SimulationParameters parameters, Population shepherds)
         {
             Parameters = parameters;
-            Shepards = shepards;
+            Shepherds = shepherds;
         }
 
         public void Optimize()
@@ -59,10 +59,10 @@ namespace Simulations
                 Stop = false;
             }
 
-            if (Shepards.Best != null)
+            if (Shepherds.Best != null)
             {
-                Shepards.Best.Fitness = float.MaxValue;
-                bestTeamManager.UpdateBestTeam(Parameters, Shepards, new List<Team>() { Shepards.Best });
+                Shepherds.Best.Fitness = float.MaxValue;
+                bestTeamManager.UpdateBestTeam(Parameters, Shepherds, new List<Team>() { Shepherds.Best });
             }
 
             Parameters.BestResultAtStep = new List<float>();
@@ -95,12 +95,12 @@ namespace Simulations
 
             Mutation(children);
 
-            Shepards.Units.AddRange(children);
+            Shepherds.Units.AddRange(children);
 
-            bestTeamManager.UpdateBestTeam(Parameters, Shepards, children);
+            bestTeamManager.UpdateBestTeam(Parameters, Shepherds, children);
             
-            Parameters.BestResultAtStep.Add(Shepards.Best.Fitness);
-            Logger.AddLine("Best fitness: " + Shepards.Best.Fitness);
+            Parameters.BestResultAtStep.Add(Shepherds.Best.Fitness);
+            Logger.AddLine("Best fitness: " + Shepherds.Best.Fitness);
         }
 
         private SelectionResults Selection()
@@ -161,14 +161,14 @@ namespace Simulations
 
                 randomSets = new RandomSetsList(
                     Parameters.NumberOfRandomSets,
-                    Parameters.PositionsOfShepards.Count,
+                    Parameters.PositionsOfShepherds.Count,
                     Parameters.PositionsOfSheep.Count,
                     CRandom.r.Next());
 
                 tournaments[i] = new Tournament(
                     Parameters,
-                    Shepards,
-                    randomSets.PositionsOfShepardsSet,
+                    Shepherds,
+                    randomSets.PositionsOfShepherdsSet,
                     randomSets.PositionsOfSheepSet);
             }
         }
@@ -179,8 +179,8 @@ namespace Simulations
             {
                 tournaments[i] = new Tournament(
                     Parameters,
-                    Shepards,
-                    Parameters.PositionsOfShepards,
+                    Shepherds,
+                    Parameters.PositionsOfShepherds,
                     Parameters.PositionsOfSheep);
             }
         }

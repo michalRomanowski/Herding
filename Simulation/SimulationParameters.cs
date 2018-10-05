@@ -61,11 +61,11 @@ namespace Simulations
         public float AbsoluteMutationFactor { get; set; }
 
         [NotMapped]
-        public int NumberOfShepards
+        public int NumberOfShepherds
         {
             get
             {
-                return PositionsOfShepards.Count;
+                return PositionsOfShepherds.Count;
             }
         }
 
@@ -80,15 +80,15 @@ namespace Simulations
 
         public ESheepType SheepType { get; set; }
         
-        public string CompressedPositionsOfShepards
+        public string CompressedPositionsOfShepherds
         {
             get
             {
-                return Compressor.Compress(PositionsOfShepards);
+                return Compressor.Compress(PositionsOfShepherds);
             }
             set
             {
-                PositionsOfShepards = Compressor.DecompressList<Position>(value);
+                PositionsOfShepherds = Compressor.DecompressList<Position>(value);
             }
         }
 
@@ -105,12 +105,12 @@ namespace Simulations
         }
 
         [NotMapped]
-        public IList<Position> PositionsOfShepards { get; set; }
+        public IList<Position> PositionsOfShepherds { get; set; }
 
         [NotMapped]
         public IList<Position> PositionsOfSheep { get; set; }
 
-        public int NumberOfSeenShepards { get; set; }
+        public int NumberOfSeenShepherds { get; set; }
 
         public int NumberOfSeenSheep { get; set; }
 
@@ -142,7 +142,7 @@ namespace Simulations
 
         public SimulationParameters()
         {
-            PositionsOfShepards = new List<Position>();
+            PositionsOfShepherds = new List<Position>();
             PositionsOfSheep = new List<Position>();
 
             RandomSetsForBest = new RandomSetsList();

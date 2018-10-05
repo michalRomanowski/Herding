@@ -33,11 +33,11 @@
             this.ButtonPause = new System.Windows.Forms.Button();
             this.CheckBoxCenterOfGravity = new System.Windows.Forms.CheckBox();
             this.CheckBoxSheepSight = new System.Windows.Forms.CheckBox();
-            this.CheckBoxShepardSight = new System.Windows.Forms.CheckBox();
+            this.CheckBoxShepherdSight = new System.Windows.Forms.CheckBox();
             this.labelFitness = new System.Windows.Forms.Label();
             this.ButtonStepForward = new System.Windows.Forms.Button();
             this.ButtonStepBack = new System.Windows.Forms.Button();
-            this.CheckBoxShepardsPath = new System.Windows.Forms.CheckBox();
+            this.CheckBoxShepherdsPath = new System.Windows.Forms.CheckBox();
             this.CheckBoxSheepPath = new System.Windows.Forms.CheckBox();
             this.ButtonSavePositions = new System.Windows.Forms.Button();
             this.SaveFileDialog = new System.Windows.Forms.SaveFileDialog();
@@ -96,15 +96,15 @@
             this.CheckBoxSheepSight.Text = "Sheep sight range";
             this.CheckBoxSheepSight.UseVisualStyleBackColor = true;
             // 
-            // CheckBoxShepardSight
+            // CheckBoxShepherdSight
             // 
-            this.CheckBoxShepardSight.AutoSize = true;
-            this.CheckBoxShepardSight.Location = new System.Drawing.Point(682, 58);
-            this.CheckBoxShepardSight.Name = "CheckBoxShepardSight";
-            this.CheckBoxShepardSight.Size = new System.Drawing.Size(96, 17);
-            this.CheckBoxShepardSight.TabIndex = 7;
-            this.CheckBoxShepardSight.Text = "Shepards sight";
-            this.CheckBoxShepardSight.UseVisualStyleBackColor = true;
+            this.CheckBoxShepherdSight.AutoSize = true;
+            this.CheckBoxShepherdSight.Location = new System.Drawing.Point(682, 58);
+            this.CheckBoxShepherdSight.Name = "CheckBoxShepherdSight";
+            this.CheckBoxShepherdSight.Size = new System.Drawing.Size(96, 17);
+            this.CheckBoxShepherdSight.TabIndex = 7;
+            this.CheckBoxShepherdSight.Text = "Shepherds sight";
+            this.CheckBoxShepherdSight.UseVisualStyleBackColor = true;
             // 
             // labelFitness
             // 
@@ -138,15 +138,15 @@
             this.ButtonStepBack.UseVisualStyleBackColor = true;
             this.ButtonStepBack.Click += new System.EventHandler(this.ButtonStepBack_Click);
             // 
-            // CheckBoxShepardsPath
+            // CheckBoxShepherdsPath
             // 
-            this.CheckBoxShepardsPath.AutoSize = true;
-            this.CheckBoxShepardsPath.Location = new System.Drawing.Point(682, 104);
-            this.CheckBoxShepardsPath.Name = "CheckBoxShepardsPath";
-            this.CheckBoxShepardsPath.Size = new System.Drawing.Size(95, 17);
-            this.CheckBoxShepardsPath.TabIndex = 11;
-            this.CheckBoxShepardsPath.Text = "Shepards path";
-            this.CheckBoxShepardsPath.UseVisualStyleBackColor = true;
+            this.CheckBoxShepherdsPath.AutoSize = true;
+            this.CheckBoxShepherdsPath.Location = new System.Drawing.Point(682, 104);
+            this.CheckBoxShepherdsPath.Name = "CheckBoxShepherdsPath";
+            this.CheckBoxShepherdsPath.Size = new System.Drawing.Size(95, 17);
+            this.CheckBoxShepherdsPath.TabIndex = 11;
+            this.CheckBoxShepherdsPath.Text = "Shepherds path";
+            this.CheckBoxShepherdsPath.UseVisualStyleBackColor = true;
             // 
             // CheckBoxSheepPath
             // 
@@ -185,11 +185,11 @@
             this.Controls.Add(this.labelEra);
             this.Controls.Add(this.ButtonSavePositions);
             this.Controls.Add(this.CheckBoxSheepPath);
-            this.Controls.Add(this.CheckBoxShepardsPath);
+            this.Controls.Add(this.CheckBoxShepherdsPath);
             this.Controls.Add(this.ButtonStepBack);
             this.Controls.Add(this.ButtonStepForward);
             this.Controls.Add(this.labelFitness);
-            this.Controls.Add(this.CheckBoxShepardSight);
+            this.Controls.Add(this.CheckBoxShepherdSight);
             this.Controls.Add(this.CheckBoxSheepSight);
             this.Controls.Add(this.CheckBoxCenterOfGravity);
             this.Controls.Add(this.ButtonPause);
@@ -213,11 +213,11 @@
         private System.Windows.Forms.Button ButtonPause;
         private System.Windows.Forms.CheckBox CheckBoxCenterOfGravity;
         private System.Windows.Forms.CheckBox CheckBoxSheepSight;
-        private System.Windows.Forms.CheckBox CheckBoxShepardSight;
+        private System.Windows.Forms.CheckBox CheckBoxShepherdSight;
         private System.Windows.Forms.Label labelFitness;
         private System.Windows.Forms.Button ButtonStepForward;
         private System.Windows.Forms.Button ButtonStepBack;
-        private System.Windows.Forms.CheckBox CheckBoxShepardsPath;
+        private System.Windows.Forms.CheckBox CheckBoxShepherdsPath;
         private System.Windows.Forms.CheckBox CheckBoxSheepPath;
         private System.Windows.Forms.Button ButtonSavePositions;
         private System.Windows.Forms.SaveFileDialog SaveFileDialog;

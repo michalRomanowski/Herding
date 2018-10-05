@@ -23,11 +23,11 @@ namespace EFDatabase
                     .Where(x => name.Equals(x.Name))
                     .Include(x => x.Parameters)
                     .Include(x => x.Parameters.RandomSetsForBest)
-                    .Include(x => x.Shepards)
-                    .Include(x => x.Shepards.Best)
-                    .Include(x => x.Shepards.Best.Members)
-                    .Include(x => x.Shepards.Units)
-                    .Include(x => x.Shepards.Units.Select(y => y.Members))
+                    .Include(x => x.Shepherds)
+                    .Include(x => x.Shepherds.Best)
+                    .Include(x => x.Shepherds.Best.Members)
+                    .Include(x => x.Shepherds.Units)
+                    .Include(x => x.Shepherds.Units.Select(y => y.Members))
                     .First();
 
                 return optimization;

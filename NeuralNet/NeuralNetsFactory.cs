@@ -1,6 +1,6 @@
 ﻿namespace NeuralNets
 {
-    public static class NeuralNetsProvider
+    public static class NeuralNetsFactory
     {
         public static INeuralNet GetRandomMultiLayerNeuralNet(int inputLayerSize, int outputLayerSize, int hiddenLayerSize, int numberOfHiddenLayers)
         {

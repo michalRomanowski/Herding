@@ -2,7 +2,7 @@
 
 namespace ActivationFunctions
 {
-    public static class ActivationFunctionProvider
+    public static class ActivationFunctionFactory
     {
         public static IActivationFunction GetActivationFunction(EActivationFunctionType type)
         {

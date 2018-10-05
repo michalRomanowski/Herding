@@ -10,7 +10,7 @@ namespace Agent
     {
         public int Id { get; set; }
 
-        public int NumberOfSeenShepards { get; set; }
+        public int NumberOfSeenShepherds { get; set; }
         public int NumberOfSeenSheep { get; set; }
 
         public string CompressedNeuralNet
@@ -18,7 +18,7 @@ namespace Agent
             get { return Brain.ToString(); }
             set
             {
-                Brain = NeuralNetsProvider.GetMultiLayerNeuralNet(value);
+                Brain = NeuralNetsFactory.GetMultiLayerNeuralNet(value);
             }
         }
         
@@ -39,13 +39,9 @@ namespace Agent
         public abstract float[] Decide(float[] input);
 
 
-        public abstract void AdjustInputLayerSize(int numberOfSeenShepards, int numberOfSeenSheep);
+        public abstract void AdjustInputLayerSize(int numberOfSeenShepherds, int numberOfSeenSheep);
         public abstract void AdjustHiddenLayersSize(int newSize);
 
         public abstract void StepBack();
-
-        public abstract void Draw(Graphics gfx, int offsetX, int offsetY);
-        public abstract void DrawPath(Graphics gfx, int offsetX, int offsetY);
-        public abstract void DrawSight(Graphics gfx, int offsetX, int offsetY, IEnumerable<IMovingAgent> closeAgents, Color color);
     }
 }

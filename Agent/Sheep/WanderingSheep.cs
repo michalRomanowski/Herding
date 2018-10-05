@@ -10,7 +10,7 @@ namespace Agent
         private const float RANDOM_ROTATION_SPEED = 0.15f;
         private const float RANDOM_MOVEMENT_SPEED = 0.25f;
 
-        private float randomMoveAngle
+        private float RandomMoveAngle
         {
             get
             {
@@ -27,17 +27,17 @@ namespace Agent
         public WanderingSheep(float x, float y, int seed) : base(x, y)
         {
             r = new Random(seed);
-            randomMoveAngle = (float)r.NextDouble() * (float)Math.PI * 2.0f;
+            RandomMoveAngle = (float)r.NextDouble() * (float)Math.PI * 2.0f;
         }
 
         public override float[] Decide(float[] input)
         {
             base.Decide(input);
 
-            randomMoveAngle += ((float)r.NextDouble() - 0.5f) * RANDOM_ROTATION_SPEED;
+            RandomMoveAngle += ((float)r.NextDouble() - 0.5f) * RANDOM_ROTATION_SPEED;
 
-            float randomX = (float)Math.Cos(randomMoveAngle);
-            float randomY = (float)Math.Sin(randomMoveAngle);
+            float randomX = (float)Math.Cos(RandomMoveAngle);
+            float randomY = (float)Math.Sin(RandomMoveAngle);
 
             var vectorLengthOne = CMath.NormalizeToOne(randomX, randomY);
             

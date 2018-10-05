@@ -1,5 +1,4 @@
 ﻿using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations.Schema;
 using Agent;
 using Auxiliary;
 
@@ -39,11 +38,11 @@ namespace Teams
             }
         }
 
-        public void AdjustInputLayerSize(int numberOfSeenShepards, int numberOfSeenSheep)
+        public void AdjustInputLayerSize(int numberOfSeenShepherds, int numberOfSeenSheep)
         {
             foreach(var agent in Members)
             {
-                agent.AdjustInputLayerSize(numberOfSeenShepards, numberOfSeenSheep);
+                agent.AdjustInputLayerSize(numberOfSeenShepherds, numberOfSeenSheep);
             }
         }
 

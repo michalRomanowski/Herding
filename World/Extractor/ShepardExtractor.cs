@@ -6,7 +6,7 @@ using System.Linq;
 
 namespace World
 {
-    public static class ShepardExtractor
+    public static class ShepherdExtractor
     {
         private const float SPEED = 2.0f;
 
@@ -15,7 +15,7 @@ namespace World
             var centerOfGravity =
                 world.Sheep.Select(x => x.Position).Center();
             
-            var closestAgents = Finder.FindClosestAgents(world.Shepards.Members.Cast<IMovingAgent>().ToList(), agent, agent.NumberOfSeenShepards);
+            var closestAgents = Finder.FindClosestAgents(world.Shepherds.Members.Cast<IMovingAgent>().ToList(), agent, agent.NumberOfSeenShepherds);
             var closestSheep = Finder.FindClosestAgents(world.Sheep.Cast<IMovingAgent>().ToList(), agent, agent.NumberOfSeenSheep);
 
             var closestAgentsInRelativeCoordinationSystem = closestAgents.Select(x => x.Position).PositionsInRelativeCoordinationSystem(agent.Position, centerOfGravity);

@@ -1,5 +1,4 @@
-﻿
-namespace ActivationFunctions
+﻿namespace ActivationFunctions
 {
     class Sum : IActivationFunction
     {
@@ -7,6 +6,5 @@ namespace ActivationFunctions
         {
             return net;
         }
-
     }
 }

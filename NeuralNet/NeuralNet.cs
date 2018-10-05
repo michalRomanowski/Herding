@@ -15,7 +15,7 @@ namespace NeuralNets
         private float[] BiasesInOutputLayer { get; set; }
 
         public IActivationFunction activationFunction =
-            ActivationFunctionProvider.GetActivationFunction(EActivationFunctionType.Tanh);
+            ActivationFunctionFactory.GetActivationFunction(EActivationFunctionType.Tanh);
 
         public NeuralNet() { }
 
@@ -35,7 +35,7 @@ namespace NeuralNets
             this.WagesBetweenLastHiddenAndOutputLayer = new float[hiddenLayerSize, outputLayerSize];
             this.BiasesInOutputLayer = new float[outputLayerSize];
 
-            this.activationFunction = ActivationFunctionProvider.GetActivationFunction(activationFunctionType);
+            this.activationFunction = ActivationFunctionFactory.GetActivationFunction(activationFunctionType);
         }
 
         public INeuralNet GetClone()

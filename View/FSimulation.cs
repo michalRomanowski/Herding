@@ -20,15 +20,15 @@ namespace View
 
         private CTimer timer;
 
-        private BindingList<Position> PositionsOfShepardsBindingList
+        private BindingList<Position> PositionsOfShepherdsBindingList
         {
             get
             {
-                return new BindingList<Position>(SimParameters.PositionsOfShepards);
+                return new BindingList<Position>(SimParameters.PositionsOfShepherds);
             }
             set
             {
-                SimParameters.PositionsOfShepards = value.ToList();
+                SimParameters.PositionsOfShepherds = value.ToList();
             }
         }
         private BindingList<Position> PositionsOfSheepBindingList
@@ -84,15 +84,15 @@ namespace View
                 OptimizationInstance.Optimization.Parameters = value;
             }
         }
-        private Population Shepards
+        private Population Shepherds
         {
             get
             {
-                return OptimizationInstance.Optimization.Shepards;
+                return OptimizationInstance.Optimization.Shepherds;
             }
             set
             {
-                OptimizationInstance.Optimization.Shepards = value;
+                OptimizationInstance.Optimization.Shepherds = value;
             }
         }
 
@@ -107,9 +107,9 @@ namespace View
         {
             InitializeComponent();
 
-            ComboBoxShepardsFitnessCryteria.DataSource = Enum.GetValues(typeof(EFitnessType));
+            ComboBoxShepherdsFitnessCryteria.DataSource = Enum.GetValues(typeof(EFitnessType));
 
-            DataGridViewShepards.DataSource = PositionsOfShepardsBindingList;
+            DataGridViewShepherds.DataSource = PositionsOfShepherdsBindingList;
             DataGridViewSheep.DataSource = PositionsOfSheepBindingList;
 
             timer = new CTimer(1000);
@@ -126,11 +126,11 @@ namespace View
         private void GetSimulationParameters()
         {
             SimParameters.AbsoluteMutationFactor = (float)NumericUpDownAbsoluteMutationFactor.Value;
-            SimParameters.NumberOfHiddenLayers = (int)NumericUpDownNumberOfShepardsHiddenLayers.Value;
+            SimParameters.NumberOfHiddenLayers = (int)NumericUpDownNumberOfShepherdsHiddenLayers.Value;
             SimParameters.NumberOfNeuronsInHiddenLayer = (int)NumericUpDownHiddenLayerSize.Value;
             SimParameters.NumberOfParticipants = (int)NumericUpDownNumberOfParticipants.Value;
-            SimParameters.NumberOfSeenShepards = (int)NumericUpDownShepardShepardSight.Value;
-            SimParameters.NumberOfSeenSheep = (int)NumericUpDownShepardSheepSight.Value;
+            SimParameters.NumberOfSeenShepherds = (int)NumericUpDownShepherdShepherdSight.Value;
+            SimParameters.NumberOfSeenSheep = (int)NumericUpDownShepherdSheepSight.Value;
             SimParameters.OptimizationSteps = (int)NumericUpDownOptimizationSteps.Value;
             SimParameters.PopulationSize = (int)NumericUpDownPopulationSize.Value;
             SimParameters.MutationPower = (float)NumericUpDownMutationPower.Value;
@@ -138,14 +138,14 @@ namespace View
             SimParameters.RandomPositions = CheckBoxRandomPositions.Checked;
             SimParameters.NumberOfRandomSets = (int)NumericUpDownNumberOfrandomSets.Value;
             SimParameters.SheepType = CheckBoxRandomSheep.Checked ? ESheepType.Wandering : ESheepType.Passive;
-            SimParameters.FitnessType = (EFitnessType)ComboBoxShepardsFitnessCryteria.SelectedIndex;
+            SimParameters.FitnessType = (EFitnessType)ComboBoxShepherdsFitnessCryteria.SelectedIndex;
             SimParameters.NotIdenticalAgents = CheckBoxNotIdenticalAgents.Checked;
         }
 
         public void SetControls()
         {
             NumericUpDownAbsoluteMutationFactor.Value = (decimal)SimParameters.AbsoluteMutationFactor;
-            NumericUpDownNumberOfShepardsHiddenLayers.Value = SimParameters.NumberOfHiddenLayers;
+            NumericUpDownNumberOfShepherdsHiddenLayers.Value = SimParameters.NumberOfHiddenLayers;
             NumericUpDownHiddenLayerSize.Value = SimParameters.NumberOfNeuronsInHiddenLayer;
             NumericUpDownNumberOfParticipants.Value = SimParameters.NumberOfParticipants;
             NumericUpDownNumberOfTurnsOfHerding.Value = SimParameters.TurnsOfHerding;
@@ -155,7 +155,7 @@ namespace View
 
             ComboBoxPopulation.Items.Clear();
 
-            for (int i = 0; i < OptimizationInstance.Optimization.Shepards.Units.Count(); i++)
+            for (int i = 0; i < OptimizationInstance.Optimization.Shepherds.Units.Count(); i++)
                 ComboBoxPopulation.Items.Add(i.ToString());
 
             CheckBoxRandomPositions.Checked = SimParameters.RandomPositions;
@@ -167,22 +167,22 @@ namespace View
                 NumericUpDownNumberOfrandomSetsForBest.Value = SimParameters.RandomSetsForBest.Count;
             }
 
-            ComboBoxShepardsFitnessCryteria.SelectedIndex = (int)SimParameters.FitnessType;
+            ComboBoxShepherdsFitnessCryteria.SelectedIndex = (int)SimParameters.FitnessType;
 
             CheckBoxNotIdenticalAgents.Checked = SimParameters.NotIdenticalAgents;
 
-            DataGridViewShepards.DataSource = PositionsOfShepardsBindingList;
+            DataGridViewShepherds.DataSource = PositionsOfShepherdsBindingList;
             DataGridViewSheep.DataSource = PositionsOfSheepBindingList;
-            DataGridViewShepards.Refresh();
+            DataGridViewShepherds.Refresh();
             DataGridViewSheep.Refresh();
 
-            NumericUpDownShepardShepardSight.Maximum = SimParameters.NumberOfSeenShepards > 0 ? SimParameters.NumberOfSeenShepards : 0;
-            NumericUpDownShepardShepardSight.Value = SimParameters.NumberOfSeenShepards;
-            NumericUpDownShepardSheepSight.Maximum = SimParameters.NumberOfSeenSheep > 0 ? SimParameters.NumberOfSeenSheep : 0;
-            NumericUpDownShepardSheepSight.Value = SimParameters.NumberOfSeenSheep;
+            NumericUpDownShepherdShepherdSight.Maximum = SimParameters.NumberOfSeenShepherds > 0 ? SimParameters.NumberOfSeenShepherds : 0;
+            NumericUpDownShepherdShepherdSight.Value = SimParameters.NumberOfSeenShepherds;
+            NumericUpDownShepherdSheepSight.Maximum = SimParameters.NumberOfSeenSheep > 0 ? SimParameters.NumberOfSeenSheep : 0;
+            NumericUpDownShepherdSheepSight.Value = SimParameters.NumberOfSeenSheep;
 
-            ButtonShowHerdingOfBestTeam.Enabled = Shepards != null && Shepards.Best != null;
-            ButtonCountFitness.Enabled = Shepards != null;
+            ButtonShowHerdingOfBestTeam.Enabled = Shepherds != null && Shepherds.Best != null;
+            ButtonCountFitness.Enabled = Shepherds != null;
         }
 
         private void UpdateProgressBar()
@@ -193,9 +193,9 @@ namespace View
 
             if (progress > 0)
             {
-                if (Shepards.Best != null)
+                if (Shepherds.Best != null)
                 {
-                    labelBestFitness2.Text = Shepards.Best.Fitness.ToString();
+                    labelBestFitness2.Text = Shepherds.Best.Fitness.ToString();
                 }
 
                 labelStep.Text = OptimizationInstance.Optimization.StepCount.ToString();
@@ -212,7 +212,7 @@ namespace View
         {
             GetSimulationParameters();
             
-            Shepards = new Population(SimParameters);
+            Shepherds = new Population(SimParameters);
 
             SetControls();
         }
@@ -224,14 +224,14 @@ namespace View
             BlockControls();
 
 
-            var averageFitness = new AverageFitnessCounter().CountAverageFitness(SimParameters, Shepards, SimParameters.SeedForRandomSheepForBest);
+            var averageFitness = new AverageFitnessCounter().CountAverageFitness(SimParameters, Shepherds, SimParameters.SeedForRandomSheepForBest);
             Logger.AddLine("Average fitness: " + averageFitness);
 
 
-            new BestTeamManager().UpdateBestTeam(SimParameters, Shepards, Shepards.Units);
+            new BestTeamManager().UpdateBestTeam(SimParameters, Shepherds, Shepherds.Units);
 
             labelAverage.Text = "Average Fitness: " + averageFitness.ToString();
-            labelBestFitness.Text = "Best Fitness: " + Shepards.Best.Fitness.ToString();
+            labelBestFitness.Text = "Best Fitness: " + Shepherds.Best.Fitness.ToString();
 
             CorrentState = State.Idle;
 
@@ -240,7 +240,7 @@ namespace View
 
         public void BlockControlsAfterPopulationCreation()
         {
-            NumericUpDownNumberOfShepardsHiddenLayers.Enabled = false;
+            NumericUpDownNumberOfShepherdsHiddenLayers.Enabled = false;
             NumericUpDownPopulationSize.Enabled = false;
         }
 
@@ -253,7 +253,7 @@ namespace View
             panelPopulation.Enabled = false;
             panelRandomPositions.Enabled = false;
             panelSheep.Enabled = false;
-            panelShepards.Enabled = false;
+            panelShepherds.Enabled = false;
 
             ButtonLoad.Enabled = false;
             ButtonSave.Enabled = false;
@@ -275,7 +275,7 @@ namespace View
             panelPopulation.Enabled = true;
             panelRandomPositions.Enabled = true;
             panelSheep.Enabled = true;
-            panelShepards.Enabled = true;
+            panelShepherds.Enabled = true;
 
             ButtonLoad.Enabled = true;
             ButtonSave.Enabled = true;
@@ -308,17 +308,17 @@ namespace View
 
             if (CheckBoxRandomPositions.Checked &&
                 (SimParameters.RandomSetsForBest.Count != (int)NumericUpDownNumberOfrandomSetsForBest.Value ||
-                SimParameters.RandomSetsForBest.PositionsOfShepardsSet.First().Count() != SimParameters.NumberOfShepards ||
+                SimParameters.RandomSetsForBest.PositionsOfShepherdsSet.First().Count() != SimParameters.NumberOfShepherds ||
                 SimParameters.RandomSetsForBest.PositionsOfSheepSet.First().Count() != SimParameters.NumberOfSheep))
             {
                 SimParameters.RandomSetsForBest = new RandomSetsList(
                     (int)NumericUpDownNumberOfrandomSetsForBest.Value,
-                    SimParameters.NumberOfShepards,
+                    SimParameters.NumberOfShepherds,
                     SimParameters.NumberOfSheep,
                     DateTime.Now.Millisecond);
             }
 
-            if (Shepards == null || Shepards.Units == null || Shepards.Units.Count == 0)
+            if (Shepherds == null || Shepherds.Units == null || Shepherds.Units.Count == 0)
             {
                 MessageBox.Show("Random Population created.");
                 CreateRandomPopulation();
@@ -327,8 +327,8 @@ namespace View
             }
             else
             {
-                Shepards.AdjustInputLayerSize(SimParameters.NumberOfSeenShepards, SimParameters.NumberOfSeenSheep);
-                //Shepards.AdjustHiddenLayersSize(SimulationParameters.NumberOfNeuronsInHiddenLayer);
+                Shepherds.AdjustInputLayerSize(SimParameters.NumberOfSeenShepherds, SimParameters.NumberOfSeenSheep);
+                //Shepherds.AdjustHiddenLayersSize(SimulationParameters.NumberOfNeuronsInHiddenLayer);
             }
 
             foreach (Form f in children)
@@ -337,7 +337,7 @@ namespace View
                 f.Dispose();
             }
 
-            Shepards.AdjustTeamSize(SimParameters.NumberOfShepards);
+            Shepherds.AdjustTeamSize(SimParameters.NumberOfShepherds);
 
             timer.Start();
 
@@ -347,7 +347,7 @@ namespace View
 
         private void ButtonSave_Click(object sender, EventArgs e)
         {
-            if (Shepards == null || Shepards.Units == null)
+            if (Shepherds == null || Shepherds.Units == null)
             {
                 MessageBox.Show("Nothing to save yet.");
                 return;
@@ -372,9 +372,9 @@ namespace View
                 return;
 
             GetSimulationParameters();
-            Shepards.AdjustTeamSize(SimParameters.NumberOfShepards);
+            Shepherds.AdjustTeamSize(SimParameters.NumberOfShepherds);
 
-            children.Add(new FWorld(SimParameters, Shepards.Units[ComboBoxPopulation.SelectedIndex]));
+            children.Add(new FWorld(SimParameters, Shepherds.Units[ComboBoxPopulation.SelectedIndex]));
             children.Last().Show();
         }
 
@@ -398,9 +398,9 @@ namespace View
         {
             Random r = new Random();
 
-            for (int i = 0; i < SimParameters.PositionsOfShepards.Count; i++)
+            for (int i = 0; i < SimParameters.PositionsOfShepherds.Count; i++)
             {
-                SimParameters.PositionsOfShepards[i] = new Position(r.Next(400), r.Next(400));
+                SimParameters.PositionsOfShepherds[i] = new Position(r.Next(400), r.Next(400));
             }
 
             for (int i = 0; i < SimParameters.PositionsOfSheep.Count; i++)
@@ -408,13 +408,13 @@ namespace View
                 SimParameters.PositionsOfSheep[i] = new Position(r.Next(400), r.Next(400));
             }
 
-            DataGridViewShepards.Refresh();
+            DataGridViewShepherds.Refresh();
             DataGridViewSheep.Refresh();
         }
 
         private void ButtonCountFitness_Click(object sender, EventArgs e)
         {
-            foreach (Team t in Shepards.Units)
+            foreach (Team t in Shepherds.Units)
             {
                 t.ResetFitness();
             }
@@ -426,9 +426,9 @@ namespace View
         {
             GetSimulationParameters();
 
-            Shepards.AdjustTeamSize(SimParameters.NumberOfShepards);
+            Shepherds.AdjustTeamSize(SimParameters.NumberOfShepherds);
 
-            children.Add(new FWorld(SimParameters, Shepards.Best));
+            children.Add(new FWorld(SimParameters, Shepherds.Best));
             children.Last().Show();
         }
 
@@ -440,30 +440,30 @@ namespace View
             NumericUpDownNumberOfrandomSetsForBest.Enabled = CheckBoxRandomPositions.Checked;
         }
         
-        private void DataGridViewShepards_RowsAdded(object sender, DataGridViewRowsAddedEventArgs e)
+        private void DataGridViewShepherds_RowsAdded(object sender, DataGridViewRowsAddedEventArgs e)
         {
-            NumericUpDownShepardShepardSight.Maximum = DataGridViewShepards.RowCount > 1 ? DataGridViewShepards.RowCount - 2 : 0;
+            NumericUpDownShepherdShepherdSight.Maximum = DataGridViewShepherds.RowCount > 1 ? DataGridViewShepherds.RowCount - 2 : 0;
 
-            DataGridViewShepards.AllowUserToDeleteRows = DataGridViewShepards.RowCount > 2;
+            DataGridViewShepherds.AllowUserToDeleteRows = DataGridViewShepherds.RowCount > 2;
         }
 
-        private void DataGridViewShepards_RowsRemoved(object sender, DataGridViewRowsRemovedEventArgs e)
+        private void DataGridViewShepherds_RowsRemoved(object sender, DataGridViewRowsRemovedEventArgs e)
         {
-            NumericUpDownShepardShepardSight.Maximum = DataGridViewShepards.RowCount > 1 ? DataGridViewShepards.RowCount - 2 : 0;
+            NumericUpDownShepherdShepherdSight.Maximum = DataGridViewShepherds.RowCount > 1 ? DataGridViewShepherds.RowCount - 2 : 0;
 
-            DataGridViewShepards.AllowUserToDeleteRows = DataGridViewShepards.RowCount > 2;
+            DataGridViewShepherds.AllowUserToDeleteRows = DataGridViewShepherds.RowCount > 2;
         }
 
         private void DataGridViewSheep_RowsAdded(object sender, DataGridViewRowsAddedEventArgs e)
         {
-            NumericUpDownShepardSheepSight.Maximum = DataGridViewSheep.RowCount > 0 ? DataGridViewSheep.RowCount - 1 : 0;
+            NumericUpDownShepherdSheepSight.Maximum = DataGridViewSheep.RowCount > 0 ? DataGridViewSheep.RowCount - 1 : 0;
 
             DataGridViewSheep.AllowUserToDeleteRows = DataGridViewSheep.RowCount > 3;
         }
 
         private void DataGridViewSheep_RowsRemoved(object sender, DataGridViewRowsRemovedEventArgs e)
         {
-            NumericUpDownShepardSheepSight.Maximum = DataGridViewSheep.RowCount > 0 ? DataGridViewSheep.RowCount - 1 : 0;
+            NumericUpDownShepherdSheepSight.Maximum = DataGridViewSheep.RowCount > 0 ? DataGridViewSheep.RowCount - 1 : 0;
 
             DataGridViewSheep.AllowUserToDeleteRows = DataGridViewSheep.RowCount > 3;
         }

@@ -8,8 +8,8 @@ namespace World
 {
     public interface IWorld
     {
-        Team Shepards { get; }
-        IList<ISheep> Sheep { get; }
+        Team Shepherds { get; }
+        IList<IMovingAgent> Sheep { get; }
 
         IList<IList<Position>> SheepPositionsRecord { get; }
 
@@ -28,15 +28,7 @@ namespace World
 
         void Work(object numberOfSteps);
 
-        void Draw(
-            Graphics gfx,
-            int offsetX,
-            int offsetY,
-            bool showShepardsSight,
-            bool showSheepRange,
-            bool showCenterOfGravityOfSheep,
-            bool showShepardsPath,
-            bool showSheepPath);
+        void Draw(Graphics gfx, int offsetX, int offsetY, DrawingFlags flags);
 
         int Step { get; }
     }

@@ -13,15 +13,15 @@ namespace Simulations
         public float CountFitness(
             Team team,
             SimulationParameters simulationParameters,
-            IList<Position> positionsOfShepards, 
+            IList<Position> positionsOfShepherds, 
             IList<Position> positionsOfSheep,
             ESheepType sheepType, 
             int seed)
         {
-            var sheep = SheepProvider.GetSheep(positionsOfSheep, sheepType, seed);
+            var sheep = AgentFactory.GetSheep(positionsOfSheep, sheepType, seed);
 
             team.ClearPath();
-            team.SetPositions(positionsOfShepards);
+            team.SetPositions(positionsOfShepherds);
 
             var world = new SimulationWorld(team, sheep);
 
@@ -33,22 +33,22 @@ namespace Simulations
         public float CountFitness(
             Team team,
             SimulationParameters simulationParameters,
-            IList<IList<Position>> positionsOfShepardsSet,
+            IList<IList<Position>> positionsOfShepherdsSet,
             IList<IList<Position>> positionsOfSheepSet,
             ESheepType sheepType,
             int seed)
         {
-            if(positionsOfShepardsSet.Count != positionsOfSheepSet.Count)
-                throw new ArgumentException("positionsOfShepardsSet.Count != positionsOfSheepSet.Count");
+            if(positionsOfShepherdsSet.Count != positionsOfSheepSet.Count)
+                throw new ArgumentException("positionsOfShepherdsSet.Count != positionsOfSheepSet.Count");
 
             float fitness = 0.0f;
 
-            for (int i = 0; i < positionsOfShepardsSet.Count; i++)
+            for (int i = 0; i < positionsOfShepherdsSet.Count; i++)
             {
                 fitness += CountFitness(
                     team,
                     simulationParameters,
-                    positionsOfShepardsSet[i],
+                    positionsOfShepherdsSet[i],
                     positionsOfSheepSet[i],
                     sheepType,
                     seed);

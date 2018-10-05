@@ -11,9 +11,7 @@ namespace World
 {
     public class ViewableWorld : SimulationWorld, IViewableWorld
     {
-        private const int MLISECONDS_BETWEEN_STEPS = 33;
-
-        private SolidBrush brush;
+        private const int MILISECONDS_BETWEEN_STEPS = 33;
 
         private readonly object pauseLocker = new object();
         private bool paused;
@@ -23,22 +21,33 @@ namespace World
         private const string WORK_THREAD_NAME = "ViewableWorldWorkThread";
         private Thread workThread;
        
-
         public int Step { get; private set; }
 
+        private readonly int numberOfSeenSheep;
+        private readonly int numberOfSeenShepherds;
+
+        private Drawing drawing;
+
         public ViewableWorld(
-        Team shepards,
-        IList<ISheep> sheep) : base(shepards, sheep)
+            Team shepherds,
+            IList<IMovingAgent> sheep,
+            int numberOfSeenSheep,
+            int numberOfSeenShepherds) : base(shepherds, sheep)
         {
-            foreach (var agent in Shepards.Members)
+            foreach (var agent in Shepherds.Members)
             {
                 agent.Path.Clear();
             }
+
+            this.numberOfSeenSheep = numberOfSeenSheep;
+            this.numberOfSeenShepherds = numberOfSeenShepherds;
+
+            this.drawing = new Drawing(10, 10, 600, 600, Sheep, Shepherds.Members, numberOfSeenSheep, numberOfSeenShepherds);
         }
 
         public void Start(int numberOfSteps)
         {
-            foreach(var agent in Shepards.Members)
+            foreach(var agent in Shepherds.Members)
             {
                 agent.Path.Clear();
             }
@@ -80,7 +89,7 @@ namespace World
 
         public void StepBack()
         {
-            foreach (var a in Shepards.Members)
+            foreach (var a in Shepherds.Members)
             {
                 a.StepBack();
             }
@@ -93,7 +102,7 @@ namespace World
 
         public void SavePositions(string path)
         {
-            PathesSaver.SavePathes(path, Shepards.Members, Sheep);
+            PathesSaver.SavePathes(path, Shepherds.Members, Sheep);
         }
 
         public void Work(object numberOfSteps)
@@ -109,78 +118,16 @@ namespace World
                     Step++;
                     Turn();
                 }
-                Thread.Sleep(MLISECONDS_BETWEEN_STEPS);
+                Thread.Sleep(MILISECONDS_BETWEEN_STEPS);
 
                 if (stopWork == true)
                     return;
             }
         }
 
-        public void Draw(Graphics gfx, int offsetX, int offsetY, bool showShepardsSight, bool showSheepRange, bool showCenterOfGravityOfSheep, bool showShepardsPath, bool showSheepPath)
+        public void Draw(Graphics gfx, int offsetX, int offsetY, DrawingFlags flags)
         {
-            if (brush == null)
-            {
-                brush = new SolidBrush(Color.Black);
-            }
-
-            gfx.FillRectangle(brush, offsetX, offsetY, 600, 600);
-
-            offsetX += 100;
-            offsetY += 100;
-
-            if (showSheepRange)
-            {
-                foreach (var s in Sheep)
-                {
-                    s.DrawSight(gfx, offsetX, offsetY);
-                }
-            }
-
-            if (showSheepPath)
-            {
-                foreach (var s in Sheep)
-                {
-                    s.DrawPath(gfx, offsetX, offsetY);
-                }
-            }
-
-            if (showShepardsPath)
-            {
-                foreach (var s in Shepards.Members)
-                {
-                    s.DrawPath(gfx, offsetX, offsetY);
-                }
-            }
-
-            if (showShepardsSight)
-            {
-                foreach (var s in Shepards.Members)
-                {
-                    s.DrawSight(gfx, offsetX, offsetY,
-                        Finder.FindClosestAgents(Shepards.Members.Cast<IMovingAgent>().ToList(), s, s.NumberOfSeenShepards),
-                        Color.LightBlue);
-
-                    s.DrawSight(gfx, offsetX, offsetY,
-                        Finder.FindClosestAgents(Sheep.Cast<IMovingAgent>().ToList(), s, s.NumberOfSeenSheep),
-                        Color.LightBlue);
-                }
-            }
-
-            foreach (var s in Sheep)
-            {
-                s.Draw(gfx, offsetX, offsetY);
-            }
-
-            foreach (var a in Shepards.Members)
-            {
-                a.Draw(gfx, offsetX, offsetY);
-            }
-
-            if (showCenterOfGravityOfSheep)
-            {
-                Position center = Sheep.Select(x => x.Position).Center();
-                gfx.FillEllipse(new SolidBrush(Color.White), new Rectangle(offsetX + (int)center.X - 2, offsetY + (int)center.Y - 2, 4, 4));
-            }
+            drawing.Draw(gfx, flags);
         }
     }
 }

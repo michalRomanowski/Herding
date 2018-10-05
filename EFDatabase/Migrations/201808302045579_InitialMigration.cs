@@ -14,13 +14,13 @@ namespace EFDatabase.Migrations
                         Id = c.Int(nullable: false, identity: true),
                         Name = c.String(),
                         Parameters_Id = c.Int(),
-                        Shepards_Id = c.Int(),
+                        Shepherds_Id = c.Int(),
                     })
                 .PrimaryKey(t => t.Id)
                 .ForeignKey("dbo.SimulationParameters", t => t.Parameters_Id)
-                .ForeignKey("dbo.Populations", t => t.Shepards_Id)
+                .ForeignKey("dbo.Populations", t => t.Shepherds_Id)
                 .Index(t => t.Parameters_Id)
-                .Index(t => t.Shepards_Id);
+                .Index(t => t.Shepherds_Id);
             
             CreateTable(
                 "dbo.SimulationParameters",
@@ -33,9 +33,9 @@ namespace EFDatabase.Migrations
                         MutationPower = c.Single(nullable: false),
                         AbsoluteMutationFactor = c.Single(nullable: false),
                         SheepType = c.Int(nullable: false),
-                        CompressedPositionsOfShepards = c.String(),
+                        CompressedPositionsOfShepherds = c.String(),
                         CompressedPositionsOfSheep = c.String(),
-                        NumberOfSeenShepards = c.Int(nullable: false),
+                        NumberOfSeenShepherds = c.Int(nullable: false),
                         NumberOfSeenSheep = c.Int(nullable: false),
                         NumberOfHiddenLayers = c.Int(nullable: false),
                         NumberOfNeuronsInHiddenLayer = c.Int(nullable: false),
@@ -55,7 +55,7 @@ namespace EFDatabase.Migrations
                 c => new
                     {
                         Id = c.Int(nullable: false, identity: true),
-                        CompressedPositionsOfShepardsSet = c.String(),
+                        CompressedPositionsOfShepherdsSet = c.String(),
                         CompressedPositionsOfSheepSet = c.String(),
                     })
                 .PrimaryKey(t => t.Id);
@@ -89,7 +89,7 @@ namespace EFDatabase.Migrations
                 c => new
                     {
                         Id = c.Int(nullable: false, identity: true),
-                        NumberOfSeenShepards = c.Int(nullable: false),
+                        NumberOfSeenShepherds = c.Int(nullable: false),
                         NumberOfSeenSheep = c.Int(nullable: false),
                         CompressedNeuralNet = c.String(),
                         Team_Id = c.Int(),
@@ -102,7 +102,7 @@ namespace EFDatabase.Migrations
         
         public override void Down()
         {
-            DropForeignKey("dbo.Optimizations", "Shepards_Id", "dbo.Populations");
+            DropForeignKey("dbo.Optimizations", "Shepherds_Id", "dbo.Populations");
             DropForeignKey("dbo.Teams", "Population_Id", "dbo.Populations");
             DropForeignKey("dbo.Populations", "Best_Id", "dbo.Teams");
             DropForeignKey("dbo.ThinkingAgents", "Team_Id", "dbo.Teams");
@@ -112,7 +112,7 @@ namespace EFDatabase.Migrations
             DropIndex("dbo.Teams", new[] { "Population_Id" });
             DropIndex("dbo.Populations", new[] { "Best_Id" });
             DropIndex("dbo.SimulationParameters", new[] { "RandomSetsForBest_Id" });
-            DropIndex("dbo.Optimizations", new[] { "Shepards_Id" });
+            DropIndex("dbo.Optimizations", new[] { "Shepherds_Id" });
             DropIndex("dbo.Optimizations", new[] { "Parameters_Id" });
             DropTable("dbo.ThinkingAgents");
             DropTable("dbo.Teams");

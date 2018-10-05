@@ -13,7 +13,7 @@ namespace Simulations
 
         private List<Team> participants = new List<Team>();
 
-        private readonly IList<IList<Position>> positionsOfShepardsSet;
+        private readonly IList<IList<Position>> positionsOfShepherdsSet;
         private readonly IList<IList<Position>> positionsOfSheepSet;
 
         private IFitnessCounter fitnessCounter;
@@ -33,23 +33,23 @@ namespace Simulations
 
             for (int i = 0; i < simulationParameters.NumberOfParticipants; i++)
             {
-                randomIndex = r.Next(simulationParameters.NumberOfShepards);
+                randomIndex = r.Next(simulationParameters.NumberOfShepherds);
                 participants.Add(population.Units[randomIndex]);
                 population.Units.RemoveAt(randomIndex);
             }
         }
 
-        public Tournament(SimulationParameters simulationParameters, Population population, IList<Position> positionsOfShepards, IList<Position> positionsOfSheep)
+        public Tournament(SimulationParameters simulationParameters, Population population, IList<Position> positionsOfShepherds, IList<Position> positionsOfSheep)
             : this(simulationParameters, population)
         {
-            this.positionsOfShepardsSet = new List<IList<Position>> { positionsOfShepards };
+            this.positionsOfShepherdsSet = new List<IList<Position>> { positionsOfShepherds };
             this.positionsOfSheepSet = new List<IList<Position>> { positionsOfSheep };
         }
 
-        public Tournament(SimulationParameters simulationParameters, Population population, IList<IList<Position>> positionsOfShepardsSet, IList<IList<Position>> positionsOfSheepSet)
+        public Tournament(SimulationParameters simulationParameters, Population population, IList<IList<Position>> positionsOfShepherdsSet, IList<IList<Position>> positionsOfSheepSet)
             : this(simulationParameters, population)
         {
-            this.positionsOfShepardsSet = positionsOfShepardsSet;
+            this.positionsOfShepherdsSet = positionsOfShepherdsSet;
             this.positionsOfSheepSet = positionsOfSheepSet;
         }
 
@@ -63,7 +63,7 @@ namespace Simulations
                 results[i] += fitnessCounter.CountFitness(
                     participants[i],
                     simulationParameters,
-                    positionsOfShepardsSet, 
+                    positionsOfShepherdsSet, 
                     positionsOfSheepSet,
                     simulationParameters.SheepType, 
                     seed);

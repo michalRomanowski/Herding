@@ -23,7 +23,7 @@ namespace Simulations
                     fitness = fitnessCounter.CountFitness(
                         team,
                         simulationParameters,
-                        simulationParameters.PositionsOfShepards,
+                        simulationParameters.PositionsOfShepherds,
                         simulationParameters.PositionsOfSheep,
                         simulationParameters.SheepType,
                         seed);
@@ -33,7 +33,7 @@ namespace Simulations
                     fitness = fitnessCounter.CountFitness(
                         team,
                         simulationParameters,
-                        simulationParameters.RandomSetsForBest.PositionsOfShepardsSet,
+                        simulationParameters.RandomSetsForBest.PositionsOfShepherdsSet,
                         simulationParameters.RandomSetsForBest.PositionsOfSheepSet,
                         simulationParameters.SheepType,
                         seed);

@@ -10,19 +10,19 @@ namespace Simulations
     internal class SumFitnessCounter : IFitnessCounter
     {
         public float CountFitness(
-            Team shepards,
+            Team shepherds,
             SimulationParameters simulationParameters,
-            IList<Position> positionsOfShepards,
+            IList<Position> positionsOfShepherds,
             IList<Position> positionsOfSheep,
             ESheepType sheepType,
             int seed = 0)
         {
-            var sheep = SheepProvider.GetSheep(positionsOfSheep, sheepType, seed);
+            var sheep = AgentFactory.GetSheep(positionsOfSheep, sheepType, seed);
 
-            shepards.ClearPath();
-            shepards.SetPositions(positionsOfShepards);
+            shepherds.ClearPath();
+            shepherds.SetPositions(positionsOfShepherds);
 
-            var world = new SimulationWorld(shepards, sheep, true);
+            var world = new SimulationWorld(shepherds, sheep, true);
 
             world.Work(simulationParameters.TurnsOfHerding);
 
@@ -30,25 +30,25 @@ namespace Simulations
         }
 
         public float CountFitness(
-            Team shepardsTeam,
+            Team shepherdsTeam,
             SimulationParameters simulationParameters,
-            IList<IList<Position>> positionsOfShepardsSet,
+            IList<IList<Position>> positionsOfShepherdsSet,
             IList<IList<Position>> positionsOfSheepSet,
             ESheepType sheepType,
             int seed = 0)
         {
-            if (positionsOfShepardsSet.Count != positionsOfSheepSet.Count)
-                throw new ArgumentException("positionsOfShepardsSet.Count != positionsOfSheepSet.Countt");
+            if (positionsOfShepherdsSet.Count != positionsOfSheepSet.Count)
+                throw new ArgumentException("positionsOfShepherdsSet.Count != positionsOfSheepSet.Countt");
 
 
             float fitness = 0.0f;
 
-            for (int i = 0; i < positionsOfShepardsSet.Count; i++)
+            for (int i = 0; i < positionsOfShepherdsSet.Count; i++)
             {
                 fitness += CountFitness(
-                    shepardsTeam,
+                    shepherdsTeam,
                     simulationParameters,
-                    positionsOfShepardsSet[i],
+                    positionsOfShepherdsSet[i],
                     positionsOfSheepSet[i],
                     sheepType,
                     seed);
