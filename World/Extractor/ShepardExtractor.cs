@@ -1,7 +1,6 @@
 ﻿using Agent;
 using Auxiliary;
 using System;
-using System.Collections;
 using System.Linq;
 
 namespace World
@@ -15,8 +14,8 @@ namespace World
             var centerOfGravity =
                 world.Sheep.Select(x => x.Position).Center();
             
-            var closestAgents = Finder.FindClosestAgents(world.Shepherds.Members.Cast<IMovingAgent>().ToList(), agent, agent.NumberOfSeenShepherds);
-            var closestSheep = Finder.FindClosestAgents(world.Sheep.Cast<IMovingAgent>().ToList(), agent, agent.NumberOfSeenSheep);
+            var closestAgents = Finder.FindClosestAgents(agent, agent.NumberOfSeenShepherds, world.Shepherds.Members.Cast<IMovingAgent>());
+            var closestSheep = Finder.FindClosestAgents(agent, agent.NumberOfSeenSheep, world.Sheep.Cast<IMovingAgent>());
 
             var closestAgentsInRelativeCoordinationSystem = closestAgents.Select(x => x.Position).PositionsInRelativeCoordinationSystem(agent.Position, centerOfGravity);
             var closestSheepInRelativeCoordinationSystem = closestSheep.Select(x => x.Position).PositionsInRelativeCoordinationSystem(agent.Position, centerOfGravity);

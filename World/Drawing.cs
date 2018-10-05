@@ -101,8 +101,8 @@ namespace World
         {
             foreach(var s in shepherds)
             {
-                DrawSight(gfx, s, Finder.FindClosestAgents(sheep, s, numberOfSeenSheep), shepherdSheepSightColor);
-                DrawSight(gfx, s, Finder.FindClosestAgents(shepherds, s, numberOfSeenShepherds), shepherdShepherdSightColor);
+                DrawSight(gfx, s, Finder.FindClosestAgents(s, numberOfSeenSheep, sheep), shepherdSheepSightColor);
+                DrawSight(gfx, s, Finder.FindClosestAgents(s, numberOfSeenShepherds, shepherds), shepherdShepherdSightColor);
             }
         }
 
