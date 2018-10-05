@@ -1,5 +1,4 @@
-﻿
-using Simulations;
+﻿using Simulations;
 
 namespace View
 {

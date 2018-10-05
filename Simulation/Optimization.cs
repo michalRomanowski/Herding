@@ -11,22 +11,34 @@ namespace Simulations
     public class Optimization
     {
         public int Id { get; set; }
-
         public string Name { get; set; }
-
+        
         [NotMapped]
-        public bool Stop;
-        [NotMapped]
-        public readonly object StopLocker = new object();
+        public bool Stop
+        {
+            get
+            {
+                lock (_stopLocker)
+                {
+                    return _stop;
+                }
+            }
+            set
+            {
+                lock (_stopLocker)
+                {
+                    _stop = value;
+                }
+            }
+        }
+        private readonly object _stopLocker = new object();
+        private bool _stop { get; set; }
 
         [NotMapped]
         public int StepCount { get; private set; }
         
         public SimulationParameters Parameters { get; set; }
         public Population Shepherds { get; set; }
-
-        private const int AUTOSAVE_PERIOD = 100000;
-        private const bool AUTOSAVE_ACTIVE = true;
 
         private readonly BestTeamManager bestTeamManager = new BestTeamManager();
         private readonly Random r = new Random();
@@ -54,10 +66,7 @@ namespace Simulations
         {
             Parameters.Progress = float.MinValue;
             
-            lock (StopLocker)
-            {
-                Stop = false;
-            }
+            Stop = false;
 
             if (Shepherds.Best != null)
             {
@@ -71,15 +80,7 @@ namespace Simulations
             {
                 Step();
 
-                lock (StopLocker)
-                {
-                    if (Stop) break;
-                }
-
-                if (AUTOSAVE_ACTIVE && StepCount % AUTOSAVE_PERIOD == 0)
-                {
-                    //storage.Autosave();
-                }
+                if (Stop) break;
             }
         }
 

@@ -380,10 +380,7 @@ namespace View
 
         private void ButtonStop_Click(object sender, EventArgs e)
         {
-            lock (OptimizationInstance.Optimization.StopLocker)
-            {
-                OptimizationInstance.Optimization.Stop = true;
-            }
+            OptimizationInstance.Optimization.Stop = true;
 
             optimizationThread.Join();
 
