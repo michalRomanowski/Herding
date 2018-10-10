@@ -90,7 +90,7 @@ namespace Simulations
             Shepherds.Units.AddRange(children);
 
             var bestPretenders = children.Concat(new List<Team>() { Shepherds.Best });
-            Shepherds.Best = bestTeamSelector.GetBestTeam(bestPretenders);
+            Shepherds.Best = bestTeamSelector.GetBestTeam(bestPretenders).GetClone();
 
             Logger.AddLine("New fitness: " + children[0].Fitness);
             Logger.AddLine("New fitness: " + children[1].Fitness);

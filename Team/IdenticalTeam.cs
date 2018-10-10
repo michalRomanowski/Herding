@@ -12,6 +12,8 @@ namespace Teams
         {
             var clone = new IdenticalTeam();
 
+            clone.Fitness = Fitness;
+
             foreach (var a in Members)
             {
                 clone.Members.Add(a.GetClone());

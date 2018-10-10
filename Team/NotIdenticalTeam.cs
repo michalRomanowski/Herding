@@ -13,6 +13,8 @@ namespace Teams
         {
             var clone = new NotIdenticalTeam();
 
+            clone.Fitness = Fitness;
+
             foreach (var a in Members)
             {
                 clone.Members.Add(a.GetClone());

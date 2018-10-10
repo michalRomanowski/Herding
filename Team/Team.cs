@@ -16,7 +16,7 @@ namespace Teams
         {
             Members = new List<ThinkingAgent>();
         }
-        
+
         public abstract Team GetClone();
 
         public abstract void AdjustSize(int newSize);
