@@ -17,10 +17,7 @@ namespace Simulations
 
         [NotMapped]
         public readonly object BestLocker = new object();
-
-        [NotMapped]
-        private IAverageFitnessCounter averageFitnessCounter;
-
+        
         public Population() { }
 
         public Population(SimulationParameters simulationParameters)

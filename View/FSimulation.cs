@@ -222,15 +222,13 @@ namespace View
             CorrentState = State.CountingFitness;
 
             BlockControls();
+            
+            //var averageFitness = new AverageFitnessCounter().CountAverageFitness(SimParameters, Shepherds, SimParameters.SeedForRandomSheepForBest);
+            //Logger.AddLine("Average fitness: " + averageFitness);
+            
+            //new BestTeamManager().UpdateBestTeam(SimParameters, Shepherds, Shepherds.Units);
 
-
-            var averageFitness = new AverageFitnessCounter().CountAverageFitness(SimParameters, Shepherds, SimParameters.SeedForRandomSheepForBest);
-            Logger.AddLine("Average fitness: " + averageFitness);
-
-
-            new BestTeamManager().UpdateBestTeam(SimParameters, Shepherds, Shepherds.Units);
-
-            labelAverage.Text = "Average Fitness: " + averageFitness.ToString();
+            //labelAverage.Text = "Average Fitness: " + averageFitness.ToString();
             labelBestFitness.Text = "Best Fitness: " + Shepherds.Best.Fitness.ToString();
 
             CorrentState = State.Idle;
@@ -341,7 +339,7 @@ namespace View
 
             timer.Start();
 
-            optimizationThread = new Thread(new ThreadStart(OptimizationInstance.Optimization.Optimize));
+            optimizationThread = new Thread(new ThreadStart(OptimizationInstance.Optimization.Start));
             optimizationThread.Start();
         }
 
@@ -380,7 +378,7 @@ namespace View
 
         private void ButtonStop_Click(object sender, EventArgs e)
         {
-            OptimizationInstance.Optimization.Stop = true;
+            OptimizationInstance.Optimization.Stop();
 
             optimizationThread.Join();
 

@@ -51,8 +51,10 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="FitnessCounters\AverageFitnessCounter.cs" />
-    <Compile Include="FitnessCounters\BestTeamManager.cs" />
+    <Compile Include="BestTeamSelector\BestBestTeamSelectorFactory.cs" />
+    <Compile Include="BestTeamSelector\FixedPositionsBestTeamSelector.cs" />
+    <Compile Include="BestTeamSelector\IBestTeamSelector.cs" />
+    <Compile Include="BestTeamSelector\RandomPositionsBestTeamSelector.cs" />
     <Compile Include="FitnessCounters\ClassicFitnessCounter.cs" />
     <Compile Include="RandomSetsList.cs" />
     <Compile Include="FitnessCounters\FitnessCounterProvider.cs" />

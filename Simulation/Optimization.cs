@@ -13,26 +13,8 @@ namespace Simulations
         public int Id { get; set; }
         public string Name { get; set; }
         
-        [NotMapped]
-        public bool Stop
-        {
-            get
-            {
-                lock (_stopLocker)
-                {
-                    return _stop;
-                }
-            }
-            set
-            {
-                lock (_stopLocker)
-                {
-                    _stop = value;
-                }
-            }
-        }
-        private readonly object _stopLocker = new object();
-        private bool _stop { get; set; }
+        private readonly object stopLocker = new object();
+        private bool stop { get; set; }
 
         [NotMapped]
         public int StepCount { get; private set; }
@@ -40,7 +22,7 @@ namespace Simulations
         public SimulationParameters Parameters { get; set; }
         public Population Shepherds { get; set; }
 
-        private readonly BestTeamManager bestTeamManager = new BestTeamManager();
+        private IBestTeamSelector bestTeamSelector;
         private readonly Random r = new Random();
 
         private Tournament[] tournaments = new Tournament[2];
@@ -61,26 +43,35 @@ namespace Simulations
             Parameters = parameters;
             Shepherds = shepherds;
         }
-
-        public void Optimize()
+        
+        public void Start()
         {
             Parameters.Progress = float.MinValue;
-            
-            Stop = false;
+
+            bestTeamSelector = BestBestTeamSelectorFactory.GetBestTeamSelector(Parameters);
 
             if (Shepherds.Best != null)
-            {
                 Shepherds.Best.Fitness = float.MaxValue;
-                bestTeamManager.UpdateBestTeam(Parameters, Shepherds, new List<Team>() { Shepherds.Best });
-            }
 
             Parameters.BestResultAtStep = new List<float>();
+            
+            Optimize();
+        }
 
-            for (StepCount = 0; StepCount < Parameters.OptimizationSteps && Parameters.Progress < 1; StepCount++)
+        public void Stop()
+        {
+            lock (stopLocker)
+                stop = true;
+        }
+
+        private void Optimize()
+        {
+            lock (stopLocker)
+                stop = false;
+
+            for (StepCount = 0; StepCount < Parameters.OptimizationSteps && Parameters.Progress < 1 && stop == false; StepCount++)
             {
                 Step();
-
-                if (Stop) break;
             }
         }
 
@@ -98,8 +89,12 @@ namespace Simulations
 
             Shepherds.Units.AddRange(children);
 
-            bestTeamManager.UpdateBestTeam(Parameters, Shepherds, children);
-            
+            var bestPretenders = children.Concat(new List<Team>() { Shepherds.Best });
+            Shepherds.Best = bestTeamSelector.GetBestTeam(bestPretenders);
+
+            Logger.AddLine("New fitness: " + children[0].Fitness);
+            Logger.AddLine("New fitness: " + children[1].Fitness);
+
             Parameters.BestResultAtStep.Add(Shepherds.Best.Fitness);
             Logger.AddLine("Best fitness: " + Shepherds.Best.Fitness);
         }
