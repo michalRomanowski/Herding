@@ -52,7 +52,7 @@
     <Compile Include="PathesSaver.cs" />
     <Compile Include="ViewableWorld.cs" />
     <Compile Include="SimulationWorld.cs" />
-    <Compile Include="Extractor\ShepardExtractor.cs" />
+    <Compile Include="Extractor\ShepherdExtractor.cs" />
     <Compile Include="IWorld.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>

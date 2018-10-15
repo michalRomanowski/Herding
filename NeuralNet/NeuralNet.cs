@@ -14,6 +14,8 @@ namespace NeuralNets
         private float[][] BiasesInHiddenLayers { get; set; }
         private float[] BiasesInOutputLayer { get; set; }
 
+        private const float RESIZE_DEFAULT_VALUE = 0.0f;
+
         public IActivationFunction activationFunction =
             ActivationFunctionFactory.GetActivationFunction(EActivationFunctionType.Tanh);
 
@@ -148,21 +150,18 @@ namespace NeuralNets
             return child;
         }
 
-        public void AdjustInputLayerSize(int newSize)
+        public void Resize(int inputLayerSize, int numberOfHiddenLayers, int hiddenLayerSize)
         {
-            var numberOfNeuronsToAdd = newSize - WagesBetweenInputAndFirstHiddenLayer.GetLength(0);
-
-            if (numberOfNeuronsToAdd == 0)
+            if (WagesBetweenInputAndFirstHiddenLayer.GetLength(0) == inputLayerSize
+                && WagesBetweenHiddenLayers.GetLength(0) == numberOfHiddenLayers - 1
+                && BiasesInHiddenLayers[0].GetLength(0) == hiddenLayerSize)
                 return;
 
-            var newArray = new float[WagesBetweenInputAndFirstHiddenLayer.GetLength(0) + numberOfNeuronsToAdd, WagesBetweenInputAndFirstHiddenLayer.GetLength(1)];
-            Array.Copy(WagesBetweenInputAndFirstHiddenLayer, newArray, WagesBetweenInputAndFirstHiddenLayer.GetLength(0));
-            WagesBetweenInputAndFirstHiddenLayer = newArray;
-        }
+            WagesBetweenInputAndFirstHiddenLayer = WagesBetweenInputAndFirstHiddenLayer.Resize(inputLayerSize, hiddenLayerSize, RESIZE_DEFAULT_VALUE);
+            WagesBetweenHiddenLayers = WagesBetweenHiddenLayers.Resize(numberOfHiddenLayers - 1, hiddenLayerSize, hiddenLayerSize, RESIZE_DEFAULT_VALUE);
+            WagesBetweenLastHiddenAndOutputLayer = WagesBetweenLastHiddenAndOutputLayer.Resize(hiddenLayerSize, 2, RESIZE_DEFAULT_VALUE);
 
-        public void AdjustHiddenLayersSize(int newSize)
-        {
-            throw new NotImplementedException();
+            BiasesInHiddenLayers = BiasesInHiddenLayers.Resize(numberOfHiddenLayers, hiddenLayerSize, RESIZE_DEFAULT_VALUE);
         }
 
         #region ICompress

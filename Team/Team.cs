@@ -18,9 +18,7 @@ namespace Teams
         }
 
         public abstract Team GetClone();
-
-        public abstract void AdjustSize(int newSize);
-
+        
         public void ResetFitness()
         {
             Fitness = float.MaxValue;
@@ -38,21 +36,9 @@ namespace Teams
             }
         }
 
-        public void AdjustInputLayerSize(int numberOfSeenShepherds, int numberOfSeenSheep)
-        {
-            foreach(var agent in Members)
-            {
-                agent.AdjustInputLayerSize(numberOfSeenShepherds, numberOfSeenSheep);
-            }
-        }
-
-        public void AdjustHiddenLayersSize(int newSize)
-        {
-            foreach (var agent in Members)
-            {
-                agent.AdjustHiddenLayersSize(newSize);
-            }
-        }
+        public abstract void Resize(int newSize);
+        
+        public abstract void ResizeNeuralNet(int numberOfSeenShepherds, int numberOfSeenSheep, int numberOfHiddenLayers, int hiddenLayerSize);
 
         public void ClearPath()
         {

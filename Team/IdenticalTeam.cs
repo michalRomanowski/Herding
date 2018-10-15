@@ -21,20 +21,7 @@ namespace Teams
 
             return clone;
         }
-
-        public override void AdjustSize(int newSize)
-        {
-            while (Members.Count > newSize)
-            {
-                Members.Remove(Members.Last());
-            }
-
-            while (Members.Count < newSize)
-            {
-                Members.Add(Members.First().GetClone());
-            }
-        }
-
+        
         public override Team[] Crossover(Team partner)
         {
             Team[] children = new Team[2] { new IdenticalTeam(), new IdenticalTeam() };
@@ -57,6 +44,31 @@ namespace Teams
         {
             Members[0].Mutate(mutationPower, absoluteMutationFactor);
 
+            FillWithClonesOfFirst();
+        }
+
+        public override void Resize(int newSize)
+        {
+            while (Members.Count > newSize)
+            {
+                Members.Remove(Members.Last());
+            }
+
+            while (Members.Count < newSize)
+            {
+                Members.Add(Members.First().GetClone());
+            }
+        }
+        
+        public override void ResizeNeuralNet(int numberOfSeenShepherds, int numberOfSeenSheep, int numberOfHiddenLayers, int hiddenLayerSize)
+        {
+            Members[0].ResizeNeuralNet(numberOfSeenShepherds, numberOfSeenSheep, numberOfHiddenLayers, hiddenLayerSize);
+
+            FillWithClonesOfFirst();
+        }
+
+        private void FillWithClonesOfFirst()
+        {
             for (int i = 1; i < Members.Count; i++)
                 Members[i] = Members[0].GetClone();
         }

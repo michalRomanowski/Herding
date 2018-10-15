@@ -42,7 +42,7 @@ namespace World
         public static void InterpretOutput(ThinkingAgent agent, IWorld world, float[] output)
         {
             if (output.Count() != 2)
-                throw new ArgumentException("Net output must be of size == 2.");
+                throw new ArgumentException();
 
             var centerOfGravity =
                 world.Sheep.Select(x => x.Position).Center();
@@ -63,13 +63,14 @@ namespace World
             float mX = output[0] * cos - output[1] * sin;
             float mY = output[0] * sin + output[1] * cos;
 
-            if (mX * mX + mY * mY > 1)
-            {
-                var normalized = CMath.NormalizeToOne(mX, mY);
-                mX = normalized[0];
-                mY = normalized[1];
-            }
+            float lengthM = (float)Math.Sqrt(mX * mX + mY * mY);
 
+            if (lengthM > 1)
+            {
+                mX /= lengthM;
+                mY /= lengthM;
+            }
+            
             agent.Position.X += mX * SPEED;
             agent.Position.Y += mY * SPEED;
         }

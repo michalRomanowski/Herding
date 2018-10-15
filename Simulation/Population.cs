@@ -35,7 +35,7 @@ namespace Simulations
                         simulationParameters.NumberOfHiddenLayers,
                         simulationParameters.NumberOfNeuronsInHiddenLayer));
 
-                Units.Last().AdjustSize(simulationParameters.NumberOfShepherds);
+                Units.Last().Resize(simulationParameters.NumberOfShepherds);
             }
 
             Best = Units[0].GetClone();
@@ -53,22 +53,22 @@ namespace Simulations
                 CRandom.r.Next(Units.Count));
         }
 
-        public void AdjustTeamSize(int numberOfMembers)
+        public void ResizeTeam(int newTeamSize)
         {
+            Best.Resize(newTeamSize);
+
             foreach (Team t in Units)
-                t.AdjustSize(numberOfMembers);
+                t.Resize(newTeamSize);
         }
 
-        public void AdjustInputLayerSize(int numberOfSeenShepherds, int numberOfSeenSheep)
-        { 
-            foreach(var team in Units)
-                team.AdjustInputLayerSize(numberOfSeenShepherds, numberOfSeenSheep);
-        }
-        
-        public void AdjustHiddenLayersSize(int newSize)
+        public void ResizeNeuralNet(int numberOfSeenShepherds, int numberOfSeenSheep, int numberOfHiddenLayers, int hiddenLayerSize)
         {
-            foreach (var team in Units)
-                team.AdjustHiddenLayersSize(newSize);
+            Best.ResizeNeuralNet(numberOfSeenShepherds, numberOfSeenSheep, numberOfHiddenLayers, hiddenLayerSize);
+
+            foreach (var t in Units)
+            {
+                t.ResizeNeuralNet(numberOfSeenShepherds, numberOfSeenSheep, numberOfHiddenLayers, hiddenLayerSize);
+            }
         }
     }
 }

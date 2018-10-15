@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Drawing;
 using System.Linq;
 using Auxiliary;
 using NeuralNets;
@@ -75,17 +74,15 @@ namespace Agent
             return DecideOutput;
         }
 
-        public override void AdjustInputLayerSize(int numberOfSeenShepherds, int numberOfSeenSheep)
+        public override void ResizeNeuralNet(int numberOfSeenShepherds, int numberOfSeenSheep, int numberOfHiddenLayers, int hiddenLayerSize)
         {
-            NumberOfSeenSheep = numberOfSeenSheep;
             NumberOfSeenShepherds = numberOfSeenShepherds;
+            NumberOfSeenSheep = numberOfSeenSheep;
 
-            Brain.AdjustInputLayerSize(2 + 2 * numberOfSeenShepherds + 2 * numberOfSeenSheep);
-        }
-
-        public override void AdjustHiddenLayersSize(int newSize)
-        {
-            Brain.AdjustHiddenLayersSize(newSize);
+            Brain.Resize(
+                InputLayerSize(numberOfSeenShepherds, numberOfSeenSheep), 
+                numberOfHiddenLayers, 
+                hiddenLayerSize);
         }
 
         public override void StepBack()

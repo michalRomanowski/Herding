@@ -43,7 +43,7 @@ namespace View
             }
         }
 
-        private State CorrentState
+        private State CurrentState
         {
             get { return _state; }
             set
@@ -117,7 +117,7 @@ namespace View
 
             NumericUpDownOptimizationSteps.Maximum = Int32.MaxValue;
 
-            CorrentState = State.Idle;
+            CurrentState = State.Idle;
 
             labelStep.Text = "0";
             labelBestFitness2.Text = "0";
@@ -176,9 +176,9 @@ namespace View
             DataGridViewShepherds.Refresh();
             DataGridViewSheep.Refresh();
 
-            NumericUpDownShepherdShepherdSight.Maximum = SimParameters.NumberOfSeenShepherds > 0 ? SimParameters.NumberOfSeenShepherds : 0;
+            NumericUpDownShepherdShepherdSight.Maximum = SimParameters.NumberOfShepherds - 1;
             NumericUpDownShepherdShepherdSight.Value = SimParameters.NumberOfSeenShepherds;
-            NumericUpDownShepherdSheepSight.Maximum = SimParameters.NumberOfSeenSheep > 0 ? SimParameters.NumberOfSeenSheep : 0;
+            NumericUpDownShepherdSheepSight.Maximum = SimParameters.NumberOfSeenSheep > 0 ? SimParameters.NumberOfSheep : 0;
             NumericUpDownShepherdSheepSight.Value = SimParameters.NumberOfSeenSheep;
 
             ButtonShowHerdingOfBestTeam.Enabled = Shepherds != null && Shepherds.Best != null;
@@ -202,7 +202,7 @@ namespace View
             }
 
 
-            if (CorrentState == State.CountingFitness)
+            if (CurrentState == State.CountingFitness)
             {
                 return;
             }
@@ -219,7 +219,7 @@ namespace View
         
         public void CountFitness()
         {
-            CorrentState = State.CountingFitness;
+            CurrentState = State.CountingFitness;
 
             BlockControls();
             
@@ -231,7 +231,7 @@ namespace View
             //labelAverage.Text = "Average Fitness: " + averageFitness.ToString();
             labelBestFitness.Text = "Best Fitness: " + Shepherds.Best.Fitness.ToString();
 
-            CorrentState = State.Idle;
+            CurrentState = State.Idle;
 
             UnblockControls();
         }
@@ -290,8 +290,6 @@ namespace View
 
         private void ButtonStart_Click(object sender, EventArgs e)
         {
-            Logger.Clear();
-
             if (SimParameters.NumberOfSheep < 2)
             {
                 MessageBox.Show("Add at least two Sheep.");
@@ -300,7 +298,7 @@ namespace View
             
             NumericUpDownPopulationSize.Enabled = false;
 
-            CorrentState = State.Optimization;
+            CurrentState = State.Optimization;
 
             GetSimulationParameters();
 
@@ -325,8 +323,7 @@ namespace View
             }
             else
             {
-                Shepherds.AdjustInputLayerSize(SimParameters.NumberOfSeenShepherds, SimParameters.NumberOfSeenSheep);
-                //Shepherds.AdjustHiddenLayersSize(SimulationParameters.NumberOfNeuronsInHiddenLayer);
+                Shepherds.ResizeNeuralNet(SimParameters.NumberOfSeenShepherds, SimParameters.NumberOfSeenSheep, SimParameters.NumberOfHiddenLayers, SimParameters.NumberOfNeuronsInHiddenLayer);
             }
 
             foreach (Form f in children)
@@ -335,7 +332,7 @@ namespace View
                 f.Dispose();
             }
 
-            Shepherds.AdjustTeamSize(SimParameters.NumberOfShepherds);
+            Shepherds.ResizeTeam(SimParameters.NumberOfShepherds);
 
             timer.Start();
 
@@ -370,7 +367,7 @@ namespace View
                 return;
 
             GetSimulationParameters();
-            Shepherds.AdjustTeamSize(SimParameters.NumberOfShepherds);
+            Shepherds.ResizeTeam(SimParameters.NumberOfShepherds);
 
             children.Add(new FWorld(SimParameters, Shepherds.Units[ComboBoxPopulation.SelectedIndex]));
             children.Last().Show();
@@ -384,7 +381,7 @@ namespace View
 
             SimParameters.Progress = 1;
 
-            CorrentState = State.Idle;
+            CurrentState = State.Idle;
 
             Logger.Flush();
         }
@@ -421,7 +418,7 @@ namespace View
         {
             GetSimulationParameters();
 
-            Shepherds.AdjustTeamSize(SimParameters.NumberOfShepherds);
+            Shepherds.ResizeTeam(SimParameters.NumberOfShepherds);
 
             children.Add(new FWorld(SimParameters, Shepherds.Best));
             children.Last().Show();

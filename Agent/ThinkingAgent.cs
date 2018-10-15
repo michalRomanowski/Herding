@@ -1,5 +1,4 @@
 ﻿using System.Collections.Generic;
-using System.Drawing;
 using System.ComponentModel.DataAnnotations.Schema;
 using NeuralNets;
 using Auxiliary;
@@ -38,10 +37,13 @@ namespace Agent
         public abstract void Mutate(float mutationChance, float absoluteMutationFactor);
         public abstract float[] Decide(float[] input);
 
-
-        public abstract void AdjustInputLayerSize(int numberOfSeenShepherds, int numberOfSeenSheep);
-        public abstract void AdjustHiddenLayersSize(int newSize);
+        public abstract void ResizeNeuralNet(int numberOfSeenShepherds, int numberOfSeenSheep, int numberOfHiddenLayers, int hiddenLayerSize);
 
         public abstract void StepBack();
+
+        protected static int InputLayerSize(int numberOfSeenShepherds, int numberOfSeenSheep)
+        {
+            return (numberOfSeenShepherds + numberOfSeenSheep + 1) * 2;
+        }
     }
 }
