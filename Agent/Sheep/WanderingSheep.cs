@@ -1,5 +1,5 @@
 ﻿using System;
-using Auxiliary;
+using System.Numerics;
 
 namespace Agent
 {
@@ -39,10 +39,10 @@ namespace Agent
             float randomX = (float)Math.Cos(RandomMoveAngle);
             float randomY = (float)Math.Sin(RandomMoveAngle);
 
-            var vectorLengthOne = CMath.NormalizeToOne(randomX, randomY);
+            var vectorLengthOne = Vector2.Normalize(new Vector2(randomX, randomY));
             
-            DecideOutput[0] += vectorLengthOne[0] * RANDOM_MOVEMENT_SPEED;
-            DecideOutput[1] += vectorLengthOne[1] * RANDOM_MOVEMENT_SPEED;
+            DecideOutput[0] += vectorLengthOne.X * RANDOM_MOVEMENT_SPEED;
+            DecideOutput[1] += vectorLengthOne.Y * RANDOM_MOVEMENT_SPEED;
 
             return DecideOutput;
         }

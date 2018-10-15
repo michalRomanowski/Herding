@@ -1,7 +1,7 @@
 ﻿using Auxiliary;
 using System;
 using System.Collections.Generic;
-using System.Drawing;
+using System.Numerics;
 using System.Linq;
 
 namespace Agent
@@ -28,32 +28,35 @@ namespace Agent
 
         public virtual float[] Decide(float[] input)
         {
-            DecideOutput = new float[] { 0.0f, 0.0f };
+            var decision = new Vector2();
 
             for (int i = 0; i < input.Length; i += 2)
             {
-                float dX = input[i];
-                float dY = input[i + 1];
+                var d = new Vector2(
+                    input[i],
+                    input[i + 1]);
 
-                if (dX > SIGHT_RANGE || dX < -SIGHT_RANGE || dY > SIGHT_RANGE || dY < -SIGHT_RANGE)
+                if (d.X > SIGHT_RANGE || d.X < -SIGHT_RANGE || d.Y > SIGHT_RANGE || d.Y < -SIGHT_RANGE)
                     continue;
 
-                float distance = (float)Math.Sqrt(dX * dX + dY * dY);
+                float distance = d.Length();
 
                 if (distance > SIGHT_RANGE)
                     continue;
 
                 float speed = SIGHT_RANGE - distance;
 
-                var normalized = CMath.NormalizeToOne(dX, dY);
+                var normalized = Vector2.Normalize(d);
 
-                DecideOutput[0] -= normalized[0] * speed;
-                DecideOutput[1] -= normalized[1] * speed;
+                decision.X -= normalized.X * speed;
+                decision.Y -= normalized.Y * speed;
             }
 
-            if (DecideOutput[0] != 0 || DecideOutput[1] != 0)
-                DecideOutput = CMath.NormalizeToOne(DecideOutput);
+            if (decision.X != 0 || decision.Y != 0)
+                decision = Vector2.Normalize(decision);
 
+            DecideOutput = new float[2] { decision.X, decision.Y };
+            
             return DecideOutput;
         }
 

@@ -2,6 +2,7 @@
 using Auxiliary;
 using System;
 using System.Linq;
+using System.Numerics;
 
 namespace World
 {
@@ -47,12 +48,14 @@ namespace World
             var centerOfGravity =
                 world.Sheep.Select(x => x.Position).Center();
 
-            float dX = centerOfGravity.X - agent.Position.X;
-            float dY = centerOfGravity.Y - agent.Position.Y;
-            float d = (float)Math.Sqrt(dX * dX + dY * dY);
+            var vCentered = new Vector2(
+                centerOfGravity.X - agent.Position.X, 
+                centerOfGravity.Y - agent.Position.Y);
 
-            float sin = dY / d;
-            float cos = dX / d;
+            var vCenteredLength = vCentered.Length();
+            
+            float sin = vCentered.Y / vCenteredLength;
+            float cos = vCentered.X / vCenteredLength;
 
             if (float.IsNaN(sin))
                 sin = 0.0f;
@@ -60,19 +63,20 @@ namespace World
             if (float.IsNaN(cos))
                 cos = 1.0f;
 
-            float mX = output[0] * cos - output[1] * sin;
-            float mY = output[0] * sin + output[1] * cos;
+            var vRotated = new Vector2(
+                output[0] * cos - output[1] * sin,
+                output[0] * sin + output[1] * cos);
 
-            float lengthM = (float)Math.Sqrt(mX * mX + mY * mY);
+            float vRotatedLength = vRotated.Length();
 
-            if (lengthM > 1)
+            if (vRotatedLength > 1)
             {
-                mX /= lengthM;
-                mY /= lengthM;
+                vRotated.X /= vRotatedLength;
+                vRotated.Y /= vRotatedLength;
             }
-            
-            agent.Position.X += mX * SPEED;
-            agent.Position.Y += mY * SPEED;
+
+            agent.Position.X += vRotated.X * SPEED;
+            agent.Position.Y += vRotated.Y * SPEED;
         }
     }
 }
