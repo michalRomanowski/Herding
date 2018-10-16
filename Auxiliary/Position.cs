@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Numerics;
 
 namespace Auxiliary
 {
@@ -8,21 +9,19 @@ namespace Auxiliary
     {
         private const char SEPARATOR = ';';
 
-        public static Position OO
+        public float X
         {
-            get { return new Position(0, 0); }
+            get { return vector.X; }
+            set { vector.X = value; }
         }
 
-        public float X { get; set; }
-        public float Y { get; set; }
-
-        public class DistanceFromOOComparer : IComparer<Position>
+        public float Y
         {
-            public int Compare(Position a, Position b)
-            {
-                return SquaredDistance(OO, a) > SquaredDistance(OO, b) ? 1 : -1;
-            }
+            get { return vector.Y; }
+            set { vector.Y = value; }
         }
+
+        private Vector2 vector = new Vector2();
 
         public Position(){}
 
@@ -48,28 +47,27 @@ namespace Auxiliary
 
         public static Position operator+(Position a, Position b)
         {
-            return new Position(
-                a.X + b.X,
-                a.Y + b.Y);
+            return new Position() { vector = a.vector + b.vector };
         }
 
         public static Position operator-(Position a, Position b)
         {
-            return new Position(
-                a.X - b.X,
-                a.Y - b.Y);
+            return new Position() { vector = a.vector - b.vector };
         }
 
         public static float SquaredDistance(Position a, Position b)
         {
-            float dx = a.X - b.X;
-            float dy = a.Y - b.Y;
-            return dx * dx + dy * dy;
+            return Vector2.DistanceSquared(a.vector, b.vector);
         }
 
         public static float Distance(Position a, Position b)
         {
-            return (float)Math.Sqrt(SquaredDistance(a, b));
+            return Vector2.Distance(a.vector, b.vector);
+        }
+
+        public float Length()
+        {
+            return vector.Length();
         }
 
         #region ICompress
@@ -83,8 +81,8 @@ namespace Auxiliary
         {
             var splitted = compressed.Split(SEPARATOR);
 
-            X = Convert.ToInt32(splitted[0]);
-            Y = Convert.ToInt32(splitted[1]);
+            X = (float)Convert.ToDouble(splitted[0]);
+            Y = (float)Convert.ToDouble(splitted[1]);
 
             return this;
         }
@@ -118,7 +116,7 @@ namespace Auxiliary
 
             anyPointOnPositiveSideOfNewOY -= newO;
 
-            float d = Position.Distance(Position.OO, anyPointOnPositiveSideOfNewOY);
+            float d = anyPointOnPositiveSideOfNewOY.Length();
 
             float sin = anyPointOnPositiveSideOfNewOY.X / d;
             float cos = anyPointOnPositiveSideOfNewOY.Y / d;
