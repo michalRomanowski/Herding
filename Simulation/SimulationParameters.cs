@@ -135,7 +135,7 @@ namespace Simulations
         [NotMapped]
         public IFitnessCounter FitnessCounter
         {
-            get { return FitnessCounterProvider.GetFitnessCounter(this); }
+            get { return FitnessCounterFactory.GetFitnessCounter(this); }
         }
 
         public bool NotIdenticalAgents;

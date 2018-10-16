@@ -12,7 +12,7 @@ namespace Simulations
         public RandomPositionsBestTeamSelector(SimulationParameters simulationParameters)
         {
             this.simulationParameters = simulationParameters;
-            this.fitnessCounter = FitnessCounterProvider.GetFitnessCounter(simulationParameters);
+            this.fitnessCounter = FitnessCounterFactory.GetFitnessCounter(simulationParameters);
         }
 
         public Team GetBestTeam(IEnumerable<Team> teams)

@@ -2,7 +2,7 @@
 
 namespace Simulations
 {
-    public static class FitnessCounterProvider
+    public static class FitnessCounterFactory
     {
         public static IFitnessCounter GetFitnessCounter(SimulationParameters simulationParameters)
         {
@@ -14,7 +14,7 @@ namespace Simulations
             {
                 return new SumFitnessCounter();
             }
-            else throw new ApplicationException("No such EFitnessType recognized.");
+            else throw new ArgumentException();
         }
     }
 }

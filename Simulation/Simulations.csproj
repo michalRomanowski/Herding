@@ -57,7 +57,7 @@
     <Compile Include="BestTeamSelector\RandomPositionsBestTeamSelector.cs" />
     <Compile Include="FitnessCounters\ClassicFitnessCounter.cs" />
     <Compile Include="RandomSetsList.cs" />
-    <Compile Include="FitnessCounters\FitnessCounterProvider.cs" />
+    <Compile Include="FitnessCounters\FitnessCounterFactory.cs" />
     <Compile Include="FitnessCounters\SumFitnessCounter.cs" />
     <Compile Include="FitnessCounters\EFitnessType.cs" />
     <Compile Include="FitnessCounters\IFitnessCounter.cs" />

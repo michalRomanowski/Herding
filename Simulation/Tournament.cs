@@ -26,7 +26,7 @@ namespace Simulations
             this.population = population;
             this.simulationParameters = simulationParameters;
 
-            fitnessCounter = FitnessCounterProvider.GetFitnessCounter(simulationParameters);
+            fitnessCounter = FitnessCounterFactory.GetFitnessCounter(simulationParameters);
 
             Random r = new Random();
             int randomIndex;
