@@ -83,7 +83,7 @@ namespace Simulations
 
             var selectionResults = Selection();
 
-            var children = Crossover(selectionResults.parents);
+            var children = Crossover(selectionResults);
 
             Mutation(children);
 
@@ -99,14 +99,14 @@ namespace Simulations
             Logger.AddLine("Best fitness: " + Shepherds.Best.Fitness);
         }
 
-        private SelectionResults Selection()
+        private IReadOnlyList<Team> Selection()
         {
             List<Thread> tournamentThreads = new List<Thread>();
             
             StartTournaments(tournamentThreads);
             WaitForTournamentsToEnd(tournamentThreads);
 
-            SelectionResults ret = GetTournamentResults();
+            var ret = GetTournamentResults();
 
             foreach (Tournament t in tournaments)
                 t.ReturnParticipants();
@@ -114,7 +114,7 @@ namespace Simulations
             return ret;
         }
 
-        private IList<Team> Crossover(IList<Team> parents)
+        private IReadOnlyList<Team> Crossover(IReadOnlyList<Team> parents)
         {
             List<Team> children = new List<Team>();
 
@@ -124,7 +124,7 @@ namespace Simulations
             return children;
         }
 
-        private void Mutation(IList<Team> teamsToMutate)
+        private void Mutation(IReadOnlyList<Team> teamsToMutate)
         {
             foreach (Team team in teamsToMutate)
                 team.Mutate(Parameters.MutationPower, Parameters.AbsoluteMutationFactor);
@@ -186,17 +186,9 @@ namespace Simulations
                 thread.Join();
         }
 
-        private SelectionResults GetTournamentResults()
+        private IReadOnlyList<Team> GetTournamentResults()
         {
-            var ret = new SelectionResults();
-
-            foreach (Tournament t in tournaments)
-            {
-                ret.parents.Add(t.Winner);
-                ret.toDie.Add(t.Looser);
-            }
-
-            return ret;
+            return tournaments.Select(x => x.Winner).ToList();
         }
 
         #endregion

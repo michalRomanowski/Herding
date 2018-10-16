@@ -14,9 +14,6 @@ namespace Simulations
         public List<Team> Units { get; set; }
 
         public Team Best { get; set; }
-
-        [NotMapped]
-        public readonly object BestLocker = new object();
         
         public Population() { }
 
@@ -26,7 +23,7 @@ namespace Simulations
 
             for (int i = 0; i < simulationParameters.PopulationSize; i++)
             {
-                Units.Add(TeamProvider.GetTeam(simulationParameters));
+                Units.Add(TeamFactory.GetTeam(simulationParameters.NotIdenticalAgents));
 
                 Units.Last().Members.Add(
                     AgentFactory.GetShepherd(
@@ -66,9 +63,7 @@ namespace Simulations
             Best.ResizeNeuralNet(numberOfSeenShepherds, numberOfSeenSheep, numberOfHiddenLayers, hiddenLayerSize);
 
             foreach (var t in Units)
-            {
                 t.ResizeNeuralNet(numberOfSeenShepherds, numberOfSeenSheep, numberOfHiddenLayers, hiddenLayerSize);
-            }
         }
     }
 }
