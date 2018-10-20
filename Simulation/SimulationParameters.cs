@@ -2,8 +2,6 @@
 using Auxiliary;
 using System;
 using System.Collections.Generic;
-using System.Xml.Serialization;
-using System.IO;
 using System.ComponentModel.DataAnnotations.Schema;
 
 namespace Simulations
@@ -131,12 +129,6 @@ namespace Simulations
         public List<float> BestResultAtStep { get; set; }
 
         public EFitnessType FitnessType { get; set; }
-
-        [NotMapped]
-        public IFitnessCounter FitnessCounter
-        {
-            get { return FitnessCounterFactory.GetFitnessCounter(this); }
-        }
 
         public bool NotIdenticalAgents;
 

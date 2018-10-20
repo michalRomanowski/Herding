@@ -32,7 +32,7 @@ namespace World
             Team shepherds,
             IList<IMovingAgent> sheep,
             int numberOfSeenSheep,
-            int numberOfSeenShepherds) : base(shepherds, sheep)
+            int numberOfSeenShepherds) : base(shepherds, sheep, true)
         {
             foreach (var agent in Shepherds.Members)
             {

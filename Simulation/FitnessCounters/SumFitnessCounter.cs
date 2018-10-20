@@ -10,6 +10,33 @@ namespace Simulations
     internal class SumFitnessCounter : IFitnessCounter
     {
         public float CountFitness(
+            Team shepherdsTeam,
+            SimulationParameters simulationParameters,
+            IList<IList<Position>> positionsOfShepherdsSet,
+            IList<IList<Position>> positionsOfSheepSet,
+            ESheepType sheepType,
+            int seed = 0)
+        {
+            if (positionsOfShepherdsSet.Count != positionsOfSheepSet.Count)
+                throw new ArgumentException();
+            
+            float fitness = 0.0f;
+
+            for (int i = 0; i < positionsOfShepherdsSet.Count; i++)
+            {
+                fitness += CountFitness(
+                    shepherdsTeam,
+                    simulationParameters,
+                    positionsOfShepherdsSet[i],
+                    positionsOfSheepSet[i],
+                    sheepType,
+                    seed);
+            }
+
+            return fitness;
+        }
+
+        private float CountFitness(
             Team shepherds,
             SimulationParameters simulationParameters,
             IList<Position> positionsOfShepherds,
@@ -27,34 +54,6 @@ namespace Simulations
             world.Work(simulationParameters.TurnsOfHerding);
 
             return CountFitness(world.SheepPositionsRecord);
-        }
-
-        public float CountFitness(
-            Team shepherdsTeam,
-            SimulationParameters simulationParameters,
-            IList<IList<Position>> positionsOfShepherdsSet,
-            IList<IList<Position>> positionsOfSheepSet,
-            ESheepType sheepType,
-            int seed = 0)
-        {
-            if (positionsOfShepherdsSet.Count != positionsOfSheepSet.Count)
-                throw new ArgumentException("positionsOfShepherdsSet.Count != positionsOfSheepSet.Countt");
-
-
-            float fitness = 0.0f;
-
-            for (int i = 0; i < positionsOfShepherdsSet.Count; i++)
-            {
-                fitness += CountFitness(
-                    shepherdsTeam,
-                    simulationParameters,
-                    positionsOfShepherdsSet[i],
-                    positionsOfSheepSet[i],
-                    sheepType,
-                    seed);
-            }
-
-            return fitness;
         }
 
         private float CountFitness(IList<IList<Position>> sheepPositionsRecord)

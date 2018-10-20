@@ -55,7 +55,7 @@
     <Compile Include="BestTeamSelector\FixedPositionsBestTeamSelector.cs" />
     <Compile Include="BestTeamSelector\IBestTeamSelector.cs" />
     <Compile Include="BestTeamSelector\RandomPositionsBestTeamSelector.cs" />
-    <Compile Include="FitnessCounters\ClassicFitnessCounter.cs" />
+    <Compile Include="FitnessCounters\FinalFitnessCounter.cs" />
     <Compile Include="RandomSetsList.cs" />
     <Compile Include="FitnessCounters\FitnessCounterFactory.cs" />
     <Compile Include="FitnessCounters\SumFitnessCounter.cs" />
@@ -63,14 +63,17 @@
     <Compile Include="FitnessCounters\IFitnessCounter.cs" />
     <Compile Include="Population.cs" />
     <Compile Include="Optimization.cs" />
+    <Compile Include="Selection.cs" />
     <Compile Include="SimulationParameters.cs" />
-    <Compile Include="Tournament.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Properties\Settings.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTimeSharedInput>True</DesignTimeSharedInput>
       <DependentUpon>Settings.settings</DependentUpon>
     </Compile>
+    <Compile Include="Tournaments\ITournament.cs" />
+    <Compile Include="Tournaments\Tournament.cs" />
+    <Compile Include="Tournaments\TournamentFactory.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
@@ -98,6 +101,7 @@
       <Name>World</Name>
     </ProjectReference>
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

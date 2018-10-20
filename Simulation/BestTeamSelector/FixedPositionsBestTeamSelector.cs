@@ -1,6 +1,8 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using Teams;
+using Auxiliary;
 
 namespace Simulations
 {
@@ -20,15 +22,17 @@ namespace Simulations
             foreach (var t in teams)
             {
                 t.Fitness = fitnessCounter.CountFitness(
-                        t,
-                        simulationParameters,
-                        simulationParameters.PositionsOfShepherds,
-                        simulationParameters.PositionsOfSheep,
-                        simulationParameters.SheepType,
-                        simulationParameters.SeedForRandomSheepForBest);
+                    t,
+                    simulationParameters,
+                    new List<IList<Position>>() { simulationParameters.PositionsOfShepherds },
+                    new List<IList<Position>>() { simulationParameters.PositionsOfSheep },
+                    simulationParameters.SheepType,
+                    simulationParameters.SeedForRandomSheepForBest);
             }
 
-            return teams.OrderBy(x => x.Fitness).First();
+            var minFitness = teams.Min(x => x.Fitness);
+
+            return teams.Where(x => x.Fitness == minFitness).First();
         }
     }
 }

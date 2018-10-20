@@ -32,8 +32,8 @@ namespace World
             if (output.Length != 2)
                 throw new ArgumentException();
 
-            var mX = output[0];
-            var mY = output[1];
+            var mX = float.IsNaN(output[0]) ? 0 : output[0];
+            var mY = float.IsNaN(output[1]) ? 0 : output[1];
 
             sheep.Position.X += mX * SPEED;
             sheep.Position.Y += mY * SPEED;

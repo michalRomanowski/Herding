@@ -18,7 +18,7 @@ namespace World
         public SimulationWorld(
             Team shepherds,
             IList<IMovingAgent> sheep,
-            bool recordSheepPositions = false)
+            bool recordSheepPositions)
         {
             this.Shepherds = shepherds;
             this.Sheep = sheep;
@@ -62,14 +62,16 @@ namespace World
             {
                 ShepherdExtractor.InterpretOutput(s, this, s.DecideOutput);
 
-                s.Path.Add(new Position(s.Position));
+                if(recordSheepPositionsFlag)
+                    s.Path.Add(new Position(s.Position));
             }
 
             foreach (var s in Sheep)
             {
                 SheepExtractor.InterpretOutput(s, this, s.DecideOutput);
 
-                s.Path.Add(new Position(s.Position));
+                if (recordSheepPositionsFlag)
+                    s.Path.Add(new Position(s.Position));
             }
         }
     }

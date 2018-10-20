@@ -31,11 +31,7 @@ namespace Auxiliary
             this.Y = y;
         }
 
-        public Position(Position value)
-        {
-            this.X = value.X;
-            this.Y = value.Y;
-        }
+        public Position(Position value) : this(value.X, value.Y){ }
 
         public Position(string value)
         {

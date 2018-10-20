@@ -1,9 +1,9 @@
 ﻿using Agent;
 using Auxiliary;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using Teams;
-using System.ComponentModel.DataAnnotations.Schema;
 
 namespace Simulations
 {
@@ -44,12 +44,6 @@ namespace Simulations
                 t.SetPositions(positions);
         }
 
-        public void RemoveRandom()
-        {
-            Units.RemoveAt(
-                CRandom.r.Next(Units.Count));
-        }
-
         public void ResizeTeam(int newTeamSize)
         {
             Best.Resize(newTeamSize);
@@ -64,6 +58,31 @@ namespace Simulations
 
             foreach (var t in Units)
                 t.ResizeNeuralNet(numberOfSeenShepherds, numberOfSeenSheep, numberOfHiddenLayers, hiddenLayerSize);
+        }
+
+        public IReadOnlyList<IEnumerable<Team>> GetRandomUniqueSubsets(int numberOfSubsets, int subsetSize)
+        {
+            var randomIndexesSequence = new RandomUniqueSequence(Units.Count);
+
+            var subsets = new List<IEnumerable<Team>>(numberOfSubsets);
+
+            for (int i = 0; i < numberOfSubsets; i++)
+            {
+                subsets.Add(
+                    randomIndexesSequence.GetSubSequence(subsetSize).Select(x => Units[x]).ToList());
+            }
+
+            return subsets;
+        }
+
+        public void Replace(IEnumerable<Team> newUnits, IEnumerable<Team> oldUnits)
+        {
+            foreach (var t in oldUnits)
+            {
+                Units.Remove(t);
+            }
+
+            Units.AddRange(newUnits);
         }
     }
 }

@@ -5,6 +5,7 @@ using System.Linq;
 using System.Threading;
 using Teams;
 using System.ComponentModel.DataAnnotations.Schema;
+using System.Threading.Tasks;
 
 namespace Simulations
 {
@@ -23,10 +24,7 @@ namespace Simulations
         public Population Shepherds { get; set; }
 
         private IBestTeamSelector bestTeamSelector;
-        private readonly Random r = new Random();
-
-        private Tournament[] tournaments = new Tournament[2];
-
+        
         public Optimization()
         {
             Parameters = new SimulationParameters();
@@ -48,10 +46,10 @@ namespace Simulations
         {
             Parameters.Progress = float.MinValue;
 
-            bestTeamSelector = BestBestTeamSelectorFactory.GetBestTeamSelector(Parameters);
+            lock (stopLocker)
+                stop = false;
 
-            if (Shepherds.Best != null)
-                Shepherds.Best.Fitness = float.MaxValue;
+            bestTeamSelector = BestBestTeamSelectorFactory.GetBestTeamSelector(Parameters);
 
             Parameters.BestResultAtStep = new List<float>();
             
@@ -66,9 +64,6 @@ namespace Simulations
 
         private void Optimize()
         {
-            lock (stopLocker)
-                stop = false;
-
             for (StepCount = 0; StepCount < Parameters.OptimizationSteps && Parameters.Progress < 1 && stop == false; StepCount++)
             {
                 Step();
@@ -81,39 +76,17 @@ namespace Simulations
             
             Parameters.Progress = (float)(StepCount + 1) / Parameters.OptimizationSteps;
 
-            var selectionResults = Selection();
+            var selectionResults = new Selection(Parameters, Shepherds).Select();
 
-            var children = Crossover(selectionResults);
+            var children = Crossover(selectionResults.Winners.ToList());
 
             Mutation(children);
 
-            Shepherds.Units.AddRange(children);
+            UpdateBestTeam(children);
 
-            var bestPretenders = children.Concat(new List<Team>() { Shepherds.Best });
-            Shepherds.Best = bestTeamSelector.GetBestTeam(bestPretenders).GetClone();
-
-            Logger.AddLine("New fitness: " + children[0].Fitness);
-            Logger.AddLine("New fitness: " + children[1].Fitness);
-
-            Parameters.BestResultAtStep.Add(Shepherds.Best.Fitness);
-            Logger.AddLine("Best fitness: " + Shepherds.Best.Fitness);
+            Shepherds.Replace(children, selectionResults.Losers);
         }
-
-        private IReadOnlyList<Team> Selection()
-        {
-            List<Thread> tournamentThreads = new List<Thread>();
-            
-            StartTournaments(tournamentThreads);
-            WaitForTournamentsToEnd(tournamentThreads);
-
-            var ret = GetTournamentResults();
-
-            foreach (Tournament t in tournaments)
-                t.ReturnParticipants();
-
-            return ret;
-        }
-
+        
         private IReadOnlyList<Team> Crossover(IReadOnlyList<Team> parents)
         {
             List<Team> children = new List<Team>();
@@ -124,73 +97,24 @@ namespace Simulations
             return children;
         }
 
-        private void Mutation(IReadOnlyList<Team> teamsToMutate)
+        private void Mutation(IEnumerable<Team> teamsToMutate)
         {
             foreach (Team team in teamsToMutate)
                 team.Mutate(Parameters.MutationPower, Parameters.AbsoluteMutationFactor);
         }
 
-        #region Tournaments
-
-        private void StartTournaments(List<Thread> tournamentThreads)
+        private void UpdateBestTeam(IEnumerable<Team> newTeams)
         {
-            InitTournaments();
-            
-            foreach(var t in tournaments)
+            var bestPretenders = newTeams.Concat(new List<Team>() { Shepherds.Best });
+            Shepherds.Best = bestTeamSelector.GetBestTeam(bestPretenders).GetClone();
+
+            foreach(var nt in newTeams)
             {
-                tournamentThreads.Add(new Thread(t.Attend));
-                tournamentThreads.Last().Start();
+                Logger.AddLine("New fitness: " + nt.Fitness);
             }
-        }
-        
-        private void InitTournaments()
-        {
-            if (Parameters.RandomPositions) InitTournamentsWithRandomPositions();
-            else InitTournamentsWithDefinedPositions();
-        }
 
-        private void InitTournamentsWithRandomPositions()
-        {
-            for (int i = 0; i < 2; i++)
-            {
-                var randomSets = new RandomSetsList();
-
-                randomSets = new RandomSetsList(
-                    Parameters.NumberOfRandomSets,
-                    Parameters.PositionsOfShepherds.Count,
-                    Parameters.PositionsOfSheep.Count,
-                    CRandom.r.Next());
-
-                tournaments[i] = new Tournament(
-                    Parameters,
-                    Shepherds,
-                    randomSets.PositionsOfShepherdsSet,
-                    randomSets.PositionsOfSheepSet);
-            }
+            Parameters.BestResultAtStep.Add(Shepherds.Best.Fitness);
+            Logger.AddLine("Best fitness: " + Shepherds.Best.Fitness);
         }
-
-        private void InitTournamentsWithDefinedPositions()
-        {
-            for (int i = 0; i < 2; i++)
-            {
-                tournaments[i] = new Tournament(
-                    Parameters,
-                    Shepherds,
-                    Parameters.PositionsOfShepherds,
-                    Parameters.PositionsOfSheep);
-            }
-        }
-        private void WaitForTournamentsToEnd(List<Thread> tournamentThreads)
-        {
-            foreach (Thread thread in tournamentThreads)
-                thread.Join();
-        }
-
-        private IReadOnlyList<Team> GetTournamentResults()
-        {
-            return tournaments.Select(x => x.Winner).ToList();
-        }
-
-        #endregion
     }
 }

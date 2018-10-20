@@ -13,33 +13,13 @@ namespace Simulations
         public float CountFitness(
             Team team,
             SimulationParameters simulationParameters,
-            IList<Position> positionsOfShepherds, 
-            IList<Position> positionsOfSheep,
-            ESheepType sheepType, 
-            int seed)
-        {
-            var sheep = AgentFactory.GetSheep(positionsOfSheep, sheepType, seed);
-
-            team.ClearPath();
-            team.SetPositions(positionsOfShepherds);
-
-            var world = new SimulationWorld(team, sheep);
-
-            world.Work(simulationParameters.TurnsOfHerding);
-
-            return world.Sheep.Select(x => x.Position).SumOfDistancesFromCenter();
-        }
-
-        public float CountFitness(
-            Team team,
-            SimulationParameters simulationParameters,
             IList<IList<Position>> positionsOfShepherdsSet,
             IList<IList<Position>> positionsOfSheepSet,
             ESheepType sheepType,
             int seed)
         {
-            if(positionsOfShepherdsSet.Count != positionsOfSheepSet.Count)
-                throw new ArgumentException("positionsOfShepherdsSet.Count != positionsOfSheepSet.Count");
+            if (positionsOfShepherdsSet.Count != positionsOfSheepSet.Count)
+                throw new ArgumentException();
 
             float fitness = 0.0f;
 
@@ -55,6 +35,26 @@ namespace Simulations
             }
 
             return fitness;
+        }
+
+        private float CountFitness(
+            Team team,
+            SimulationParameters simulationParameters,
+            IList<Position> positionsOfShepherds, 
+            IList<Position> positionsOfSheep,
+            ESheepType sheepType, 
+            int seed)
+        {
+            var sheep = AgentFactory.GetSheep(positionsOfSheep, sheepType, seed);
+
+            team.ClearPath();
+            team.SetPositions(positionsOfShepherds);
+
+            var world = new SimulationWorld(team, sheep, false);
+
+            world.Work(simulationParameters.TurnsOfHerding);
+
+            return world.Sheep.Select(x => x.Position).SumOfDistancesFromCenter();
         }
     }
 }
