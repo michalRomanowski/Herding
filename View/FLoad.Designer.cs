@@ -40,7 +40,7 @@
             this.ListBoxSimulations.ItemHeight = 16;
             this.ListBoxSimulations.Location = new System.Drawing.Point(12, 29);
             this.ListBoxSimulations.Name = "ListBoxSimulations";
-            this.ListBoxSimulations.Size = new System.Drawing.Size(291, 340);
+            this.ListBoxSimulations.Size = new System.Drawing.Size(473, 340);
             this.ListBoxSimulations.TabIndex = 0;
             // 
             // label1
@@ -55,7 +55,7 @@
             // 
             // ButtonLoad
             // 
-            this.ButtonLoad.Location = new System.Drawing.Point(228, 375);
+            this.ButtonLoad.Location = new System.Drawing.Point(410, 375);
             this.ButtonLoad.Name = "ButtonLoad";
             this.ButtonLoad.Size = new System.Drawing.Size(75, 23);
             this.ButtonLoad.TabIndex = 2;
@@ -67,7 +67,7 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(317, 403);
+            this.ClientSize = new System.Drawing.Size(497, 403);
             this.Controls.Add(this.ButtonLoad);
             this.Controls.Add(this.label1);
             this.Controls.Add(this.ListBoxSimulations);

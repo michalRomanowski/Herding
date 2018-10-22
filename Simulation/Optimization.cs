@@ -1,11 +1,8 @@
 ﻿using Auxiliary;
-using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Threading;
 using Teams;
 using System.ComponentModel.DataAnnotations.Schema;
-using System.Threading.Tasks;
 
 namespace Simulations
 {
@@ -24,22 +21,25 @@ namespace Simulations
         public Population Shepherds { get; set; }
 
         private IBestTeamSelector bestTeamSelector;
-        
+
+        private IAutosaver _autosaver;
+        public IAutosaver Autosaver { set { _autosaver = value; } }
+
         public Optimization()
         {
             Parameters = new SimulationParameters();
         }
 
-        public Optimization(SimulationParameters parameters)
-        {
-            Parameters = parameters;
-            Shepherds = new Population(parameters);
-        }
+        public Optimization(IAutosaver autosaver) : this(new SimulationParameters(), autosaver) { }
 
-        public Optimization(SimulationParameters parameters, Population shepherds)
+        public Optimization(SimulationParameters parameters, IAutosaver autosaver) : this(parameters, new Population(parameters), autosaver) { }
+
+        public Optimization(SimulationParameters parameters, Population shepherds, IAutosaver autosaver)
         {
             Parameters = parameters;
             Shepherds = shepherds;
+
+            this._autosaver = autosaver;
         }
         
         public void Start()
@@ -67,6 +67,7 @@ namespace Simulations
             for (StepCount = 0; StepCount < Parameters.OptimizationSteps && Parameters.Progress < 1 && stop == false; StepCount++)
             {
                 Step();
+                _autosaver.Autosave(this, StepCount);
             }
         }
 

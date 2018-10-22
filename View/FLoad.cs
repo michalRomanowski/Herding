@@ -43,7 +43,8 @@ namespace View
             {
                 var selectedName = ListBoxSimulations.SelectedItem.ToString();
 
-                OptimizationInstance.Optimization = new EFDatabaseManager().LoadOptimization(selectedName);
+                fSim.Optimization = new EFDatabaseManager().LoadOptimization(selectedName);
+                fSim.Optimization.Autosaver = new Autosaver();
             }
             catch (Exception ex)
             {

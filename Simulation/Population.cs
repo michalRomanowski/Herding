@@ -1,6 +1,5 @@
 ﻿using Agent;
 using Auxiliary;
-using System;
 using System.Collections.Generic;
 using System.Linq;
 using Teams;
@@ -35,7 +34,7 @@ namespace Simulations
                 Units.Last().Resize(simulationParameters.NumberOfShepherds);
             }
 
-            Best = Units[0].GetClone();
+            Best = Units.FirstOrDefault()?.GetClone();
         }
 
         public void SetPositions(IList<Position> positions)

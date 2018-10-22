@@ -37,11 +37,11 @@ namespace View
 
         private void Save(string saveName)
         {
-            OptimizationInstance.Optimization.Name = saveName;
-
+            fSim.Optimization.Name = saveName;
+            
             try
             {
-                new EFDatabaseManager().SaveOptimization(OptimizationInstance.Optimization);
+                new EFDatabaseManager().SaveOptimization(fSim.Optimization);
             }
             catch(Exception ex)
             {

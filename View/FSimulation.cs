@@ -9,13 +9,16 @@ using Teams;
 using Agent;
 using Auxiliary;
 using Simulations;
+using EFDatabase;
 
 namespace View
 {
     public partial class FSimulation : Form
     {
         private List<Form> children = new List<Form>();
-        
+
+        public Optimization Optimization;
+
         private Thread optimizationThread;
 
         private CTimer timer;
@@ -35,14 +38,14 @@ namespace View
         {
             get
             {
-                return new BindingList<Position>(OptimizationInstance.Optimization.Parameters.PositionsOfSheep);
+                return new BindingList<Position>(Optimization.Parameters.PositionsOfSheep);
             }
             set
             {
-                OptimizationInstance.Optimization.Parameters.PositionsOfSheep = value.ToList();
+                Optimization.Parameters.PositionsOfSheep = value.ToList();
             }
         }
-
+        
         private State CurrentState
         {
             get { return _state; }
@@ -77,22 +80,22 @@ namespace View
         {
             get
             {
-                return OptimizationInstance.Optimization.Parameters;
+                return Optimization.Parameters;
             }
             set
             {
-                OptimizationInstance.Optimization.Parameters = value;
+                Optimization.Parameters = value;
             }
         }
         private Population Shepherds
         {
             get
             {
-                return OptimizationInstance.Optimization.Shepherds;
+                return Optimization.Shepherds;
             }
             set
             {
-                OptimizationInstance.Optimization.Shepherds = value;
+                Optimization.Shepherds = value;
             }
         }
 
@@ -105,6 +108,8 @@ namespace View
 
         public FSimulation()
         {
+            Optimization = new Optimization(new Autosaver());
+
             InitializeComponent();
 
             ComboBoxShepherdsFitnessCryteria.DataSource = Enum.GetValues(typeof(EFitnessType));
@@ -136,10 +141,19 @@ namespace View
             SimParameters.MutationPower = (float)NumericUpDownMutationPower.Value;
             SimParameters.TurnsOfHerding = (int)NumericUpDownNumberOfTurnsOfHerding.Value;
             SimParameters.RandomPositions = CheckBoxRandomPositions.Checked;
-            SimParameters.NumberOfRandomSets = (int)NumericUpDownNumberOfrandomSets.Value;
+            SimParameters.NumberOfRandomSets = (int)NumericUpDownNumberOfRandomSets.Value;
             SimParameters.SheepType = CheckBoxRandomSheep.Checked ? ESheepType.Wandering : ESheepType.Passive;
             SimParameters.FitnessType = (EFitnessType)ComboBoxShepherdsFitnessCryteria.SelectedIndex;
             SimParameters.NotIdenticalAgents = CheckBoxNotIdenticalAgents.Checked;
+
+            if(CheckBoxRandomSetsForBestFromSeed.Checked)
+            {
+                SimParameters.RandomSetsForBest = new RandomSetsList(
+                    (int)NumericUpDownNumberOfRandomSetsForBest.Value,
+                    SimParameters.NumberOfShepherds,
+                    SimParameters.NumberOfSheep,
+                    (int)NumericUpDownRandomSetsForBestSeed.Value);
+            }
         }
 
         public void SetControls()
@@ -155,7 +169,7 @@ namespace View
 
             ComboBoxPopulation.Items.Clear();
 
-            for (int i = 0; i < OptimizationInstance.Optimization.Shepherds.Units.Count(); i++)
+            for (int i = 0; i < Optimization.Shepherds.Units.Count(); i++)
                 ComboBoxPopulation.Items.Add(i.ToString());
 
             CheckBoxRandomPositions.Checked = SimParameters.RandomPositions;
@@ -163,8 +177,8 @@ namespace View
 
             if (SimParameters.RandomPositions)
             {
-                NumericUpDownNumberOfrandomSets.Value = SimParameters.NumberOfRandomSets;
-                NumericUpDownNumberOfrandomSetsForBest.Value = SimParameters.RandomSetsForBest.Count;
+                NumericUpDownNumberOfRandomSets.Value = SimParameters.NumberOfRandomSets;
+                NumericUpDownNumberOfRandomSetsForBest.Value = SimParameters.RandomSetsForBest.Count;
             }
 
             ComboBoxShepherdsFitnessCryteria.SelectedIndex = (int)SimParameters.FitnessType;
@@ -198,7 +212,7 @@ namespace View
                     labelBestFitness2.Text = Shepherds.Best.Fitness.ToString();
                 }
 
-                labelStep.Text = OptimizationInstance.Optimization.StepCount.ToString();
+                labelStep.Text = Optimization.StepCount.ToString();
             }
 
 
@@ -303,12 +317,12 @@ namespace View
             GetSimulationParameters();
 
             if (CheckBoxRandomPositions.Checked &&
-                (SimParameters.RandomSetsForBest.Count != (int)NumericUpDownNumberOfrandomSetsForBest.Value ||
+                (SimParameters.RandomSetsForBest.Count != (int)NumericUpDownNumberOfRandomSetsForBest.Value ||
                 SimParameters.RandomSetsForBest.PositionsOfShepherdsSet.First().Count() != SimParameters.NumberOfShepherds ||
                 SimParameters.RandomSetsForBest.PositionsOfSheepSet.First().Count() != SimParameters.NumberOfSheep))
             {
                 SimParameters.RandomSetsForBest = new RandomSetsList(
-                    (int)NumericUpDownNumberOfrandomSetsForBest.Value,
+                    (int)NumericUpDownNumberOfRandomSetsForBest.Value,
                     SimParameters.NumberOfShepherds,
                     SimParameters.NumberOfSheep,
                     DateTime.Now.Millisecond);
@@ -336,7 +350,7 @@ namespace View
 
             timer.Start();
 
-            optimizationThread = new Thread(new ThreadStart(OptimizationInstance.Optimization.Start));
+            optimizationThread = new Thread(new ThreadStart(Optimization.Start));
             optimizationThread.Start();
         }
 
@@ -375,7 +389,7 @@ namespace View
 
         private void ButtonStop_Click(object sender, EventArgs e)
         {
-            OptimizationInstance.Optimization.Stop();
+            Optimization.Stop();
 
             optimizationThread.Join();
 
@@ -424,14 +438,28 @@ namespace View
             children.Last().Show();
         }
 
+        private void ButtonRandomizeSeedForRandomSetsForBest_Click(object sender, EventArgs e)
+        {
+            NumericUpDownRandomSetsForBestSeed.Value = CRandom.Instance.Next();
+        }
+
         #endregion
 
         private void CheckBoxRandomPositions_CheckedChanged(object sender, EventArgs e)
         {
-            NumericUpDownNumberOfrandomSets.Enabled = CheckBoxRandomPositions.Checked;
-            NumericUpDownNumberOfrandomSetsForBest.Enabled = CheckBoxRandomPositions.Checked;
+            NumericUpDownNumberOfRandomSets.Enabled = CheckBoxRandomPositions.Checked;
+            NumericUpDownNumberOfRandomSetsForBest.Enabled = CheckBoxRandomPositions.Checked;
+            CheckBoxRandomSetsForBestFromSeed.Enabled = CheckBoxRandomPositions.Checked;
         }
-        
+
+        private void CheckBoxRandomSetsForBestFromSeed_CheckedChanged(object sender, EventArgs e)
+        {
+            NumericUpDownRandomSetsForBestSeed.Value = CRandom.Instance.Next();
+
+            NumericUpDownRandomSetsForBestSeed.Enabled = CheckBoxRandomSetsForBestFromSeed.Checked;
+            ButtonRandomizeSeedForRandomSetsForBest.Enabled = CheckBoxRandomSetsForBestFromSeed.Checked;
+        }
+
         private void DataGridViewShepherds_RowsAdded(object sender, DataGridViewRowsAddedEventArgs e)
         {
             NumericUpDownShepherdShepherdSight.Maximum = DataGridViewShepherds.RowCount > 1 ? DataGridViewShepherds.RowCount - 2 : 0;

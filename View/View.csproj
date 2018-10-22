@@ -118,7 +118,6 @@
     <Compile Include="FWorld.Designer.cs">
       <DependentUpon>FWorld.cs</DependentUpon>
     </Compile>
-    <Compile Include="OptimizationInstance.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <EmbeddedResource Include="FLoad.resx">

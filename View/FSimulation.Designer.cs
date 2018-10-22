@@ -37,12 +37,12 @@
             this.CheckBoxNotIdenticalAgents = new System.Windows.Forms.CheckBox();
             this.DataGridViewSheep = new System.Windows.Forms.DataGridView();
             this.DataGridViewShepherds = new System.Windows.Forms.DataGridView();
-            this.NumericUpDownNumberOfrandomSetsForBest = new System.Windows.Forms.NumericUpDown();
+            this.NumericUpDownNumberOfRandomSetsForBest = new System.Windows.Forms.NumericUpDown();
             this.label17 = new System.Windows.Forms.Label();
             this.CheckBoxRandomSheep = new System.Windows.Forms.CheckBox();
             this.ButtonRandomPositions = new System.Windows.Forms.Button();
             this.label5 = new System.Windows.Forms.Label();
-            this.NumericUpDownNumberOfrandomSets = new System.Windows.Forms.NumericUpDown();
+            this.NumericUpDownNumberOfRandomSets = new System.Windows.Forms.NumericUpDown();
             this.CheckBoxRandomPositions = new System.Windows.Forms.CheckBox();
             this.NumericUpDownPopulationSize = new System.Windows.Forms.NumericUpDown();
             this.label8 = new System.Windows.Forms.Label();
@@ -84,6 +84,9 @@
             this.panelSheep = new System.Windows.Forms.Panel();
             this.label4 = new System.Windows.Forms.Label();
             this.panelRandomPositions = new System.Windows.Forms.Panel();
+            this.ButtonRandomizeSeedForRandomSetsForBest = new System.Windows.Forms.Button();
+            this.NumericUpDownRandomSetsForBestSeed = new System.Windows.Forms.NumericUpDown();
+            this.CheckBoxRandomSetsForBestFromSeed = new System.Windows.Forms.CheckBox();
             this.panelOptimization = new System.Windows.Forms.Panel();
             this.label10 = new System.Windows.Forms.Label();
             this.panelPopulation = new System.Windows.Forms.Panel();
@@ -94,8 +97,8 @@
             ((System.ComponentModel.ISupportInitialize)(this.NumericUpDownNumberOfParticipants)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.DataGridViewSheep)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.DataGridViewShepherds)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.NumericUpDownNumberOfrandomSetsForBest)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.NumericUpDownNumberOfrandomSets)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.NumericUpDownNumberOfRandomSetsForBest)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.NumericUpDownNumberOfRandomSets)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.NumericUpDownPopulationSize)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.NumericUpDownMutationPower)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.NumericUpDownAbsoluteMutationFactor)).BeginInit();
@@ -108,6 +111,7 @@
             ((System.ComponentModel.ISupportInitialize)(this.NumericUpDownShepherdSheepSight)).BeginInit();
             this.panelSheep.SuspendLayout();
             this.panelRandomPositions.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.NumericUpDownRandomSetsForBestSeed)).BeginInit();
             this.panelOptimization.SuspendLayout();
             this.panelPopulation.SuspendLayout();
             this.panelMenu.SuspendLayout();
@@ -212,7 +216,7 @@
             this.CheckBoxNotIdenticalAgents.AutoSize = true;
             this.CheckBoxNotIdenticalAgents.Location = new System.Drawing.Point(255, 142);
             this.CheckBoxNotIdenticalAgents.Name = "CheckBoxNotIdenticalAgents";
-            this.CheckBoxNotIdenticalAgents.Size = new System.Drawing.Size(137, 17);
+            this.CheckBoxNotIdenticalAgents.Size = new System.Drawing.Size(143, 17);
             this.CheckBoxNotIdenticalAgents.TabIndex = 61;
             this.CheckBoxNotIdenticalAgents.Text = "Non-Identical Shepherds";
             this.CheckBoxNotIdenticalAgents.UseVisualStyleBackColor = true;
@@ -238,19 +242,19 @@
             this.DataGridViewShepherds.RowsAdded += new System.Windows.Forms.DataGridViewRowsAddedEventHandler(this.DataGridViewShepherds_RowsAdded);
             this.DataGridViewShepherds.RowsRemoved += new System.Windows.Forms.DataGridViewRowsRemovedEventHandler(this.DataGridViewShepherds_RowsRemoved);
             // 
-            // NumericUpDownNumberOfrandomSetsForBest
+            // NumericUpDownNumberOfRandomSetsForBest
             // 
-            this.NumericUpDownNumberOfrandomSetsForBest.Enabled = false;
-            this.NumericUpDownNumberOfrandomSetsForBest.Location = new System.Drawing.Point(122, 52);
-            this.NumericUpDownNumberOfrandomSetsForBest.Minimum = new decimal(new int[] {
+            this.NumericUpDownNumberOfRandomSetsForBest.Enabled = false;
+            this.NumericUpDownNumberOfRandomSetsForBest.Location = new System.Drawing.Point(122, 52);
+            this.NumericUpDownNumberOfRandomSetsForBest.Minimum = new decimal(new int[] {
             1,
             0,
             0,
             0});
-            this.NumericUpDownNumberOfrandomSetsForBest.Name = "NumericUpDownNumberOfrandomSetsForBest";
-            this.NumericUpDownNumberOfrandomSetsForBest.Size = new System.Drawing.Size(45, 20);
-            this.NumericUpDownNumberOfrandomSetsForBest.TabIndex = 54;
-            this.NumericUpDownNumberOfrandomSetsForBest.Value = new decimal(new int[] {
+            this.NumericUpDownNumberOfRandomSetsForBest.Name = "NumericUpDownNumberOfRandomSetsForBest";
+            this.NumericUpDownNumberOfRandomSetsForBest.Size = new System.Drawing.Size(45, 20);
+            this.NumericUpDownNumberOfRandomSetsForBest.TabIndex = 54;
+            this.NumericUpDownNumberOfRandomSetsForBest.Value = new decimal(new int[] {
             5,
             0,
             0,
@@ -294,19 +298,19 @@
             this.label5.TabIndex = 44;
             this.label5.Text = "Random sets:";
             // 
-            // NumericUpDownNumberOfrandomSets
+            // NumericUpDownNumberOfRandomSets
             // 
-            this.NumericUpDownNumberOfrandomSets.Enabled = false;
-            this.NumericUpDownNumberOfrandomSets.Location = new System.Drawing.Point(81, 26);
-            this.NumericUpDownNumberOfrandomSets.Minimum = new decimal(new int[] {
+            this.NumericUpDownNumberOfRandomSets.Enabled = false;
+            this.NumericUpDownNumberOfRandomSets.Location = new System.Drawing.Point(81, 26);
+            this.NumericUpDownNumberOfRandomSets.Minimum = new decimal(new int[] {
             1,
             0,
             0,
             0});
-            this.NumericUpDownNumberOfrandomSets.Name = "NumericUpDownNumberOfrandomSets";
-            this.NumericUpDownNumberOfrandomSets.Size = new System.Drawing.Size(45, 20);
-            this.NumericUpDownNumberOfrandomSets.TabIndex = 45;
-            this.NumericUpDownNumberOfrandomSets.Value = new decimal(new int[] {
+            this.NumericUpDownNumberOfRandomSets.Name = "NumericUpDownNumberOfRandomSets";
+            this.NumericUpDownNumberOfRandomSets.Size = new System.Drawing.Size(45, 20);
+            this.NumericUpDownNumberOfRandomSets.TabIndex = 45;
+            this.NumericUpDownNumberOfRandomSets.Value = new decimal(new int[] {
             5,
             0,
             0,
@@ -523,7 +527,7 @@
             this.StatusStrip.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.labelStatus,
             this.ProgressBarSimulation});
-            this.StatusStrip.Location = new System.Drawing.Point(0, 473);
+            this.StatusStrip.Location = new System.Drawing.Point(0, 501);
             this.StatusStrip.Name = "StatusStrip";
             this.StatusStrip.Size = new System.Drawing.Size(784, 22);
             this.StatusStrip.TabIndex = 65;
@@ -559,7 +563,7 @@
             this.PanelInfo.Controls.Add(this.label21);
             this.PanelInfo.Controls.Add(this.labelBestFitness2);
             this.PanelInfo.Controls.Add(this.label23);
-            this.PanelInfo.Location = new System.Drawing.Point(669, 392);
+            this.PanelInfo.Location = new System.Drawing.Point(669, 420);
             this.PanelInfo.Name = "PanelInfo";
             this.PanelInfo.Size = new System.Drawing.Size(103, 74);
             this.PanelInfo.TabIndex = 68;
@@ -651,7 +655,7 @@
             this.label14.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
             this.label14.Location = new System.Drawing.Point(3, 0);
             this.label14.Name = "label14";
-            this.label14.Size = new System.Drawing.Size(64, 13);
+            this.label14.Size = new System.Drawing.Size(71, 13);
             this.label14.TabIndex = 0;
             this.label14.Text = "Shepherds:";
             // 
@@ -660,7 +664,7 @@
             this.labelShepherdSight.AutoSize = true;
             this.labelShepherdSight.Location = new System.Drawing.Point(255, 16);
             this.labelShepherdSight.Name = "labelShepherdSight";
-            this.labelShepherdSight.Size = new System.Drawing.Size(83, 13);
+            this.labelShepherdSight.Size = new System.Drawing.Size(89, 13);
             this.labelShepherdSight.TabIndex = 70;
             this.labelShepherdSight.Text = "Seen Shepherds:";
             // 
@@ -778,15 +782,55 @@
             // panelRandomPositions
             // 
             this.panelRandomPositions.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.panelRandomPositions.Controls.Add(this.ButtonRandomizeSeedForRandomSetsForBest);
+            this.panelRandomPositions.Controls.Add(this.NumericUpDownRandomSetsForBestSeed);
+            this.panelRandomPositions.Controls.Add(this.CheckBoxRandomSetsForBestFromSeed);
             this.panelRandomPositions.Controls.Add(this.CheckBoxRandomPositions);
             this.panelRandomPositions.Controls.Add(this.label17);
-            this.panelRandomPositions.Controls.Add(this.NumericUpDownNumberOfrandomSets);
+            this.panelRandomPositions.Controls.Add(this.NumericUpDownNumberOfRandomSets);
             this.panelRandomPositions.Controls.Add(this.label5);
-            this.panelRandomPositions.Controls.Add(this.NumericUpDownNumberOfrandomSetsForBest);
+            this.panelRandomPositions.Controls.Add(this.NumericUpDownNumberOfRandomSetsForBest);
             this.panelRandomPositions.Location = new System.Drawing.Point(12, 200);
             this.panelRandomPositions.Name = "panelRandomPositions";
-            this.panelRandomPositions.Size = new System.Drawing.Size(275, 84);
+            this.panelRandomPositions.Size = new System.Drawing.Size(275, 113);
             this.panelRandomPositions.TabIndex = 84;
+            // 
+            // ButtonRandomizeSeedForRandomSetsForBest
+            // 
+            this.ButtonRandomizeSeedForRandomSetsForBest.Enabled = false;
+            this.ButtonRandomizeSeedForRandomSetsForBest.Location = new System.Drawing.Point(192, 77);
+            this.ButtonRandomizeSeedForRandomSetsForBest.Name = "ButtonRandomizeSeedForRandomSetsForBest";
+            this.ButtonRandomizeSeedForRandomSetsForBest.Size = new System.Drawing.Size(78, 23);
+            this.ButtonRandomizeSeedForRandomSetsForBest.TabIndex = 60;
+            this.ButtonRandomizeSeedForRandomSetsForBest.Text = "Randomize";
+            this.ButtonRandomizeSeedForRandomSetsForBest.UseVisualStyleBackColor = true;
+            this.ButtonRandomizeSeedForRandomSetsForBest.Click += new System.EventHandler(this.ButtonRandomizeSeedForRandomSetsForBest_Click);
+            // 
+            // NumericUpDownRandomSetsForBestSeed
+            // 
+            this.NumericUpDownRandomSetsForBestSeed.Enabled = false;
+            this.NumericUpDownRandomSetsForBestSeed.Location = new System.Drawing.Point(92, 78);
+            this.NumericUpDownRandomSetsForBestSeed.Maximum = new decimal(new int[] {
+            2147483647,
+            0,
+            0,
+            0});
+            this.NumericUpDownRandomSetsForBestSeed.Name = "NumericUpDownRandomSetsForBestSeed";
+            this.NumericUpDownRandomSetsForBestSeed.Size = new System.Drawing.Size(94, 20);
+            this.NumericUpDownRandomSetsForBestSeed.TabIndex = 56;
+            // 
+            // CheckBoxRandomSetsForBestFromSeed
+            // 
+            this.CheckBoxRandomSetsForBestFromSeed.AutoSize = true;
+            this.CheckBoxRandomSetsForBestFromSeed.Enabled = false;
+            this.CheckBoxRandomSetsForBestFromSeed.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
+            this.CheckBoxRandomSetsForBestFromSeed.Location = new System.Drawing.Point(3, 79);
+            this.CheckBoxRandomSetsForBestFromSeed.Name = "CheckBoxRandomSetsForBestFromSeed";
+            this.CheckBoxRandomSetsForBestFromSeed.Size = new System.Drawing.Size(94, 17);
+            this.CheckBoxRandomSetsForBestFromSeed.TabIndex = 55;
+            this.CheckBoxRandomSetsForBestFromSeed.Text = "From Seed: ";
+            this.CheckBoxRandomSetsForBestFromSeed.UseVisualStyleBackColor = true;
+            this.CheckBoxRandomSetsForBestFromSeed.CheckedChanged += new System.EventHandler(this.CheckBoxRandomSetsForBestFromSeed_CheckedChanged);
             // 
             // panelOptimization
             // 
@@ -830,7 +874,7 @@
             this.panelPopulation.Controls.Add(this.ButtonShowHerding);
             this.panelPopulation.Controls.Add(this.labelAverage);
             this.panelPopulation.Controls.Add(this.labelBestFitness);
-            this.panelPopulation.Location = new System.Drawing.Point(12, 290);
+            this.panelPopulation.Location = new System.Drawing.Point(12, 319);
             this.panelPopulation.Name = "panelPopulation";
             this.panelPopulation.Size = new System.Drawing.Size(275, 140);
             this.panelPopulation.TabIndex = 86;
@@ -852,7 +896,7 @@
             this.panelMenu.Controls.Add(this.ButtonStop);
             this.panelMenu.Controls.Add(this.ButtonLoad);
             this.panelMenu.Controls.Add(this.ButtonSave);
-            this.panelMenu.Location = new System.Drawing.Point(12, 436);
+            this.panelMenu.Location = new System.Drawing.Point(12, 465);
             this.panelMenu.Name = "panelMenu";
             this.panelMenu.Size = new System.Drawing.Size(440, 33);
             this.panelMenu.TabIndex = 87;
@@ -862,7 +906,7 @@
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
-            this.ClientSize = new System.Drawing.Size(784, 495);
+            this.ClientSize = new System.Drawing.Size(784, 523);
             this.Controls.Add(this.panelMenu);
             this.Controls.Add(this.panelPopulation);
             this.Controls.Add(this.panelOptimization);
@@ -880,8 +924,8 @@
             ((System.ComponentModel.ISupportInitialize)(this.NumericUpDownNumberOfParticipants)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.DataGridViewSheep)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.DataGridViewShepherds)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.NumericUpDownNumberOfrandomSetsForBest)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.NumericUpDownNumberOfrandomSets)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.NumericUpDownNumberOfRandomSetsForBest)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.NumericUpDownNumberOfRandomSets)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.NumericUpDownPopulationSize)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.NumericUpDownMutationPower)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.NumericUpDownAbsoluteMutationFactor)).EndInit();
@@ -899,6 +943,7 @@
             this.panelSheep.PerformLayout();
             this.panelRandomPositions.ResumeLayout(false);
             this.panelRandomPositions.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.NumericUpDownRandomSetsForBestSeed)).EndInit();
             this.panelOptimization.ResumeLayout(false);
             this.panelOptimization.PerformLayout();
             this.panelPopulation.ResumeLayout(false);
@@ -937,7 +982,7 @@
         private System.Windows.Forms.NumericUpDown NumericUpDownPopulationSize;
         private System.Windows.Forms.CheckBox CheckBoxRandomPositions;
         private System.Windows.Forms.Label label5;
-        private System.Windows.Forms.NumericUpDown NumericUpDownNumberOfrandomSets;
+        private System.Windows.Forms.NumericUpDown NumericUpDownNumberOfRandomSets;
         private System.Windows.Forms.Button ButtonRandomPositions;
         private System.Windows.Forms.Button ButtonCountFitness;
         private System.Windows.Forms.Panel PanelInfo;
@@ -946,7 +991,7 @@
         private System.Windows.Forms.Label labelBestFitness2;
         private System.Windows.Forms.Label label23;
         private System.Windows.Forms.CheckBox CheckBoxRandomSheep;
-        private System.Windows.Forms.NumericUpDown NumericUpDownNumberOfrandomSetsForBest;
+        private System.Windows.Forms.NumericUpDown NumericUpDownNumberOfRandomSetsForBest;
         private System.Windows.Forms.Label label17;
         private System.Windows.Forms.DataGridView DataGridViewSheep;
         private System.Windows.Forms.DataGridView DataGridViewShepherds;
@@ -972,5 +1017,8 @@
         private System.Windows.Forms.Label label11;
         private System.Windows.Forms.Panel panelMenu;
         private System.Windows.Forms.NumericUpDown NumericUpDownHiddenLayerSize;
+        private System.Windows.Forms.Button ButtonRandomizeSeedForRandomSetsForBest;
+        private System.Windows.Forms.NumericUpDown NumericUpDownRandomSetsForBestSeed;
+        private System.Windows.Forms.CheckBox CheckBoxRandomSetsForBestFromSeed;
     }
 }
