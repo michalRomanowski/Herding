@@ -3,6 +3,7 @@ using Auxiliary;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations.Schema;
+using Teams;
 
 namespace Simulations
 {
@@ -138,6 +139,36 @@ namespace Simulations
             PositionsOfSheep = new List<Position>();
 
             RandomSetsForBest = new RandomSetsList();
+        }
+
+        public PopulationParameters GetPopulationParameters()
+        {
+            return new PopulationParameters()
+            {
+                PopulationSize = this.PopulationSize,
+                TeamParameters = GetTeamParameters()
+            };
+        }
+
+        public TeamParameters GetTeamParameters()
+        {
+            return new TeamParameters()
+            {
+                NotIdenticalAgents = this.NotIdenticalAgents,
+                NumberOfShepherds = this.NumberOfShepherds,
+                ShepherdParameters = GetShepherdParameters()
+            };
+        }
+
+        public ShepherdParameters GetShepherdParameters()
+        {
+            return new ShepherdParameters()
+            {
+                HiddenLayerSize = this.NumberOfNeuronsInHiddenLayer,
+                NumberOfHiddenLayers = this.NumberOfHiddenLayers,
+                NumberOfSeenSheep = this.NumberOfSeenSheep,
+                NumberOfSeenShepherds = this.NumberOfSeenShepherds
+            };
         }
     }
 }

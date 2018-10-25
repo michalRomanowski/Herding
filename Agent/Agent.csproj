@@ -60,6 +60,7 @@
     <Compile Include="IMovingAgent.cs" />
     <Compile Include="Sheep\ESheepType.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Shepherd\ShepherdParameters.cs" />
     <Compile Include="ThinkingAgent.cs" />
   </ItemGroup>
   <ItemGroup>

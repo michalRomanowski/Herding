@@ -16,22 +16,13 @@ namespace Simulations
         
         public Population() { }
 
-        public Population(SimulationParameters simulationParameters)
+        public Population(PopulationParameters parameters)
         {
             Units = new List<Team>();
 
-            for (int i = 0; i < simulationParameters.PopulationSize; i++)
+            for (int i = 0; i < parameters.PopulationSize; i++)
             {
-                Units.Add(TeamFactory.GetTeam(simulationParameters.NotIdenticalAgents));
-
-                Units.Last().Members.Add(
-                    AgentFactory.GetShepherd(
-                        simulationParameters.NumberOfSeenShepherds,
-                        simulationParameters.NumberOfSeenSheep,
-                        simulationParameters.NumberOfHiddenLayers,
-                        simulationParameters.NumberOfNeuronsInHiddenLayer));
-
-                Units.Last().Resize(simulationParameters.NumberOfShepherds);
+                Units.Add(TeamFactory.GetTeam(parameters.TeamParameters));
             }
 
             Best = Units.FirstOrDefault()?.GetClone();

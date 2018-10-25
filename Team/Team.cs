@@ -17,6 +17,13 @@ namespace Teams
             Members = new List<ThinkingAgent>();
         }
 
+        public Team(TeamParameters parameters)
+        {
+            Members = new List<ThinkingAgent>() { AgentFactory.GetShepherd(parameters.ShepherdParameters) };
+
+            Resize(parameters.NumberOfShepherds);
+        }
+
         public abstract Team GetClone();
         
         public void ResetFitness()

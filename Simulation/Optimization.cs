@@ -32,7 +32,7 @@ namespace Simulations
 
         public Optimization(IAutosaver autosaver) : this(new SimulationParameters(), autosaver) { }
 
-        public Optimization(SimulationParameters parameters, IAutosaver autosaver) : this(parameters, new Population(parameters), autosaver) { }
+        public Optimization(SimulationParameters parameters, IAutosaver autosaver) : this(parameters, new Population(parameters.GetPopulationParameters()), autosaver) { }
 
         public Optimization(SimulationParameters parameters, Population shepherds, IAutosaver autosaver)
         {

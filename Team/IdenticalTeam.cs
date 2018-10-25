@@ -8,11 +8,14 @@ namespace Teams
     {
         public IdenticalTeam() : base() { }
 
+        public IdenticalTeam(TeamParameters parameters) : base(parameters) { }
+
         public override Team GetClone()
         {
-            var clone = new IdenticalTeam();
-
-            clone.Fitness = Fitness;
+            var clone = new IdenticalTeam
+            {
+                Fitness = Fitness
+            };
 
             foreach (var a in Members)
             {

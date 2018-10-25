@@ -25,15 +25,18 @@ namespace Agent
         }
 
         public Shepherd(
-            int numberOfSeenShepherds,
-            int numberOfSeenSheep,
-            int numberOfHiddenLayers,
-            int sizeOfHiddenLayer)
+            ShepherdParameters parameters)
             : this(
-                numberOfSeenShepherds,
-                numberOfSeenSheep)
+                parameters.NumberOfSeenShepherds,
+                parameters.NumberOfSeenSheep)
         {
-            Brain = NeuralNetsFactory.GetRandomMultiLayerNeuralNet((numberOfSeenShepherds + numberOfSeenSheep) * 2 + 2, NEURAL_NET_OUTPUT_LAYER_SIZE, sizeOfHiddenLayer, numberOfHiddenLayers);
+            Brain = NeuralNetsFactory.GetRandomMultiLayerNeuralNet(new NeuralNetParameters()
+            {
+                InputLayerSize = (parameters.NumberOfSeenShepherds + parameters.NumberOfSeenSheep) * 2 + 2,
+                OutputLayerSize = NEURAL_NET_OUTPUT_LAYER_SIZE,
+                HiddenLayerSize = parameters.HiddenLayerSize,
+                NumberOfHiddenLayers = parameters.NumberOfHiddenLayers
+            });
         }
 
         public override ThinkingAgent GetClone()

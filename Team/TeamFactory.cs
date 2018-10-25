@@ -2,15 +2,15 @@
 {
     public static class TeamFactory
     {
-        public static Team GetTeam(bool notIdenticalAgents)
+        public static Team GetTeam(TeamParameters parameters)
         {
-            if (notIdenticalAgents)
+            if (parameters.NotIdenticalAgents)
             {
-                return new NotIdenticalTeam();
+                return new NotIdenticalTeam(parameters);
             }
             else
             {
-                return new IdenticalTeam();
+                return new IdenticalTeam(parameters);
             }
         }
     }

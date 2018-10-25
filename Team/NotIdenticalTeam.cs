@@ -7,13 +7,16 @@ namespace Teams
 {
     public class NotIdenticalTeam : Team
     {
-        public NotIdenticalTeam() : base(){}
+        public NotIdenticalTeam() : base(){ }
+
+        public NotIdenticalTeam(TeamParameters parameters) : base(parameters){ }
 
         public override Team GetClone()
         {
-            var clone = new NotIdenticalTeam();
-
-            clone.Fitness = Fitness;
+            var clone = new NotIdenticalTeam
+            {
+                Fitness = Fitness
+            };
 
             foreach (var a in Members)
             {

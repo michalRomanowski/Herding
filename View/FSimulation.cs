@@ -226,7 +226,7 @@ namespace View
         {
             GetSimulationParameters();
             
-            Shepherds = new Population(SimParameters);
+            Shepherds = new Population(SimParameters.GetPopulationParameters());
 
             SetControls();
         }

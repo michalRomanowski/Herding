@@ -46,6 +46,7 @@
     <Compile Include="ArrayClone.cs" />
     <Compile Include="CrossoverHelper.cs" />
     <Compile Include="INeuralNet.cs" />
+    <Compile Include="NeuralNetParameters.cs" />
     <Compile Include="Mutation.cs" />
     <Compile Include="NeuralNet.cs" />
     <Compile Include="NeuralNetsFactory.cs" />

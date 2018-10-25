@@ -21,6 +21,9 @@ namespace NeuralNets
 
         public NeuralNet() { }
 
+        public NeuralNet(NeuralNetParameters parameters) : this(parameters.InputLayerSize, parameters.OutputLayerSize, parameters.HiddenLayerSize, parameters.NumberOfHiddenLayers, parameters.ActivationFunctionType)
+        { }
+
         public NeuralNet(int inputLayerSize, int outputLayerSize, int hiddenLayerSize, int numberOfHiddenLayers, EActivationFunctionType activationFunctionType = EActivationFunctionType.Tanh)
         {
             this.WagesBetweenInputAndFirstHiddenLayer = new float[inputLayerSize, hiddenLayerSize];

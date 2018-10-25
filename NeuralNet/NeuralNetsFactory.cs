@@ -2,9 +2,9 @@
 {
     public static class NeuralNetsFactory
     {
-        public static INeuralNet GetRandomMultiLayerNeuralNet(int inputLayerSize, int outputLayerSize, int hiddenLayerSize, int numberOfHiddenLayers)
+        public static INeuralNet GetRandomMultiLayerNeuralNet(NeuralNetParameters parameters)
         {
-            var randomMultiLayerNeuralNet = new NeuralNet(inputLayerSize, outputLayerSize, hiddenLayerSize, numberOfHiddenLayers);
+            var randomMultiLayerNeuralNet = new NeuralNet(parameters);
 
             randomMultiLayerNeuralNet.Randomize();
 

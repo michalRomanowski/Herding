@@ -8,16 +8,9 @@ namespace Agent
     public static class AgentFactory
     {
         public static ThinkingAgent GetShepherd(
-            int numberOfSeenShepherds,
-            int numberOfSeenSheep,
-            int numberOfHiddenLayers,
-            int sizeOfHiddenLayer)
+            ShepherdParameters parameters)
         {
-            return new Shepherd(
-                numberOfSeenShepherds,
-                numberOfSeenSheep,
-                numberOfHiddenLayers,
-                sizeOfHiddenLayer);
+            return new Shepherd(parameters);
         }
 
         public static IList<IMovingAgent> GetSheep(IList<Position> positions, ESheepType sheepType, int seed)
