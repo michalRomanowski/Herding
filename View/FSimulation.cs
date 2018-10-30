@@ -196,7 +196,6 @@ namespace View
             NumericUpDownShepherdSheepSight.Value = SimParameters.NumberOfSeenSheep;
 
             ButtonShowHerdingOfBestTeam.Enabled = Shepherds != null && Shepherds.Best != null;
-            ButtonCountFitness.Enabled = Shepherds != null;
         }
 
         private void UpdateProgressBar()
@@ -209,7 +208,7 @@ namespace View
             {
                 if (Shepherds.Best != null)
                 {
-                    labelBestFitness2.Text = Shepherds.Best.Fitness.ToString();
+                    labelBestFitness2.Text = Optimization.BestFitness.ToString();
                 }
 
                 labelStep.Text = Optimization.StepCount.ToString();
@@ -231,25 +230,6 @@ namespace View
             SetControls();
         }
         
-        public void CountFitness()
-        {
-            CurrentState = State.CountingFitness;
-
-            BlockControls();
-            
-            //var averageFitness = new AverageFitnessCounter().CountAverageFitness(SimParameters, Shepherds, SimParameters.SeedForRandomSheepForBest);
-            //Logger.AddLine("Average fitness: " + averageFitness);
-            
-            //new BestTeamManager().UpdateBestTeam(SimParameters, Shepherds, Shepherds.Units);
-
-            //labelAverage.Text = "Average Fitness: " + averageFitness.ToString();
-            labelBestFitness.Text = "Best Fitness: " + Shepherds.Best.Fitness.ToString();
-
-            CurrentState = State.Idle;
-
-            UnblockControls();
-        }
-
         public void BlockControlsAfterPopulationCreation()
         {
             NumericUpDownNumberOfShepherdsHiddenLayers.Enabled = false;
@@ -275,7 +255,6 @@ namespace View
             ButtonStop.Enabled = true;
 
             labelBestFitness.Text = "";
-            labelAverage.Text = "";
         }
 
         private void UnblockControls()
@@ -416,16 +395,6 @@ namespace View
 
             DataGridViewShepherds.Refresh();
             DataGridViewSheep.Refresh();
-        }
-
-        private void ButtonCountFitness_Click(object sender, EventArgs e)
-        {
-            foreach (Team t in Shepherds.Units)
-            {
-                t.ResetFitness();
-            }
-
-            CountFitness();
         }
 
         private void ButtonShowHerdingOfBestTeam_Click(object sender, EventArgs e)

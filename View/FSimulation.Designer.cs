@@ -51,10 +51,8 @@
             this.label16 = new System.Windows.Forms.Label();
             this.NumericUpDownAbsoluteMutationFactor = new System.Windows.Forms.NumericUpDown();
             this.ButtonShowHerdingOfBestTeam = new System.Windows.Forms.Button();
-            this.ButtonCountFitness = new System.Windows.Forms.Button();
             this.labelBestFitness = new System.Windows.Forms.Label();
             this.label19 = new System.Windows.Forms.Label();
-            this.labelAverage = new System.Windows.Forms.Label();
             this.ButtonShowHerding = new System.Windows.Forms.Button();
             this.ComboBoxPopulation = new System.Windows.Forms.ComboBox();
             this.ButtonStart = new System.Windows.Forms.Button();
@@ -435,17 +433,6 @@
             this.ButtonShowHerdingOfBestTeam.UseVisualStyleBackColor = true;
             this.ButtonShowHerdingOfBestTeam.Click += new System.EventHandler(this.ButtonShowHerdingOfBestTeam_Click);
             // 
-            // ButtonCountFitness
-            // 
-            this.ButtonCountFitness.Enabled = false;
-            this.ButtonCountFitness.Location = new System.Drawing.Point(169, 109);
-            this.ButtonCountFitness.Name = "ButtonCountFitness";
-            this.ButtonCountFitness.Size = new System.Drawing.Size(98, 23);
-            this.ButtonCountFitness.TabIndex = 65;
-            this.ButtonCountFitness.Text = "Caclulate";
-            this.ButtonCountFitness.UseVisualStyleBackColor = true;
-            this.ButtonCountFitness.Click += new System.EventHandler(this.ButtonCountFitness_Click);
-            // 
             // labelBestFitness
             // 
             this.labelBestFitness.AutoSize = true;
@@ -463,15 +450,6 @@
             this.label19.Size = new System.Drawing.Size(42, 13);
             this.label19.TabIndex = 55;
             this.label19.Text = "Teams:";
-            // 
-            // labelAverage
-            // 
-            this.labelAverage.AutoSize = true;
-            this.labelAverage.Location = new System.Drawing.Point(3, 114);
-            this.labelAverage.Name = "labelAverage";
-            this.labelAverage.Size = new System.Drawing.Size(86, 13);
-            this.labelAverage.TabIndex = 62;
-            this.labelAverage.Text = "Average Fitness:";
             // 
             // ButtonShowHerding
             // 
@@ -871,9 +849,7 @@
             this.panelPopulation.Controls.Add(this.label19);
             this.panelPopulation.Controls.Add(this.ButtonShowHerdingOfBestTeam);
             this.panelPopulation.Controls.Add(this.ComboBoxPopulation);
-            this.panelPopulation.Controls.Add(this.ButtonCountFitness);
             this.panelPopulation.Controls.Add(this.ButtonShowHerding);
-            this.panelPopulation.Controls.Add(this.labelAverage);
             this.panelPopulation.Controls.Add(this.labelBestFitness);
             this.panelPopulation.Location = new System.Drawing.Point(12, 319);
             this.panelPopulation.Name = "panelPopulation";
@@ -984,7 +960,6 @@
         private System.Windows.Forms.ComboBox ComboBoxPopulation;
         private System.Windows.Forms.Label label19;
         private System.Windows.Forms.Button ButtonShowHerding;
-        private System.Windows.Forms.Label labelAverage;
         private System.Windows.Forms.StatusStrip StatusStrip;
         private System.Windows.Forms.ToolStripStatusLabel labelStatus;
         private System.Windows.Forms.ToolStripProgressBar ProgressBarSimulation;
@@ -996,7 +971,6 @@
         private System.Windows.Forms.Label label5;
         private System.Windows.Forms.NumericUpDown NumericUpDownNumberOfRandomSets;
         private System.Windows.Forms.Button ButtonRandomPositions;
-        private System.Windows.Forms.Button ButtonCountFitness;
         private System.Windows.Forms.Panel PanelInfo;
         private System.Windows.Forms.Label labelStep;
         private System.Windows.Forms.Label label21;

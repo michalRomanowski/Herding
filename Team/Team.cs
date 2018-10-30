@@ -25,11 +25,6 @@ namespace Teams
         }
 
         public abstract Team GetClone();
-        
-        public void ResetFitness()
-        {
-            Fitness = float.MaxValue;
-        }
 
         public abstract Team[] Crossover(Team partner);
 

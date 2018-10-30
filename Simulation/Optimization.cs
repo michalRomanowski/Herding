@@ -12,7 +12,7 @@ namespace Simulations
         public string Name { get; set; }
 
         private readonly object stopLocker = new object();
-        private bool stop { get; set; }
+        private bool stop;
 
         [NotMapped]
         public int StepCount { get; private set; }
@@ -25,7 +25,11 @@ namespace Simulations
         private CountFitnessParameters controlFitnessParameters;
         
         private IAutosaver _autosaver;
+        [NotMapped]
         public IAutosaver Autosaver { set { _autosaver = value; } }
+
+        [NotMapped]
+        public float BestFitness { get; private set; }
 
         public Optimization()
         {
