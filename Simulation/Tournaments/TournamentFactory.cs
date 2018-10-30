@@ -22,6 +22,11 @@ namespace Simulations
             }
         }
 
+        public static ITournament GetTournament(IFitnessCounter fitnessCounter, IEnumerable<Team> participants)
+        {
+            return new Tournament(fitnessCounter, participants);
+        }
+        
         private static ITournament GetTournamentWithRandomPositions(SimulationParameters simulationParameters, IEnumerable<Team> participants)
         {
             var randomSets = new RandomSetsList(
@@ -40,8 +45,7 @@ namespace Simulations
             };
 
             return new Tournament(
-                simulationParameters.FitnessType,
-                countFitnessParameters,
+                FitnessCounterFactory.GetFitnessCounter(simulationParameters.FitnessType, countFitnessParameters),
                 participants);
         }
 
@@ -57,8 +61,7 @@ namespace Simulations
             };
 
             return new Tournament(
-                simulationParameters.FitnessType,
-                countFitnessParameters,
+                FitnessCounterFactory.GetFitnessCounter(simulationParameters.FitnessType, countFitnessParameters),
                 participants);
         }
     }

@@ -5,8 +5,7 @@
         public static IBestTeamSelector GetBestTeamSelector(BestTeamSelectorParameters parameters)
         {
             return new BestTeamSelector(
-                FitnessCounterFactory.GetFitnessCounter(parameters.FitnessType, parameters.CountFitnessParameters),
-                parameters.CountFitnessParameters);
+                FitnessCounterFactory.GetFitnessCounter(parameters.FitnessType, parameters.CountFitnessParameters));
         }
     }
 }
