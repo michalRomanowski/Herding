@@ -121,8 +121,9 @@ namespace Simulations
         {
             var bestPretenders = newTeams.Concat(new List<Team>() { Shepherds.Best });
             Shepherds.Best = bestTeamSelector.GetBestTeam(bestPretenders).GetClone();
+            BestFitness = Shepherds.Best.Fitness;
 
-            foreach(var nt in newTeams)
+            foreach (var nt in newTeams)
             {
                 Logger.AddLine("New fitness: " + nt.Fitness);
             }

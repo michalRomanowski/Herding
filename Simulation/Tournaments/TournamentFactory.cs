@@ -30,19 +30,35 @@ namespace Simulations
                 simulationParameters.PositionsOfSheep.Count,
                 CRandom.Instance.Next());
 
+            var countFitnessParameters = new CountFitnessParameters()
+            {
+                PositionsOfSheepSet = randomSets.PositionsOfSheepSet,
+                PositionsOfShepherdsSet = randomSets.PositionsOfShepherdsSet,
+                TurnsOfHerding = simulationParameters.TurnsOfHerding,
+                SheepType = simulationParameters.SheepType,
+                Seed = CRandom.Instance.Next()
+            };
+
             return new Tournament(
-                simulationParameters,
-                randomSets.PositionsOfShepherdsSet,
-                randomSets.PositionsOfSheepSet,
+                simulationParameters.FitnessType,
+                countFitnessParameters,
                 participants);
         }
 
         private static ITournament GetTournamentWithFixedPositions(SimulationParameters simulationParameters, IEnumerable<Team> participants)
         {
+            var countFitnessParameters = new CountFitnessParameters()
+            {
+                PositionsOfSheepSet = new List<IList<Position>> { simulationParameters.PositionsOfSheep },
+                PositionsOfShepherdsSet = new List<IList<Position>> { simulationParameters.PositionsOfShepherds },
+                TurnsOfHerding = simulationParameters.TurnsOfHerding,
+                SheepType = simulationParameters.SheepType,
+                Seed = CRandom.Instance.Next()
+            };
+
             return new Tournament(
-                simulationParameters,
-                new List<IList<Position>> { simulationParameters.PositionsOfShepherds },
-                new List<IList<Position>> { simulationParameters.PositionsOfSheep },
+                simulationParameters.FitnessType,
+                countFitnessParameters,
                 participants);
         }
     }

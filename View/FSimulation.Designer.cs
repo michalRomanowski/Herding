@@ -224,7 +224,7 @@
             // 
             this.DataGridViewSheep.AllowUserToDeleteRows = false;
             this.DataGridViewSheep.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.DataGridViewSheep.Location = new System.Drawing.Point(3, 16);
+            this.DataGridViewSheep.Location = new System.Drawing.Point(6, 16);
             this.DataGridViewSheep.Name = "DataGridViewSheep";
             this.DataGridViewSheep.Size = new System.Drawing.Size(243, 150);
             this.DataGridViewSheep.TabIndex = 56;
@@ -761,6 +761,7 @@
             // panelRandomPositions
             // 
             this.panelRandomPositions.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.panelRandomPositions.Controls.Add(this.buttonLoadControlFitnessCounter);
             this.panelRandomPositions.Controls.Add(this.ButtonRandomizeSeedForRandomSetsForBest);
             this.panelRandomPositions.Controls.Add(this.NumericUpDownRandomSetsForBestSeed);
             this.panelRandomPositions.Controls.Add(this.CheckBoxRandomSetsForBestFromSeed);
@@ -771,7 +772,7 @@
             this.panelRandomPositions.Controls.Add(this.NumericUpDownNumberOfRandomSetsForBest);
             this.panelRandomPositions.Location = new System.Drawing.Point(12, 200);
             this.panelRandomPositions.Name = "panelRandomPositions";
-            this.panelRandomPositions.Size = new System.Drawing.Size(275, 113);
+            this.panelRandomPositions.Size = new System.Drawing.Size(275, 145);
             this.panelRandomPositions.TabIndex = 84;
             // 
             // ButtonRandomizeSeedForRandomSetsForBest
@@ -851,9 +852,9 @@
             this.panelPopulation.Controls.Add(this.ComboBoxPopulation);
             this.panelPopulation.Controls.Add(this.ButtonShowHerding);
             this.panelPopulation.Controls.Add(this.labelBestFitness);
-            this.panelPopulation.Location = new System.Drawing.Point(12, 319);
+            this.panelPopulation.Location = new System.Drawing.Point(12, 351);
             this.panelPopulation.Name = "panelPopulation";
-            this.panelPopulation.Size = new System.Drawing.Size(275, 140);
+            this.panelPopulation.Size = new System.Drawing.Size(275, 108);
             this.panelPopulation.TabIndex = 86;
             // 
             // label11
@@ -880,9 +881,9 @@
             // 
             // buttonLoadControlFitnessCounter
             // 
-            this.buttonLoadControlFitnessCounter.Location = new System.Drawing.Point(520, 414);
+            this.buttonLoadControlFitnessCounter.Location = new System.Drawing.Point(3, 104);
             this.buttonLoadControlFitnessCounter.Name = "buttonLoadControlFitnessCounter";
-            this.buttonLoadControlFitnessCounter.Size = new System.Drawing.Size(118, 45);
+            this.buttonLoadControlFitnessCounter.Size = new System.Drawing.Size(157, 24);
             this.buttonLoadControlFitnessCounter.TabIndex = 88;
             this.buttonLoadControlFitnessCounter.Text = "Load Control Fitness Counter";
             this.buttonLoadControlFitnessCounter.UseVisualStyleBackColor = true;
@@ -894,7 +895,6 @@
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
             this.ClientSize = new System.Drawing.Size(784, 523);
-            this.Controls.Add(this.buttonLoadControlFitnessCounter);
             this.Controls.Add(this.panelMenu);
             this.Controls.Add(this.panelPopulation);
             this.Controls.Add(this.panelOptimization);
