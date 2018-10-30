@@ -34,7 +34,7 @@ namespace World
 
             var mX = float.IsNaN(output[0]) ? 0 : output[0];
             var mY = float.IsNaN(output[1]) ? 0 : output[1];
-
+            
             sheep.Position.X += mX * SPEED;
             sheep.Position.Y += mY * SPEED;
         }

@@ -52,7 +52,7 @@ namespace Agent
                 decision.Y -= normalized.Y * speed;
             }
 
-            if (decision.X != 0 || decision.Y != 0)
+            if (decision.Length() > 1.0f)
                 decision = Vector2.Normalize(decision);
 
             DecideOutput = new float[2] { decision.X, decision.Y };
