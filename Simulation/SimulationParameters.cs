@@ -170,5 +170,27 @@ namespace Simulations
                 NumberOfSeenShepherds = this.NumberOfSeenShepherds
             };
         }
+
+        public CountFitnessParameters GetCountFitnessParameters()
+        {
+            return new CountFitnessParameters()
+            {
+                PositionsOfSheepSet = this.RandomPositions ? this.RandomSetsForBest.PositionsOfSheepSet : new List<IList<Position>>() { this.PositionsOfSheep },
+                PositionsOfShepherdsSet = this.RandomPositions ? this.RandomSetsForBest.PositionsOfShepherdsSet : new List<IList<Position>>() { this.PositionsOfShepherds },
+                Seed = this.SeedForRandomSheepForBest,
+                SheepType = this.SheepType,
+                TurnsOfHerding = this.TurnsOfHerding
+            };
+        }
+
+        public BestTeamSelectorParameters GetBestTeamSelectorParameters()
+        {
+            return new BestTeamSelectorParameters()
+            {
+                RandomPositions = this.RandomPositions,
+                FitnessType = this.FitnessType,
+                CountFitnessParameters = GetCountFitnessParameters()
+            };
+        }
     }
 }

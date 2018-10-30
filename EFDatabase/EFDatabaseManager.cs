@@ -19,7 +19,7 @@ namespace EFDatabase
         {
             using (var context = new EFDatabaseContext())
             {
-                var optimization = context.Optimizations
+                return context.Optimizations
                     .Where(x => name.Equals(x.Name))
                     .Include(x => x.Parameters)
                     .Include(x => x.Parameters.RandomSetsForBest)
@@ -29,8 +29,18 @@ namespace EFDatabase
                     .Include(x => x.Shepherds.Units)
                     .Include(x => x.Shepherds.Units.Select(y => y.Members))
                     .First();
+            }
+        }
 
-                return optimization;
+        public SimulationParameters LoadSimulationParameters(string optimizationName)
+        {
+            using (var context = new EFDatabaseContext())
+            {
+                return context.Optimizations
+                    .Where(x => optimizationName.Equals(x.Name))
+                    .Include(x => x.Parameters)
+                    .Include(x => x.Parameters.RandomSetsForBest)
+                    .First().Parameters;
             }
         }
 

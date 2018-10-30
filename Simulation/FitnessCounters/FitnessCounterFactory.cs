@@ -4,15 +4,15 @@ namespace Simulations
 {
     public static class FitnessCounterFactory
     {
-        public static IFitnessCounter GetFitnessCounter(SimulationParameters simulationParameters)
+        public static IFitnessCounter GetFitnessCounter(EFitnessType fitnessType, CountFitnessParameters parameters)
         {
-            if (simulationParameters.FitnessType == EFitnessType.Final)
+            if (fitnessType == EFitnessType.Final)
             {
-                return new FinalFitnessCounter();
+                return new FinalFitnessCounter(parameters);
             }
-            else if (simulationParameters.FitnessType == EFitnessType.Sum)
+            else if (fitnessType == EFitnessType.Sum)
             {
-                return new SumFitnessCounter();
+                return new SumFitnessCounter(parameters);
             }
             else throw new ArgumentException();
         }

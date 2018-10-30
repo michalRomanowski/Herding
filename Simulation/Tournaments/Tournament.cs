@@ -7,45 +7,29 @@ namespace Simulations
 {
     class Tournament : ITournament
     {
-        public IEnumerable<Team> participants = new List<Team>();
-
-        private readonly IList<IList<Position>> positionsOfShepherdsSet;
-        private readonly IList<IList<Position>> positionsOfSheepSet;
-
+        private IEnumerable<Team> participants = new List<Team>();
         private IFitnessCounter fitnessCounter;
-
-        private readonly SimulationParameters simulationParameters;
-
-        public Tournament(SimulationParameters simulationParameters, IEnumerable<Team> participants)
+        
+        public Tournament(SimulationParameters simulationParameters, IList<IList<Position>> positionsOfShepherdsSet, IList<IList<Position>> positionsOfSheepSet, IEnumerable<Team> participants)
         {
-            this.simulationParameters = simulationParameters;
-
-            fitnessCounter = FitnessCounterFactory.GetFitnessCounter(simulationParameters);
+            fitnessCounter = FitnessCounterFactory.GetFitnessCounter(simulationParameters.FitnessType,
+               new CountFitnessParameters()
+               {
+                   TurnsOfHerding = simulationParameters.TurnsOfHerding,
+                   PositionsOfShepherdsSet = positionsOfShepherdsSet,
+                   PositionsOfSheepSet = positionsOfSheepSet,
+                   SheepType = simulationParameters.SheepType,
+                   Seed = CRandom.Instance.Next()
+               });
 
             this.participants = participants;
         }
 
-        public Tournament(SimulationParameters simulationParameters, IList<IList<Position>> positionsOfShepherdsSet, IList<IList<Position>> positionsOfSheepSet, IEnumerable<Team> participants)
-            : this(simulationParameters, participants)
-        {
-            this.positionsOfShepherdsSet = positionsOfShepherdsSet;
-            this.positionsOfSheepSet = positionsOfSheepSet;
-        }
-
-        
         public IEnumerable<Team> Attend()
         {
-            var seed = CRandom.Instance.Next();
-
             foreach (var t in participants)
             {
-                t.Fitness = fitnessCounter.CountFitness(
-                    t,
-                    simulationParameters,
-                    positionsOfShepherdsSet,
-                    positionsOfSheepSet,
-                    simulationParameters.SheepType,
-                    seed);
+                t.Fitness = fitnessCounter.CountFitness(t);
             }
 
             return participants.OrderBy(x => x.Fitness);

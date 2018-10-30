@@ -18,7 +18,7 @@ namespace Simulations
             }
             else
             {
-                return GetTournamentWithDefinedPositions(simulationParameters, participants);
+                return GetTournamentWithFixedPositions(simulationParameters, participants);
             }
         }
 
@@ -37,7 +37,7 @@ namespace Simulations
                 participants);
         }
 
-        private static ITournament GetTournamentWithDefinedPositions(SimulationParameters simulationParameters, IEnumerable<Team> participants)
+        private static ITournament GetTournamentWithFixedPositions(SimulationParameters simulationParameters, IEnumerable<Team> participants)
         {
             return new Tournament(
                 simulationParameters,

@@ -51,10 +51,11 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="BestTeamSelector\BestBestTeamSelectorFactory.cs" />
-    <Compile Include="BestTeamSelector\FixedPositionsBestTeamSelector.cs" />
+    <Compile Include="BestTeamSelector\BestTeamSelectorFactory.cs" />
+    <Compile Include="BestTeamSelector\BestTeamSelector.cs" />
+    <Compile Include="BestTeamSelector\BestTeamSelectorParameters.cs" />
     <Compile Include="BestTeamSelector\IBestTeamSelector.cs" />
-    <Compile Include="BestTeamSelector\RandomPositionsBestTeamSelector.cs" />
+    <Compile Include="FitnessCounters\CountFitnessParameters.cs" />
     <Compile Include="FitnessCounters\FinalFitnessCounter.cs" />
     <Compile Include="IAutosaver.cs" />
     <Compile Include="ISimulationParameters.cs" />

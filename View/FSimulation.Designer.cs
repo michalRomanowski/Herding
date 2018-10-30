@@ -92,6 +92,7 @@
             this.panelPopulation = new System.Windows.Forms.Panel();
             this.label11 = new System.Windows.Forms.Label();
             this.panelMenu = new System.Windows.Forms.Panel();
+            this.buttonLoadControlFitnessCounter = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.NumericUpDownOptimizationSteps)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.NumericUpDownNumberOfTurnsOfHerding)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.NumericUpDownNumberOfParticipants)).BeginInit();
@@ -563,16 +564,16 @@
             this.PanelInfo.Controls.Add(this.label21);
             this.PanelInfo.Controls.Add(this.labelBestFitness2);
             this.PanelInfo.Controls.Add(this.label23);
-            this.PanelInfo.Location = new System.Drawing.Point(669, 420);
+            this.PanelInfo.Location = new System.Drawing.Point(669, 419);
             this.PanelInfo.Name = "PanelInfo";
-            this.PanelInfo.Size = new System.Drawing.Size(103, 74);
+            this.PanelInfo.Size = new System.Drawing.Size(103, 75);
             this.PanelInfo.TabIndex = 68;
             // 
             // labelStep
             // 
             this.labelStep.AutoSize = true;
             this.labelStep.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
-            this.labelStep.Location = new System.Drawing.Point(3, 54);
+            this.labelStep.Location = new System.Drawing.Point(3, 49);
             this.labelStep.Name = "labelStep";
             this.labelStep.Size = new System.Drawing.Size(33, 13);
             this.labelStep.TabIndex = 3;
@@ -581,7 +582,7 @@
             // label21
             // 
             this.label21.AutoSize = true;
-            this.label21.Location = new System.Drawing.Point(3, 3);
+            this.label21.Location = new System.Drawing.Point(3, 4);
             this.label21.Name = "label21";
             this.label21.Size = new System.Drawing.Size(67, 13);
             this.label21.TabIndex = 0;
@@ -591,7 +592,7 @@
             // 
             this.labelBestFitness2.AutoSize = true;
             this.labelBestFitness2.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
-            this.labelBestFitness2.Location = new System.Drawing.Point(3, 16);
+            this.labelBestFitness2.Location = new System.Drawing.Point(3, 17);
             this.labelBestFitness2.Name = "labelBestFitness2";
             this.labelBestFitness2.Size = new System.Drawing.Size(78, 13);
             this.labelBestFitness2.TabIndex = 1;
@@ -600,7 +601,7 @@
             // label23
             // 
             this.label23.AutoSize = true;
-            this.label23.Location = new System.Drawing.Point(3, 41);
+            this.label23.Location = new System.Drawing.Point(3, 36);
             this.label23.Name = "label23";
             this.label23.Size = new System.Drawing.Size(26, 13);
             this.label23.TabIndex = 2;
@@ -901,12 +902,23 @@
             this.panelMenu.Size = new System.Drawing.Size(440, 33);
             this.panelMenu.TabIndex = 87;
             // 
+            // buttonLoadControlFitnessCounter
+            // 
+            this.buttonLoadControlFitnessCounter.Location = new System.Drawing.Point(520, 414);
+            this.buttonLoadControlFitnessCounter.Name = "buttonLoadControlFitnessCounter";
+            this.buttonLoadControlFitnessCounter.Size = new System.Drawing.Size(118, 45);
+            this.buttonLoadControlFitnessCounter.TabIndex = 88;
+            this.buttonLoadControlFitnessCounter.Text = "Load Control Fitness Counter";
+            this.buttonLoadControlFitnessCounter.UseVisualStyleBackColor = true;
+            this.buttonLoadControlFitnessCounter.Click += new System.EventHandler(this.buttonLoadControlFitnessCounter_Click);
+            // 
             // FSimulation
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
             this.ClientSize = new System.Drawing.Size(784, 523);
+            this.Controls.Add(this.buttonLoadControlFitnessCounter);
             this.Controls.Add(this.panelMenu);
             this.Controls.Add(this.panelPopulation);
             this.Controls.Add(this.panelOptimization);
@@ -1020,5 +1032,6 @@
         private System.Windows.Forms.Button ButtonRandomizeSeedForRandomSetsForBest;
         private System.Windows.Forms.NumericUpDown NumericUpDownRandomSetsForBestSeed;
         private System.Windows.Forms.CheckBox CheckBoxRandomSetsForBestFromSeed;
+        private System.Windows.Forms.Button buttonLoadControlFitnessCounter;
     }
 }

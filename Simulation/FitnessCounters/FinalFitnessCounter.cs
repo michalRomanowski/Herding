@@ -10,28 +10,30 @@ namespace Simulations
 {
     public class FinalFitnessCounter : IFitnessCounter
     {
-        public float CountFitness(
-            Team team,
-            SimulationParameters simulationParameters,
-            IList<IList<Position>> positionsOfShepherdsSet,
-            IList<IList<Position>> positionsOfSheepSet,
-            ESheepType sheepType,
-            int seed)
+        private CountFitnessParameters parameters;
+
+        public FinalFitnessCounter(CountFitnessParameters parameters)
         {
-            if (positionsOfShepherdsSet.Count != positionsOfSheepSet.Count)
+            this.parameters = parameters;
+        }
+
+
+        public float CountFitness(Team team)
+        {
+            if (parameters.PositionsOfShepherdsSet.Count != parameters.PositionsOfSheepSet.Count)
                 throw new ArgumentException();
 
             float fitness = 0.0f;
 
-            for (int i = 0; i < positionsOfShepherdsSet.Count; i++)
+            for (int i = 0; i < parameters.PositionsOfShepherdsSet.Count; i++)
             {
                 fitness += CountFitness(
                     team,
-                    simulationParameters,
-                    positionsOfShepherdsSet[i],
-                    positionsOfSheepSet[i],
-                    sheepType,
-                    seed);
+                    parameters.TurnsOfHerding,
+                    parameters.PositionsOfShepherdsSet[i],
+                    parameters.PositionsOfSheepSet[i],
+                    parameters.SheepType,
+                    parameters.Seed);
             }
 
             return fitness;
@@ -39,7 +41,7 @@ namespace Simulations
 
         private float CountFitness(
             Team team,
-            SimulationParameters simulationParameters,
+            int TurnsOfHerding,
             IList<Position> positionsOfShepherds, 
             IList<Position> positionsOfSheep,
             ESheepType sheepType, 
@@ -52,7 +54,7 @@ namespace Simulations
 
             var world = new SimulationWorld(team, sheep, false);
 
-            world.Work(simulationParameters.TurnsOfHerding);
+            world.Work(TurnsOfHerding);
 
             return world.Sheep.Select(x => x.Position).SumOfDistancesFromCenter();
         }

@@ -100,6 +100,12 @@
     <Compile Include="FLoad.Designer.cs">
       <DependentUpon>FLoad.cs</DependentUpon>
     </Compile>
+    <Compile Include="FLoadControlFitnessCounter.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="FLoadControlFitnessCounter.Designer.cs">
+      <DependentUpon>FLoadControlFitnessCounter.cs</DependentUpon>
+    </Compile>
     <Compile Include="FSimulation.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -122,6 +128,9 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <EmbeddedResource Include="FLoad.resx">
       <DependentUpon>FLoad.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="FLoadControlFitnessCounter.resx">
+      <DependentUpon>FLoadControlFitnessCounter.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="FSimulation.resx">
       <DependentUpon>FSimulation.cs</DependentUpon>

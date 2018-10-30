@@ -9,36 +9,37 @@ namespace Simulations
 {
     internal class SumFitnessCounter : IFitnessCounter
     {
-        public float CountFitness(
-            Team shepherdsTeam,
-            SimulationParameters simulationParameters,
-            IList<IList<Position>> positionsOfShepherdsSet,
-            IList<IList<Position>> positionsOfSheepSet,
-            ESheepType sheepType,
-            int seed = 0)
+        private CountFitnessParameters parameters;
+
+        public SumFitnessCounter(CountFitnessParameters parameters)
         {
-            if (positionsOfShepherdsSet.Count != positionsOfSheepSet.Count)
+            this.parameters = parameters;
+        }
+
+        public float CountFitness(Team team)
+        {
+            if (parameters.PositionsOfShepherdsSet.Count != parameters.PositionsOfSheepSet.Count)
                 throw new ArgumentException();
             
             float fitness = 0.0f;
 
-            for (int i = 0; i < positionsOfShepherdsSet.Count; i++)
+            for (int i = 0; i < parameters.PositionsOfShepherdsSet.Count; i++)
             {
                 fitness += CountFitness(
-                    shepherdsTeam,
-                    simulationParameters,
-                    positionsOfShepherdsSet[i],
-                    positionsOfSheepSet[i],
-                    sheepType,
-                    seed);
+                    team,
+                    parameters.TurnsOfHerding,
+                    parameters.PositionsOfShepherdsSet[i],
+                    parameters.PositionsOfSheepSet[i],
+                    parameters.SheepType,
+                    parameters.Seed);
             }
 
             return fitness;
         }
 
         private float CountFitness(
-            Team shepherds,
-            SimulationParameters simulationParameters,
+            Team team,
+            int TurnsOfHerding,
             IList<Position> positionsOfShepherds,
             IList<Position> positionsOfSheep,
             ESheepType sheepType,
@@ -46,12 +47,12 @@ namespace Simulations
         {
             var sheep = AgentFactory.GetSheep(positionsOfSheep, sheepType, seed);
 
-            shepherds.ClearPath();
-            shepherds.SetPositions(positionsOfShepherds);
+            team.ClearPath();
+            team.SetPositions(positionsOfShepherds);
 
-            var world = new SimulationWorld(shepherds, sheep, true);
+            var world = new SimulationWorld(team, sheep, true);
 
-            world.Work(simulationParameters.TurnsOfHerding);
+            world.Work(TurnsOfHerding);
 
             return CountFitness(world.SheepPositionsRecord);
         }

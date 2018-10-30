@@ -499,5 +499,14 @@ namespace View
         }
 
         #endregion
+
+        private void buttonLoadControlFitnessCounter_Click(object sender, EventArgs e)
+        {
+            foreach (Form f in children)
+                f.Dispose();
+
+            Enabled = false;
+            new FLoadControlFitnessCounter(this).Show();
+        }
     }
 }

@@ -10,18 +10,20 @@ namespace Simulations
     {
         public int Id { get; set; }
         public string Name { get; set; }
-        
+
         private readonly object stopLocker = new object();
         private bool stop { get; set; }
 
         [NotMapped]
         public int StepCount { get; private set; }
-        
+
         public SimulationParameters Parameters { get; set; }
         public Population Shepherds { get; set; }
 
         private IBestTeamSelector bestTeamSelector;
-
+        private IFitnessCounter controlFitnessCounter;
+        private CountFitnessParameters controlFitnessParameters;
+        
         private IAutosaver _autosaver;
         public IAutosaver Autosaver { set { _autosaver = value; } }
 
@@ -42,15 +44,21 @@ namespace Simulations
             this._autosaver = autosaver;
         }
         
+        public void SetControlFitnessCounter(IFitnessCounter controlFitnessCounter, CountFitnessParameters controlFitnessParameters)
+        {
+            this.controlFitnessCounter = controlFitnessCounter;
+            this.controlFitnessParameters = controlFitnessParameters;
+        }
+
         public void Start()
         {
             Parameters.Progress = float.MinValue;
 
             lock (stopLocker)
                 stop = false;
-
-            bestTeamSelector = BestBestTeamSelectorFactory.GetBestTeamSelector(Parameters);
-
+            
+            bestTeamSelector = BestTeamSelectorFactory.GetBestTeamSelector(Parameters.GetBestTeamSelectorParameters());
+            
             Parameters.BestResultAtStep = new List<float>();
             
             Optimize();
@@ -84,6 +92,7 @@ namespace Simulations
             Mutation(children);
 
             UpdateBestTeam(children);
+            UpdateControlFitness();
 
             Shepherds.Replace(children, selectionResults.Losers);
         }
@@ -116,6 +125,17 @@ namespace Simulations
 
             Parameters.BestResultAtStep.Add(Shepherds.Best.Fitness);
             Logger.AddLine("Best fitness: " + Shepherds.Best.Fitness);
+        }
+
+        private void UpdateControlFitness()
+        {
+            if (controlFitnessCounter == null)
+                return;
+
+            var controlTeam = Shepherds.Best.GetClone();
+            controlTeam.Resize(controlFitnessParameters.PositionsOfShepherdsSet.First().Count);
+
+            Logger.AddLine("Control fitness: " + controlFitnessCounter.CountFitness(controlTeam));
         }
     }
 }
