@@ -7,18 +7,6 @@ using Teams;
 
 namespace Simulations
 {
-    class SelectionResult
-    {
-        public readonly IEnumerable<Team> Winners;
-        public readonly IEnumerable<Team> Losers;
-
-        public SelectionResult(IEnumerable<Team> winners, IEnumerable<Team> losers)
-        {
-            this.Winners = winners;
-            this.Losers = losers;
-        }
-    }
-
     class Selection
     {
         private SimulationParameters simulationParameters;
@@ -32,16 +20,16 @@ namespace Simulations
             this.population = population;
         }
 
-        public SelectionResult Select()
+        public Tuple<Team, Team> Select()
         {
             var results = RunTournaments();
 
-            return new SelectionResult(
-                results.Select(x => x.First()),
-                results.Select(x => x.Last()));
+            return new Tuple<Team, Team>(
+                results.Item1.First(),
+                results.Item2.First());
         }
 
-        private IEnumerable<IEnumerable<Team>> RunTournaments()
+        private Tuple<IEnumerable<Team>, IEnumerable<Team>> RunTournaments()
         {
             var tournamentTasks = InitTournamentTasks();
 
@@ -50,7 +38,9 @@ namespace Simulations
 
             Task.WhenAll(tournamentTasks).Wait();
             
-            return tournamentTasks.Select(x => x.Result);
+            var results = tournamentTasks.Select(x => x.Result);
+
+            return new Tuple<IEnumerable<Team>, IEnumerable<Team>>(results.First(), results.Last());
         }
 
         private Task<IEnumerable<Team>>[] InitTournamentTasks()

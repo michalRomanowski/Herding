@@ -65,14 +65,12 @@ namespace Simulations
             return subsets;
         }
 
-        public void Replace(IEnumerable<Team> newUnits, IEnumerable<Team> oldUnits)
+        public void Replace(IEnumerable<Team> newUnits)
         {
-            foreach (var t in oldUnits)
+            foreach (var t in newUnits)
             {
-                Units.Remove(t);
+                Units[CRandom.Instance.Next(Units.Count)] = t;
             }
-
-            Units.AddRange(newUnits);
         }
     }
 }

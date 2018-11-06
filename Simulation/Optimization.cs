@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using Teams;
 using System.ComponentModel.DataAnnotations.Schema;
+using System;
 
 namespace Simulations
 {
@@ -30,6 +31,12 @@ namespace Simulations
 
         [NotMapped]
         public float BestFitness { get; private set; }
+
+        [NotMapped]
+        private const int CHILDREN_ON_EACH_STEP = 4;
+        [NotMapped]
+        private const float TEAM_MUTATION_CHANCE = 0.02f;
+
 
         public Optimization()
         {
@@ -91,30 +98,39 @@ namespace Simulations
 
             var selectionResults = new Selection(Parameters, Shepherds).Select();
 
-            var children = Crossover(selectionResults.Winners.ToList());
+            var children = Crossover(selectionResults);
+            var mutated = Mutation();
 
-            Mutation(children);
-
-            UpdateBestTeam(children);
+            UpdateBestTeam(children.Concat(mutated));
             UpdateControlFitness();
 
-            Shepherds.Replace(children, selectionResults.Losers);
+            Shepherds.Replace(children);
         }
-        
-        private IReadOnlyList<Team> Crossover(IReadOnlyList<Team> parents)
+
+        private IEnumerable<Team> Crossover(Tuple<Team, Team> parents)
         {
             List<Team> children = new List<Team>();
 
-            for (int i = 0; i < parents.Count; i += 2)
-                children.AddRange(parents[i].Crossover(parents[i + 1]));
+            for (int i = 0; i < 4; i ++)
+                children.AddRange(parents.Item1.Crossover(parents.Item2));
 
             return children;
         }
 
-        private void Mutation(IEnumerable<Team> teamsToMutate)
+        private IEnumerable<Team> Mutation()
         {
-            foreach (Team team in teamsToMutate)
-                team.Mutate(Parameters.MutationPower, Parameters.AbsoluteMutationFactor);
+            var mutated = new List<Team>();
+
+            foreach(var t in Shepherds.Units)
+            {
+                if(CRandom.Instance.NextFloat(0, 1.0f) < TEAM_MUTATION_CHANCE)
+                {
+                    t.Mutate(Parameters.MutationPower, Parameters.AbsoluteMutationFactor);
+                    mutated.Add(t);
+                }
+            }
+
+            return mutated;
         }
 
         private void UpdateBestTeam(IEnumerable<Team> newTeams)
