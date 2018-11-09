@@ -1,35 +1,50 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
-using System.Text;
 using System.Threading.Tasks;
 using Teams;
 
 namespace Simulations
 {
+    class SelectionParameters
+    {
+        public SimulationParameters SimulationParameters;
+        public Population Population;
+        public int NumberOfTournaments;
+        public int WinnersPerTournament;
+        public int LosersPerTournament;
+    }
+
+    class SelectionResult
+    {
+        public readonly IEnumerable<Team> Winners;
+        public readonly IEnumerable<Team> Losers;
+
+        public SelectionResult(IEnumerable<Team> winners, IEnumerable<Team> losers)
+        {
+            this.Winners = winners;
+            this.Losers = losers;
+        }
+    }
+
     class Selection
     {
-        private SimulationParameters simulationParameters;
-        private Population population;
+        private readonly SelectionParameters parameters;
         
-        private const int NUMBER_OF_TOURNAMENTS = 2;
-
-        public Selection(SimulationParameters simulationParameters, Population population)
+        public Selection(SelectionParameters parameters)
         {
-            this.simulationParameters = simulationParameters;
-            this.population = population;
+            this.parameters = parameters;
         }
 
-        public Tuple<Team, Team> Select()
+        public SelectionResult Select()
         {
             var results = RunTournaments();
 
-            return new Tuple<Team, Team>(
-                results.Item1.First(),
-                results.Item2.First());
+            return new SelectionResult(
+                results.SelectMany(x => x.Take(parameters.WinnersPerTournament)),
+                results.SelectMany(x => x.Skip(x.Count() - parameters.LosersPerTournament)));
         }
 
-        private Tuple<IEnumerable<Team>, IEnumerable<Team>> RunTournaments()
+        private IEnumerable<IEnumerable<Team>> RunTournaments()
         {
             var tournamentTasks = InitTournamentTasks();
 
@@ -37,10 +52,8 @@ namespace Simulations
                 t.Start();
 
             Task.WhenAll(tournamentTasks).Wait();
-            
-            var results = tournamentTasks.Select(x => x.Result);
 
-            return new Tuple<IEnumerable<Team>, IEnumerable<Team>>(results.First(), results.Last());
+            return tournamentTasks.Select(x => x.Result);
         }
 
         private Task<IEnumerable<Team>>[] InitTournamentTasks()
@@ -50,9 +63,9 @@ namespace Simulations
 
         private IEnumerable<ITournament> InitTournaments()
         {
-            var participants = population.GetRandomUniqueSubsets(NUMBER_OF_TOURNAMENTS, simulationParameters.NumberOfParticipants);
+            var participants = parameters.Population.GetRandomUniqueSubsets(parameters.NumberOfTournaments, parameters.SimulationParameters.NumberOfParticipants);
 
-            return participants.Select(x => TournamentFactory.GetTournament(simulationParameters, x));
+            return participants.Select(x => TournamentFactory.GetTournament(parameters.SimulationParameters, x));
         }
     }
 }

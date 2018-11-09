@@ -1,5 +1,6 @@
 ﻿using Agent;
 using Auxiliary;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using Teams;
@@ -65,12 +66,15 @@ namespace Simulations
             return subsets;
         }
 
-        public void Replace(IEnumerable<Team> newUnits)
+        public void Replace(IEnumerable<Team> newUnits, IEnumerable<Team> oldUnits)
         {
-            foreach (var t in newUnits)
-            {
-                Units[CRandom.Instance.Next(Units.Count)] = t;
-            }
+            if (newUnits.Count() != oldUnits.Count())
+                throw new ArgumentException();
+
+            foreach (var t in oldUnits)
+                Units.Remove(t);
+
+            Units.AddRange(newUnits);
         }
     }
 }

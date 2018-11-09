@@ -9,6 +9,7 @@ namespace Agent
     abstract class Sheep : IMovingAgent
     {
         private const float SIGHT_RANGE = 50.0f;
+        private const float SPEED_MULTIPLIER = 4.0f;
 
         public Position Position { get; set; }
 
@@ -44,7 +45,7 @@ namespace Agent
                 if (distance > SIGHT_RANGE)
                     continue;
 
-                float speed = SIGHT_RANGE - distance;
+                float speed = (SIGHT_RANGE - distance) * SPEED_MULTIPLIER / SIGHT_RANGE;
 
                 var normalized = Vector2.Normalize(d);
 
@@ -56,7 +57,7 @@ namespace Agent
                 decision = Vector2.Normalize(decision);
 
             DecideOutput = new float[2] { decision.X, decision.Y };
-            
+
             return DecideOutput;
         }
 

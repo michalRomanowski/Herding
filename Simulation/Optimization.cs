@@ -24,19 +24,26 @@ namespace Simulations
         private IBestTeamSelector bestTeamSelector;
         private IFitnessCounter controlFitnessCounter;
         private CountFitnessParameters controlFitnessParameters;
-        
+
+        private Selection selection;
+
         private IAutosaver _autosaver;
         [NotMapped]
         public IAutosaver Autosaver { set { _autosaver = value; } }
 
         [NotMapped]
         public float BestFitness { get; private set; }
-
-        [NotMapped]
-        private const int CHILDREN_ON_EACH_STEP = 4;
+        
         [NotMapped]
         private const float TEAM_MUTATION_CHANCE = 0.02f;
-
+        [NotMapped]
+        private const int CHILDREN_ON_EACH_STEP = 4; // Must be Even 
+        [NotMapped]
+        private const int NUMBER_OF_TOURNAMENTS = 2;
+        [NotMapped]
+        private const int WINNERS_PER_TOURNAMENT = 1;
+        [NotMapped]
+        private const int LOSERS_PER_TOURNAMENT = CHILDREN_ON_EACH_STEP / NUMBER_OF_TOURNAMENTS;
 
         public Optimization()
         {
@@ -71,7 +78,15 @@ namespace Simulations
             bestTeamSelector = BestTeamSelectorFactory.GetBestTeamSelector(Parameters.GetBestTeamSelectorParameters());
             
             Parameters.BestResultAtStep = new List<float>();
-            
+
+            selection = new Selection(
+                new SelectionParameters(){
+                    SimulationParameters = Parameters,
+                    Population = Shepherds,
+                    NumberOfTournaments = NUMBER_OF_TOURNAMENTS,
+                    WinnersPerTournament = WINNERS_PER_TOURNAMENT,
+                    LosersPerTournament = LOSERS_PER_TOURNAMENT});
+
             Optimize();
         }
 
@@ -85,34 +100,35 @@ namespace Simulations
         {
             for (StepCount = 0; StepCount < Parameters.OptimizationSteps && Parameters.Progress < 1 && stop == false; StepCount++)
             {
+                Logger.AddLine("Era: " + StepCount);
+                Parameters.Progress = (float)(StepCount + 1) / Parameters.OptimizationSteps;
+
                 Step();
+
                 _autosaver.Autosave(this, StepCount);
             }
         }
 
         private void Step()
         {
-            Logger.AddLine("Era: " + StepCount);
+            Mutation();
             
-            Parameters.Progress = (float)(StepCount + 1) / Parameters.OptimizationSteps;
+            var selectionResults = selection.Select();
 
-            var selectionResults = new Selection(Parameters, Shepherds).Select();
+            var children = Crossover(selectionResults.Winners.First(), selectionResults.Winners.Last());
 
-            var children = Crossover(selectionResults);
-            var mutated = Mutation();
-
-            UpdateBestTeam(children.Concat(mutated));
-            UpdateControlFitness();
-
-            Shepherds.Replace(children);
+            Shepherds.Replace(children, selectionResults.Losers);
+            
+            if(UpdateBestTeam(selectionResults.Winners))
+                UpdateControlFitness();
         }
 
-        private IEnumerable<Team> Crossover(Tuple<Team, Team> parents)
+        private IEnumerable<Team> Crossover(Team parent1, Team parent2)
         {
             List<Team> children = new List<Team>();
 
-            for (int i = 0; i < 4; i ++)
-                children.AddRange(parents.Item1.Crossover(parents.Item2));
+            for (int i = 0; i < CHILDREN_ON_EACH_STEP; i += 2)
+                children.AddRange(parent1.Crossover(parent2));
 
             return children;
         }
@@ -133,10 +149,13 @@ namespace Simulations
             return mutated;
         }
 
-        private void UpdateBestTeam(IEnumerable<Team> newTeams)
+        private bool UpdateBestTeam(IEnumerable<Team> newTeams)
         {
             var bestPretenders = newTeams.Concat(new List<Team>() { Shepherds.Best });
             Shepherds.Best = bestTeamSelector.GetBestTeam(bestPretenders).GetClone();
+
+            bool bestChanged = BestFitness != Shepherds.Best.Fitness;
+
             BestFitness = Shepherds.Best.Fitness;
 
             foreach (var nt in newTeams)
@@ -146,6 +165,8 @@ namespace Simulations
 
             Parameters.BestResultAtStep.Add(Shepherds.Best.Fitness);
             Logger.AddLine("Best fitness: " + Shepherds.Best.Fitness);
+
+            return bestChanged;
         }
 
         private void UpdateControlFitness()
