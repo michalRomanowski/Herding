@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using System.Linq;
 using Teams;
 using System.ComponentModel.DataAnnotations.Schema;
-using System;
 
 namespace Simulations
 {
@@ -77,8 +76,6 @@ namespace Simulations
             
             bestTeamSelector = BestTeamSelectorFactory.GetBestTeamSelector(Parameters.GetBestTeamSelectorParameters());
             
-            Parameters.BestResultAtStep = new List<float>();
-
             selection = new Selection(
                 new SelectionParameters(){
                     SimulationParameters = Parameters,
@@ -119,7 +116,7 @@ namespace Simulations
 
             Shepherds.Replace(children, selectionResults.Losers);
             
-            if(UpdateBestTeam(selectionResults.Winners))
+            if(UpdateBestTeam(ComposeBestPretenders(selectionResults.Winners)))
                 UpdateControlFitness();
         }
 
@@ -149,24 +146,31 @@ namespace Simulations
             return mutated;
         }
 
-        private bool UpdateBestTeam(IEnumerable<Team> newTeams)
-        {
-            var bestPretenders = newTeams.Concat(new List<Team>() { Shepherds.Best });
-            Shepherds.Best = bestTeamSelector.GetBestTeam(bestPretenders).GetClone();
+        private bool UpdateBestTeam(IEnumerable<Team> pretenders)
+        {            
+            var best = bestTeamSelector.GetBestTeam(pretenders);
+            var bestClone = best.GetClone();
+            
+            bool bestChanged = false;
 
-            bool bestChanged = BestFitness != Shepherds.Best.Fitness;
-
-            BestFitness = Shepherds.Best.Fitness;
-
-            foreach (var nt in newTeams)
+            if (best.Fitness != Shepherds.Best.Fitness)
             {
-                Logger.AddLine("New fitness: " + nt.Fitness);
+                Shepherds.Best = bestClone; 
+                bestChanged = true;
             }
 
-            Parameters.BestResultAtStep.Add(Shepherds.Best.Fitness);
+            BestFitness = Shepherds.Best.Fitness;
+            
             Logger.AddLine("Best fitness: " + Shepherds.Best.Fitness);
-
             return bestChanged;
+        }
+
+        private IEnumerable<Team> ComposeBestPretenders(IEnumerable<Team> newTeams)
+        {
+            var pretenders = newTeams.Select(x => x).ToList();
+            pretenders.Add(Shepherds.Best);
+
+            return pretenders;
         }
 
         private void UpdateControlFitness()

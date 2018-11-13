@@ -5,7 +5,6 @@ using System.Threading;
 using System.Windows.Forms;
 using System.ComponentModel;
 using Timer;
-using Teams;
 using Agent;
 using Auxiliary;
 using Simulations;
@@ -412,6 +411,15 @@ namespace View
             NumericUpDownRandomSetsForBestSeed.Value = CRandom.Instance.Next();
         }
 
+        private void ButtonLoadControlFitnessCounter_Click(object sender, EventArgs e)
+        {
+            foreach (Form f in children)
+                f.Dispose();
+
+            Enabled = false;
+            new FLoadControlFitnessCounter(this).Show();
+        }
+
         #endregion
 
         private void CheckBoxRandomPositions_CheckedChanged(object sender, EventArgs e)
@@ -468,14 +476,5 @@ namespace View
         }
 
         #endregion
-
-        private void buttonLoadControlFitnessCounter_Click(object sender, EventArgs e)
-        {
-            foreach (Form f in children)
-                f.Dispose();
-
-            Enabled = false;
-            new FLoadControlFitnessCounter(this).Show();
-        }
     }
 }

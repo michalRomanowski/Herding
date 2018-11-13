@@ -1,7 +1,6 @@
 ﻿using System.Collections.Generic;
 using Agent;
 using Auxiliary;
-using Teams;
 
 namespace Simulations
 {

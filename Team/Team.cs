@@ -32,9 +32,9 @@ namespace Teams
 
         public void SetPositions(IList<Position> positions)
         {
-            foreach (Position p in positions)
+            for(int i = 0; i < positions.Count; i++)
             {
-                Members[positions.IndexOf(p)].Position = new Position(p);
+                Members[i].Position = new Position(positions[i]);
             }
         }
 

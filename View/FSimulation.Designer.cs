@@ -887,7 +887,7 @@
             this.buttonLoadControlFitnessCounter.TabIndex = 88;
             this.buttonLoadControlFitnessCounter.Text = "Load Control Fitness Counter";
             this.buttonLoadControlFitnessCounter.UseVisualStyleBackColor = true;
-            this.buttonLoadControlFitnessCounter.Click += new System.EventHandler(this.buttonLoadControlFitnessCounter_Click);
+            this.buttonLoadControlFitnessCounter.Click += new System.EventHandler(this.ButtonLoadControlFitnessCounter_Click);
             // 
             // FSimulation
             // 

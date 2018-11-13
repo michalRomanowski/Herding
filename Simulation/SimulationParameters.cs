@@ -127,8 +127,6 @@ namespace Simulations
         
         public RandomSetsList RandomSetsForBest { get; set; }
 
-        public List<float> BestResultAtStep { get; set; }
-
         public EFitnessType FitnessType { get; set; }
 
         public bool NotIdenticalAgents;

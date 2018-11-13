@@ -10,14 +10,13 @@ namespace Simulations
 {
     public class FinalFitnessCounter : IFitnessCounter
     {
-        private CountFitnessParameters parameters;
+        private readonly CountFitnessParameters parameters;
 
         public FinalFitnessCounter(CountFitnessParameters parameters)
         {
             this.parameters = parameters;
         }
-
-
+        
         public float CountFitness(Team team)
         {
             if (parameters.PositionsOfShepherdsSet.Count != parameters.PositionsOfSheepSet.Count)
@@ -29,11 +28,8 @@ namespace Simulations
             {
                 fitness += CountFitness(
                     team,
-                    parameters.TurnsOfHerding,
                     parameters.PositionsOfShepherdsSet[i],
-                    parameters.PositionsOfSheepSet[i],
-                    parameters.SheepType,
-                    parameters.Seed);
+                    parameters.PositionsOfSheepSet[i]);
             }
 
             return fitness;
@@ -41,20 +37,17 @@ namespace Simulations
 
         private float CountFitness(
             Team team,
-            int TurnsOfHerding,
             IList<Position> positionsOfShepherds, 
-            IList<Position> positionsOfSheep,
-            ESheepType sheepType, 
-            int seed)
+            IList<Position> positionsOfSheep)
         {
-            var sheep = AgentFactory.GetSheep(positionsOfSheep, sheepType, seed);
+            var sheep = AgentFactory.GetSheep(positionsOfSheep, parameters.SheepType, parameters.Seed);
 
             team.ClearPath();
             team.SetPositions(positionsOfShepherds);
 
             var world = new SimulationWorld(team, sheep, false);
 
-            world.Work(TurnsOfHerding);
+            world.Work(parameters.TurnsOfHerding);
 
             return world.Sheep.Select(x => x.Position).SumOfDistancesFromCenter();
         }
