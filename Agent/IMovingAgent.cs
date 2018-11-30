@@ -3,18 +3,18 @@ using System.Collections.Generic;
 
 namespace Agent
 {
-    public interface IHasPosition
+    public interface IHavePosition
     {
         Position Position { get; set; }
     }
 
-    public interface IMobileAgent : IHasPosition
+    public interface IHavePath : IHavePosition
     {
         IList<Position> Path { get; set; }
         void StepBack();
     }
 
-    public interface IMovingAgent : IMobileAgent
+    public interface IMovingAgent : IHavePath
     {
         float[] Decide(float[] input);
         float[] DecideOutput { get; }

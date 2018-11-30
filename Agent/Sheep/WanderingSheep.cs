@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Numerics;
+using Auxiliary;
 
 namespace Agent
 {
@@ -18,7 +19,7 @@ namespace Agent
             }
             set
             {
-                _randomMoveAngle = value % ((float)Math.PI * 2.0f);
+                _randomMoveAngle = value % (CMath.PI * 2.0f);
             }
         }
 

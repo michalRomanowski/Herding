@@ -7,14 +7,14 @@ namespace World
 {
     public static class Finder
     {
-        public static IEnumerable<IHasPosition> FindAgentsAtRange(Position center, float range, IEnumerable<IHasPosition> agents)
+        public static IEnumerable<IHavePosition> FindAgentsAtRange(Position center, float range, IEnumerable<IHavePosition> agents)
         {
             float squaredRange = range * range;
 
             return agents.Where(x => Position.SquaredDistance(center, x.Position) <= squaredRange);
         }
 
-        public static IEnumerable<IHasPosition> FindClosestAgents(IHasPosition center, int numberOfAgentsToFind, IEnumerable<IHasPosition> agents)
+        public static IEnumerable<IHavePosition> FindClosestAgents(IHavePosition center, int numberOfAgentsToFind, IEnumerable<IHavePosition> agents)
         {
             var closestObjects = agents
                 .Where(x => x != center)
@@ -24,7 +24,7 @@ namespace World
             closestObjects.Sort((a, b) => {
                 return a.SquareDistance > b.SquareDistance ? 1 : -1;});
             
-            List<IHasPosition> closestAgents = new List<IHasPosition>();
+            List<IHavePosition> closestAgents = new List<IHavePosition>();
             
             var timesToCopyFirstAgent = numberOfAgentsToFind - closestObjects.Count();
             

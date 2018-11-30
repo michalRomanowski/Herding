@@ -37,10 +37,10 @@ namespace World
         private readonly Color shepherdPathColor = Color.OrangeRed;
         private readonly Color centreOfSheepColor = Color.White;
 
-        private readonly IEnumerable<IMobileAgent> sheep;
-        private readonly IEnumerable<IMobileAgent> shepherds;
+        private readonly IEnumerable<IHavePath> sheep;
+        private readonly IEnumerable<IHavePath> shepherds;
 
-        public Drawing(int offsetX, int offsetY, int sizeX, int sizeY, IEnumerable<IMobileAgent> sheep, IEnumerable<IMobileAgent> shepherds, int numberOfSeenSheep, int numberOfSeenShepherds)
+        public Drawing(int offsetX, int offsetY, int sizeX, int sizeY, IEnumerable<IHavePath> sheep, IEnumerable<IHavePath> shepherds, int numberOfSeenSheep, int numberOfSeenShepherds)
         {
             this.sizeX = sizeX;
             this.sizeY = sizeY;
@@ -88,7 +88,7 @@ namespace World
                 gfx.FillEllipse(new SolidBrush(Color.DarkBlue), new Rectangle(OffsetX + (int)s.Position.X - 50, OffsetY + (int)s.Position.Y - 50, 100, 100));
         }
         
-        private void DrawPath(Graphics gfx, IEnumerable<IMobileAgent> mobiles, Color color)
+        private void DrawPath(Graphics gfx, IEnumerable<IHavePath> mobiles, Color color)
         {
             foreach (var m in mobiles)
             {
@@ -106,7 +106,7 @@ namespace World
             }
         }
 
-        private void DrawSight(Graphics gfx, IHasPosition center, IEnumerable<IHasPosition> close, Color color)
+        private void DrawSight(Graphics gfx, IHavePosition center, IEnumerable<IHavePosition> close, Color color)
         {
             foreach (var c in close)
             {
@@ -114,7 +114,7 @@ namespace World
             }
         }
 
-        private void DrawAgents(Graphics gfx, IEnumerable<IHasPosition> agents, Color color)
+        private void DrawAgents(Graphics gfx, IEnumerable<IHavePosition> agents, Color color)
         {
             foreach(var a in agents)
                 gfx.FillEllipse(new SolidBrush(color), new Rectangle((int)a.Position.X - 4 + OffsetX, (int)a.Position.Y - 4 + OffsetY, 8, 8));
