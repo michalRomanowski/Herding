@@ -4,18 +4,18 @@ namespace NeuralNets
 {
     static class ArrayClone
     {
-        public static float[] GetClone(this float[] origin)
+        public static T[] GetClone<T>(this T[] origin)
         {
-            var clone = new float[origin.Length];
+            var clone = new T[origin.Length];
 
             Array.Copy(origin, clone, origin.Length);
 
             return clone;
         }
 
-        public static float[,] GetClone(this float[,] origin)
+        public static T[,] GetClone<T>(this T[,] origin)
         {
-            var clone = new float[origin.GetLength(0), origin.GetLength(1)];
+            var clone = new T[origin.GetLength(0), origin.GetLength(1)];
 
             Array.Copy(
                 origin,
@@ -25,9 +25,9 @@ namespace NeuralNets
             return clone;
         }
 
-        public static float[][,] GetClone(this float[][,] origin)
+        public static T[][,] GetClone<T>(this T[][,] origin)
         {
-            var clone = new float[origin.GetLength(0)][,];
+            var clone = new T[origin.GetLength(0)][,];
 
             for (int i = 0; i < origin.Length; i++)
             {
@@ -37,9 +37,9 @@ namespace NeuralNets
             return clone;
         }
 
-        public static float[][] GetClone(this float[][] origin)
+        public static double[][] GetClone(this double[][] origin)
         {
-            var clone = new float[origin.Length][];
+            var clone = new double[origin.Length][];
 
             for(int i = 0; i < origin.Length; i++)
             {
