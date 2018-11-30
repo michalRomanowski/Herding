@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Numerics;
+using System.Globalization;
 
 namespace Auxiliary
 {
@@ -77,8 +78,8 @@ namespace Auxiliary
         {
             var splitted = compressed.Split(SEPARATOR);
 
-            X = (float)Convert.ToDouble(splitted[0]);
-            Y = (float)Convert.ToDouble(splitted[1]);
+            X = (float)Convert.ToDouble(splitted[0], CultureInfo.InvariantCulture);
+            Y = (float)Convert.ToDouble(splitted[1], CultureInfo.InvariantCulture);
 
             return this;
         }

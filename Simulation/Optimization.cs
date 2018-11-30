@@ -1,4 +1,5 @@
-﻿using Auxiliary;
+﻿using System;
+using Auxiliary;
 using System.Collections.Generic;
 using System.Linq;
 using Teams;
@@ -32,7 +33,9 @@ namespace Simulations
 
         [NotMapped]
         public float BestFitness { get; private set; }
-        
+        [NotMapped]
+        private float controlFitness;
+
         [NotMapped]
         private const float TEAM_MUTATION_CHANCE = 0.02f;
         [NotMapped]
@@ -98,6 +101,7 @@ namespace Simulations
             for (StepCount = 0; StepCount < Parameters.OptimizationSteps && Parameters.Progress < 1 && stop == false; StepCount++)
             {
                 Logger.AddLine("Era: " + StepCount);
+                Logger.AddLine("Time: " + DateTime.Now.ToString());
                 Parameters.Progress = (float)(StepCount + 1) / Parameters.OptimizationSteps;
 
                 Step();
@@ -115,9 +119,13 @@ namespace Simulations
             var children = Crossover(selectionResults.Winners.First(), selectionResults.Winners.Last());
 
             Shepherds.Replace(children, selectionResults.Losers);
-            
-            if(UpdateBestTeam(ComposeBestPretenders(selectionResults.Winners)))
+
+            var newBestTeam = UpdateBestTeam(ComposeBestPretenders(selectionResults.Winners));
+
+            if (newBestTeam)
                 UpdateControlFitness();
+
+            LogControlFitness();
         }
 
         private IEnumerable<Team> Crossover(Team parent1, Team parent2)
@@ -181,7 +189,15 @@ namespace Simulations
             var controlTeam = Shepherds.Best.GetClone();
             controlTeam.Resize(controlFitnessParameters.PositionsOfShepherdsSet.First().Count);
 
-            Logger.AddLine("Control fitness: " + controlFitnessCounter.CountFitness(controlTeam));
+            controlFitness = controlFitnessCounter.CountFitness(controlTeam);
+        }
+
+        private void LogControlFitness()
+        {
+            if (controlFitnessCounter == null)
+                return;
+
+            Logger.AddLine($"Control Fitness: {controlFitness}");
         }
     }
 }

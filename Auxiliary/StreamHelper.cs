@@ -1,5 +1,6 @@
 ﻿using System;
 using System.IO;
+using System.Globalization;
 
 namespace Auxiliary
 {
@@ -50,7 +51,7 @@ namespace Auxiliary
             {
                 for (int j = 0; j < wages.GetLength(1); j++)
                 {
-                    wages[i, j] = (float)decimal.Parse(sr.ReadLine().Replace(',', '.'), System.Globalization.NumberStyles.Float);
+                    wages[i, j] = (float)Convert.ToDouble(sr.ReadLine().Replace(',', '.'), CultureInfo.InvariantCulture);
                 }
             }
 
@@ -79,7 +80,7 @@ namespace Auxiliary
 
             for (int i = 0; i < length; i++)
             {
-                values[i] = (float)decimal.Parse(sr.ReadLine().Replace(',', '.'), System.Globalization.NumberStyles.Float);
+                values[i] = (float)Convert.ToDouble(sr.ReadLine().Replace(',', '.'), CultureInfo.InvariantCulture);
             }
 
             return values;
