@@ -5,12 +5,12 @@ namespace NeuralNets
 {
     static class CrossoverHelper
     {
-        public static float[] Crossover(float[] parentA, float[] parentB)
+        public static T[] Crossover<T>(T[] parentA, T[] parentB) where T : struct
         {
             if (parentA.Length != parentB.Length)
                 throw new ArgumentException();
 
-            var child = new float[parentA.Length];
+            var child = new T[parentA.Length];
 
             for (int i = 0; i < child.Length; i++)
                 child[i] = CRandom.Instance.NextFloat() < 0.5f ? parentA[i] : parentB[i];
@@ -18,12 +18,12 @@ namespace NeuralNets
             return child;
         }
 
-        public static float[,] Crossover(float[,] parentA, float[,] parentB)
+        public static T[,] Crossover<T>(T[,] parentA, T[,] parentB) where T : struct
         {
             if (parentA.GetLength(0) != parentB.GetLength(0) || parentA.GetLength(1) != parentB.GetLength(1))
                 throw new ArgumentException();
 
-            var child = new float[parentA.GetLength(0), parentA.GetLength(1)];
+            var child = new T[parentA.GetLength(0), parentA.GetLength(1)];
 
             for (int i = 0; i < child.GetLength(0); i++)
             {
