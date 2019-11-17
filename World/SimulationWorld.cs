@@ -3,6 +3,7 @@ using Auxiliary;
 using System.Collections.Generic;
 using System.Linq;
 using Teams;
+using MathNet.Spatial.Euclidean;
 
 namespace World
 {
@@ -12,7 +13,7 @@ namespace World
         public IList<IMovingAgent> Sheep { get; private set; }
 
         protected bool recordSheepPositionsFlag;
-        public IList<IList<Position>> SheepPositionsRecord { get; protected set; }
+        public IList<IList<Vector2D>> SheepPositionsRecord { get; protected set; }
         
         public SimulationWorld(
             Team shepherds,
@@ -26,7 +27,7 @@ namespace World
 
             if (recordSheepPositions == true)
             {
-                SheepPositionsRecord = new List<IList<Position>>();
+                SheepPositionsRecord = new List<IList<Vector2D>>();
             }
         }
 
@@ -37,12 +38,14 @@ namespace World
                 Turn();
 
                 if (recordSheepPositionsFlag)
-                    SheepPositionsRecord.Add(Sheep.Select(s => new Position(s.Position)).ToList());
+                    SheepPositionsRecord.Add(Sheep.Select(s => new Vector2D(s.Position.X, s.Position.Y)).ToList());
             }
         }
 
         protected void Turn()
         {
+            var centreOfSheep = Sheep.Select(x => x.Position).ToList().Center();
+
             foreach (var s in Shepherds.Members)
             {
                 var input = ShepherdExtractor.ExtractFeatures(this, s);
@@ -59,18 +62,18 @@ namespace World
 
             foreach (var s in Shepherds.Members)
             {
-                ShepherdExtractor.InterpretOutput(s, this, s.DecideOutput);
+                ShepherdExtractor.InterpretOutput(s, this, s.decision);
 
                 if(recordSheepPositionsFlag)
-                    s.Path.Add(new Position(s.Position));
+                    s.Path.Add(new Vector2D(s.Position.X, s.Position.Y));
             }
 
             foreach (var s in Sheep)
             {
-                SheepExtractor.InterpretOutput(s, this, s.DecideOutput);
+                s.Move();
 
                 if (recordSheepPositionsFlag)
-                    s.Path.Add(new Position(s.Position));
+                    s.Path.Add(new Vector2D(s.Position.X, s.Position.Y));
             }
         }
     }

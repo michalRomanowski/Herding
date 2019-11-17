@@ -5,6 +5,7 @@ using System;
 using System.Collections.Generic;
 using World;
 using Teams;
+using MathNet.Spatial.Euclidean;
 
 namespace Simulations
 {
@@ -17,12 +18,12 @@ namespace Simulations
             this.parameters = parameters;
         }
         
-        public float CountFitness(Team team)
+        public double CountFitness(Team team)
         {
             if (parameters.PositionsOfShepherdsSet.Count != parameters.PositionsOfSheepSet.Count)
                 throw new ArgumentException();
 
-            float fitness = 0.0f;
+            var fitness = 0.0;
 
             for (int i = 0; i < parameters.PositionsOfShepherdsSet.Count; i++)
             {
@@ -35,10 +36,10 @@ namespace Simulations
             return fitness;
         }
 
-        private float CountFitness(
+        private double CountFitness(
             Team team,
-            IList<Position> positionsOfShepherds, 
-            IList<Position> positionsOfSheep)
+            IList<Vector2D> positionsOfShepherds, 
+            IList<Vector2D> positionsOfSheep)
         {
             var sheep = AgentFactory.GetSheep(positionsOfSheep, parameters.SheepType, parameters.Seed);
 

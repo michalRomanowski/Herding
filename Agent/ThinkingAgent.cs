@@ -1,41 +1,37 @@
-﻿using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations.Schema;
-using NeuralNets;
+﻿using System;
+using System.Collections.Generic;
+using System.Xml.Serialization;
 using Auxiliary;
+using NeuralNets;
+using MathNet.Spatial.Euclidean;
 
 namespace Agent
 {
+    [Serializable]
     public abstract class ThinkingAgent : IMovingAgent, ICloneable<ThinkingAgent>
     {
-        public int Id { get; set; }
-
+        [XmlAttribute]
         public int NumberOfSeenShepherds { get; set; }
+        [XmlAttribute]
         public int NumberOfSeenSheep { get; set; }
-
-        public string CompressedNeuralNet
-        {
-            get { return Brain.ToString(); }
-            set
-            {
-                Brain = NeuralNetsFactory.GetMultiLayerNeuralNet(value);
-            }
-        }
         
-        protected INeuralNet Brain { get; set; }
+        [XmlElement]
+        public NeuralNet Brain { get; set; }
 
-        [NotMapped]
-        public float[] DecideOutput { get; protected set; }
-        
-        [NotMapped]
-        public IList<Position> Path { get; set; }
+        [XmlIgnore]
+        public IList<Vector2D> Path { get; set; }
 
-        [NotMapped]
-        public Position Position { get; set; }
-        
+        [XmlIgnore]
+        public Vector2D Position { get; set; }
+
+        [XmlIgnore]
+        public Vector2D decision;
+
         public abstract ThinkingAgent GetClone();
-        public abstract ThinkingAgent[] Crossover(ThinkingAgent partner);
-        public abstract void Mutate(float mutationChance, float absoluteMutationFactor);
-        public abstract float[] Decide(float[] input);
+        public abstract ThinkingAgent Crossover(ThinkingAgent partner);
+        public abstract void Mutate(double mutationChance, double absoluteMutationFactor);
+        public abstract void Decide(double[] input);
+        public abstract void Move();
 
         public abstract void ResizeNeuralNet(int numberOfSeenShepherds, int numberOfSeenSheep, int numberOfHiddenLayers, int hiddenLayerSize);
 

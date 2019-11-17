@@ -1,6 +1,5 @@
 ﻿using System;
-using System.Numerics;
-using Auxiliary;
+using MathNet.Spatial.Euclidean;
 
 namespace Agent
 {
@@ -8,10 +7,10 @@ namespace Agent
     {
         private Random r;
 
-        private const float RANDOM_ROTATION_SPEED = 0.15f;
-        private const float RANDOM_MOVEMENT_SPEED = 0.25f;
+        private const double RANDOM_ROTATION_SPEED = 0.15f;
+        private const double RANDOM_MOVEMENT_SPEED = 0.25f;
 
-        private float RandomMoveAngle
+        private double RandomMoveAngle
         {
             get
             {
@@ -19,33 +18,28 @@ namespace Agent
             }
             set
             {
-                _randomMoveAngle = value % (CMath.PI * 2.0f);
+                _randomMoveAngle = value % (Math.PI * 2.0);
             }
         }
 
-        private float _randomMoveAngle;
+        private double _randomMoveAngle;
 
-        public WanderingSheep(float x, float y, int seed) : base(x, y)
+        public WanderingSheep(double x, double y, int seed) : base(x, y)
         {
             r = new Random(seed);
-            RandomMoveAngle = (float)r.NextDouble() * (float)Math.PI * 2.0f;
+            RandomMoveAngle = r.NextDouble() * Math.PI * 2.0;
         }
 
-        public override float[] Decide(float[] input)
+        public override void Decide(double[] input)
         {
             base.Decide(input);
 
-            RandomMoveAngle += ((float)r.NextDouble() - 0.5f) * RANDOM_ROTATION_SPEED;
+            RandomMoveAngle += (r.NextDouble() - 0.5f) * RANDOM_ROTATION_SPEED;
 
-            float randomX = (float)Math.Cos(RandomMoveAngle);
-            float randomY = (float)Math.Sin(RandomMoveAngle);
+            var randomX = Math.Cos(RandomMoveAngle);
+            var randomY = Math.Sin(RandomMoveAngle);
 
-            var vectorLengthOne = Vector2.Normalize(new Vector2(randomX, randomY));
-            
-            DecideOutput[0] += vectorLengthOne.X * RANDOM_MOVEMENT_SPEED;
-            DecideOutput[1] += vectorLengthOne.Y * RANDOM_MOVEMENT_SPEED;
-
-            return DecideOutput;
+            decision += new Vector2D(randomX, randomY).Normalize() * RANDOM_MOVEMENT_SPEED;
         }
     }
 }

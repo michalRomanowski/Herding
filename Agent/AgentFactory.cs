@@ -1,19 +1,19 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using Auxiliary;
+using MathNet.Spatial.Euclidean;
 
 namespace Agent
 {
     public static class AgentFactory
     {
         public static ThinkingAgent GetShepherd(
-            ShepherdParameters parameters)
+            IShepherdParameters parameters)
         {
             return new Shepherd(parameters);
         }
 
-        public static IList<IMovingAgent> GetSheep(IList<Position> positions, ESheepType sheepType, int seed)
+        public static IList<IMovingAgent> GetSheep(IList<Vector2D> positions, ESheepType sheepType, int seed)
         {
             switch (sheepType)
             {

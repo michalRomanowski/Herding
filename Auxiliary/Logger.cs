@@ -3,57 +3,32 @@ using System.IO;
 
 namespace Auxiliary
 {
-    public static class Logger
+    public class Logger : IDisposable
     {
-        public static string LogPath = Path.Combine(Directory.GetCurrentDirectory(), "log.txt");
+        public static readonly Logger Instance = new Logger();
 
-        private static object locker = new object();
-
+        private static readonly string logPath = Path.Combine(Directory.GetCurrentDirectory(), "log.txt");
+        private static readonly object locker = new object();
         private static StreamWriter logFile;
-
-        public static void Clear()
+        
+        public void AddLine(string line)
         {
-            if(!File.Exists(LogPath))
-                File.Create(LogPath);
+            Console.WriteLine(line);
 
-            if (logFile != null)
-                logFile.Close();
-
-            logFile = new StreamWriter(LogPath, false);
-        }
-
-        public static void CopyToDir(string dirPath)
-        {
             if (logFile == null)
-                logFile = new StreamWriter(LogPath, true);
-
-            File.Copy(LogPath, Path.Combine(dirPath, "log.txt"));
-        }
-
-        public static void AddLine(string line)
-        {
-            if(logFile == null)
-                logFile = new StreamWriter(LogPath, true);
-
+            {
+                logFile = new StreamWriter(logPath, true);
+            }
+            
             lock (locker)
             {
                 logFile.WriteLine(line);
             }
         }
 
-        public static void Flush()
+        public void Dispose()
         {
-            try
-            {
-                logFile.Flush();
-            }
-            catch (ObjectDisposedException) { }
-        }
-
-        public static void Close()
-        {
-            if(logFile != null)
-                logFile.Close();
+            logFile.Dispose();
         }
     }
 }

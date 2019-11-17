@@ -13,22 +13,21 @@ namespace NeuralNets
             var child = new T[parentA.Length];
 
             for (int i = 0; i < child.Length; i++)
-                child[i] = CRandom.Instance.NextFloat() < 0.5f ? parentA[i] : parentB[i];
+                child[i] = CRandom.Instance.NextDouble() < 0.5 ? parentA[i] : parentB[i];
 
             return child;
         }
 
-        public static T[,] Crossover<T>(T[,] parentA, T[,] parentB) where T : struct
+        public static T[][] Crossover<T>(T[][] parentA, T[][] parentB) where T : struct
         {
-            if (parentA.GetLength(0) != parentB.GetLength(0) || parentA.GetLength(1) != parentB.GetLength(1))
+            if (parentA.Length != parentB.Length || parentA[0].Length != parentB[0].Length)
                 throw new ArgumentException();
-
-            var child = new T[parentA.GetLength(0), parentA.GetLength(1)];
+            
+            var child = new T[parentA.Length][]; 
 
             for (int i = 0; i < child.GetLength(0); i++)
             {
-                for (int j = 0; j < child.GetLength(1); j++)
-                    child[i, j] = CRandom.Instance.NextFloat() < 0.5f ? child[i, j] = parentA[i, j] : child[i, j] = parentB[i, j];
+                child[i] = Crossover<T>(parentA[i], parentB[i]);
             }
 
             return child;

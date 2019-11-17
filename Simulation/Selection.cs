@@ -1,33 +1,34 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
-using System.Threading.Tasks;
+using Auxiliary;
 using Teams;
 
 namespace Simulations
 {
     class SelectionParameters
     {
-        public SimulationParameters SimulationParameters;
+        public OptimizationParameters OptimizationParameters;
         public Population Population;
-        public int NumberOfTournaments;
-        public int WinnersPerTournament;
-        public int LosersPerTournament;
     }
 
     class SelectionResult
     {
-        public readonly IEnumerable<Team> Winners;
-        public readonly IEnumerable<Team> Losers;
+        public readonly IList<Team> Winners;
+        public readonly IList<Team> Losers;
 
-        public SelectionResult(IEnumerable<Team> winners, IEnumerable<Team> losers)
+        public SelectionResult(
+            IList<Team> winners,
+            IList<Team> losers)
         {
-            this.Winners = winners;
-            this.Losers = losers;
+            Winners = winners;
+            Losers = losers;
         }
     }
 
     class Selection
     {
+        private const int WINNERS = 2;
+
         private readonly SelectionParameters parameters;
         
         public Selection(SelectionParameters parameters)
@@ -37,35 +38,18 @@ namespace Simulations
 
         public SelectionResult Select()
         {
-            var results = RunTournaments();
+            var participants = parameters.Population.Units
+                .OrderBy(x => CRandom.Instance.Next())
+                .Take(parameters.OptimizationParameters.NumberOfParticipants);
+
+            var results = participants
+                .AsParallel()
+                .OrderBy(x => FitnessCounterFactory.GetFitnessCounter(parameters.OptimizationParameters.GetCountFitnessParameters()).CountFitness(x))
+                .ToList();
 
             return new SelectionResult(
-                results.SelectMany(x => x.Take(parameters.WinnersPerTournament)),
-                results.SelectMany(x => x.Skip(x.Count() - parameters.LosersPerTournament)));
-        }
-
-        private IEnumerable<IEnumerable<Team>> RunTournaments()
-        {
-            var tournamentTasks = InitTournamentTasks();
-
-            foreach (var t in tournamentTasks)
-                t.Start();
-
-            Task.WhenAll(tournamentTasks).Wait();
-
-            return tournamentTasks.Select(x => x.Result);
-        }
-
-        private Task<IEnumerable<Team>>[] InitTournamentTasks()
-        {
-            return InitTournaments().Select(x => new Task<IEnumerable<Team>>(() => x.Attend())).ToArray();
-        }
-
-        private IEnumerable<ITournament> InitTournaments()
-        {
-            var participants = parameters.Population.GetRandomUniqueSubsets(parameters.NumberOfTournaments, parameters.SimulationParameters.NumberOfParticipants);
-
-            return participants.Select(x => TournamentFactory.GetTournament(parameters.SimulationParameters, x));
+                results.Take(WINNERS).ToList(),
+                results.Skip(WINNERS).ToList());
         }
     }
 }

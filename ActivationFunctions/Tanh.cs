@@ -1,12 +1,12 @@
-﻿using Auxiliary;
+﻿using System;
 
 namespace ActivationFunctions
 {
-    class Tanh : IActivationFunction
+    public class Tanh : ActivationFunction
     {
-        public float Impuls(float net)
+        public override double Impuls(double net)
         {
-            return CMath.Tanh(net);
+            return Math.Tanh(net);
         }
     }
 }

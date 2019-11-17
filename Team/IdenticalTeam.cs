@@ -8,14 +8,11 @@ namespace Teams
     {
         public IdenticalTeam() : base() { }
 
-        public IdenticalTeam(TeamParameters parameters) : base(parameters) { }
+        public IdenticalTeam(ITeamParameters parameters) : base(parameters) { }
 
         public override Team GetClone()
         {
-            var clone = new IdenticalTeam
-            {
-                Fitness = Fitness
-            };
+            var clone = new IdenticalTeam();
 
             foreach (var a in Members)
             {
@@ -25,25 +22,21 @@ namespace Teams
             return clone;
         }
         
-        public override Team[] Crossover(Team partner)
+        public override Team Crossover(Team partner)
         {
-            Team[] children = new Team[2] { new IdenticalTeam(), new IdenticalTeam() };
+            var children = new IdenticalTeam();
 
-            var childrenAgents = Members[0].Crossover(partner.Members[0]).Select(x => x as ThinkingAgent).ToArray();
-
-            children[0].Members.Add(childrenAgents[0]);
-            children[1].Members.Add(childrenAgents[1]);
+            children.Members.Add(Members[0].Crossover(partner.Members[0]));
 
             for (int i = 1; i < Members.Count; i++)
             {
-                children[0].Members.Add(childrenAgents[0].GetClone());
-                children[1].Members.Add(childrenAgents[1].GetClone());
+                children.Members.Add(children.Members.First().GetClone());
             }
 
             return children;
         }
 
-        public override void Mutate(float mutationPower, float absoluteMutationFactor)
+        public override void Mutate(double mutationPower, double absoluteMutationFactor)
         {
             Members[0].Mutate(mutationPower, absoluteMutationFactor);
 

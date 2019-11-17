@@ -1,35 +1,41 @@
-﻿using Agent;
-using Auxiliary;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using Teams;
+using MathNet.Spatial.Euclidean;
 
 namespace Simulations
 {
     public class Population
     {
-        public int Id { get; set; }
-
         public List<Team> Units { get; set; }
-
+        
         public Team Best { get; set; }
         
-        public Population() { }
+        public Population()
+        {
+            Units = new List<Team>();
+            Best = Units.FirstOrDefault()?.GetClone();
+        }
 
-        public Population(PopulationParameters parameters)
+        public Population(IPopulationParameters parameters)
+        {
+            Randomize(parameters);
+        }
+
+        public void Randomize(IPopulationParameters parameters)
         {
             Units = new List<Team>();
 
             for (int i = 0; i < parameters.PopulationSize; i++)
             {
-                Units.Add(TeamFactory.GetTeam(parameters.TeamParameters));
+                Units.Add(TeamFactory.GetTeam(parameters));
             }
 
             Best = Units.FirstOrDefault()?.GetClone();
         }
 
-        public void SetPositions(IList<Position> positions)
+        public void SetPositions(IList<Vector2D> positions)
         {
             foreach(Team t in Units)
                 t.SetPositions(positions);
@@ -49,32 +55,6 @@ namespace Simulations
 
             foreach (var t in Units)
                 t.ResizeNeuralNet(numberOfSeenShepherds, numberOfSeenSheep, numberOfHiddenLayers, hiddenLayerSize);
-        }
-
-        public IReadOnlyList<IEnumerable<Team>> GetRandomUniqueSubsets(int numberOfSubsets, int subsetSize)
-        {
-            var randomIndexesSequence = new RandomUniqueSequence(Units.Count);
-
-            var subsets = new List<IEnumerable<Team>>(numberOfSubsets);
-
-            for (int i = 0; i < numberOfSubsets; i++)
-            {
-                subsets.Add(
-                    randomIndexesSequence.GetSubSequence(subsetSize).Select(x => Units[x]).ToList());
-            }
-
-            return subsets;
-        }
-
-        public void Replace(IEnumerable<Team> newUnits, IEnumerable<Team> oldUnits)
-        {
-            if (newUnits.Count() != oldUnits.Count())
-                throw new ArgumentException();
-
-            foreach (var t in oldUnits)
-                Units.Remove(t);
-
-            Units.AddRange(newUnits);
         }
     }
 }

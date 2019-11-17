@@ -1,72 +1,67 @@
 ﻿using Auxiliary;
-using System;
 using System.Collections.Generic;
-using System.Numerics;
 using System.Linq;
+using MathNet.Spatial.Euclidean;
 
 namespace Agent
 {
     abstract class Sheep : IMovingAgent
     {
-        private const float SIGHT_RANGE = 50.0f;
-        private const float SPEED_MULTIPLIER = 4.0f;
+        public Vector2D Position { get; set; }
+        public IList<Vector2D> Path { get; set; }
 
-        public Position Position { get; set; }
+        protected Vector2D decision;
 
-        public IList<Position> Path { get; set; }
+        private const double SIGHT_RANGE = 50.0;
 
-        public float[] DecideOutput { get; private set; }
+        public double[] DecideOutput { get; private set; }
 
-        public Sheep(float x, float y)
+        public Sheep(double x, double y)
         {
-            Path = new List<Position>();
+            Path = new List<Vector2D>();
 
-            Position = new Position();
-
-            Position.X = x;
-            Position.Y = y;
+            Position = new Vector2D(x, y);
         }
 
-        public virtual float[] Decide(float[] input)
+        public virtual void Decide(double[] input)
         {
-            var decision = new Vector2();
+            decision = new Vector2D();
 
             for (int i = 0; i < input.Length; i += 2)
             {
-                var d = new Vector2(
+                var d = new Vector2D(
                     input[i],
                     input[i + 1]);
 
                 if (d.X > SIGHT_RANGE || d.X < -SIGHT_RANGE || d.Y > SIGHT_RANGE || d.Y < -SIGHT_RANGE)
                     continue;
-
-                float distance = d.Length();
-
-                if (distance > SIGHT_RANGE)
+                
+                if (d.Length > SIGHT_RANGE)
                     continue;
 
-                float speed = (SIGHT_RANGE - distance) * SPEED_MULTIPLIER / SIGHT_RANGE;
+                var speed = (SIGHT_RANGE - d.Length) * 4 / SIGHT_RANGE;
 
-                var normalized = Vector2.Normalize(d);
+                d = d.Normalize();
 
-                decision.X -= normalized.X * speed;
-                decision.Y -= normalized.Y * speed;
+                decision -= new Vector2D(d.X * speed, d.Y * speed);
             }
 
-            if (decision.Length() > 1.0f)
-                decision = Vector2.Normalize(decision);
+            decision = decision.Round();
+        }
 
-            DecideOutput = new float[2] { decision.X, decision.Y };
+        public void Move()
+        {
+            if (decision.Length > 1.0)
+                decision = decision.Normalize();
 
-            return DecideOutput;
+            Position += new Vector2D(decision.X, decision.Y);
         }
 
         public void StepBack()
         {
-            if (Path.Count < 1) return;
+            if (!Path.Any()) return;
 
-            Position.X = Path.Last().X;
-            Position.Y = Path.Last().Y;
+            Position = Path.Last();
 
             Path.RemoveAt(Path.Count - 1);
         }

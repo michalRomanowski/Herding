@@ -1,8 +1,8 @@
 ﻿namespace ActivationFunctions
 {
-    class Sum : IActivationFunction
+    public class Sum : ActivationFunction
     {
-        public float Impuls(float net)
+        public override double Impuls(double net)
         {
             return net;
         }

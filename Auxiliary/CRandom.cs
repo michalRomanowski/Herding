@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using MathNet.Spatial.Euclidean;
 
 namespace Auxiliary
 {
@@ -11,16 +12,16 @@ namespace Auxiliary
         public CRandom() : base()
         { }
 
-        public float NextFloat(float min = 0.0f, float max = 1.0f)
+        public double NextDouble(double min, double max)
         {
-            return (float)NextDouble() * (max - min) + min;
+            return NextDouble() * (max - min) + min;
         }
     }
 
     public class RandomUniqueSequence
     {
-        HashSet<int> sequence;
-        int max;
+        private HashSet<int> sequence;
+        private readonly int max;
 
         public RandomUniqueSequence(int max)
         {
@@ -56,25 +57,36 @@ namespace Auxiliary
         }
     }
 
-    public static class FloatArrayRandomizeExtensions
+    public static class ArrayRandomizeExtensions
     {
-        public static void Randmize(this float[] valuesToRandomize, float min = -1.0f, float max = 1.0f)
+        public static void Randmize(this double[] valuesToRandomize, double min = -1.0f, double max = 1.0f)
         {
             for (int i = 0; i < valuesToRandomize.Length; i++)
             {
-                valuesToRandomize[i] = CRandom.Instance.NextFloat(min, max);
+                valuesToRandomize[i] = CRandom.Instance.NextDouble(min, max);
             }
         }
 
-        public static void Randmize(this float[,] valuesToRandomize, float min = -1.0f, float max = 1.0f)
+        public static void Randmize(this double[][] valuesToRandomize, double min = -1.0, double max = 1.0)
         {
-            for (int i = 0; i < valuesToRandomize.GetLength(0); i++)
+            for (int i = 0; i < valuesToRandomize.Length; i++)
             {
-                for (int j = 0; j < valuesToRandomize.GetLength(1); j++)
+                for (int j = 0; j < valuesToRandomize[0].Length; j++)
                 {
-                    valuesToRandomize[i, j] = CRandom.Instance.NextFloat(min, max);
+                    valuesToRandomize[i][j] = CRandom.Instance.NextDouble(min, max);
                 }
             }
+        }
+    }
+
+    public static class IEnumerableRandomizeExtensions
+    {
+        public static IEnumerable<Vector2D> Randmize(this IEnumerable<Vector2D> valuesToRandomize, double min = 0, double max = 400)
+        {
+            return valuesToRandomize
+                .Select(x => new Vector2D(
+                    CRandom.Instance.NextDouble(min, max), 
+                    CRandom.Instance.NextDouble(min, max)));
         }
     }
 }

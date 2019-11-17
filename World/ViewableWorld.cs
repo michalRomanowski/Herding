@@ -40,7 +40,7 @@ namespace World
             this.numberOfSeenSheep = numberOfSeenSheep;
             this.numberOfSeenShepherds = numberOfSeenShepherds;
 
-            this.drawing = new Drawing(10, 10, 600, 600, Sheep, Shepherds.Members, numberOfSeenSheep, numberOfSeenShepherds);
+            this.drawing = new Drawing(10, 35, 600, 600, Sheep, Shepherds.Members, numberOfSeenSheep, numberOfSeenShepherds);
         }
 
         public void Start(int numberOfSteps)
@@ -123,7 +123,7 @@ namespace World
             }
         }
 
-        public void Draw(Graphics gfx, int offsetX, int offsetY, DrawingFlags flags)
+        public void Draw(Graphics gfx, DrawingFlags flags)
         {
             drawing.Draw(gfx, flags);
         }

@@ -3,182 +3,132 @@ using Auxiliary;
 using System.Collections.Generic;
 using System.Linq;
 using Teams;
-using System.ComponentModel.DataAnnotations.Schema;
 
 namespace Simulations
 {
     public class Optimization
     {
-        public int Id { get; set; }
-        public string Name { get; set; }
-
-        private readonly object stopLocker = new object();
-        private bool stop;
-
-        [NotMapped]
-        public int StepCount { get; private set; }
-
-        public SimulationParameters Parameters { get; set; }
+        public OptimizationParameters Parameters { get; set; }
         public Population Shepherds { get; set; }
-
-        private IBestTeamSelector bestTeamSelector;
+        
+        private double BestFitness;
+        private double ControlFitness;
+        
+        private BestTeamSelector bestTeamSelector;
         private IFitnessCounter controlFitnessCounter;
         private CountFitnessParameters controlFitnessParameters;
 
         private Selection selection;
 
-        private IAutosaver _autosaver;
-        [NotMapped]
-        public IAutosaver Autosaver { set { _autosaver = value; } }
+        private ISimulationRepository repository;
 
-        [NotMapped]
-        public float BestFitness { get; private set; }
-        [NotMapped]
-        private float controlFitness;
+        private const double TEAM_MUTATION_CHANCE = 0.01;
+        private const double ABSOLUTE_MUTATION_FACTOR = 1.0;
+        private const int AUTOSAVE_FREQUENCY = 1000;
 
-        [NotMapped]
-        private const float TEAM_MUTATION_CHANCE = 0.02f;
-        [NotMapped]
-        private const int CHILDREN_ON_EACH_STEP = 4; // Must be Even 
-        [NotMapped]
-        private const int NUMBER_OF_TOURNAMENTS = 2;
-        [NotMapped]
-        private const int WINNERS_PER_TOURNAMENT = 1;
-        [NotMapped]
-        private const int LOSERS_PER_TOURNAMENT = CHILDREN_ON_EACH_STEP / NUMBER_OF_TOURNAMENTS;
+        public Optimization(OptimizationParameters parameters, Population shepherds, ISimulationRepository repository)
+            : this(parameters, shepherds, repository, null){ }
 
-        public Optimization()
-        {
-            Parameters = new SimulationParameters();
-        }
-
-        public Optimization(IAutosaver autosaver) : this(new SimulationParameters(), autosaver) { }
-
-        public Optimization(SimulationParameters parameters, IAutosaver autosaver) : this(parameters, new Population(parameters.GetPopulationParameters()), autosaver) { }
-
-        public Optimization(SimulationParameters parameters, Population shepherds, IAutosaver autosaver)
+        public Optimization(OptimizationParameters parameters, 
+            Population shepherds, 
+            ISimulationRepository repository, 
+            CountFitnessParameters controlFitnessParameters)
         {
             Parameters = parameters;
             Shepherds = shepherds;
+            this.repository = repository;
 
-            this._autosaver = autosaver;
+            if(controlFitnessParameters != null)
+            {
+                this.controlFitnessCounter = FitnessCounterFactory.GetFitnessCounter(controlFitnessParameters);
+                this.controlFitnessParameters = controlFitnessParameters;
+            }
         }
         
-        public void SetControlFitnessCounter(IFitnessCounter controlFitnessCounter, CountFitnessParameters controlFitnessParameters)
-        {
-            this.controlFitnessCounter = controlFitnessCounter;
-            this.controlFitnessParameters = controlFitnessParameters;
-        }
-
         public void Start()
         {
-            Parameters.Progress = float.MinValue;
+            BestFitness = double.MaxValue;
 
-            lock (stopLocker)
-                stop = false;
-            
-            bestTeamSelector = BestTeamSelectorFactory.GetBestTeamSelector(Parameters.GetBestTeamSelectorParameters());
+            bestTeamSelector = new BestTeamSelector(
+                FitnessCounterFactory.GetFitnessCounter(Parameters.GetBestTeamSelectorParameters().CountFitnessParameters));
             
             selection = new Selection(
                 new SelectionParameters(){
-                    SimulationParameters = Parameters,
-                    Population = Shepherds,
-                    NumberOfTournaments = NUMBER_OF_TOURNAMENTS,
-                    WinnersPerTournament = WINNERS_PER_TOURNAMENT,
-                    LosersPerTournament = LOSERS_PER_TOURNAMENT});
+                    OptimizationParameters = Parameters,
+                    Population = Shepherds});
 
             Optimize();
         }
 
-        public void Stop()
-        {
-            lock (stopLocker)
-                stop = true;
-        }
-
         private void Optimize()
         {
-            for (StepCount = 0; StepCount < Parameters.OptimizationSteps && Parameters.Progress < 1 && stop == false; StepCount++)
-            {
-                Logger.AddLine("Era: " + StepCount);
-                Logger.AddLine("Time: " + DateTime.Now.ToString());
-                Parameters.Progress = (float)(StepCount + 1) / Parameters.OptimizationSteps;
+            repository.Save($"START_{DateTime.Now.ToString("yyyyMMddhhmmss")}", Parameters, Shepherds);
 
+            for (int era = 0; era < Parameters.NumberOfEras && BestFitness > Parameters.TargetFitness; era++)
+            {
                 Step();
 
-                _autosaver.Autosave(this, StepCount);
+                Log(era);
+
+                if (era % AUTOSAVE_FREQUENCY == 0)
+                    repository.Save(DateTime.Now.ToString("yyyyMMddhhmmss"), Parameters, Shepherds);
             }
+
+            repository.Save($"END_{DateTime.Now.ToString("yyyyMMddhhmmss")}", Parameters, Shepherds);
         }
 
         private void Step()
         {
-            Mutation();
-            
             var selectionResults = selection.Select();
 
-            var children = Crossover(selectionResults.Winners.First(), selectionResults.Winners.Last());
+            Mutation(selectionResults);
 
-            Shepherds.Replace(children, selectionResults.Losers);
+            Replace(Crossover(selectionResults.Winners), selectionResults.Losers);
 
-            var newBestTeam = UpdateBestTeam(ComposeBestPretenders(selectionResults.Winners));
-
-            if (newBestTeam)
+            if (UpdateBestTeam(selectionResults.Winners))
+            {
                 UpdateControlFitness();
-
-            LogControlFitness();
-        }
-
-        private IEnumerable<Team> Crossover(Team parent1, Team parent2)
-        {
-            List<Team> children = new List<Team>();
-
-            for (int i = 0; i < CHILDREN_ON_EACH_STEP; i += 2)
-                children.AddRange(parent1.Crossover(parent2));
-
-            return children;
-        }
-
-        private IEnumerable<Team> Mutation()
-        {
-            var mutated = new List<Team>();
-
-            foreach(var t in Shepherds.Units)
-            {
-                if(CRandom.Instance.NextFloat(0, 1.0f) < TEAM_MUTATION_CHANCE)
-                {
-                    t.Mutate(Parameters.MutationPower, Parameters.AbsoluteMutationFactor);
-                    mutated.Add(t);
-                }
             }
-
-            return mutated;
         }
 
-        private bool UpdateBestTeam(IEnumerable<Team> pretenders)
-        {            
-            var best = bestTeamSelector.GetBestTeam(pretenders);
-            var bestClone = best.GetClone();
-            
-            bool bestChanged = false;
-
-            if (best.Fitness != Shepherds.Best.Fitness)
-            {
-                Shepherds.Best = bestClone; 
-                bestChanged = true;
-            }
-
-            BestFitness = Shepherds.Best.Fitness;
-            
-            Logger.AddLine("Best fitness: " + Shepherds.Best.Fitness);
-            return bestChanged;
-        }
-
-        private IEnumerable<Team> ComposeBestPretenders(IEnumerable<Team> newTeams)
+        private IEnumerable<Team> Crossover(IList<Team> parents)
         {
-            var pretenders = newTeams.Select(x => x).ToList();
+            return new List<Team>() {
+                parents[0].Crossover(parents[1]),
+                parents[0].Crossover(parents[1]),
+                parents[1].Crossover(parents[0]),
+                parents[1].Crossover(parents[0])};
+        }
+
+        private void Mutation(SelectionResult selectionResults)
+        {
+            foreach (var l in selectionResults.Losers)
+                l.Mutate(Parameters.MutationPower, ABSOLUTE_MUTATION_FACTOR);
+        }
+
+        private void Replace(IEnumerable<Team> newUnits, IList<Team> oldUnits)
+        {
+            foreach(var nu in newUnits)
+            {
+                if (Shepherds.Units.Remove(oldUnits.ElementAt(CRandom.Instance.Next(oldUnits.Count()))))
+                    Shepherds.Units.Add(nu);
+            }
+        }
+
+        private bool UpdateBestTeam(IList<Team> pretenders)
+        {
             pretenders.Add(Shepherds.Best);
+            
+            var bestPretenderWithFitness = bestTeamSelector.GetBestTeam(pretenders);
+            
+            if(Shepherds.Best != bestPretenderWithFitness.Team)
+            {
+                Shepherds.Best = bestPretenderWithFitness.Team.GetClone();
+                BestFitness = bestPretenderWithFitness.Fitness;
+                return true;
+            }
 
-            return pretenders;
+            return false;
         }
 
         private void UpdateControlFitness()
@@ -189,15 +139,15 @@ namespace Simulations
             var controlTeam = Shepherds.Best.GetClone();
             controlTeam.Resize(controlFitnessParameters.PositionsOfShepherdsSet.First().Count);
 
-            controlFitness = controlFitnessCounter.CountFitness(controlTeam);
+            ControlFitness = controlFitnessCounter.CountFitness(controlTeam);
         }
 
-        private void LogControlFitness()
+        private void Log(int era)
         {
-            if (controlFitnessCounter == null)
-                return;
-
-            Logger.AddLine($"Control Fitness: {controlFitness}");
+            Logger.Instance.AddLine("Era: " + era);
+            Logger.Instance.AddLine("Time: " + DateTime.Now.ToString());            
+            if (controlFitnessCounter != null)
+                Logger.Instance.AddLine($"Control Fitness: {ControlFitness}");
         }
     }
 }

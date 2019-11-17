@@ -1,22 +1,62 @@
-﻿using ActivationFunctions;
+﻿using System.Xml.Serialization;
+using ActivationFunctions;
 using Auxiliary;
 using System;
-using System.IO;
 
 namespace NeuralNets
 {
-    class NeuralNet : INeuralNet, IRandomize
+    [Serializable]
+    public class NeuralNet
     {
-        private float[,] WagesBetweenInputAndFirstHiddenLayer { get; set; }
-        private float[][,] WagesBetweenHiddenLayers { get; set; }
-        private float[,] WagesBetweenLastHiddenAndOutputLayer { get; set; }
+        #region Serializers
 
-        private float[][] BiasesInHiddenLayers { get; set; }
-        private float[] BiasesInOutputLayer { get; set; }
+        [XmlElement]
+        public string WagesBetweenInputAndFirstHiddenLayerSerializer
+        {
+            get { return JaggedArraySerializer.Serialize(WagesBetweenInputAndFirstHiddenLayer); }
+            set { WagesBetweenInputAndFirstHiddenLayer = JaggedArraySerializer.DeserializeLevel1(value); }
+        }
 
-        private const float RESIZE_DEFAULT_VALUE = 0.0f;
+        [XmlElement]
+        public string WagesBetweenHiddenLayersSerializer
+        {
+            get { return JaggedArraySerializer.Serialize(WagesBetweenHiddenLayers); }
+            set { WagesBetweenHiddenLayers = JaggedArraySerializer.DeserializeLevel2(value); }
+        }
 
-        public IActivationFunction activationFunction =
+        [XmlElement]
+        public string WagesBetweenLastHiddenAndOutputLayerSerializer
+        {
+            get { return JaggedArraySerializer.Serialize(WagesBetweenLastHiddenAndOutputLayer); }
+            set { WagesBetweenLastHiddenAndOutputLayer = JaggedArraySerializer.DeserializeLevel1(value); }
+        }
+
+        [XmlElement]
+        public string BiasesInHiddenLayersSerializer
+        {
+            get { return JaggedArraySerializer.Serialize(BiasesInHiddenLayers); }
+            set { BiasesInHiddenLayers = JaggedArraySerializer.DeserializeLevel1(value); }
+        }
+
+        [XmlElement]
+        public string BiasesInOutputLayerSerializer
+        {
+            get { return JaggedArraySerializer.Serialize(BiasesInOutputLayer); }
+            set { BiasesInOutputLayer = JaggedArraySerializer.DeserializeLevel0(value); }
+        }
+
+        #endregion
+
+        private double[][] WagesBetweenInputAndFirstHiddenLayer;
+        private double[][][] WagesBetweenHiddenLayers;
+        private double[][] WagesBetweenLastHiddenAndOutputLayer;
+
+        private double[][] BiasesInHiddenLayers;
+        private double[] BiasesInOutputLayer;
+
+        private const double RESIZE_DEFAULT_VALUE = 0.0;
+        
+        private ActivationFunction activationFunction =
             ActivationFunctionFactory.GetActivationFunction(EActivationFunctionType.Tanh);
 
         public NeuralNet() { }
@@ -26,24 +66,16 @@ namespace NeuralNets
 
         public NeuralNet(int inputLayerSize, int outputLayerSize, int hiddenLayerSize, int numberOfHiddenLayers, EActivationFunctionType activationFunctionType = EActivationFunctionType.Tanh)
         {
-            this.WagesBetweenInputAndFirstHiddenLayer = new float[inputLayerSize, hiddenLayerSize];
+            WagesBetweenInputAndFirstHiddenLayer = ArrayFactory.Allocate<double>(inputLayerSize, hiddenLayerSize);
+            WagesBetweenHiddenLayers = ArrayFactory.Allocate<double>(numberOfHiddenLayers - 1, hiddenLayerSize, hiddenLayerSize);
+            WagesBetweenLastHiddenAndOutputLayer = ArrayFactory.Allocate<double>(hiddenLayerSize, outputLayerSize);
+            BiasesInHiddenLayers = ArrayFactory.Allocate<double>(numberOfHiddenLayers, hiddenLayerSize);
+            BiasesInOutputLayer = ArrayFactory.Allocate<double>(outputLayerSize);
 
-            this.WagesBetweenHiddenLayers = new float[numberOfHiddenLayers - 1][,];
-            this.BiasesInHiddenLayers = new float[numberOfHiddenLayers][];
-
-            for (int i = 0; i < this.WagesBetweenHiddenLayers.Length; i++ )
-                this.WagesBetweenHiddenLayers[i] = new float[hiddenLayerSize, hiddenLayerSize];
-
-            for (int i = 0; i < this.BiasesInHiddenLayers.Length; i++)
-                this.BiasesInHiddenLayers[i] = new float[hiddenLayerSize];
-
-            this.WagesBetweenLastHiddenAndOutputLayer = new float[hiddenLayerSize, outputLayerSize];
-            this.BiasesInOutputLayer = new float[outputLayerSize];
-
-            this.activationFunction = ActivationFunctionFactory.GetActivationFunction(activationFunctionType);
+            activationFunction = ActivationFunctionFactory.GetActivationFunction(activationFunctionType);
         }
 
-        public INeuralNet GetClone()
+        public NeuralNet GetClone()
         {
             return new NeuralNet
             {
@@ -71,29 +103,29 @@ namespace NeuralNets
             BiasesInOutputLayer.Randmize();
         }
 
-        public float[] Think(float[] input)
+        public double[] Think(double[] input)
         {
-            float[] impulses = ThinkBetweenTwoLayers(input, WagesBetweenInputAndFirstHiddenLayer, BiasesInHiddenLayers[0]);
+            var impulses = ThinkBetweenTwoLayers(input, WagesBetweenInputAndFirstHiddenLayer, BiasesInHiddenLayers[0]);
 
-            for(int i = 0; i < WagesBetweenHiddenLayers.GetLength(0); i++)
+            for(int i = 0; i < WagesBetweenHiddenLayers.Length; i++)
                 impulses = ThinkBetweenTwoLayers(impulses, WagesBetweenHiddenLayers[i], BiasesInHiddenLayers[i+1]);
 
             return ThinkBetweenTwoLayers(impulses, WagesBetweenLastHiddenAndOutputLayer, BiasesInOutputLayer);
         }
 
-        private float[] ThinkBetweenTwoLayers(float[] input, float[,] wages, float[] biases)
+        private double[] ThinkBetweenTwoLayers(double[] input, double[][] wages, double[] biases)
         {
-            float[] output = new float[wages.GetLength(1)];
+            var output = new double[wages[0].Length];
 
             if(output.Length != biases.Length)
                 throw new ArgumentException();
 
             for (int i = 0; i < output.Length; i++)
             {
-                float net = biases[i];
+                var net = biases[i];
 
                 for (int j = 0; j < wages.GetLength(0); j++)
-                    net += input[j] * wages[j, i];
+                    net += input[j] * wages[j][i];
 
                 output[i] = activationFunction.Impuls(net);
             }
@@ -101,7 +133,7 @@ namespace NeuralNets
             return output;
         }
 
-        public void Mutate(float chanceOfMutation, float maxAddeValue = 1.0f)
+        public void Mutate(double chanceOfMutation, double maxAddeValue = 1.0f)
         {
             WagesBetweenInputAndFirstHiddenLayer.Mutate(chanceOfMutation, maxAddeValue);
 
@@ -116,7 +148,7 @@ namespace NeuralNets
             BiasesInOutputLayer.Mutate(chanceOfMutation, maxAddeValue);
         }
 
-        public INeuralNet Crossover(INeuralNet other)
+        public NeuralNet Crossover(NeuralNet other)
         {
             if (other is NeuralNet == false)
                 throw new ArgumentException();
@@ -124,9 +156,9 @@ namespace NeuralNets
             var parsedOther = other as NeuralNet;
 
             var child = new NeuralNet(
-                WagesBetweenInputAndFirstHiddenLayer.GetLength(0),
-                WagesBetweenLastHiddenAndOutputLayer.GetLength(1),
-                WagesBetweenInputAndFirstHiddenLayer.GetLength(1),
+                WagesBetweenInputAndFirstHiddenLayer.Length,
+                WagesBetweenLastHiddenAndOutputLayer[0].Length,
+                WagesBetweenInputAndFirstHiddenLayer[0].Length,
                 WagesBetweenHiddenLayers.Length + 1);
 
             child.WagesBetweenInputAndFirstHiddenLayer =
@@ -166,51 +198,5 @@ namespace NeuralNets
 
             BiasesInHiddenLayers = BiasesInHiddenLayers.Resize(numberOfHiddenLayers, hiddenLayerSize, RESIZE_DEFAULT_VALUE);
         }
-
-        #region ICompress
-
-        public override string ToString()
-        {
-            StringWriter sw = new StringWriter();
-
-            StreamHelper.Compress(sw, WagesBetweenInputAndFirstHiddenLayer);
-
-            sw.WriteLine(WagesBetweenHiddenLayers.Length);
-
-            for (int i = 0; i < WagesBetweenHiddenLayers.Length; i++)
-            {
-                StreamHelper.Compress(sw, WagesBetweenHiddenLayers[i]);
-            }
-
-            StreamHelper.Compress(sw, BiasesInHiddenLayers);
-            StreamHelper.Compress(sw, WagesBetweenLastHiddenAndOutputLayer);
-            StreamHelper.Compress(sw, BiasesInOutputLayer);
-
-            return sw.ToString();
-        }
-
-        public INeuralNet FromString(string compressed)
-        {
-            using (var sr = new StringReader(compressed))
-            {
-                WagesBetweenInputAndFirstHiddenLayer = StreamHelper.Decompress2DimFloatArray(sr);
-
-                var numberOfHiddenLayers = Convert.ToInt32(sr.ReadLine());
-                WagesBetweenHiddenLayers = new float[numberOfHiddenLayers][,];
-
-                for (int i = 0; i < WagesBetweenHiddenLayers.Length; i++)
-                {
-                    WagesBetweenHiddenLayers[i] = StreamHelper.Decompress2DimFloatArray(sr);
-                }
-
-                BiasesInHiddenLayers = StreamHelper.Decompress2DimFloatJaggedArray(sr);
-                WagesBetweenLastHiddenAndOutputLayer = StreamHelper.Decompress2DimFloatArray(sr);
-                BiasesInOutputLayer = StreamHelper.Decompress1DimFloatArray(sr);
-            }
-
-            return this;
-        }
-
-        #endregion
     }
 }

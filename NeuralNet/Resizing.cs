@@ -39,36 +39,10 @@ namespace NeuralNets
 
             return resized;
         }
-
-        public static T[,] Resize<T>(this T[,] toResize, int newSizeX, int newSizeY, T defaultValue)
+        
+        public static T[][][] Resize<T>(this T[][][] toResize, int newSizeX, int newSizeY, int newSizeZ, T defaultValue)
         {
-            var resized = new T[newSizeX, newSizeY];
-
-            int x = 0;
-
-            for(; x < toResize.GetLength(0) && x < newSizeX; x++)
-            {
-                int y = 0;
-
-                for (; y < toResize.GetLength(1) && y < newSizeY; y++)
-                    resized[x, y] = toResize[x, y];
-
-                for (; y < newSizeY; y++)
-                    resized[x, y] = defaultValue;
-            }
-
-            for(; x < newSizeX; x++)
-            {
-                for (int y = 0; y < newSizeY; y++)
-                    resized[x, y] = defaultValue;
-            }
-
-            return resized;
-        }
-
-        public static T[][,] Resize<T>(this T[][,] toResize, int newSizeX, int newSizeY, int newSizeZ, T defaultValue)
-        {
-            var resized = new T[newSizeX][,];
+            var resized = new T[newSizeX][][];
 
             int x = 0;
 
@@ -77,12 +51,12 @@ namespace NeuralNets
 
             for(; x < newSizeX; x++)
             {
-                resized[x] = new T[newSizeY, newSizeZ];
+                resized[x] = new T[newSizeY][];
 
                 for(int y = 0; y < newSizeY; y++)
                 {
                     for(int z = 0; z < newSizeZ; z++)
-                        resized[x][y, z] = defaultValue;
+                        resized[x][y][z] = defaultValue;
                 }
             }
 

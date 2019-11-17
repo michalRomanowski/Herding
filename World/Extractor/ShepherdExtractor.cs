@@ -1,16 +1,13 @@
 ﻿using Agent;
 using Auxiliary;
-using System;
 using System.Linq;
-using System.Numerics;
+using MathNet.Spatial.Euclidean;
 
 namespace World
 {
     public static class ShepherdExtractor
     {
-        private const float SPEED = 2.0f;
-
-        public static float[] ExtractFeatures(IWorld world, ThinkingAgent agent)
+        public static double[] ExtractFeatures(IWorld world, ThinkingAgent agent)
         {
             var centerOfGravity =
                 world.Sheep.Select(x => x.Position).Center();
@@ -23,12 +20,12 @@ namespace World
 
             closestAgentsInRelativeCoordinationSystem.AddRange(closestSheepInRelativeCoordinationSystem);
 
-            float[] features = new float[closestAgentsInRelativeCoordinationSystem.Count * 2 + 2];
+            var features = new double[closestAgentsInRelativeCoordinationSystem.Count * 2 + 2];
 
             features[0] = 0.0f;
-            features[1] = Position.Distance(agent.Position, centerOfGravity);
+            features[1] = agent.Position.Distance(centerOfGravity);
 
-            if (float.IsNaN(features[1]))
+            if (double.IsNaN(features[1]))
                 features[1] = 0.0f;
 
             for (int i = 0; i < closestAgentsInRelativeCoordinationSystem.Count; i++)
@@ -40,43 +37,32 @@ namespace World
             return features;
         }
 
-        public static void InterpretOutput(ThinkingAgent agent, IWorld world, float[] output)
+        public static void InterpretOutput(ThinkingAgent agent, IWorld world, Vector2D output)
         {
-            if (output.Count() != 2)
-                throw new ArgumentException();
-
             var centerOfGravity =
                 world.Sheep.Select(x => x.Position).Center();
 
-            var vCentered = new Vector2(
+            var vCentered = new Vector2D(
                 centerOfGravity.X - agent.Position.X, 
                 centerOfGravity.Y - agent.Position.Y);
 
-            var vCenteredLength = vCentered.Length();
+            var vCenteredLength = vCentered.Length;
             
-            float sin = vCentered.Y / vCenteredLength;
-            float cos = vCentered.X / vCenteredLength;
+            var sin = vCentered.Y / vCenteredLength;
+            var cos = vCentered.X / vCenteredLength;
 
-            if (float.IsNaN(sin))
-                sin = 0.0f;
+            if (double.IsNaN(sin))
+                sin = 0.0;
 
-            if (float.IsNaN(cos))
-                cos = 1.0f;
+            if (double.IsNaN(cos))
+                cos = 1.0;
 
-            var vRotated = new Vector2(
-                output[0] * cos - output[1] * sin,
-                output[0] * sin + output[1] * cos);
+            var vRotated = new Vector2D (
+                output.X * cos - output.Y * sin, 
+                output.X * sin + output.Y * cos );
 
-            float vRotatedLength = vRotated.Length();
-
-            if (vRotatedLength > 1)
-            {
-                vRotated.X /= vRotatedLength;
-                vRotated.Y /= vRotatedLength;
-            }
-
-            agent.Position.X += vRotated.X * SPEED;
-            agent.Position.Y += vRotated.Y * SPEED;
+            agent.decision = vRotated;
+            agent.Move();
         }
     }
 }

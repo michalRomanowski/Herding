@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using Auxiliary;
 using NeuralNets;
+using MathNet.Spatial.Euclidean;
 
 namespace Agent
 {
@@ -10,11 +11,12 @@ namespace Agent
     public class Shepherd : ThinkingAgent
     {
         private const int NEURAL_NET_OUTPUT_LAYER_SIZE = 2;
-        
+        private const double SPEED = 1.0;
+
         public Shepherd()
         {
-            Position = new Position();
-            Path = new List<Position>();
+            Position = new Vector2D();
+            Path = new List<Vector2D>();
         }
 
         public Shepherd(int numberOfSeenShepherds, int numberOfSeenSheep)
@@ -25,7 +27,7 @@ namespace Agent
         }
 
         public Shepherd(
-            ShepherdParameters parameters)
+            IShepherdParameters parameters)
             : this(
                 parameters.NumberOfSeenShepherds,
                 parameters.NumberOfSeenSheep)
@@ -34,7 +36,7 @@ namespace Agent
             {
                 InputLayerSize = (parameters.NumberOfSeenShepherds + parameters.NumberOfSeenSheep) * 2 + 2,
                 OutputLayerSize = NEURAL_NET_OUTPUT_LAYER_SIZE,
-                HiddenLayerSize = parameters.HiddenLayerSize,
+                HiddenLayerSize = parameters.NumberOfNeuronsInHiddenLayer,
                 NumberOfHiddenLayers = parameters.NumberOfHiddenLayers
             });
         }
@@ -46,35 +48,36 @@ namespace Agent
                 Brain = Brain.GetClone(),
                 NumberOfSeenShepherds = NumberOfSeenShepherds,
                 NumberOfSeenSheep = NumberOfSeenSheep,
-                Position = new Position(Position)
+                Position = new Vector2D(Position.X, Position.Y)
             };
         }
 
-        public override ThinkingAgent[] Crossover(ThinkingAgent partner)
+        public override ThinkingAgent Crossover(ThinkingAgent partner)
         {
-            Shepherd[] children = new Shepherd[2];
-
-            children[0] = new Shepherd(NumberOfSeenShepherds, NumberOfSeenSheep);
-            children[1] = new Shepherd(NumberOfSeenShepherds, NumberOfSeenSheep);
-            
-            var castedPartnerBrain = (partner as Shepherd).Brain;
-
-            children[0].Brain = Brain.Crossover(castedPartnerBrain);
-            children[1].Brain = Brain.Crossover(castedPartnerBrain);
-
-            return children;
+            return new Shepherd(NumberOfSeenShepherds, NumberOfSeenSheep)
+            {
+                Brain = Brain.Crossover((partner as Shepherd).Brain)
+            };
         }
 
-        public override void Mutate(float mutationChance, float absoluteMutationFactor)
+        public override void Mutate(double mutationChance, double absoluteMutationFactor)
         {
             Brain.Mutate(mutationChance, absoluteMutationFactor);
         }
 
-        public override float[] Decide(float[] input)
+        public override void Decide(double[] input)
         {
-            DecideOutput = Brain.Think(input);
+            var thinkingResult = Brain.Think(input);
 
-            return DecideOutput;
+            decision = new Vector2D(thinkingResult[0], thinkingResult[1]);
+            decision = decision.Round();
+        }
+
+        public override void Move()
+        {
+            decision = decision.CutToMaxLength(SPEED);
+
+            this.Position += decision;
         }
 
         public override void ResizeNeuralNet(int numberOfSeenShepherds, int numberOfSeenSheep, int numberOfHiddenLayers, int hiddenLayerSize)
@@ -92,7 +95,7 @@ namespace Agent
         {
             if (Path.Count < 1) return;
 
-            Position = new Position(Path.Last());
+            Position = new Vector2D(Path.Last().X, Path.Last().Y);
 
             Path.RemoveAt(Path.Count - 1);
         }

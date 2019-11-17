@@ -47,7 +47,7 @@
     <Compile Include="Sum.cs" />
     <Compile Include="Tanh.cs" />
     <Compile Include="EActivationFunctionType.cs" />
-    <Compile Include="IActivationFunction.cs" />
+    <Compile Include="ActivationFunction.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

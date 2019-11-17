@@ -1,40 +1,37 @@
 ﻿using System.Collections.Generic;
 using Agent;
 using Auxiliary;
+using MathNet.Spatial.Euclidean;
 
 namespace Teams
 {
     public abstract class Team : ICloneable<Team>
     {
-        public int Id { get; set; }
-
         public List<ThinkingAgent> Members { get; set; }
-
-        public float Fitness { get; set; }
         
         public Team()
         {
             Members = new List<ThinkingAgent>();
         }
 
-        public Team(TeamParameters parameters)
+        public Team(ITeamParameters parameters)
         {
-            Members = new List<ThinkingAgent>() { AgentFactory.GetShepherd(parameters.ShepherdParameters) };
+            Members = new List<ThinkingAgent>() { AgentFactory.GetShepherd(parameters) };
 
             Resize(parameters.NumberOfShepherds);
         }
 
         public abstract Team GetClone();
 
-        public abstract Team[] Crossover(Team partner);
+        public abstract Team Crossover(Team partner);
 
-        public abstract void Mutate(float mutationPower, float absoluteMutationFactor);
+        public abstract void Mutate(double mutationPower, double absoluteMutationFactor);
 
-        public void SetPositions(IList<Position> positions)
+        public void SetPositions(IList<Vector2D> positions)
         {
             for(int i = 0; i < positions.Count; i++)
             {
-                Members[i].Position = new Position(positions[i]);
+                Members[i].Position = new Vector2D(positions[i].X, positions[i].Y);
             }
         }
 

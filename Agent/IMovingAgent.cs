@@ -1,22 +1,22 @@
-﻿using Auxiliary;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
+using MathNet.Spatial.Euclidean;
 
 namespace Agent
 {
     public interface IHavePosition
     {
-        Position Position { get; set; }
+        Vector2D Position { get; set; }
     }
 
     public interface IHavePath : IHavePosition
     {
-        IList<Position> Path { get; set; }
+        IList<Vector2D> Path { get; set; }
         void StepBack();
     }
 
     public interface IMovingAgent : IHavePath
     {
-        float[] Decide(float[] input);
-        float[] DecideOutput { get; }
+        void Decide(double[] input);
+        void Move();
     }
 }

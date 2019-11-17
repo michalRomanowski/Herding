@@ -2,7 +2,7 @@
 {
     public static class TeamFactory
     {
-        public static Team GetTeam(TeamParameters parameters)
+        public static Team GetTeam(ITeamParameters parameters)
         {
             if (parameters.NotIdenticalAgents)
             {

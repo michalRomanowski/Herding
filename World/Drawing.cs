@@ -3,6 +3,7 @@ using Auxiliary;
 using System.Collections.Generic;
 using System.Drawing;
 using System.Linq;
+using MathNet.Spatial.Euclidean;
 
 namespace World
 {
@@ -122,7 +123,7 @@ namespace World
 
         private void DrawCentreOfSheep(Graphics gfx)
         {
-            Position center = sheep.Select(x => x.Position).Center();
+            Vector2D center = sheep.Select(x => x.Position).Center();
             gfx.FillEllipse(new SolidBrush(centreOfSheepColor), new Rectangle(OffsetX + (int)center.X - 2, OffsetY + (int)center.Y - 2, 4, 4));
         }
     }

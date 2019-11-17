@@ -2,23 +2,24 @@
 using Auxiliary;
 using System.Collections.Generic;
 using System.Linq;
+using MathNet.Spatial.Euclidean;
 
 namespace World
 {
     public static class Finder
     {
-        public static IEnumerable<IHavePosition> FindAgentsAtRange(Position center, float range, IEnumerable<IHavePosition> agents)
+        public static IEnumerable<IHavePosition> FindAgentsAtRange(Vector2D center, double range, IEnumerable<IHavePosition> agents)
         {
-            float squaredRange = range * range;
+            var squaredRange = range * range;
 
-            return agents.Where(x => Position.SquaredDistance(center, x.Position) <= squaredRange);
+            return agents.Where(x => center.SquaredDistance(x.Position) <= squaredRange);
         }
 
         public static IEnumerable<IHavePosition> FindClosestAgents(IHavePosition center, int numberOfAgentsToFind, IEnumerable<IHavePosition> agents)
         {
             var closestObjects = agents
                 .Where(x => x != center)
-                .Select(x => new { Agent = x, SquareDistance = Position.SquaredDistance(center.Position, x.Position)})
+                .Select(x => new { Agent = x, SquareDistance = center.Position.SquaredDistance(x.Position)})
                 .ToList();
             
             closestObjects.Sort((a, b) => {
