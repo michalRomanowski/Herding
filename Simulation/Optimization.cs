@@ -61,7 +61,7 @@ namespace Simulations
 
         private void Optimize()
         {
-            repository.Save($"START_{DateTime.Now.ToString("yyyyMMddhhmmss")}", Parameters, Shepherds);
+            repository.Save($"START_{DateTime.Now.ToString("yyyyMMddHHmmss")}", Parameters, Shepherds);
 
             for (int era = 0; era < Parameters.NumberOfEras && BestFitness > Parameters.TargetFitness; era++)
             {
@@ -70,10 +70,10 @@ namespace Simulations
                 Log(era);
 
                 if (era % AUTOSAVE_FREQUENCY == 0)
-                    repository.Save(DateTime.Now.ToString("yyyyMMddhhmmss"), Parameters, Shepherds);
+                    repository.Save(DateTime.Now.ToString("yyyyMMddHHmmss"), Parameters, Shepherds);
             }
 
-            repository.Save($"END_{DateTime.Now.ToString("yyyyMMddhhmmss")}", Parameters, Shepherds);
+            repository.Save($"END_{DateTime.Now.ToString("yyyyMMddHHmmss")}", Parameters, Shepherds);
         }
 
         private void Step()
