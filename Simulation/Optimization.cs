@@ -22,7 +22,6 @@ namespace Simulations
 
         private ISimulationRepository repository;
 
-        private const double TEAM_MUTATION_CHANCE = 0.01;
         private const double ABSOLUTE_MUTATION_FACTOR = 1.0;
         private const int AUTOSAVE_FREQUENCY = 1000;
 
