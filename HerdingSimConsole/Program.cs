@@ -1,10 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
-using Agent;
 using Auxiliary;
 using Repository;
 using Simulations;
-using MathNet.Spatial.Euclidean;
 
 namespace HerdingSimConsole
 {
@@ -14,7 +12,7 @@ namespace HerdingSimConsole
 
         private static OptimizationParameters optimizationParameters;
         private static Population population;
-        private static CountFitnessParameters controlFitnessParameters;
+        private static IFitnessCounter controlFitnessCounter;
 
         private readonly static Dictionary<string, Action> commmands = new Dictionary<string, Action>
         {
@@ -23,8 +21,8 @@ namespace HerdingSimConsole
             { "load", Load},
             { "load population", LoadPopulation},
             { "load optimization parameters", LoadOptimizationParameters},
+            { "load control fitness parameters", LoadControlFitnessParameters},
             { "execute optimization parameters", ExecuteOptimizationParameters},
-            { "load control parameters", LoadControlParameters},
             { "save", Save},
             { "start", Start}
         };
@@ -87,6 +85,16 @@ namespace HerdingSimConsole
             optimizationParameters = repository.LoadOptimizationParametersByPath(optimizationParametersPath);
         }
 
+        private static void LoadControlFitnessParameters()
+        {
+            Logger.Instance.AddLine("Insert full path of control fitness parameters:");
+            var controlFitnessParametersPath = Console.ReadLine();
+            Logger.Instance.AddLine(controlFitnessParametersPath);
+            var controlFitnessParameters = repository.LoadOptimizationParametersByPath(controlFitnessParametersPath);
+
+            controlFitnessCounter = FitnessCounterFactory.GetFitnessCounter(controlFitnessParameters.GetCountFitnessParameters());
+        }
+
         private static void LoadPopulation()
         {
             Logger.Instance.AddLine("Insert full path of population:");
@@ -94,15 +102,6 @@ namespace HerdingSimConsole
             Logger.Instance.AddLine(populationPath);
 
             population = repository.LoadPopulationByPath(populationPath, optimizationParameters);
-        }
-
-        private static void LoadControlParameters()
-        {
-            Logger.Instance.AddLine("Insert full path of control parameters:");
-            var controlParametersPath = Console.ReadLine();
-            Logger.Instance.AddLine(controlParametersPath);
-
-            controlFitnessParameters = repository.LoadOptimizationParametersByPath(controlParametersPath).GetCountFitnessParameters();
         }
 
         private static void ExecuteOptimizationParameters()
@@ -127,11 +126,14 @@ namespace HerdingSimConsole
 
         private static void Start()
         {
-            Logger.Instance.AddLine("Starting optimization");
             if (population == null)
+            {
+                Logger.Instance.AddLine("Generating new population");
                 population = new Population(optimizationParameters);
+            }
 
-            new Optimization(optimizationParameters, population, repository, controlFitnessParameters).Start();
+            Logger.Instance.AddLine("Starting optimization");
+            new Optimization(optimizationParameters, population, repository, controlFitnessCounter).Optimize();
         }
     }
 }

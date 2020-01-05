@@ -10,17 +10,17 @@ namespace Auxiliary
 
         public static string Serialize(double[] input)
         {
-            return String.Join(separators[0].ToString(), input.Select(x => x.ToString(CultureInfo.InvariantCulture)));
+            return String.Join(separators[0].ToString(CultureInfo.InvariantCulture), input.Select(x => x.ToString(CultureInfo.InvariantCulture)));
         }
 
         public static string Serialize(double[][] input)
         {
-            return String.Join(separators[1].ToString(), input.Select(x => Serialize(x)));
+            return String.Join(separators[1].ToString(CultureInfo.InvariantCulture), input.Select(x => Serialize(x)));
         }
 
         public static string Serialize(double[][][] input)
         {
-            return String.Join(separators[2].ToString(), input.Select(x => Serialize(x)));
+            return String.Join(separators[2].ToString(CultureInfo.InvariantCulture), input.Select(x => Serialize(x)));
         }
 
         public static double[] DeserializeLevel0(string input)
@@ -28,7 +28,7 @@ namespace Auxiliary
             if (String.IsNullOrEmpty(input))
                 return new double[0];
 
-            return input.Split(separators[0]).Select(x => Convert.ToDouble(x)).ToArray();
+            return input.Split(separators[0]).Select(x => Convert.ToDouble(x, CultureInfo.InvariantCulture)).ToArray();
         }
 
         public static double[][] DeserializeLevel1(string input)

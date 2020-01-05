@@ -5,12 +5,6 @@ using Teams;
 
 namespace Simulations
 {
-    class SelectionParameters
-    {
-        public OptimizationParameters OptimizationParameters;
-        public Population Population;
-    }
-
     class SelectionResult
     {
         public readonly IList<Team> Winners;
@@ -27,29 +21,31 @@ namespace Simulations
 
     class Selection
     {
-        private const int WINNERS = 2;
+        private readonly OptimizationParameters optimizationParameters;
+        private readonly Population population;
+        private readonly int numberOfWinners;
 
-        private readonly SelectionParameters parameters;
-        
-        public Selection(SelectionParameters parameters)
+        public Selection(OptimizationParameters optimizationParameters, Population population, int numberOfWinners)
         {
-            this.parameters = parameters;
+            this.optimizationParameters = optimizationParameters;
+            this.population = population;
+            this.numberOfWinners = numberOfWinners;
         }
 
         public SelectionResult Select()
         {
-            var participants = parameters.Population.Units
+            var participants = population.Units
                 .OrderBy(x => CRandom.Instance.Next())
-                .Take(parameters.OptimizationParameters.NumberOfParticipants);
+                .Take(optimizationParameters.NumberOfParticipants);
 
             var results = participants
                 .AsParallel()
-                .OrderBy(x => FitnessCounterFactory.GetFitnessCounter(parameters.OptimizationParameters.GetCountFitnessParameters()).CountFitness(x))
+                .OrderBy(x => FitnessCounterFactory.GetFitnessCounter(optimizationParameters.GetCountFitnessParameters()).CountFitness(x))
                 .ToList();
 
             return new SelectionResult(
-                results.Take(WINNERS).ToList(),
-                results.Skip(WINNERS).ToList());
+                results.Take(numberOfWinners).ToList(),
+                results.Skip(numberOfWinners).ToList());
         }
     }
 }

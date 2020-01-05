@@ -18,29 +18,38 @@ namespace HerdingSimConsole
                     MutationPower = 0.02,
                     NotIdenticalAgents = false,
                     NumberOfHiddenLayers = 1,
-                    NumberOfNeuronsInHiddenLayer = 10,
+                    NumberOfNeuronsInHiddenLayer = 26,
                     NumberOfParticipants = 10,
                     NumberOfRandomSets = 0,
-                    NumberOfSeenSheep = 2,
-                    NumberOfSeenShepherds = 1,
+                    NumberOfSeenSheep = 10,
+                    NumberOfSeenShepherds = 2,
                     NumberOfEras = int.MaxValue,
-                    TargetFitness = 1.0,
-                    PopulationSize = 100,
+                    TargetFitness = 0.01,
+                    PopulationSize = 250,
                     PositionsOfSheep = new List<Vector2D>()
                     {
+                        new Vector2D(0, 150),
                         new Vector2D(0, 200),
-                        new Vector2D(400, 200)
+                        new Vector2D(0, 250),
+                        new Vector2D(150, 0),
+                        new Vector2D(150, 400),
+                        new Vector2D(250, 0),
+                        new Vector2D(250, 400),
+                        new Vector2D(400, 150),
+                        new Vector2D(400, 200),
+                        new Vector2D(400, 250)
                     },
                     PositionsOfShepherds = new List<Vector2D>()
                     {
-                        new Vector2D(150, 200),
-                        new Vector2D(250, 200)
+                        new Vector2D(100, 300),
+                        new Vector2D(200, 100),
+                        new Vector2D(300, 300)
                     },
                     RandomPositions = false,
                     RandomSetsForBest = new RandomSetsList(),
-                    SeedForRandomSheepForBest = 0,
+                    SeedForRandomSheepForBest = (int)DateTime.Now.Ticks,
                     SheepType = ESheepType.Passive,
-                    TurnsOfHerding = 400
+                    TurnsOfHerding = 2000
                 }
             },
             {
@@ -51,33 +60,42 @@ namespace HerdingSimConsole
                     MutationPower = 0.02,
                     NotIdenticalAgents = false,
                     NumberOfHiddenLayers = 1,
-                    NumberOfNeuronsInHiddenLayer = 10,
+                    NumberOfNeuronsInHiddenLayer = 30,
                     NumberOfParticipants = 10,
-                    NumberOfRandomSets = 5,
-                    NumberOfSeenSheep = 2,
-                    NumberOfSeenShepherds = 1,
+                    NumberOfRandomSets = 10,
+                    NumberOfSeenSheep = 10,
+                    NumberOfSeenShepherds = 2,
                     NumberOfEras = int.MaxValue,
-                    TargetFitness = 1.0,
-                    PopulationSize = 100,
+                    TargetFitness = 0.0,
+                    PopulationSize = 250,
                     PositionsOfSheep = new List<Vector2D>()
                     {
+                        new Vector2D(0, 150),
                         new Vector2D(0, 200),
-                        new Vector2D(400, 200)
+                        new Vector2D(0, 250),
+                        new Vector2D(150, 0),
+                        new Vector2D(150, 400),
+                        new Vector2D(250, 0),
+                        new Vector2D(250, 400),
+                        new Vector2D(400, 150),
+                        new Vector2D(400, 200),
+                        new Vector2D(400, 250)
                     },
                     PositionsOfShepherds = new List<Vector2D>()
                     {
-                        new Vector2D(150, 200),
-                        new Vector2D(250, 200)
+                        new Vector2D(100, 300),
+                        new Vector2D(200, 100),
+                        new Vector2D(300, 300)
                     },
                     RandomPositions = true,
-                    RandomSetsForBest = new RandomSetsList(5, 2, 2, (int)DateTime.Now.Ticks),
+                    RandomSetsForBest = new RandomSetsList(10, 3, 10, (int)DateTime.Now.Ticks),
                     SeedForRandomSheepForBest = (int)DateTime.Now.Ticks,
                     SheepType = ESheepType.Passive,
-                    TurnsOfHerding = 400
+                    TurnsOfHerding = 2000
                 }
             },
             {
-                "symmetric",
+                "simple",
                 new OptimizationParameters()
                 {
                     NumberOfEras = int.MaxValue,
@@ -99,13 +117,11 @@ namespace HerdingSimConsole
                     RandomSetsForBest = new RandomSetsList(),
                     PositionsOfShepherds = new List<Vector2D>()
                     {
-                        new Vector2D(200, 150),
-                        new Vector2D(200, 250)
+                        new Vector2D(150, 200),
+                        new Vector2D(250, 200)
                     },
                     PositionsOfSheep = new List<Vector2D>()
                     {
-                        new Vector2D(150, 200),
-                        new Vector2D(250, 200),
                         new Vector2D(0, 200),
                         new Vector2D(400, 200)
                     }

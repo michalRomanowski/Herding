@@ -1,152 +1,73 @@
 ﻿using System;
 using Auxiliary;
-using System.Collections.Generic;
-using System.Linq;
-using Teams;
+using Simulations.OptimizationStep;
 
 namespace Simulations
 {
     public class Optimization
     {
-        public OptimizationParameters Parameters { get; set; }
-        public Population Shepherds { get; set; }
-        
-        private double BestFitness;
-        private double ControlFitness;
-        
-        private BestTeamSelector bestTeamSelector;
-        private IFitnessCounter controlFitnessCounter;
-        private CountFitnessParameters controlFitnessParameters;
+        private const int AUTOSAVE_FREQUENCY = 1000;
+        private const string DATETIME_FORMAT = "yyyyMMddHHmmss";
 
-        private Selection selection;
+        private double bestFitness = double.MaxValue;
+        private double controlFitness = double.MaxValue;
 
+        private readonly OptimizationParameters parameters;
+        private readonly Population shepherds;
+        
         private ISimulationRepository repository;
 
-        private const double ABSOLUTE_MUTATION_FACTOR = 1.0;
-        private const int AUTOSAVE_FREQUENCY = 1000;
-
-        public Optimization(OptimizationParameters parameters, Population shepherds, ISimulationRepository repository)
-            : this(parameters, shepherds, repository, null){ }
+        private readonly IFitnessCounter controlFitnessCounter;
 
         public Optimization(OptimizationParameters parameters, 
             Population shepherds, 
-            ISimulationRepository repository, 
-            CountFitnessParameters controlFitnessParameters)
+            ISimulationRepository repository) : this(parameters, shepherds, repository, null)
+        { }
+
+        public Optimization(OptimizationParameters parameters,
+            Population shepherds,
+            ISimulationRepository repository,
+            IFitnessCounter controlFitnessCounter)
         {
-            Parameters = parameters;
-            Shepherds = shepherds;
+            this.parameters = parameters;
+            this.shepherds = shepherds;
             this.repository = repository;
-
-            if(controlFitnessParameters != null)
-            {
-                this.controlFitnessCounter = FitnessCounterFactory.GetFitnessCounter(controlFitnessParameters);
-                this.controlFitnessParameters = controlFitnessParameters;
-            }
-        }
-        
-        public void Start()
-        {
-            BestFitness = double.MaxValue;
-
-            bestTeamSelector = new BestTeamSelector(
-                FitnessCounterFactory.GetFitnessCounter(Parameters.GetBestTeamSelectorParameters().CountFitnessParameters));
-            
-            selection = new Selection(
-                new SelectionParameters(){
-                    OptimizationParameters = Parameters,
-                    Population = Shepherds});
-
-            Optimize();
+            this.controlFitnessCounter = controlFitnessCounter;
         }
 
-        private void Optimize()
+        public void Optimize()
         {
-            repository.Save($"START_{DateTime.Now.ToString("yyyyMMddHHmmss")}", Parameters, Shepherds);
+            repository.Save($"START_{DateTime.Now.ToString(DATETIME_FORMAT)}", parameters, shepherds);
 
-            for (int era = 0; era < Parameters.NumberOfEras && BestFitness > Parameters.TargetFitness; era++)
+            for (int era = 0; era < parameters.NumberOfEras && bestFitness > parameters.TargetFitness; era++)
             {
                 Step();
-
-                Log(era);
-
+                
                 if (era % AUTOSAVE_FREQUENCY == 0)
-                    repository.Save(DateTime.Now.ToString("yyyyMMddHHmmss"), Parameters, Shepherds);
+                    repository.Save(DateTime.Now.ToString(DATETIME_FORMAT), parameters, shepherds);
+
+                Logger.Instance.AddLine("Era: " + era);
+                Logger.Instance.AddLine("Time: " + DateTime.Now.ToString());
+                Logger.Instance.AddLine("Best fitness: " + bestFitness);
+                if(controlFitnessCounter != null)
+                {
+                    Logger.Instance.AddLine("Control fitness: " + controlFitness);
+                }
             }
 
-            repository.Save($"END_{DateTime.Now.ToString("yyyyMMddHHmmss")}", Parameters, Shepherds);
+            repository.Save($"END_{DateTime.Now.ToString(DATETIME_FORMAT)}", parameters, shepherds);
         }
 
         private void Step()
         {
-            var selectionResults = selection.Select();
+            //var step = new ClassicOptimizationStep(parameters, shepherds);
+            var step = new SimplifiedOptimizationStep(parameters, shepherds);
+            step.Step();
 
-            Mutation(selectionResults);
+            if (bestFitness != step.BestFitness && controlFitnessCounter != null)
+                controlFitness = controlFitnessCounter.CountFitness(shepherds.Best);
 
-            Replace(Crossover(selectionResults.Winners), selectionResults.Losers);
-
-            if (UpdateBestTeam(selectionResults.Winners))
-            {
-                UpdateControlFitness();
-            }
-        }
-
-        private IEnumerable<Team> Crossover(IList<Team> parents)
-        {
-            return new List<Team>() {
-                parents[0].Crossover(parents[1]),
-                parents[0].Crossover(parents[1]),
-                parents[1].Crossover(parents[0]),
-                parents[1].Crossover(parents[0])};
-        }
-
-        private void Mutation(SelectionResult selectionResults)
-        {
-            foreach (var l in selectionResults.Losers)
-                l.Mutate(Parameters.MutationPower, ABSOLUTE_MUTATION_FACTOR);
-        }
-
-        private void Replace(IEnumerable<Team> newUnits, IList<Team> oldUnits)
-        {
-            foreach(var nu in newUnits)
-            {
-                if (Shepherds.Units.Remove(oldUnits.ElementAt(CRandom.Instance.Next(oldUnits.Count()))))
-                    Shepherds.Units.Add(nu);
-            }
-        }
-
-        private bool UpdateBestTeam(IList<Team> pretenders)
-        {
-            pretenders.Add(Shepherds.Best);
-            
-            var bestPretenderWithFitness = bestTeamSelector.GetBestTeam(pretenders);
-            
-            if(Shepherds.Best != bestPretenderWithFitness.Team)
-            {
-                Shepherds.Best = bestPretenderWithFitness.Team.GetClone();
-                BestFitness = bestPretenderWithFitness.Fitness;
-                return true;
-            }
-
-            return false;
-        }
-
-        private void UpdateControlFitness()
-        {
-            if (controlFitnessCounter == null)
-                return;
-
-            var controlTeam = Shepherds.Best.GetClone();
-            controlTeam.Resize(controlFitnessParameters.PositionsOfShepherdsSet.First().Count);
-
-            ControlFitness = controlFitnessCounter.CountFitness(controlTeam);
-        }
-
-        private void Log(int era)
-        {
-            Logger.Instance.AddLine("Era: " + era);
-            Logger.Instance.AddLine("Time: " + DateTime.Now.ToString());            
-            if (controlFitnessCounter != null)
-                Logger.Instance.AddLine($"Control Fitness: {ControlFitness}");
+            bestFitness = step.BestFitness;
         }
     }
 }

@@ -11,7 +11,7 @@
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>Simulations</RootNamespace>
     <AssemblyName>Simulations</AssemblyName>
-    <TargetFrameworkVersion>v4.6.1</TargetFrameworkVersion>
+    <TargetFrameworkVersion>v4.7.1</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <TargetFrameworkProfile />
     <NuGetPackageImportStamp>
@@ -61,12 +61,13 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="BestTeamSelector\BestTeamSelector.cs" />
-    <Compile Include="BestTeamSelector\BestTeamSelectorParameters.cs" />
     <Compile Include="FitnessCounters\CountFitnessParameters.cs" />
     <Compile Include="FitnessCounters\FinalFitnessCounter.cs" />
     <Compile Include="IPopulationParameters.cs" />
     <Compile Include="ISimulationRepository.cs" />
+    <Compile Include="OptimizationStep\ClassicOptimizationStep.cs" />
+    <Compile Include="OptimizationStep\OptimizationStep.cs" />
+    <Compile Include="OptimizationStep\SimplifiedOptimizationStep.cs" />
     <Compile Include="RandomSetsList.cs" />
     <Compile Include="FitnessCounters\FitnessCounterFactory.cs" />
     <Compile Include="FitnessCounters\SumFitnessCounter.cs" />
@@ -82,6 +83,7 @@
       <DesignTimeSharedInput>True</DesignTimeSharedInput>
       <DependentUpon>Settings.settings</DependentUpon>
     </Compile>
+    <Compile Include="SimpleOptimization.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />

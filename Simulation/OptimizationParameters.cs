@@ -87,15 +87,5 @@ namespace Simulations
                 TurnsOfHerding = TurnsOfHerding
             };
         }
-
-        public BestTeamSelectorParameters GetBestTeamSelectorParameters()
-        {
-            return new BestTeamSelectorParameters()
-            {
-                RandomPositions = this.RandomPositions,
-                FitnessType = this.FitnessType,
-                CountFitnessParameters = GetCountFitnessParameters()
-            };
-        }
     }
 }
