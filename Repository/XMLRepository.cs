@@ -1,10 +1,12 @@
 ﻿using System.Collections.Generic;
+using System.Linq;
 using System.Xml.Serialization;
 using System.IO;
 using Agent;
 using Simulations;
 using Teams;
 using Auxiliary;
+using Simulations.Parameters;
 
 namespace Repository
 {
@@ -80,10 +82,17 @@ namespace Repository
             return population;
         }
 
-
         public IEnumerable<string> GetSimulations()
         {
             return Directory.EnumerateDirectories(directory);
+        }
+
+        public string GetNewestSimulationName()
+        {
+            return GetSimulations()
+                .Select(x => x.Split('\\').Last())
+                .Where(x => long.TryParse(x, out _))
+                .Max();
         }
 
         public Team LoadTeam(string path, ITeamParameters parameters)
@@ -97,7 +106,12 @@ namespace Repository
 
             return team;
         }
-        
+
+        public Shepherd LoadShepherd(string path)
+        {
+            return Load<Shepherd>(path);
+        }
+
         private void Save<T>(List<T> collection, string collectionDirectory)
         {
             Directory.CreateDirectory(collectionDirectory);

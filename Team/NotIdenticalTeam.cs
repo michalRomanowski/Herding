@@ -1,4 +1,5 @@
-﻿using Auxiliary;
+﻿using Agent;
+using Auxiliary;
 using System.Linq;
 
 namespace Teams
@@ -7,50 +8,29 @@ namespace Teams
     {
         public NotIdenticalTeam() : base(){ }
 
-        public NotIdenticalTeam(ITeamParameters parameters) : base(parameters){ }
+        public NotIdenticalTeam(ITeamParameters parameters) : base()
+        {
+            for(int i = 0; i < parameters.NumberOfSeenShepherds; i++)
+                Members.Add(AgentFactory.GetShepherd(parameters));
+        }
 
-        private const double MIX_MEMBERS_CHANCE = 0.5;
+        public override void Init(Team other)
+        {
+            Members = other.Members.Select(x => x.GetClone()).ToList();
+        }
 
         public override Team GetClone()
         {
-            var clone = new NotIdenticalTeam();
-
-            foreach (var a in Members)
+            return new NotIdenticalTeam
             {
-                clone.Members.Add(a.GetClone());
-            }
-
-            return clone;
+                Members = Members.Select(x => x.GetClone()).ToList()
+            };
         }
         
         public override Team Crossover(Team partner)
         {
-            return CRandom.Instance.NextDouble() < MIX_MEMBERS_CHANCE ? MixMembers(partner) : CrossoverMembers(partner);
-        }
-
-        private Team MixMembers(Team partner)
-        {
             var children = new NotIdenticalTeam();
 
-            for (int i = 0; i < Members.Count; i++)
-            {
-                if(CRandom.Instance.Next(2) == 0)
-                {
-                    children.Members.Add(Members[CRandom.Instance.Next(Members.Count)].GetClone());
-                }
-                else
-                {
-                    children.Members.Add(partner.Members[CRandom.Instance.Next(partner.Members.Count)].GetClone());
-                }
-            }
-
-            return children;
-        }
-
-        private Team CrossoverMembers(Team partner)
-        {
-            var children = new NotIdenticalTeam();
-            
             for (int i = 0; i < Members.Count; i++)
             {
                 children.Members.Add(Members[i].Crossover(partner.Members[i]));
@@ -59,9 +39,9 @@ namespace Teams
             return children;
         }
 
-        public override void Mutate(double mutationPower, double absoluteMutationFactor)
+        public override void Mutate(double mutationPower)
         {
-            Members[CRandom.Instance.Next(Members.Count)].Mutate(mutationPower, absoluteMutationFactor);
+            Members[StaticRandom.R.Next(Members.Count)].Mutate(mutationPower);
         }
 
         public override void Resize(int newSize)
@@ -74,7 +54,6 @@ namespace Teams
             while (Members.Count < newSize)
             {
                 Members.Add(Members.First().GetClone());
-                Members.Last().Mutate(1.0f, 1.0f);
             }
         }
         

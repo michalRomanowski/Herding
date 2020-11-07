@@ -4,7 +4,7 @@ namespace ActivationFunctions
 {
     public static class ActivationFunctionFactory
     {
-        public static ActivationFunction GetActivationFunction(EActivationFunctionType type)
+        public static IActivationFunction Get(EActivationFunctionType type)
         {
             switch(type)
             {

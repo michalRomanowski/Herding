@@ -2,9 +2,9 @@
 
 namespace ActivationFunctions
 {
-    public class Tanh : ActivationFunction
+    class Tanh : IActivationFunction
     {
-        public override double Impuls(double net)
+        public double Impuls(double net)
         {
             return Math.Tanh(net);
         }

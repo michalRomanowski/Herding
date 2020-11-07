@@ -32,13 +32,15 @@ namespace Agent
                 parameters.NumberOfSeenShepherds,
                 parameters.NumberOfSeenSheep)
         {
-            Brain = NeuralNetsFactory.GetRandomMultiLayerNeuralNet(new NeuralNetParameters()
+            Brain = NeuralNetsFactory.GetMultiLayerNeuralNet(new NeuralNetParameters()
             {
                 InputLayerSize = (parameters.NumberOfSeenShepherds + parameters.NumberOfSeenSheep) * 2 + 2,
                 OutputLayerSize = NEURAL_NET_OUTPUT_LAYER_SIZE,
                 HiddenLayerSize = parameters.NumberOfNeuronsInHiddenLayer,
                 NumberOfHiddenLayers = parameters.NumberOfHiddenLayers
             });
+
+            Brain.Randomize();
         }
 
         public override ThinkingAgent GetClone()
@@ -60,9 +62,9 @@ namespace Agent
             };
         }
 
-        public override void Mutate(double mutationChance, double absoluteMutationFactor)
+        public override void Mutate(double mutationChance)
         {
-            Brain.Mutate(mutationChance, absoluteMutationFactor);
+            Brain.Mutate(mutationChance);
         }
 
         public override void Decide(double[] input)
@@ -76,8 +78,7 @@ namespace Agent
         public override void Move()
         {
             decision = decision.CutToMaxLength(SPEED);
-
-            this.Position += decision;
+            Position += decision;
         }
 
         public override void ResizeNeuralNet(int numberOfSeenShepherds, int numberOfSeenSheep, int numberOfHiddenLayers, int hiddenLayerSize)

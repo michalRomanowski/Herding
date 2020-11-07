@@ -29,7 +29,7 @@ namespace Agent
 
         public abstract ThinkingAgent GetClone();
         public abstract ThinkingAgent Crossover(ThinkingAgent partner);
-        public abstract void Mutate(double mutationChance, double absoluteMutationFactor);
+        public abstract void Mutate(double mutationChance);
         public abstract void Decide(double[] input);
         public abstract void Move();
 

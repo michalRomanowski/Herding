@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using Auxiliary;
 using Repository;
 using Simulations;
+using Simulations.Parameters;
+using Teams;
 
 namespace HerdingSimConsole
 {
@@ -13,18 +15,22 @@ namespace HerdingSimConsole
         private static OptimizationParameters optimizationParameters;
         private static Population population;
         private static IFitnessCounter controlFitnessCounter;
+        private static Team team;
 
         private readonly static Dictionary<string, Action> commmands = new Dictionary<string, Action>
         {
-            { "generate", Generate},
-            { "list", () => Logger.Instance.AddLine(String.Join("\n", commmands.Keys))},
-            { "load", Load},
-            { "load population", LoadPopulation},
-            { "load optimization parameters", LoadOptimizationParameters},
-            { "load control fitness parameters", LoadControlFitnessParameters},
-            { "execute optimization parameters", ExecuteOptimizationParameters},
-            { "save", Save},
-            { "start", Start}
+            { "generate", Generate },
+            { "list", () => Logger.Instance.AddLine(String.Join("\n", commmands.Keys)) },
+            { "load", Load },
+            { "load population", LoadPopulation },
+            { "load team", LoadTeam },
+            { "load optimization parameters", LoadOptimizationParameters },
+            { "load control fitness parameters", LoadControlFitnessParameters },
+            { "execute optimization parameters", ExecuteOptimizationParameters },
+            { "save", Save },
+            { "start", Start },
+            { "test team", TestTeam },
+            { "continue", Continue }
         };
 
         static void Main(string[] args)
@@ -92,7 +98,7 @@ namespace HerdingSimConsole
             Logger.Instance.AddLine(controlFitnessParametersPath);
             var controlFitnessParameters = repository.LoadOptimizationParametersByPath(controlFitnessParametersPath);
 
-            controlFitnessCounter = FitnessCounterFactory.GetFitnessCounter(controlFitnessParameters.GetCountFitnessParameters());
+            controlFitnessCounter = FitnessCounterFactory.GetFitnessCounterForBest(controlFitnessParameters);
         }
 
         private static void LoadPopulation()
@@ -102,6 +108,15 @@ namespace HerdingSimConsole
             Logger.Instance.AddLine(populationPath);
 
             population = repository.LoadPopulationByPath(populationPath, optimizationParameters);
+        }
+
+        private static void LoadTeam()
+        {
+            Logger.Instance.AddLine("Insert full path of team:");
+            var teamPath = Console.ReadLine();
+            Logger.Instance.AddLine(teamPath);
+
+            team = repository.LoadTeam(teamPath, optimizationParameters);
         }
 
         private static void ExecuteOptimizationParameters()
@@ -134,6 +149,44 @@ namespace HerdingSimConsole
 
             Logger.Instance.AddLine("Starting optimization");
             new Optimization(optimizationParameters, population, repository, controlFitnessCounter).Optimize();
+        }
+
+        private static void TestTeam()
+        {
+            if (optimizationParameters == null)
+            {
+                Logger.Instance.AddLine("No optimization parameters loaded");
+                return;
+            }
+
+            if (team == null)
+            {
+                Logger.Instance.AddLine("No team loaded");
+                return;
+            }
+
+            Logger.Instance.AddLine("Starting test");
+
+            var fitnessCounter = FitnessCounterFactory.GetFitnessCounterForBest(optimizationParameters);
+
+            var result = fitnessCounter.CountFitness(team, optimizationParameters.SeedForRandomSheepForBest, true);
+
+            Logger.Instance.AddLine($"Total Fitness: {result}");
+        }
+
+        private static void Continue()
+        {
+            var name = repository.GetNewestSimulationName();
+
+            if (string.IsNullOrEmpty(name))
+            {
+                Logger.Instance.AddLine("No saved simulation to continue");
+            }
+
+            optimizationParameters = repository.LoadOptimizationParameters(name);
+            population = repository.LoadPopulation(name, optimizationParameters);
+
+            Start();
         }
     }
 }

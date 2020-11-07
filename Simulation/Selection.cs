@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
 using Auxiliary;
+using Simulations.Parameters;
 using Teams;
 
 namespace Simulations
@@ -21,26 +22,35 @@ namespace Simulations
 
     class Selection
     {
-        private readonly OptimizationParameters optimizationParameters;
         private readonly Population population;
         private readonly int numberOfWinners;
+        private readonly int numberOfParticipants;
+        private readonly IFitnessCounter fitnessCounter;
 
         public Selection(OptimizationParameters optimizationParameters, Population population, int numberOfWinners)
         {
-            this.optimizationParameters = optimizationParameters;
             this.population = population;
             this.numberOfWinners = numberOfWinners;
+            this.numberOfParticipants = optimizationParameters.NumberOfParticipants;
+
+            var randomSets = new RandomSetsList(
+                optimizationParameters.NumberOfRandomSets,
+                optimizationParameters.NumberOfShepherds,
+                optimizationParameters.NumberOfSheep,
+                StaticRandom.R.Next());
+
+            this.fitnessCounter = FitnessCounterFactory.GetFitnessCounterForTraining(optimizationParameters);
         }
 
         public SelectionResult Select()
         {
             var participants = population.Units
-                .OrderBy(x => CRandom.Instance.Next())
-                .Take(optimizationParameters.NumberOfParticipants);
-
+                .OrderBy(x => StaticRandom.R.Next())
+                .Take(numberOfParticipants);
+            
             var results = participants
                 .AsParallel()
-                .OrderBy(x => FitnessCounterFactory.GetFitnessCounter(optimizationParameters.GetCountFitnessParameters()).CountFitness(x))
+                .OrderBy(x => fitnessCounter.CountFitness(x, StaticRandom.R.Next()))
                 .ToList();
 
             return new SelectionResult(

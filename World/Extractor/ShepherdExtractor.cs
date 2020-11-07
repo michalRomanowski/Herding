@@ -2,6 +2,7 @@
 using Auxiliary;
 using System.Linq;
 using MathNet.Spatial.Euclidean;
+using System;
 
 namespace World
 {
@@ -12,29 +13,40 @@ namespace World
             var centerOfGravity =
                 world.Sheep.Select(x => x.Position).Center();
             
-            var closestAgents = Finder.FindClosestAgents(agent, agent.NumberOfSeenShepherds, world.Shepherds.Members.Cast<IMovingAgent>());
-            var closestSheep = Finder.FindClosestAgents(agent, agent.NumberOfSeenSheep, world.Sheep.Cast<IMovingAgent>());
+            var closestAgents = 
+                Finder.FindClosestAgents(agent, agent.NumberOfSeenShepherds, world.Shepherds.Members)
+                .Concat(Finder.FindClosestAgents(agent, agent.NumberOfSeenSheep, world.Sheep));
 
-            var closestAgentsInRelativeCoordinationSystem = closestAgents.Select(x => x.Position).PositionsInRelativeCoordinationSystem(agent.Position, centerOfGravity);
-            var closestSheepInRelativeCoordinationSystem = closestSheep.Select(x => x.Position).PositionsInRelativeCoordinationSystem(agent.Position, centerOfGravity);
-
-            closestAgentsInRelativeCoordinationSystem.AddRange(closestSheepInRelativeCoordinationSystem);
-
+            var closestAgentsInRelativeCoordinationSystem = closestAgents
+                .Select(x => x.Position.PositionInRelativeCoordinationSystem(agent.Position, centerOfGravity)).ToList();
+            
             var features = new double[closestAgentsInRelativeCoordinationSystem.Count * 2 + 2];
 
-            features[0] = 0.0f;
-            features[1] = agent.Position.Distance(centerOfGravity);
+            features[0] = TransformPerception(0.0);
+            features[1] = TransformPerception(agent.Position.Distance(centerOfGravity));
 
             if (double.IsNaN(features[1]))
                 features[1] = 0.0f;
 
             for (int i = 0; i < closestAgentsInRelativeCoordinationSystem.Count; i++)
             {
-                features[2 + 2 * i] = closestAgentsInRelativeCoordinationSystem[i].X;
-                features[2 + 2 * i + 1] = closestAgentsInRelativeCoordinationSystem[i].Y;
+                features[2 + 2 * i] = TransformPerception(closestAgentsInRelativeCoordinationSystem[i].X);
+                features[2 + 2 * i + 1] = TransformPerception(closestAgentsInRelativeCoordinationSystem[i].Y);
             }
-            
+
             return features;
+        }
+
+        private static double TransformPerception(double input)
+        {
+            const double FRACTION = 4000.0;
+
+            if (input == 0.0)
+                return FRACTION;
+
+            if (input > 0.0)
+                return Math.Min(FRACTION / input, FRACTION);
+            else return Math.Max(FRACTION / input, -FRACTION);
         }
 
         public static void InterpretOutput(ThinkingAgent agent, IWorld world, Vector2D output)
@@ -59,7 +71,7 @@ namespace World
 
             var vRotated = new Vector2D (
                 output.X * cos - output.Y * sin, 
-                output.X * sin + output.Y * cos );
+                output.X * sin + output.Y * cos);
 
             agent.decision = vRotated;
             agent.Move();

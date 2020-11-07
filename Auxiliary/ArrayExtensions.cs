@@ -1,21 +1,23 @@
-﻿using System;
-using MathNet.Spatial.Euclidean;
-
-namespace Auxiliary
+﻿namespace Auxiliary
 {
     public static class ArrayExtensions
     {
-        public static void CutToMaxLength(this double[] input, double maxLength)
+        public static void Randomize(this double[] valuesToRandomize, double min, double max)
         {
-            if (input.Length > 2)
-                throw new ArgumentException();
-
-            var inputVector = new Vector2D(input[0], input[1]);
-
-            if (inputVector.Length > maxLength)
+            for (int i = 0; i < valuesToRandomize.Length; i++)
             {
-                inputVector = inputVector.Normalize() * maxLength;
-                input = new double[] { inputVector.X, inputVector.Y };
+                valuesToRandomize[i] = StaticRandom.R.NextDouble(min, max);
+            }
+        }
+
+        public static void Randomize(this double[][] valuesToRandomize, double min, double max)
+        {
+            for (int i = 0; i < valuesToRandomize.Length; i++)
+            {
+                for (int j = 0; j < valuesToRandomize[0].Length; j++)
+                {
+                    valuesToRandomize[i][j] = StaticRandom.R.NextDouble(min, max);
+                }
             }
         }
     }

@@ -1,4 +1,7 @@
-﻿namespace Teams
+﻿using Agent;
+using System.Collections.Generic;
+
+namespace Teams
 {
     public static class TeamFactory
     {
@@ -12,6 +15,11 @@
             {
                 return new IdenticalTeam(parameters);
             }
+        }
+
+        public static Team GetNotIdenticalTeam(List<ThinkingAgent> agents)
+        {
+            return new NotIdenticalTeam(){ Members = agents };
         }
     }
 }

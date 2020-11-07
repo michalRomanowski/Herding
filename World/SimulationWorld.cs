@@ -13,7 +13,6 @@ namespace World
         public IList<IMovingAgent> Sheep { get; private set; }
 
         protected bool recordSheepPositionsFlag;
-        public IList<IList<Vector2D>> SheepPositionsRecord { get; protected set; }
         
         public SimulationWorld(
             Team shepherds,
@@ -24,25 +23,17 @@ namespace World
             this.Sheep = sheep;
 
             this.recordSheepPositionsFlag = recordSheepPositions;
-
-            if (recordSheepPositions == true)
-            {
-                SheepPositionsRecord = new List<IList<Vector2D>>();
-            }
         }
 
         public void Work(int numberOfSteps)
         {
             for (int i = 0; i < numberOfSteps; i++)
             {
-                Turn();
-
-                if (recordSheepPositionsFlag)
-                    SheepPositionsRecord.Add(Sheep.Select(s => new Vector2D(s.Position.X, s.Position.Y)).ToList());
+                Step();
             }
         }
 
-        protected void Turn()
+        protected void Step()
         {
             var centreOfSheep = Sheep.Select(x => x.Position).ToList().Center();
 

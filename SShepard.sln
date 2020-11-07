@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio 15
-VisualStudioVersion = 15.0.28010.2016
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.30611.23
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Auxiliary", "Auxiliary\Auxiliary.csproj", "{C6E09BBA-2A95-4B06-98EC-02B3259698F1}"
 EndProject
@@ -17,13 +17,11 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "World", "World\World.csproj
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ActivationFunction", "ActivationFunctions\ActivationFunction.csproj", "{E5102EB9-13C9-4B3F-9F10-1CB53932FD66}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "UnitTests", "UnitTests\UnitTests.csproj", "{21FFB195-5952-452E-A4D1-A352165D81D4}"
-EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HerdingSimConsole", "HerdingSimConsole\HerdingSimConsole.csproj", "{51F95F61-5C52-41BD-8FBA-EBF30F2E31EF}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Repository", "Repository\Repository.csproj", "{B2DD7D79-D74C-4BE5-9941-F3261FDEB21A}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HerdingViewer", "View\HerdingViewer.csproj", "{3C6E1D3B-7381-4DD1-8C77-54BDDE6BF2E3}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HerdingViewer", "HerdingViewer\HerdingViewer.csproj", "{3C6E1D3B-7381-4DD1-8C77-54BDDE6BF2E3}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -89,14 +87,6 @@ Global
 		{E5102EB9-13C9-4B3F-9F10-1CB53932FD66}.Release|Any CPU.Build.0 = Release|Any CPU
 		{E5102EB9-13C9-4B3F-9F10-1CB53932FD66}.Release|x86.ActiveCfg = Release|Any CPU
 		{E5102EB9-13C9-4B3F-9F10-1CB53932FD66}.Release|x86.Build.0 = Release|Any CPU
-		{21FFB195-5952-452E-A4D1-A352165D81D4}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{21FFB195-5952-452E-A4D1-A352165D81D4}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{21FFB195-5952-452E-A4D1-A352165D81D4}.Debug|x86.ActiveCfg = Debug|Any CPU
-		{21FFB195-5952-452E-A4D1-A352165D81D4}.Debug|x86.Build.0 = Debug|Any CPU
-		{21FFB195-5952-452E-A4D1-A352165D81D4}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{21FFB195-5952-452E-A4D1-A352165D81D4}.Release|Any CPU.Build.0 = Release|Any CPU
-		{21FFB195-5952-452E-A4D1-A352165D81D4}.Release|x86.ActiveCfg = Release|Any CPU
-		{21FFB195-5952-452E-A4D1-A352165D81D4}.Release|x86.Build.0 = Release|Any CPU
 		{51F95F61-5C52-41BD-8FBA-EBF30F2E31EF}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{51F95F61-5C52-41BD-8FBA-EBF30F2E31EF}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{51F95F61-5C52-41BD-8FBA-EBF30F2E31EF}.Debug|x86.ActiveCfg = Debug|Any CPU

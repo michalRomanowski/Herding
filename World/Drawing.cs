@@ -24,10 +24,7 @@ namespace World
         private readonly int backgroundOffsetY;
         private int OffsetX { get { return backgroundOffsetX + 100; } }
         private int OffsetY { get { return backgroundOffsetY + 100; } }
-
-        private readonly int numberOfSeenShepherds;
-        private readonly int numberOfSeenSheep;
-
+        
         private readonly Color backgroundColor = Color.Black;
         private readonly Color sheepColor = Color.Blue;
         private readonly Color shepherdColor = Color.Red;
@@ -39,9 +36,9 @@ namespace World
         private readonly Color centreOfSheepColor = Color.White;
 
         private readonly IEnumerable<IHavePath> sheep;
-        private readonly IEnumerable<IHavePath> shepherds;
+        private readonly IEnumerable<ThinkingAgent> shepherds;
 
-        public Drawing(int offsetX, int offsetY, int sizeX, int sizeY, IEnumerable<IHavePath> sheep, IEnumerable<IHavePath> shepherds, int numberOfSeenSheep, int numberOfSeenShepherds)
+        public Drawing(int offsetX, int offsetY, int sizeX, int sizeY, IEnumerable<IHavePath> sheep, IEnumerable<ThinkingAgent> shepherds)
         {
             this.sizeX = sizeX;
             this.sizeY = sizeY;
@@ -50,9 +47,6 @@ namespace World
 
             this.sheep = sheep;
             this.shepherds = shepherds;
-
-            this.numberOfSeenSheep = numberOfSeenSheep;
-            this.numberOfSeenShepherds = numberOfSeenShepherds;
         }
 
         public void Draw(Graphics gfx, DrawingFlags flags)
@@ -102,8 +96,8 @@ namespace World
         {
             foreach(var s in shepherds)
             {
-                DrawSight(gfx, s, Finder.FindClosestAgents(s, numberOfSeenSheep, sheep), shepherdSheepSightColor);
-                DrawSight(gfx, s, Finder.FindClosestAgents(s, numberOfSeenShepherds, shepherds), shepherdShepherdSightColor);
+                DrawSight(gfx, s, Finder.FindClosestAgents(s, s.NumberOfSeenSheep, sheep), shepherdSheepSightColor);
+                DrawSight(gfx, s, Finder.FindClosestAgents(s, s.NumberOfSeenShepherds, shepherds), shepherdShepherdSightColor);
             }
         }
 

@@ -1,7 +1,7 @@
-﻿using System;
+﻿using MathNet.Spatial.Euclidean;
+using System;
 using System.Collections.Generic;
 using System.Linq;
-using MathNet.Spatial.Euclidean;
 
 namespace Auxiliary
 {
@@ -45,25 +45,37 @@ namespace Auxiliary
             var center = positions.Center();
             return positions.Sum(x => center.Distance(x));
         }
-        
-        public static List<Vector2D> PositionsInRelativeCoordinationSystem(this IEnumerable<Vector2D> positionsInOldCoordinationSystem, Vector2D newO, Vector2D anyPointOnPositiveSideOfNewOY)
+
+        public static Vector2D PositionInRelativeCoordinationSystem(this Vector2D position, Vector2D newO, Vector2D anyPointOnPositiveSideOfNewOY)
         {
-            var movedCenter = positionsInOldCoordinationSystem.Select(p => p - newO);
+            var movedCenter = position - newO;
+            return movedCenter.PositionInRotatedCoordinationSystem(anyPointOnPositiveSideOfNewOY - newO);
+        }
 
-            anyPointOnPositiveSideOfNewOY -= newO;
-
+        public static Vector2D PositionInRotatedCoordinationSystem(this Vector2D position, Vector2D anyPointOnPositiveSideOfNewOY)
+        {
             var d = anyPointOnPositiveSideOfNewOY.Length;
 
             var sin = anyPointOnPositiveSideOfNewOY.X / d;
             var cos = anyPointOnPositiveSideOfNewOY.Y / d;
 
             if (double.IsNaN(sin))
-                sin = 0.0f;
+                sin = 0.0;
 
             if (double.IsNaN(cos))
-                cos = 1.0f;
+                cos = 1.0;
 
-            return movedCenter.Select(p => new Vector2D(p.X * cos - p.Y * sin, p.X * sin + p.Y * cos)).ToList();
+            return new Vector2D(
+                position.X * cos - position.Y * sin,
+                position.X * sin + position.Y * cos);
+        }
+
+        public static IEnumerable<Vector2D> Randomize(this IEnumerable<Vector2D> valuesToRandomize, double min, double max)
+        {
+            return valuesToRandomize
+                .Select(x => new Vector2D(
+                    StaticRandom.R.NextDouble(min, max),
+                    StaticRandom.R.NextDouble(min, max)));
         }
     }
 }

@@ -8,24 +8,19 @@ namespace Teams
     public abstract class Team : ICloneable<Team>
     {
         public List<ThinkingAgent> Members { get; set; }
-        
+
         public Team()
         {
             Members = new List<ThinkingAgent>();
         }
 
-        public Team(ITeamParameters parameters)
-        {
-            Members = new List<ThinkingAgent>() { AgentFactory.GetShepherd(parameters) };
-
-            Resize(parameters.NumberOfShepherds);
-        }
+        public abstract void Init(Team other);
 
         public abstract Team GetClone();
 
         public abstract Team Crossover(Team partner);
-
-        public abstract void Mutate(double mutationPower, double absoluteMutationFactor);
+        
+        public abstract void Mutate(double mutationPower);
 
         public void SetPositions(IList<Vector2D> positions)
         {

@@ -9,8 +9,8 @@ namespace World
 {
     public class ViewableWorld : SimulationWorld, IViewableWorld
     {
-        private const int MILISECONDS_BETWEEN_STEPS = 33;
-
+        private readonly int milisecondsBetweenSteps;
+    
         private readonly object pauseLocker = new object();
         private bool paused;
 
@@ -19,28 +19,25 @@ namespace World
         private const string WORK_THREAD_NAME = "ViewableWorldWorkThread";
         private Thread workThread;
        
-        public int Step { get; private set; }
-
-        private readonly int numberOfSeenSheep;
-        private readonly int numberOfSeenShepherds;
-
+        public int StepCount { get; private set; }
+        
         private Drawing drawing;
 
         public ViewableWorld(
+            int offsetX,
+            int offsetY,
+            int milisecondsBetweenSteps,
             Team shepherds,
-            IList<IMovingAgent> sheep,
-            int numberOfSeenSheep,
-            int numberOfSeenShepherds) : base(shepherds, sheep, true)
+            IList<IMovingAgent> sheep) : base(shepherds, sheep, true)
         {
             foreach (var agent in Shepherds.Members)
             {
                 agent.Path.Clear();
             }
+            
+            this.milisecondsBetweenSteps = milisecondsBetweenSteps;
 
-            this.numberOfSeenSheep = numberOfSeenSheep;
-            this.numberOfSeenShepherds = numberOfSeenShepherds;
-
-            this.drawing = new Drawing(10, 35, 600, 600, Sheep, Shepherds.Members, numberOfSeenSheep, numberOfSeenShepherds);
+            this.drawing = new Drawing(offsetX, offsetY, 600, 600, Sheep, Shepherds.Members);
         }
 
         public void Start(int numberOfSteps)
@@ -82,7 +79,7 @@ namespace World
 
         public void StepForward()
         {
-            Turn();
+            Step();
         }
 
         public void StepBack()
@@ -107,16 +104,18 @@ namespace World
         {
             int numberOfStepsInt = Convert.ToInt32(numberOfSteps);
 
-            Step = 0;
+            StepCount = 0;
 
-            while (Step < numberOfStepsInt)
+            while (StepCount < numberOfStepsInt)
             {
                 if (!paused)
                 {
-                    Step++;
-                    Turn();
+                    StepCount++;
+                    Step();
                 }
-                Thread.Sleep(MILISECONDS_BETWEEN_STEPS);
+
+                if(milisecondsBetweenSteps > 0)
+                    Thread.Sleep(milisecondsBetweenSteps);
 
                 if (stopWork == true)
                     return;

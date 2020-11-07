@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using Simulations.Parameters;
+using System.Collections.Generic;
 
 namespace Simulations
 {
@@ -10,7 +11,8 @@ namespace Simulations
 
         OptimizationParameters LoadOptimizationParameters(string name);
         Population LoadPopulation(string name, IPopulationParameters parameters);
-
+        
         IEnumerable<string> GetSimulations();
+        string GetNewestSimulationName();
     }
 }

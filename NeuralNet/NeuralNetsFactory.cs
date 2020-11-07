@@ -4,11 +4,16 @@
     {
         public static NeuralNet GetRandomMultiLayerNeuralNet(NeuralNetParameters parameters)
         {
-            var randomMultiLayerNeuralNet = new NeuralNet(parameters);
+            var multiLayerNeuralNet = GetMultiLayerNeuralNet(parameters);
 
-            randomMultiLayerNeuralNet.Randomize();
+            multiLayerNeuralNet.Randomize();
 
-            return randomMultiLayerNeuralNet;
+            return multiLayerNeuralNet;
+        }
+
+        public static NeuralNet GetMultiLayerNeuralNet(NeuralNetParameters parameters)
+        {
+            return new NeuralNet(parameters);
         }
     }
 }

@@ -17,7 +17,7 @@ namespace World
                 Save(path, "Agent_" + i.ToString() + "_Y.txt", shepherds[i].Path.Select(x => x.Y).ToList());
             }
 
-            for (int i = 0; i < shepherds.Count; i++)
+            for (int i = 0; i < sheep.Count; i++)
             {
                 Save(path, "Sheep_" + i.ToString() + "_X.txt", sheep[i].Path.Select(x => x.X).ToList());
                 Save(path, "Sheep_" + i.ToString() + "_Y.txt", sheep[i].Path.Select(x => x.Y).ToList());

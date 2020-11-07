@@ -4,6 +4,6 @@ namespace Simulations
 {
     public interface IFitnessCounter
     {
-        double CountFitness(Team team);
+        double CountFitness(Team team, int seed, bool verbose = false);
     }
 }

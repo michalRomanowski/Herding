@@ -1,8 +1,8 @@
 ﻿namespace ActivationFunctions
 {
-    public class Step : ActivationFunction
+    class Step : IActivationFunction
     {
-        public override double Impuls(double net)
+        public double Impuls(double net)
         {
             if (net == 0.0)
                 return 0.0;

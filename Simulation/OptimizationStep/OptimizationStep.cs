@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using Simulations.Parameters;
+using System.Collections.Generic;
 using System.Linq;
 using Teams;
 
@@ -13,17 +14,15 @@ namespace Simulations.OptimizationStep
         protected readonly Population population;
         protected readonly IFitnessCounter bestFitnessCounter;
 
-        protected const double ABSOLUTE_MUTATION_FACTOR = 1.0;
-
         protected OptimizationStep(OptimizationParameters parameters, Population population)
         {
             this.BestFitness = double.MaxValue;
             this.parameters = parameters;
             this.population = population;
-            bestFitnessCounter = FitnessCounterFactory.GetFitnessCounter(parameters.GetCountFitnessParameters());
+            bestFitnessCounter = FitnessCounterFactory.GetFitnessCounterForBest(parameters);
         }
 
-        public abstract void Step();
+        public abstract void Step(int stepNumber);
         
         protected void UpdateBestTeam(IList<Team> pretenders)
         {
@@ -43,8 +42,13 @@ namespace Simulations.OptimizationStep
         {
             return teams
                 .AsParallel()
-                .Select(x => (Team: x, Fitness: bestFitnessCounter.CountFitness(x)))
+                .Select(x => (Team: x, Fitness: bestFitnessCounter.CountFitness(x, parameters.SeedForRandomSheepForBest)))
                 .OrderBy(x => x.Fitness).First();
+        }
+
+        protected void Mutate(Team team, int stepNumber)
+        {
+            team.Mutate(parameters.MutationPower);
         }
     }
 }

@@ -1,6 +1,5 @@
-﻿using System.Linq;
-using Agent;
-using System.IO;
+﻿using Agent;
+using System.Linq;
 
 namespace Teams
 {
@@ -8,18 +7,26 @@ namespace Teams
     {
         public IdenticalTeam() : base() { }
 
-        public IdenticalTeam(ITeamParameters parameters) : base(parameters) { }
+        public IdenticalTeam(ITeamParameters parameters) : base()
+        {
+            if (parameters.NumberOfShepherds == 0)
+                return;
+
+            Members.Add(AgentFactory.GetShepherd(parameters));
+            Resize(parameters.NumberOfShepherds);
+        }
+
+        public override void Init(Team other)
+        {
+            Members = other.Members.Select(x => other.Members.First().GetClone()).ToList();
+        }
 
         public override Team GetClone()
         {
-            var clone = new IdenticalTeam();
-
-            foreach (var a in Members)
+            return new IdenticalTeam()
             {
-                clone.Members.Add(a.GetClone());
-            }
-
-            return clone;
+                Members = Members.Select(x => x.GetClone()).ToList()
+            };
         }
         
         public override Team Crossover(Team partner)
@@ -36,9 +43,9 @@ namespace Teams
             return children;
         }
 
-        public override void Mutate(double mutationPower, double absoluteMutationFactor)
+        public override void Mutate(double mutationPower)
         {
-            Members[0].Mutate(mutationPower, absoluteMutationFactor);
+            Members[0].Mutate(mutationPower);
 
             FillWithClonesOfFirst();
         }

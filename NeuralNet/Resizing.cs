@@ -33,6 +33,8 @@ namespace NeuralNets
 
             for (; x < newSizeX; x++)
             {
+                resized[x] = new T[newSizeY];
+
                 for (int i = 0; i < newSizeY; i++)
                     resized[x][i] = defaultValue;
             }

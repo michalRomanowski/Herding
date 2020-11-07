@@ -10,9 +10,7 @@ namespace World
     {
         Team Shepherds { get; }
         IList<IMovingAgent> Sheep { get; }
-
-        IList<IList<Vector2D>> SheepPositionsRecord { get; }
-
+        
         void Work(int numberOfSteps);
     }
 
@@ -30,6 +28,6 @@ namespace World
 
         void Draw(Graphics gfx, DrawingFlags flags);
 
-        int Step { get; }
+        int StepCount { get; }
     }
 }

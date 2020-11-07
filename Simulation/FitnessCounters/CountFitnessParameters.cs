@@ -1,16 +1,15 @@
 ﻿using System.Collections.Generic;
-using Agent;
 using MathNet.Spatial.Euclidean;
+using Agent;
 
 namespace Simulations
 {
     public class CountFitnessParameters
     {
-        public EFitnessType FitnessType;
-        public int TurnsOfHerding;
-        public List<List<Vector2D>> PositionsOfShepherdsSet;
-        public List<List<Vector2D>> PositionsOfSheepSet;
-        public ESheepType SheepType;
-        public int Seed;
+        public EFitnessType FitnessType { get; set; }
+        public int TurnsOfHerding { get; set; }
+        public List<List<Vector2D>> PositionsOfShepherdsSet { get; set; }
+        public List<List<Vector2D>> PositionsOfSheepSet { get; set; }
+        public ESheepType SheepType { get; set; }
     }
 }

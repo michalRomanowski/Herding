@@ -1,71 +1,74 @@
 ﻿using System;
 using Auxiliary;
 using Simulations.OptimizationStep;
+using Simulations.Parameters;
 
 namespace Simulations
 {
     public class Optimization
     {
-        private const int AUTOSAVE_FREQUENCY = 1000;
+        private const int AUTOSAVE_FREQUENCY = 100;
         private const string DATETIME_FORMAT = "yyyyMMddHHmmss";
 
         private double bestFitness = double.MaxValue;
         private double controlFitness = double.MaxValue;
 
         private readonly OptimizationParameters parameters;
-        private readonly Population shepherds;
+        private readonly Population population;
         
         private ISimulationRepository repository;
 
         private readonly IFitnessCounter controlFitnessCounter;
 
         public Optimization(OptimizationParameters parameters, 
-            Population shepherds, 
-            ISimulationRepository repository) : this(parameters, shepherds, repository, null)
+            Population population, 
+            ISimulationRepository repository) : this(parameters, population, repository, null)
         { }
 
         public Optimization(OptimizationParameters parameters,
-            Population shepherds,
+            Population population,
             ISimulationRepository repository,
             IFitnessCounter controlFitnessCounter)
         {
             this.parameters = parameters;
-            this.shepherds = shepherds;
+            this.population = population;
             this.repository = repository;
             this.controlFitnessCounter = controlFitnessCounter;
         }
 
         public void Optimize()
         {
-            repository.Save($"START_{DateTime.Now.ToString(DATETIME_FORMAT)}", parameters, shepherds);
+            repository.Save($"START_{DateTime.Now.ToString(DATETIME_FORMAT)}", parameters, population);
 
-            for (int era = 0; era < parameters.NumberOfEras && bestFitness > parameters.TargetFitness; era++)
+            while(parameters.CurrentEra < parameters.NumberOfEras && bestFitness > parameters.TargetFitness)
             {
-                Step();
+                Step(parameters.CurrentEra);
                 
-                if (era % AUTOSAVE_FREQUENCY == 0)
-                    repository.Save(DateTime.Now.ToString(DATETIME_FORMAT), parameters, shepherds);
+                if (parameters.CurrentEra % AUTOSAVE_FREQUENCY == 0)
+                    repository.Save(DateTime.Now.ToString(DATETIME_FORMAT), parameters, population);
 
-                Logger.Instance.AddLine("Era: " + era);
+                Logger.Instance.AddLine("Era: " + parameters.CurrentEra);
                 Logger.Instance.AddLine("Time: " + DateTime.Now.ToString());
                 Logger.Instance.AddLine("Best fitness: " + bestFitness);
                 if(controlFitnessCounter != null)
                 {
                     Logger.Instance.AddLine("Control fitness: " + controlFitness);
                 }
+
+                parameters.CurrentEra++;
             }
 
-            repository.Save($"END_{DateTime.Now.ToString(DATETIME_FORMAT)}", parameters, shepherds);
+            repository.Save($"END_{DateTime.Now.ToString(DATETIME_FORMAT)}", parameters, population);
         }
 
-        private void Step()
+        private void Step(int stepNumber)
         {
-            //var step = new ClassicOptimizationStep(parameters, shepherds);
-            var step = new SimplifiedOptimizationStep(parameters, shepherds);
-            step.Step();
+            //var step = new ClassicOptimizationStep(parameters, population);
+            var step = new SimplifiedOptimizationStep(parameters, population);
+            step.Step(stepNumber);
 
             if (bestFitness != step.BestFitness && controlFitnessCounter != null)
-                controlFitness = controlFitnessCounter.CountFitness(shepherds.Best);
+                controlFitness = controlFitnessCounter.CountFitness(population.Best, parameters.SeedForRandomSheepForBest);
 
             bestFitness = step.BestFitness;
         }
