@@ -24,7 +24,7 @@ namespace HerdingViewer
 
         private bool paint = false;
 
-        private XMLRepository repository = new XMLRepository();
+        private readonly XMLRepository repository = new XMLRepository();
         
         public Main()
         {

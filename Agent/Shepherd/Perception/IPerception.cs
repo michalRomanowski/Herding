@@ -1,7 +1,8 @@
-﻿namespace Agent.Shepherd.Perception
+﻿namespace Agent
 {
-    interface IPerception
+    public interface IPerception
     {
+        EPerceptionType PerceptionType { get; }
         double TransformPerception(double input);
     }
 }

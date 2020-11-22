@@ -10,7 +10,13 @@ namespace Agent
         public static ThinkingAgent GetShepherd(
             IShepherdParameters parameters)
         {
-            return new Shepherd(parameters);
+            return new Shepherd(
+                parameters.NumberOfSeenShepherds,
+                parameters.NumberOfSeenSheep,
+                parameters.NumberOfNeuronsInHiddenLayer,
+                parameters.NumberOfHiddenLayers,
+                parameters.PerceptionType,
+                parameters.RandomizeNeuralNetOnInit);
         }
 
         public static IList<IMovingAgent> GetSheep(IList<Vector2D> positions, ESheepType sheepType, int seed)

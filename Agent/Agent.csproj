@@ -57,6 +57,11 @@
   <ItemGroup>
     <Compile Include="AgentFactory.cs" />
     <Compile Include="Shepherd\IShepherdParameters.cs" />
+    <Compile Include="Shepherd\Perception\EPerceptionType.cs" />
+    <Compile Include="Shepherd\Perception\IPerception.cs" />
+    <Compile Include="Shepherd\Perception\PerceptionFactory.cs" />
+    <Compile Include="Shepherd\Perception\ReciprocalPerception.cs" />
+    <Compile Include="Shepherd\Perception\SimplePerception.cs" />
     <Compile Include="Shepherd\Shepherd.cs" />
     <Compile Include="Sheep\PassiveSheep.cs" />
     <Compile Include="Sheep\Sheep.cs" />

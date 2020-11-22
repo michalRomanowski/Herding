@@ -141,6 +141,12 @@ namespace HerdingSimConsole
 
         private static void Start()
         {
+            if(optimizationParameters == null)
+            {
+                Logger.Instance.AddLine("Attempt to load optimization paramaters from default location");
+                optimizationParameters = repository.LoadOptimizationParametersByPath("OptimizationParameters.xml");
+            }
+
             if (population == null)
             {
                 Logger.Instance.AddLine("Generating new population");

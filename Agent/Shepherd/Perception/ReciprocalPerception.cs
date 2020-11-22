@@ -1,14 +1,12 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
-namespace Agent.Shepherd.Perception
+namespace Agent
 {
     class ReciprocalPerception : IPerception
     {
-        const double FRACTION = 4000.0;
+        public EPerceptionType PerceptionType => EPerceptionType.Reciprocal;
+
+        private const double FRACTION = 4000.0;
 
         public double TransformPerception(double input)
         {

@@ -24,6 +24,8 @@ namespace Simulations.Parameters
         [XmlAttribute]
         public ESheepType SheepType { get; set; }
         [XmlAttribute]
+        public EPerceptionType PerceptionType { get; set; }
+        [XmlAttribute]
         public int NumberOfSeenShepherds { get; set; }
         [XmlAttribute]
         public int NumberOfSeenSheep { get; set; }
@@ -68,6 +70,8 @@ namespace Simulations.Parameters
         public List<Vector2D> PositionsOfShepherds { get; set; }
         [XmlArray]
         public List<Vector2D> PositionsOfSheep { get; set; }
+
+        public bool RandomizeNeuralNetOnInit => throw new NotImplementedException();
 
         public OptimizationParameters()
         {

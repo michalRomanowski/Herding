@@ -4,7 +4,7 @@ namespace Auxiliary
 {
     public class RandomUniqueSequence
     {
-        private HashSet<int> sequence;
+        private readonly HashSet<int> sequence;
         private readonly int max;
 
         public RandomUniqueSequence(int max)

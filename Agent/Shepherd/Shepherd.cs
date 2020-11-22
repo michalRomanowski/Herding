@@ -13,34 +13,50 @@ namespace Agent
         private const int NEURAL_NET_OUTPUT_LAYER_SIZE = 2;
         private const double SPEED = 1.0;
 
+        private IPerception perception;
+
         public Shepherd()
         {
             Position = new Vector2D();
             Path = new List<Vector2D>();
         }
 
-        public Shepherd(int numberOfSeenShepherds, int numberOfSeenSheep)
+        public Shepherd(
+            int numberOfSeenShepherds, 
+            int numberOfSeenSheep,
+            int numberOfNeuronsInHiddenLayer,
+            int numberOfHiddenLayers,
+            EPerceptionType perceptionType,
+            bool randomizeNeuralNet)
             : this()
         {
             NumberOfSeenShepherds = numberOfSeenShepherds;
             NumberOfSeenSheep = numberOfSeenSheep;
+            perception = PerceptionFactory.GetPerception(perceptionType);
+
+            Brain = NeuralNetsFactory.GetMultiLayerNeuralNet(new NeuralNetParameters()
+            {
+                InputLayerSize = (numberOfSeenShepherds + numberOfSeenSheep) * 2 + 2,
+                OutputLayerSize = NEURAL_NET_OUTPUT_LAYER_SIZE,
+                HiddenLayerSize = numberOfNeuronsInHiddenLayer,
+                NumberOfHiddenLayers = numberOfHiddenLayers
+            });
+
+            if(randomizeNeuralNet) Brain.Randomize();
         }
 
         public Shepherd(
-            IShepherdParameters parameters)
-            : this(
-                parameters.NumberOfSeenShepherds,
-                parameters.NumberOfSeenSheep)
+            int numberOfSeenShepherds,
+            int numberOfSeenSheep,
+            EPerceptionType perceptionType,
+            NeuralNet brain)
+            : this()
         {
-            Brain = NeuralNetsFactory.GetMultiLayerNeuralNet(new NeuralNetParameters()
-            {
-                InputLayerSize = (parameters.NumberOfSeenShepherds + parameters.NumberOfSeenSheep) * 2 + 2,
-                OutputLayerSize = NEURAL_NET_OUTPUT_LAYER_SIZE,
-                HiddenLayerSize = parameters.NumberOfNeuronsInHiddenLayer,
-                NumberOfHiddenLayers = parameters.NumberOfHiddenLayers
-            });
+            NumberOfSeenShepherds = numberOfSeenShepherds;
+            NumberOfSeenSheep = numberOfSeenSheep;
+            perception = PerceptionFactory.GetPerception(perceptionType);
 
-            Brain.Randomize();
+            Brain = brain;
         }
 
         public override ThinkingAgent GetClone()
@@ -50,16 +66,18 @@ namespace Agent
                 Brain = Brain.GetClone(),
                 NumberOfSeenShepherds = NumberOfSeenShepherds,
                 NumberOfSeenSheep = NumberOfSeenSheep,
+                perception = PerceptionFactory.GetPerception(perception.PerceptionType),
                 Position = new Vector2D(Position.X, Position.Y)
             };
         }
 
         public override ThinkingAgent Crossover(ThinkingAgent partner)
         {
-            return new Shepherd(NumberOfSeenShepherds, NumberOfSeenSheep)
-            {
-                Brain = Brain.Crossover((partner as Shepherd).Brain)
-            };
+            return new Shepherd(
+                NumberOfSeenShepherds,
+                NumberOfSeenSheep,
+                perception.PerceptionType,
+                Brain.Crossover((partner as Shepherd).Brain));
         }
 
         public override void Mutate(double mutationChance)
@@ -69,7 +87,8 @@ namespace Agent
 
         public override void Decide(double[] input)
         {
-            var thinkingResult = Brain.Think(input);
+            var thinkingResult = Brain.Think(
+                input.Select(x => perception.TransformPerception(x)).ToArray());
 
             decision = new Vector2D(thinkingResult[0], thinkingResult[1]);
             decision = decision.Round();

@@ -16,7 +16,7 @@ namespace Simulations
         private readonly OptimizationParameters parameters;
         private readonly Population population;
         
-        private ISimulationRepository repository;
+        private readonly ISimulationRepository repository;
 
         private readonly IFitnessCounter controlFitnessCounter;
 
