@@ -9,43 +9,25 @@ namespace Simulations.Parameters
     [Serializable]
     public class OptimizationParameters : IPopulationParameters
     {
-        [XmlAttribute]
         public int CurrentEra { get; set; }
-        [XmlAttribute]
         public int NumberOfEras { get; set; }
-        [XmlAttribute]
         public int TurnsOfHerding { get; set; }
-        [XmlAttribute]
         public double TargetFitness { get; set; }
-        [XmlAttribute]
         public int NumberOfParticipants { get; set; }
-        [XmlAttribute]
         public double MutationPower { get; set; }
-        [XmlAttribute]
         public ESheepType SheepType { get; set; }
-        [XmlAttribute]
         public EPerceptionType PerceptionType { get; set; }
-        [XmlAttribute]
         public int NumberOfSeenShepherds { get; set; }
-        [XmlAttribute]
         public int NumberOfSeenSheep { get; set; }
-        [XmlAttribute]
         public int NumberOfHiddenLayers { get; set; }
-        [XmlAttribute]
         public int NumberOfNeuronsInHiddenLayer { get; set; }
-        [XmlAttribute]
         public int PopulationSize { get; set; }
-        [XmlAttribute]
         public EFitnessType FitnessType { get; set; }
-        [XmlAttribute]
         public bool NotIdenticalAgents { get; set; }
-
-        [XmlAttribute]
         public bool RandomPositions { get; set; }
-        [XmlAttribute]
         public int NumberOfRandomSets { get; set; }
-        [XmlAttribute]
         public int SeedForRandomSheepForBest { get; set; }
+        public bool RandomizeNeuralNetOnInit { get; set; }
         [XmlElement]
         public RandomSetsList RandomSetsForBest { get; set; }
 
@@ -70,8 +52,6 @@ namespace Simulations.Parameters
         public List<Vector2D> PositionsOfShepherds { get; set; }
         [XmlArray]
         public List<Vector2D> PositionsOfSheep { get; set; }
-
-        public bool RandomizeNeuralNetOnInit { get; set; }
 
         public OptimizationParameters()
         {
