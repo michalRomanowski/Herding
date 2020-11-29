@@ -10,7 +10,7 @@ namespace HerdingSimConsole
 {
     class Program
     {
-        private static XMLRepository repository = new XMLRepository(AppDomain.CurrentDomain.BaseDirectory);
+        private static readonly XMLRepository repository = new XMLRepository(AppDomain.CurrentDomain.BaseDirectory);
 
         private static OptimizationParameters optimizationParameters;
         private static Population population;

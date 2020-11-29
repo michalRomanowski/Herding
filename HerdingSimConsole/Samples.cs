@@ -159,7 +159,8 @@ namespace HerdingSimConsole
                     {
                         new Vector2D(0, 200),
                         new Vector2D(400, 200)
-                    }
+                    },
+                    RandomizeNeuralNetOnInit = true
                 }
             },
             //{

@@ -71,7 +71,7 @@ namespace Simulations.Parameters
         [XmlArray]
         public List<Vector2D> PositionsOfSheep { get; set; }
 
-        public bool RandomizeNeuralNetOnInit => throw new NotImplementedException();
+        public bool RandomizeNeuralNetOnInit { get; set; }
 
         public OptimizationParameters()
         {
