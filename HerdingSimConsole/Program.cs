@@ -30,6 +30,7 @@ namespace HerdingSimConsole
             { "save", Save },
             { "start", Start },
             { "test team", TestTeam },
+            { "run", Run },
             { "continue", Continue }
         };
 
@@ -178,6 +179,15 @@ namespace HerdingSimConsole
             var result = fitnessCounter.CountFitness(team, optimizationParameters.SeedForRandomSheepForBest, true);
 
             Logger.Instance.AddLine($"Total Fitness: {result}");
+        }
+
+        private static void Run()
+        {
+            Logger.Instance.AddLine("Loading local optimization parametetrs");
+            optimizationParameters = repository.LoadOptimizationParametersByPath("OptimizationParameters.xml");
+            Logger.Instance.AddLine("Starting optimization");
+
+            Start();
         }
 
         private static void Continue()
