@@ -1,0 +1,35 @@
+<Project Sdk="Microsoft.NET.Sdk">
+  <PropertyGroup>
+    <TargetFrameworks>net5.0-windows</TargetFrameworks>
+    <UseWindowsForms>true</UseWindowsForms>
+    <GenerateAssemblyInfo>false</GenerateAssemblyInfo>
+    <AssemblyName>HerdingViewerDotNet5</AssemblyName>
+    <RootNamespace>SShepard</RootNamespace>
+    <ApplicationIcon />
+    <OutputType>WinExe</OutputType>
+    <StartupObject>HerdingViewer.Program</StartupObject>
+  </PropertyGroup>
+  <ItemGroup>
+    <Compile Include="..\..\HerdingViewer\**\*.cs" />
+    <EmbeddedResource Include="..\..\HerdingViewer\**\*.resx" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Remove="..\..\HerdingViewer\obj\x86\Debug\.NETFramework,Version=v4.7.2.AssemblyAttributes.cs" />
+    <Compile Remove="..\..\HerdingViewer\obj\x86\Debug\TemporaryGeneratedFile_036C0B5B-1481-4323-8D20-8F5ADCB23D92.cs" />
+    <Compile Remove="..\..\HerdingViewer\obj\x86\Debug\TemporaryGeneratedFile_5937a670-0e60-4077-877b-f7221da3dda1.cs" />
+    <Compile Remove="..\..\HerdingViewer\obj\x86\Debug\TemporaryGeneratedFile_E7A71F73-0F8D-4B9B-B56E-8E70B10BC5D3.cs" />
+    <Compile Remove="..\..\HerdingViewer\obj\x86\Release\.NETFramework,Version=v4.6.1.AssemblyAttributes.cs" />
+    <Compile Remove="..\..\HerdingViewer\obj\x86\Release\.NETFramework,Version=v4.7.2.AssemblyAttributes.cs" />
+    <Compile Remove="..\..\HerdingViewer\obj\x86\Release\TemporaryGeneratedFile_036C0B5B-1481-4323-8D20-8F5ADCB23D92.cs" />
+    <Compile Remove="..\..\HerdingViewer\obj\x86\Release\TemporaryGeneratedFile_5937a670-0e60-4077-877b-f7221da3dda1.cs" />
+    <Compile Remove="..\..\HerdingViewer\obj\x86\Release\TemporaryGeneratedFile_E7A71F73-0F8D-4B9B-B56E-8E70B10BC5D3.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\Agent\Agent.csproj" />
+    <ProjectReference Include="..\Auxiliary\Auxiliary.csproj" />
+	<ProjectReference Include="..\Repository\Repository.csproj" />
+	<ProjectReference Include="..\Simulation\Simulation.csproj" />
+	<ProjectReference Include="..\Team\Team.csproj" />
+	<ProjectReference Include="..\World\World.csproj" />
+  </ItemGroup>
+</Project>

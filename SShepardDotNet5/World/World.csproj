@@ -1,0 +1,21 @@
+<Project Sdk="Microsoft.NET.Sdk">
+  <PropertyGroup>
+    <TargetFrameworks>net5.0-windows</TargetFrameworks>
+    <UseWindowsForms>true</UseWindowsForms>
+    <GenerateAssemblyInfo>false</GenerateAssemblyInfo>
+    <AssemblyName>WorldDotNet5</AssemblyName>
+    <RootNamespace>SShepard</RootNamespace>
+  </PropertyGroup>
+  <ItemGroup>
+    <Compile Include="..\..\World\**\*.cs" />
+    <EmbeddedResource Include="..\..\World\**\*.resx" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Remove="..\..\World\obj\**" />
+  </ItemGroup>
+  <ItemGroup>
+	<ProjectReference Include="..\Agent\Agent.csproj" />
+    <ProjectReference Include="..\Auxiliary\Auxiliary.csproj" />
+	<ProjectReference Include="..\Team\Team.csproj" />
+  </ItemGroup>
+</Project>

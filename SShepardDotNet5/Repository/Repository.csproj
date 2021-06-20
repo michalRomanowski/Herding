@@ -1,0 +1,22 @@
+<Project Sdk="Microsoft.NET.Sdk">
+  <PropertyGroup>
+    <TargetFrameworks>net5.0-windows</TargetFrameworks>
+    <UseWindowsForms>true</UseWindowsForms>
+    <GenerateAssemblyInfo>false</GenerateAssemblyInfo>
+    <AssemblyName>RepositoryDotNet5</AssemblyName>
+    <RootNamespace>SShepard</RootNamespace>
+  </PropertyGroup>
+  <ItemGroup>
+    <Compile Include="..\..\Repository\**\*.cs" />
+    <EmbeddedResource Include="..\..\Repository\**\*.resx" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Remove="..\..\Repository\obj\**" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\Agent\Agent.csproj" />
+    <ProjectReference Include="..\Auxiliary\Auxiliary.csproj" />
+	<ProjectReference Include="..\Simulation\Simulation.csproj" />
+	<ProjectReference Include="..\Team\Team.csproj" />
+  </ItemGroup>
+</Project>
